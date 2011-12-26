@@ -1,10 +1,10 @@
 all	:
-	make -C src/
+	make -C client/
 
 clean	:
-	make clean -C src/
+	make clean -C client/
 
 fclean	:
-	make fclean -C src/
+	make fclean -C client/
 
 re	: fclean all
