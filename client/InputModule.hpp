@@ -3,7 +3,7 @@
 
 #include <map>
 #include <list>
-#include <ClanLib/core.h>
+//#include <ClanLib/core.h>
 #include "Module.hpp"
 
 class InputModule : public Module
@@ -17,7 +17,7 @@ public:
 	virtual void	destroy();
 
 private:
-	void			treatInput(const CL_InputEvent &event, const CL_InputState &state);
+	//void			treatInput(const CL_InputEvent &event, const CL_InputState &state);
 };
 
 
