@@ -1,6 +1,6 @@
+#include "RendererManager.hpp"
 #include "Game.hpp"
 #include "GameStateManager.hpp"
-#include "RendererManager.hpp"
 #include "InputManager.hpp"
 
 InputManager::InputManager() : _flush(false)

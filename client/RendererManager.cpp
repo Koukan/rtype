@@ -15,6 +15,8 @@ RendererManager::RendererManager() : GameStateObserver("RendererManager")
 
 RendererManager::~RendererManager()
 {
+	if (_window)
+		_window->Close();
 }
 
 void				RendererManager::init()
@@ -73,7 +75,7 @@ sf::RenderWindow	*RendererManager::getWindow()
 {
 	if (!_window)
 	{
-		_window = new sf::RenderWindow(sf::VideoMode(800, 600), "R-Type");
+		_window = new sf::RenderWindow(sf::VideoMode(this->_width, this->_height), "R-Type");
 	}
 	return _window;
 }

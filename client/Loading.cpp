@@ -65,9 +65,9 @@ void	Loading::onStart()
   /////////////////////////////
 
   // bulletml test
-  this->addBulletParser("resource/test.xml", "Test");
-  _bullet = new BulletCommand("Test", *this, 512, 360);
-  this->addGameObject(_bullet, "ship");
+  //this->addBulletParser("resource/test.xml", "Test");
+  //_bullet = new BulletCommand("Test", *this, 512, 360);
+  //this->addGameObject(_bullet, "ship");
   // end bulletml test
 
   // GUI

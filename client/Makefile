@@ -45,10 +45,10 @@ CC		= g++
 
 RM		= rm -f
 
-CXXFLAGS	= -g3 -std=c++0x -pipe `pkg-config --cflags clanCore-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` -I Callback_Impl -I bulletml -I SPARK/include -I QuadTree -I ../common
+CXXFLAGS	= -g3 -std=c++0x -pipe `pkg-config --cflags clanCore-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` -I Callback_Impl -I bulletml -I QuadTree -I ../common
 
 LDFLAGS		= `pkg-config --libs clanCore-2.3 clanGUI-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` \
-		  -lpthread -Lbulletml -lbulletml -lGL -lGLU -ldl
+		  -lpthread -Lbulletml -lbulletml -ldl -lsfml-graphics -lsfml-window -lsfml-system
 
 $(NAME)		: $(OBJS)
 		make -C bulletml

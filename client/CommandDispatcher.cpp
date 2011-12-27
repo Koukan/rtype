@@ -32,7 +32,8 @@ void			CommandDispatcher::update(double elapsedTime)
 		//this->_mutex.unlock();
 		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
 		{
-			(*it)->handleCommand(*command);
+			if ((*it)->handleCommand(*command))
+				break ;
 		}
 		delete command;
 		//this->_mutex.lock();

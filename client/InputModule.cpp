@@ -1,6 +1,6 @@
+#include "RendererManager.hpp"
 #include "Game.hpp"
 #include "GameStateManager.hpp"
-#include "RendererManager.hpp"
 #include "InputModule.hpp"
 
 InputModule::InputModule() : Module("InputModule")

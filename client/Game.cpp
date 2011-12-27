@@ -1,6 +1,6 @@
+#include "RendererManager.hpp"
 #include "Game.hpp"
 #include "InputModule.hpp"
-#include "RendererManager.hpp"
 #include "PhysicManager.hpp"
 #include "Clock.hpp"
 #include "Loading.hpp"
