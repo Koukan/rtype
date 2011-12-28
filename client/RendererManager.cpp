@@ -27,29 +27,29 @@ void				RendererManager::init()
 
 void				RendererManager::update(double elapsedTime)
 {
-	//GameObjectManager::groupsDisplay::const_iterator	lit;
-	//Group::gameObjectSet::const_iterator				oit;
-	//double												time;
+	GameObjectManager::groupsDisplay::const_iterator	lit;
+	Group::gameObjectSet::const_iterator				oit;
+	double												time;
 
-	//this->clear();
-	//for (std::list<GameState*>::const_iterator it = this->_glist.begin();
-		 //it != this->_glist.end(); it++)
-	//{
-		//GameObjectManager::groupsDisplay const	&groups = (*it)->getDisplayObjects();
-		//for (lit = groups.begin(); lit != groups.end(); lit++)
-		//{
-			//if (lit->second->getLayer() >= 0)
-			//{
-				//time = lit->second->getTimeEffect() * elapsedTime;
-				//Group::gameObjectSet const	&objects = lit->second->getObjects();
-				//for (oit = objects.begin(); oit != objects.end(); oit++)
-				//{
-					//static_cast<DrawableObject*>(*oit)->draw(time);
-				//}
-			//}
-		//}
-	//}
-	//this->flip();
+	this->clear();
+	for (std::list<GameState*>::const_iterator it = this->_glist.begin();
+			it != this->_glist.end(); it++)
+	{
+		GameObjectManager::groupsDisplay const	&groups = (*it)->getDisplayObjects();
+		for (lit = groups.begin(); lit != groups.end(); lit++)
+		{
+			if (lit->second->getLayer() >= 0)
+			{
+				time = lit->second->getTimeEffect() * elapsedTime;
+				Group::gameObjectSet const	&objects = lit->second->getObjects();
+				for (oit = objects.begin(); oit != objects.end(); oit++)
+				{
+					static_cast<DrawableObject*>(*oit)->draw(time);
+				}
+			}
+		}
+	}
+	this->flip();
 }
 
 void				RendererManager::destroy()

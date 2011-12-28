@@ -10,6 +10,6 @@ public:
 	//Sprite(std::string const & resource_id, ResourceManager &resources, double x = 0, double y = 0);
 	virtual ~Sprite(){}
 
-	virtual void		draw(double elapseTime){}
-	virtual void		draw(int x, int y){}
+	virtual void		draw(double elapseTime = 0){}
+	virtual void		draw(int x, int y, double elapseTime = 0){}
 };

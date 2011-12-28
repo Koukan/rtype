@@ -37,7 +37,9 @@ SRCS		= $(DIR)/main.cpp								\
 		  $(DIR)/QuadTree/QuadTree.cpp						\
 		  $(DIR)/QuadTree/Node.cpp							\
 		  $(DIR)/QuadTree/TreeElement.cpp					\
-		  $(DIR)/../common/PosixMutex.cpp
+		  $(DIR)/../common/PosixMutex.cpp					\
+		  $(DIR)/ResourceManager.cpp						\
+		  $(DIR)/SFMLSprite.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 
@@ -45,7 +47,7 @@ CC		= g++
 
 RM		= rm -f
 
-CXXFLAGS	= -g3 -std=c++0x -pipe `pkg-config --cflags clanCore-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` -I Callback_Impl -I bulletml -I QuadTree -I ../common
+CXXFLAGS	= -g3 -std=c++0x -pipe `pkg-config --cflags clanCore-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` -I Callback_Impl -I bulletml -I QuadTree -I ../common -I bulletml/tinyxml
 
 LDFLAGS		= `pkg-config --libs clanCore-2.3 clanGUI-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` \
 		  -lpthread -Lbulletml -lbulletml -ldl -lsfml-graphics -lsfml-window -lsfml-system

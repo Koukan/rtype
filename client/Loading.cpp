@@ -45,7 +45,7 @@ void	Loading::buttonClick()
 
 void	Loading::onStart()
 {
-		//this->load("resource/intro.xml");
+  this->load("resource/intro.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 5);
   this->addGroup("walls");

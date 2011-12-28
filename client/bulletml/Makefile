@@ -7,13 +7,12 @@ OBJS = bulletmlparser-tinyxml.o bulletmlparser.o bulletmltree.o calc.o formula-v
 all: libbulletml.a
 
 libbulletml.a: $(OBJS)
-	$(MAKE) -C tinyxml
+	make -C tinyxml
 	$(AR) -r libbulletml.a $(OBJS) $(LIBS)
 	$(RANLIB) libbulletml.a
 
 clean:
 	rm -f *.o
-	$(MAKE) -C tinyxml clean
 
 fclean: clean
 	rm -f *.a
@@ -25,6 +24,3 @@ calc.cc: calc.yy
 
 $(OBJS): %.o: %.cc
 	$(CXX) -c $(CXXFLAGS) $(INCLUDES) $<
-
-distdir:
-
