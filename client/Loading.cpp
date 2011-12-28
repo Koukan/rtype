@@ -45,7 +45,7 @@ void	Loading::buttonClick()
 
 void	Loading::onStart()
 {
-  this->load("resource/intro.xml");
+  this->load("resources/intro.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 5);
   this->addGroup("walls");
@@ -65,7 +65,7 @@ void	Loading::onStart()
   /////////////////////////////
 
   // bulletml test
-  this->addBulletParser("resource/test.xml", "Test");
+  this->addBulletParser("resources/test.xml", "Test");
   _bullet = new BulletCommand("Test", *this, 512, 360);
   this->addGameObject(_bullet, "ship");
   // end bulletml test
