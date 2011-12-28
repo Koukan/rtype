@@ -10,16 +10,6 @@ SFMLSprite::SFMLSprite(double x, double y)
 	this->setY(y);
 }
 
-SFMLSprite::SFMLSprite(std::string const &name, ResourceManager &resources,
-					   double x, double y)
-	: _window(RendererManager::get().getWindow()), _frameRate(-1),
-	  _lastTime(0), _currentTime(0), _repeat(false), _pingpong(false),
-	  _up(true), _currentFrame(0), _tx(0), _ty(0)
-{
-	this->setX(x);
-	this->setY(y);
-}
-
 SFMLSprite::~SFMLSprite()
 {
 }
@@ -105,7 +95,7 @@ void		SFMLSprite::setGrid(uint32_t left, uint32_t top, uint32_t width,
 		for (nb = nbx; nb != 0; nb--)
 		{
 			this->_rect.push_back(sf::IntRect(x, top, width, height));
-			x += spacex + width;	
+			x += spacex + width;
 		}
 		top += spacey + height;
 	}
@@ -125,7 +115,7 @@ void		SFMLSprite::draw(double elapsedTime)
 }
 
 void		SFMLSprite::draw(int x, int y)
-{	
+{
 	this->SetPosition(x + this->_tx, y + this->_ty);
 	this->_window->Draw(*this);
 }

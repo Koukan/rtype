@@ -9,7 +9,6 @@ SRCS		= $(DIR)/main.cpp								\
 		  $(DIR)/GameStateManager.cpp						\
 		  $(DIR)/Callback.cpp								\
 		  $(DIR)/InputModule.cpp							\
-		  $(DIR)/InputManager.cpp							\
 		  $(DIR)/Loading.cpp								\
 		  $(DIR)/Event.cpp									\
 		  $(DIR)/EventDispatcher.cpp						\
@@ -18,7 +17,6 @@ SRCS		= $(DIR)/main.cpp								\
 		  $(DIR)/PhysicObject.cpp							\
 		  $(DIR)/PhysicManager.cpp							\
 		  $(DIR)/ManagerManager.cpp							\
-		  $(DIR)/AudioManager.cpp							\
 		  $(DIR)/RendererManager.cpp						\
 		  $(DIR)/Callback_Impl/Callback_Impl_Function.cpp	\
 		  $(DIR)/GameState.cpp								\
@@ -30,7 +28,6 @@ SRCS		= $(DIR)/main.cpp								\
 		  $(DIR)/CircleHitBox.cpp							\
 		  $(DIR)/HitBox.cpp									\
 		  $(DIR)/RectHitBox.cpp								\
-		  $(DIR)/Sound.cpp									\
 		  $(DIR)/Wall.cpp									\
 		  $(DIR)/CommandDispatcher.cpp						\
 		  $(DIR)/GameStateObserver.cpp						\
@@ -47,10 +44,9 @@ CC		= g++
 
 RM		= rm -f
 
-CXXFLAGS	= -g3 -std=c++0x -pipe `pkg-config --cflags clanCore-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` -I Callback_Impl -I bulletml -I QuadTree -I ../common -I bulletml/tinyxml
+CXXFLAGS	= -g3 -std=c++0x -pipe -I Callback_Impl -I bulletml -I QuadTree -I ../common -I bulletml/tinyxml
 
-LDFLAGS		= `pkg-config --libs clanCore-2.3 clanGUI-2.3 clanNetwork-2.3 clanDisplay-2.3 clanGL-2.3 clanGL1-2.3 clanApp-2.3 clanMikMod-2.3 clanSound-2.3 clanVorbis-2.3` \
-		  -lpthread -Lbulletml -lbulletml -ldl -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS		= -lpthread -Lbulletml -lbulletml -ldl -lsfml-graphics -lsfml-window -lsfml-system
 
 $(NAME)		: $(OBJS)
 		make -C bulletml

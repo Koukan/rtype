@@ -1,7 +1,8 @@
 #pragma once
 
+#include <vector>
 #include "HitBox.hpp"
-#include "ClanLib/Display/Collision/collision_outline.h"
+//#include "ClanLib/Display/Collision/collision_outline.h"
 
 class RectHitBox;
 class CircleHitBox;
@@ -21,9 +22,9 @@ public:
 	bool collideRect(RectHitBox &rect);
 	bool collidePoly(PolyHitBox &poly);
 
-	CL_CollisionOutline &getPoly() const;
+	//CL_CollisionOutline &getPoly() const;
 
 private:
-	CL_CollisionOutline *_poly;
+	//CL_CollisionOutline *_poly;
 };
 

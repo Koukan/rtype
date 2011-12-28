@@ -2,14 +2,14 @@
 #define 	_GAMESTATE_
 
 #include <string>
-#include "InputManager.hpp"
+//#include "InputManager.hpp"
 #include "GameObjectManager.hpp"
 #include "EventDispatcher.hpp"
 #include "ResourceManager.hpp"
 
 class Game;
 
-class GameState : public InputManager, public GameObjectManager, public ResourceManager,
+class GameState : public GameObjectManager, public ResourceManager,
 		  public EventDispatcher
 {
 public:

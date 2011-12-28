@@ -53,12 +53,12 @@ bool HitBox::CircleCollideRect(CircleHitBox &circle, RectHitBox &rect)
 
 bool HitBox::CircleCollidePoly(CircleHitBox &circle, PolyHitBox &poly)
 {
-	poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
+		//poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
 	return (false);
 }
 
 bool HitBox::RectCollidePoly(RectHitBox &rect, PolyHitBox &poly)
 {
-	poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
+		//poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
 	return (false);
 }

@@ -4,9 +4,8 @@
 #include "PhysicManager.hpp"
 #include "Clock.hpp"
 #include "Loading.hpp"
-#include "AudioManager.hpp"
 
-Game::Game() : _quit(false), _sound_output(44100)
+Game::Game() : _quit(false)
 {
 }
 
@@ -22,7 +21,7 @@ void		Game::init()
   srand(time(NULL));
   #endif
   ModuleManager::init();
-  cl_log_event("system", "Grab: The Power of the Lost Grapple started");
+  //cl_log_event("system", "Grab: The Power of the Lost Grapple started");
   new InputModule;
   new PhysicManager;
   GameStateManager::get().loadState<Loading>("Loading");

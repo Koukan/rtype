@@ -14,8 +14,6 @@ class SFMLSprite : public Sprite, public sf::Sprite
 			uint32_t		height;
 		};
 		SFMLSprite(double x = 0, double y = 0);
-		SFMLSprite(std::string const &name, ResourceManager &resources,
-				   double x = 0, double y = 0);
 		virtual ~SFMLSprite();
 		void			update(double elapsedTime);
 		void			setFrameRate(double rate);

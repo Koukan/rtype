@@ -13,30 +13,30 @@ Loading::Loading() : GameState("Loading")
 Loading::~Loading()
 {}
 
-void	Loading::escape(const CL_InputEvent &)
-{
-  	GameStateManager::get().popState();
-  	Game::get().quit();
-}
+//void	Loading::escape(const CL_InputEvent &)
+//{
+  	//GameStateManager::get().popState();
+  	//Game::get().quit();
+//}
 
-void	Loading::click(const CL_InputEvent &event)
-{
-}
+//void	Loading::click(const CL_InputEvent &event)
+//{
+//}
 
 void	Loading::update(double time)
 {
 }
 
-void	Loading::slowTest(const CL_InputEvent &event)
-{
-  if (event.id == CL_MOUSE_WHEEL_DOWN)
-  {
-    double timeEffect = this->getTimeEffect() - 0.1;
-    this->setTimeEffect("default", (timeEffect < 0) ? 0 : timeEffect);
-  }
-  else
-    this->setTimeEffect("default", this->getTimeEffect() + 0.1);
-}
+//void	Loading::slowTest(const CL_InputEvent &event)
+//{
+  //if (event.id == CL_MOUSE_WHEEL_DOWN)
+  //{
+    //double timeEffect = this->getTimeEffect() - 0.1;
+    //this->setTimeEffect("default", (timeEffect < 0) ? 0 : timeEffect);
+  //}
+  //else
+    //this->setTimeEffect("default", this->getTimeEffect() + 0.1);
+//}
 
 void	Loading::buttonClick()
 {
@@ -65,9 +65,9 @@ void	Loading::onStart()
   /////////////////////////////
 
   // bulletml test
-  //this->addBulletParser("resource/test.xml", "Test");
-  //_bullet = new BulletCommand("Test", *this, 512, 360);
-  //this->addGameObject(_bullet, "ship");
+  this->addBulletParser("resource/test.xml", "Test");
+  _bullet = new BulletCommand("Test", *this, 512, 360);
+  this->addGameObject(_bullet, "ship");
   // end bulletml test
 
   // GUI

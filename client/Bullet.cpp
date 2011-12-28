@@ -1,4 +1,3 @@
-#include <ClanLib/core.h>
 #include "Bullet.hpp"
 #include "CircleHitBox.hpp"
 
@@ -17,11 +16,11 @@ Bullet::Bullet(ResourceManager &resource, std::string const & sprite,
 {
   try
   {
-		  //_sprite = new Sprite(sprite, resource);
+	this->_sprite = resource.getSprite(sprite);
   }
-  catch (CL_Exception e)
+  catch (...)
   {
-	cl_log_event("system", "Sprite \"" + sprite + "\" not found");
+	std::cerr << "Sprite \"" << sprite  << "\" not found" << std::endl;
   }
   _vx = speed * sin(direction);
   _vy = speed * cos(direction);
@@ -29,21 +28,21 @@ Bullet::Bullet(ResourceManager &resource, std::string const & sprite,
 
 Bullet::~Bullet()
 {
-  delete _sprite;
+  delete this->_sprite;
 }
 
 void		Bullet::draw(double)
 {
-  //if (_sprite)
-    //_sprite->draw(static_cast<int>(this->_x), static_cast<int>(this->_y));
+	if (this->_sprite)
+		this->_sprite->draw(static_cast<int>(this->_x), static_cast<int>(this->_y));
 }
 
 void		Bullet::setSprite(ResourceManager &resource, std::string const &name)
 {
-		//_sprite = new Sprite(name, resource);
+	this->_sprite = resource.getSprite(name);
 }
 
 void		Bullet::setSprite(Sprite *sprite)
 {
-  _sprite = sprite;
+	this->_sprite = sprite;
 }

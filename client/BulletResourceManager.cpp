@@ -1,4 +1,4 @@
-#include <ClanLib/core.h>
+#include <iostream>
 #include "BulletResourceManager.hpp"
 #include "bulletmlparser-tinyxml.h"
 #include "bulletmlerror.h"
@@ -33,7 +33,7 @@ bool		BulletResourceManager::addBulletParser(std::string const &path,
 	}
 	catch (BulletMLError e)
 	{
-		cl_log_event("system", "BulletML xml \"" + path + "\" don't exist or not valid");
+		std::cerr << "BulletML xml \"" << path << "\" don't exist or not valid" << std::endl;
 		return false;
 	}
 	return true;
