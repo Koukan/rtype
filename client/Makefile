@@ -37,7 +37,7 @@ SRCS		= $(DIR)/main.cpp								\
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CXX		= clang
+CXX		= g++
 
 RM		= rm -f
 
@@ -47,7 +47,7 @@ LDFLAGS		= -lpthread -Lbulletml -lbulletml -ldl -lsfml-graphics -lsfml-window -l
 
 $(NAME)		: $(OBJS)
 		make -C bulletml
-		$(CC) -o $(NAME) $(OBJS) $(LDFLAGS)
+		$(CXX) -o $(NAME) $(OBJS) $(LDFLAGS)
 
 all		: $(NAME)
 
