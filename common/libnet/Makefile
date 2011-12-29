@@ -31,11 +31,11 @@ SRCS		= $(DIR)/InetAddr.cpp				\
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CC		= g++
+CXX			= g++
 
-RM		= rm -f
+RM			= rm -f
 
-AR		= ar r
+AR			= ar r
 
 RANLIB		= ranlib
 
@@ -49,7 +49,7 @@ $(NAMESTATIC)		: $(OBJS)
 					$(RANLIB) $(NAMESTATIC)
 
 $(NAMEDYNAMIC)		: $(OBJS)
-					$(CC) $(OBJS) -shared -o $(NAMEDYNAMIC)
+					$(CXX) $(OBJS) -shared -o $(NAMEDYNAMIC)
 
 all		: $(NAMESTATIC) $(NAMEDYNAMIC)
 
