@@ -10,13 +10,10 @@ SRCS		= $(DIR)/main.cpp								\
 		  $(DIR)/Callback.cpp								\
 		  $(DIR)/InputModule.cpp							\
 		  $(DIR)/Loading.cpp								\
-		  $(DIR)/Event.cpp									\
-		  $(DIR)/EventDispatcher.cpp						\
 		  $(DIR)/GameObject.cpp								\
 		  $(DIR)/GameObjectManager.cpp						\
 		  $(DIR)/PhysicObject.cpp							\
 		  $(DIR)/PhysicManager.cpp							\
-		  $(DIR)/ManagerManager.cpp							\
 		  $(DIR)/RendererManager.cpp						\
 		  $(DIR)/Callback_Impl/Callback_Impl_Function.cpp	\
 		  $(DIR)/GameState.cpp								\
@@ -40,7 +37,7 @@ SRCS		= $(DIR)/main.cpp								\
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CC		= g++
+CXX		= clang
 
 RM		= rm -f
 

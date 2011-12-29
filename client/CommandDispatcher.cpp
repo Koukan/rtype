@@ -1,4 +1,5 @@
 #include "CommandDispatcher.hpp"
+#include "GameState.hpp"
 
 CommandDispatcher::CommandDispatcher() : Module("CommandDispatcher")
 {
@@ -29,14 +30,19 @@ void			CommandDispatcher::update(double elapsedTime)
 	{
 		command = this->_commands.front();
 		this->_commands.pop();
-		//this->_mutex.unlock();
-		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
+		this->_mutex.unlock();
+		if (command->state)
+			command->state->command(*command);
+		else
 		{
-			if ((*it)->handleCommand(*command))
-				break ;
+			for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
+			{
+				if ((*it)->handleCommand(*command))
+					break ;
+			}
 		}
 		delete command;
-		//this->_mutex.lock();
+		this->_mutex.lock();
 	}
 	this->_mutex.unlock();
 }

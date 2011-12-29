@@ -9,12 +9,6 @@
 class Sprite;
 class SFMLSprite;
 
-//#if defined(_WIN32)
-//typedef		std::shared_ptr<sf::Texture>		ImagePtr;
-//#else
-//typedef		std::tr1::shared_ptr<sf::Texture>	ImagePtr;
-//#endif
-
 class ResourceManager : public BulletResourceManager
 {
   public:
