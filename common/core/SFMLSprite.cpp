@@ -18,7 +18,7 @@ void		SFMLSprite::update(double elapsedTime)
 {
 	if (this->_frameRate == -1)
 		return ;
-	uint32_t	size = this->_rect.size();
+	int		size = this->_rect.size();
 	if (size < 2 || (!this->_pingpong && !this->_repeat &&
 					 this->_currentFrame >= (size - 1)))
 		return ;

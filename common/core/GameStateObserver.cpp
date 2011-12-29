@@ -10,7 +10,7 @@ GameStateObserver::~GameStateObserver()
 {
 }
 
-void			GameStateObserver::notified(Observable<std::list<GameState*> > &source,
+void			GameStateObserver::notified(Observable<std::list<GameState*> > &,
 											std::list<GameState*> &arg)
 {
 	this->_glist = arg;

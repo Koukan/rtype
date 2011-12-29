@@ -51,13 +51,13 @@ bool HitBox::CircleCollideRect(CircleHitBox &circle, RectHitBox &rect)
 		y >= rect.getY() - circle.getRadius() && y < rect.getY() + rect.getHeightRect() + circle.getRadius()));
 }
 
-bool HitBox::CircleCollidePoly(CircleHitBox &circle, PolyHitBox &poly)
+bool HitBox::CircleCollidePoly(CircleHitBox &, PolyHitBox &)
 {
 		//poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
 	return (false);
 }
 
-bool HitBox::RectCollidePoly(RectHitBox &rect, PolyHitBox &poly)
+bool HitBox::RectCollidePoly(RectHitBox &, PolyHitBox &)
 {
 		//poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
 	return (false);

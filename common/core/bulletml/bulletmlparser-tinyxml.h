@@ -10,7 +10,7 @@
 
 #include "bulletmlcommon.h"
 
-#include "tinyxml/tinyxml.h"
+#include "../tinyxml/tinyxml.h"
 
 class BulletMLNode;
 

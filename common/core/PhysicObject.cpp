@@ -1,5 +1,4 @@
 #include "PhysicObject.hpp"
-#include "Game.hpp"
 #include "Callback.hpp"
 #include "GameStateManager.hpp"
 
@@ -79,10 +78,10 @@ void PhysicObject::collide(TreeElement &elem)
 	this->_hitBox->setY(this->_y);
 	obj.getHitBox().setX(obj.getX());
 	obj.getHitBox().setY(obj.getY());
-	if (this->_hitBox->collide(obj.getHitBox()))
-	{
-		collisionGroupsMap::const_iterator it = GameStateManager::get().getCurrentState().getCollisionGroups().find(stringPair(this->_group->getName(), obj.getGroup()->getName()));
-		if (it != GameStateManager::get().getCurrentState().getCollisionGroups().end())
-			(*it->second)(static_cast<GameObject &>(*this), static_cast<GameObject &>(obj));
-	}
+	//if (this->_hitBox->collide(obj.getHitBox()))
+	//{
+		//collisionGroupsMap::const_iterator it = GameStateManager::get().getCurrentState().getCollisionGroups().find(stringPair(this->_group->getName(), obj.getGroup()->getName()));
+		//if (it != GameStateManager::get().getCurrentState().getCollisionGroups().end())
+			//(*it->second)(static_cast<GameObject &>(*this), static_cast<GameObject &>(obj));
+	//}
 }

@@ -450,7 +450,7 @@ void	QuadTree::collideElements(Elements &elems, Elements &elems2, QuadTree::call
 Node	*QuadTree::collideNode(Node *node, Node *node2, QuadTree::callInfo call) const
 {
 	int nbChilds = 0;
-	Node *checkpoint;
+	Node *checkpoint = 0;
 
 	this->collideElements(node->getElements(), node2->getElements(), call);
 	for (int i = 0; i < 4; ++i)

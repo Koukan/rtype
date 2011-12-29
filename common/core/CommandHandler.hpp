@@ -7,5 +7,5 @@ class CommandHandler
   public:
     CommandHandler(){}
     virtual ~CommandHandler(){}
-	virtual bool		handleCommand(Command &command){return false;}
+	virtual bool		handleCommand(Command &){return false;}
 };

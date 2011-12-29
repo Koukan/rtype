@@ -1,12 +1,10 @@
 #include "PhysicManager.hpp"
-#include "Game.hpp"
 
 #define	CUTTIME		100
 
 PhysicManager::PhysicManager() : GameStateObserver("PhysicManager")
 {
 	this->_targetRate = 20;
-	Game::get().loadModule(*this);
 }
 
 PhysicManager::~PhysicManager()

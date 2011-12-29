@@ -1,8 +1,8 @@
 #include "RendererManager.hpp"
 #include "Game.hpp"
+#include "RendererManager.hpp"
 #include "InputModule.hpp"
 #include "PhysicManager.hpp"
-#include "Clock.hpp"
 #include "Loading.hpp"
 
 Game::Game() : _quit(false)
@@ -22,8 +22,9 @@ void		Game::init()
   #endif
   ModuleManager::init();
   //cl_log_event("system", "Grab: The Power of the Lost Grapple started");
-  new InputModule;
-  new PhysicManager;
+  this->loadModule(RendererManager::get());
+  this->loadModule(*(new InputModule));
+  this->loadModule(*(new PhysicManager));
   GameStateManager::get().loadState<Loading>("Loading");
   GameStateManager::get().changeState("Loading");
 }

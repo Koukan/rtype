@@ -4,7 +4,7 @@
 #include <algorithm>
 #include <exception>
 #include "ModuleManager.hpp"
-#include "../common/libnet/include/Clock.hpp"
+#include "Clock.hpp"
 
 ModuleManager::ModuleManager() : Module("ModuleManager"), _stop(false)
 {

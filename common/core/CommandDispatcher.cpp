@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include "CommandDispatcher.hpp"
 #include "GameState.hpp"
 
@@ -20,7 +21,7 @@ void			CommandDispatcher::init()
 {
 }
 
-void			CommandDispatcher::update(double elapsedTime)
+void			CommandDispatcher::update(double)
 {
 	Command										*command;
 	std::list<CommandHandler*>::const_iterator 	it;
@@ -53,7 +54,7 @@ void			CommandDispatcher::destroy()
 
 void			CommandDispatcher::pushCommand(Command &command)
 {
-	ScopedLock		lock(this->_mutex);
+	Net::ScopedLock		lock(this->_mutex);
 
 	this->_commands.push(&command);
 }

@@ -1,19 +1,16 @@
-#ifndef		_GAMESTATEMANAGER_
-#define 	_GAMESTATEMANAGER_
+#pragma once
 
 #include <list>
 #include <string>
 #include "GameStateInstance.hpp"
 #include "Module.hpp"
-#include "Singleton.hpp"
 #include "Observable.hpp"
 
-class GameStateManager : public Module, public Singleton<GameStateManager>, public Observable<std::list<GameState*> >
+class GSManager : public Module, public Observable<std::list<GameState*> >
 {
 public:
-
-  GameStateManager();
-  virtual ~GameStateManager();
+  GSManager();
+  virtual ~GSManager();
   virtual void	init();
   virtual void	update(double elapsedTime = 0);
   virtual void	destroy();
@@ -50,8 +47,6 @@ protected:
   std::list<GameState*>		_deleted;
 };
 
-#include "GameStateManager.ipp"
+#include "GSManager.ipp"
 
 bool		operator==(GameState const * const & state, const std::string &name);
-
-#endif		/* _GAMESTATEMANAGER_ */

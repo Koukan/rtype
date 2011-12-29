@@ -3,8 +3,8 @@
 #include "bulletmlrunner.h"
 #include "Sprite.hpp"
 #include "PhysicObject.hpp"
-#include "Game.hpp"
 #include "Bullet.hpp"
+#include "GameState.hpp"
 
 class BulletCommand : public BulletMLRunner, public Bullet
 {

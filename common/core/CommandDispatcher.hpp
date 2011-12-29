@@ -22,5 +22,5 @@ class CommandDispatcher : public Module
   private:
 	std::list<CommandHandler*>	_handlers;
 	std::queue<Command*>		_commands;
-	Mutex						_mutex;
+	Net::Mutex					_mutex;
 };

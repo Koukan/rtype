@@ -1,5 +1,4 @@
 #include "GameState.hpp"
-#include "Game.hpp"
 
 GameState::GameState(const std::string &name) : name(name), _paused(NONE)
 {

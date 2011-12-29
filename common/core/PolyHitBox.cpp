@@ -3,7 +3,7 @@
 #include "CircleHitBox.hpp"
 
 
-PolyHitBox::PolyHitBox(double x, double y, std::vector<std::pair<double, double> > &points)
+PolyHitBox::PolyHitBox(double x, double y, std::vector<std::pair<double, double> > &)
 	: HitBox(x, y)//, _poly(new CL_CollisionOutline())
 {
 	//CL_Contour contour;
@@ -27,19 +27,19 @@ PolyHitBox::~PolyHitBox(void)
 		//return (*this->_poly);
 //}
 
-bool PolyHitBox::collideCircle(CircleHitBox &circle)
+bool PolyHitBox::collideCircle(CircleHitBox &)
 {
 		//return (HitBox::CircleCollidePoly(circle, *this));
 	return false;
 }
 
-bool PolyHitBox::collideRect(RectHitBox &rect)
+bool PolyHitBox::collideRect(RectHitBox &)
 {
 		//return(HitBox::RectCollidePoly(rect, *this));
 	return false;
 }
 
-bool PolyHitBox::collidePoly(PolyHitBox &poly)
+bool PolyHitBox::collidePoly(PolyHitBox &)
 {
 	//this->_poly->set_translation(static_cast<float>(this->_x), static_cast<float>(this->_y));
 	//poly.getPoly().set_translation(static_cast<float>(poly.getX()), static_cast<float>(poly.getY()));
@@ -47,7 +47,7 @@ bool PolyHitBox::collidePoly(PolyHitBox &poly)
 	return false;
 }
 
-bool PolyHitBox::collide(HitBox &hitbox)
+bool PolyHitBox::collide(HitBox &)
 {
 	return false;
 	//return (hitbox.collidePoly(*this));

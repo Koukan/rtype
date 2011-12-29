@@ -1,12 +1,10 @@
 #include "RendererManager.hpp"
-#include "Game.hpp"
 #include "GameStateManager.hpp"
 #include "InputModule.hpp"
 
 InputModule::InputModule() : Module("InputModule")
 {
 	this->_targetRate = 20;
-	Game::get().loadModule(*this);
 }
 
 InputModule::~InputModule()

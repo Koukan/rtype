@@ -1,5 +1,5 @@
 template <class T>
-void		GameStateManager::loadState(T &state)
+void		GSManager::loadState(T &state)
 {
   instanceMap::iterator		it = _keeper.find(state.name);
 
@@ -9,7 +9,7 @@ void		GameStateManager::loadState(T &state)
 }
 
 template <class T>
-void		GameStateManager::loadState(const std::string &name)
+void		GSManager::loadState(const std::string &name)
 {
   instanceMap::iterator		it = _keeper.find(name);
 

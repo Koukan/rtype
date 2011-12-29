@@ -1,22 +1,20 @@
 #include <algorithm>
-#include "GameStateManager.hpp"
-#include "Game.hpp"
+#include "GSManager.hpp"
 
-GameStateManager::GameStateManager() : Module("GameStateManager")
+GSManager::GSManager() : Module("GSManager")
 {
 	this->_targetRate = 20;
-	Game::get().loadModule(*this);
 }
 
-GameStateManager::~GameStateManager()
+GSManager::~GSManager()
 {
 }
 
-void		GameStateManager::init()
+void		GSManager::init()
 {
 }
 
-void		GameStateManager::update(double elapsedTime)
+void		GSManager::update(double elapsedTime)
 {
 	for (std::list<GameState*>::const_iterator it = this->_currentStates.begin();
 		 it != this->_currentStates.end(); it++)
@@ -25,29 +23,29 @@ void		GameStateManager::update(double elapsedTime)
 	}
 }
 
-void		GameStateManager::destroy()
+void		GSManager::destroy()
 {
 }
 
-bool		GameStateManager::pushState(const std::string &name,
+bool		GSManager::pushState(const std::string &name,
 					    GameState::Pause paused)
 {
 	return push(name, true, paused);
 }
 
-bool		GameStateManager::changeState(const std::string &name,
+bool		GSManager::changeState(const std::string &name,
 					      GameState::Pause paused, bool del)
 {
 	pop(false, del);
 	return push(name, false, paused);
 }
 
-void		GameStateManager::popState(bool del)
+void		GSManager::popState(bool del)
 {
 	pop(true, del);
 }
 
-void		GameStateManager::removeState(const std::string &name)
+void		GSManager::removeState(const std::string &name)
 {
 	for (std::list<GameState*>::iterator it = _currentStates.begin();
 		it != _currentStates.end(); it++)
@@ -60,12 +58,12 @@ void		GameStateManager::removeState(const std::string &name)
 	_keeper.erase(name);
 }
 
-GameState	&GameStateManager::getCurrentState()
+GameState	&GSManager::getCurrentState()
 {
 	return *_currentStates.back();
 }
 
-void		GameStateManager::getGameState(std::list<GameState*> &list, GameState::Pause state) const
+void		GSManager::getGameState(std::list<GameState*> &list, GameState::Pause state) const
 {
 	for (std::list<GameState*>::const_iterator it = this->_currentStates.begin();
 		 it != this->_currentStates.end(); it++)
@@ -75,13 +73,13 @@ void		GameStateManager::getGameState(std::list<GameState*> &list, GameState::Pau
 	}
 }
 
-void		GameStateManager::addDelete(GameState *state)
+void		GSManager::addDelete(GameState *state)
 {
 	if (state)
 		_deleted.push_back(state);
 }
 
-void		GameStateManager::removeDelete()
+void		GSManager::removeDelete()
 {
 	while (!_deleted.empty())
 	{
@@ -90,7 +88,7 @@ void		GameStateManager::removeDelete()
 	}
 }
 
-bool		GameStateManager::push(const std::string &name, bool changed,
+bool		GSManager::push(const std::string &name, bool changed,
 				       GameState::Pause paused)
 {
 	std::list<GameState*>::iterator	it;
@@ -126,7 +124,7 @@ bool		GameStateManager::push(const std::string &name, bool changed,
 	return false;
 }
 
-void		GameStateManager::pop(bool changed, bool del)
+void		GSManager::pop(bool changed, bool del)
 {
 	if (!_currentStates.empty())
 	{

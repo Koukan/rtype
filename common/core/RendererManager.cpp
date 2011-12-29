@@ -4,12 +4,10 @@
 #include "RendererManager.hpp"
 #include "GameStateManager.hpp"
 #include "DrawableObject.hpp"
-#include "Game.hpp"
 
 RendererManager::RendererManager() : GameStateObserver("RendererManager")
 {
 	this->_targetRate = 20;
-	Game::get().loadModule(*this);
 	this->_window = 0;
 }
 
