@@ -16,7 +16,7 @@ SFMLSprite::~SFMLSprite()
 
 void		SFMLSprite::update(double elapsedTime)
 {
-	if (this->_frameRate == -1)
+	if (this->_frameRate == -1 || elapsedTime == 0)
 		return ;
 	int		size = this->_rect.size();
 	if (size < 2 || (!this->_pingpong && !this->_repeat &&
@@ -56,7 +56,12 @@ void		SFMLSprite::update(double elapsedTime)
 	}
 }
 
-void		SFMLSprite::setFrameRate(double rate)
+void		SFMLSprite::setScale(float x, float y)
+{
+	this->SetScale(x, y);
+}
+
+void		SFMLSprite::setSpeed(double rate)
 {
 	this->_frameRate = rate;
 }
@@ -101,22 +106,10 @@ void		SFMLSprite::setGrid(uint32_t left, uint32_t top, uint32_t width,
 	}
 }
 
-void		SFMLSprite::draw()
-{
-	this->SetPosition(this->_x + this->_tx, this->_y + this->_ty);
-	this->_window->Draw(*this);
-}
-
 void		SFMLSprite::draw(double elapsedTime)
 {
 	this->update(elapsedTime);
 	this->SetPosition(this->_x + this->_tx, this->_y + this->_ty);
-	this->_window->Draw(*this);
-}
-
-void		SFMLSprite::draw(int x, int y)
-{
-	this->SetPosition(x + this->_tx, y + this->_ty);
 	this->_window->Draw(*this);
 }
 

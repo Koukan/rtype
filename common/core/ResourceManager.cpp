@@ -1,14 +1,16 @@
 #include <iostream>
 #include "ResourceManager.hpp"
-#include "SFMLSprite.hpp"
+#include "Sprite.hpp"
 #include "Converter.hpp"
 
-ResourceManager::ResourceManager()
+ResourceManager::ResourceManager() : _provider(0)
 {
 }
 
 ResourceManager::~ResourceManager()
 {
+	if (this->_provider)
+		delete this->_provider;
 }
 
 void			ResourceManager::load(std::string const &path)
@@ -18,12 +20,15 @@ void			ResourceManager::load(std::string const &path)
 	load(&this->_document);
 }
 
+void			ResourceManager::loadSpriteProvider(SpriteProvider &provider)
+{
+	this->_provider = &provider;
+}
+
 Sprite			*ResourceManager::getSprite(std::string const &name) const
 {
-	SpritesMap::const_iterator	it = this->_sprites.find(name);
-
-	if (it != this->_sprites.end())
-		return new SFMLSprite(*it->second);
+	if (this->_provider)
+		return this->_provider->getSprite(name);
 	return 0;
 }
 
@@ -104,13 +109,15 @@ void			ResourceManager::loadDeclaration(TiXmlNode *)
 
 void			ResourceManager::loadSprite(TiXmlNode *parent)
 {
-	static Method_2<SFMLSprite*> const	methods[] = {
+	if (!this->_provider)
+		return ;
+	static Method_2<Sprite*> const	methods[] = {
 			{"image", &ResourceManager::imageSprite},
 			{"animation", &ResourceManager::animationSprite},
 			{"scale", &ResourceManager::scaleSprite},
 			{"translation", &ResourceManager::translateSprite}
 	};
-	SFMLSprite			*sprite = 0;
+	Sprite				*sprite = 0;
 	std::string			name;
 
 	for (TiXmlAttribute	*attrib = static_cast<TiXmlElement*>(parent)->FirstAttribute();
@@ -118,43 +125,11 @@ void			ResourceManager::loadSprite(TiXmlNode *parent)
 	{
 		name = attrib->Name();
 		if (name == "name")
-			sprite = this->addSprite(attrib->Value());
+			sprite = this->_provider->addSprite(attrib->Value());
 	}
 	if (sprite)
 		this->loadElement(static_cast<TiXmlElement*>(parent), sprite,
 						  methods, sizeof(methods) / sizeof(*methods));
-}
-
-SFMLSprite		*ResourceManager::addSprite(std::string const &name)
-{
-	SFMLSprite				*sprite = 0;
-	SpritesMap::iterator	it = this->_sprites.find(name);
-
-	if (it == this->_sprites.end())
-	{
-		sprite = new SFMLSprite;
-		this->_sprites[name] = sprite;
-	}
-	else
-		sprite = it->second;
-	return sprite;
-}
-
-sf::Texture		*ResourceManager::addImage(std::string const &path)
-{
-	sf::Texture			*texture;
-	ImagesMap::iterator	it = this->_images.find(path);
-
-	if (it == this->_images.end())
-	{
-		texture = new sf::Texture;
-		if (!texture->LoadFromFile(path))
-			std::cerr << "Image at " << path << " was not found." << std::endl;
-		this->_images[path] = texture;
-	}
-	else
-		texture = it->second;
-	return texture;
 }
 
 void		ResourceManager::get2Int(std::string const &data,
@@ -172,9 +147,9 @@ void		ResourceManager::get2Int(std::string const &data,
 
 // sprite parsing
 
-void	ResourceManager::imageSprite(TiXmlElement *parent, SFMLSprite *sprite)
+void	ResourceManager::imageSprite(TiXmlElement *parent, Sprite *sprite)
 {
-	static Method_2<SFMLSprite*> const	methods[] = {
+	static Method_2<Sprite*> const	methods[] = {
 			{"grid", &ResourceManager::gridSprite}
 	};
 	std::string name;
@@ -184,13 +159,13 @@ void	ResourceManager::imageSprite(TiXmlElement *parent, SFMLSprite *sprite)
 	{
 		name = attrib->Name();
 		if (name == "file")
-			sprite->SetTexture(*this->addImage(attrib->Value()));
+			this->_provider->addImage(attrib->Value(), *sprite);
 	}
 	this->loadElement(parent, sprite, methods,
 					  sizeof(methods) / sizeof(*methods));
 }
 
-void	ResourceManager::scaleSprite(TiXmlElement *parent, SFMLSprite *sprite)
+void	ResourceManager::scaleSprite(TiXmlElement *parent, Sprite *sprite)
 {
 	std::string	name;
 	float		x = 1;
@@ -205,10 +180,10 @@ void	ResourceManager::scaleSprite(TiXmlElement *parent, SFMLSprite *sprite)
 		else if (name == "y")
 			y = Converter::toInt<float>(attrib->Value());
 	}
-	sprite->SetScale(x, y);
+	sprite->setScale(x, y);
 }
 
-void	ResourceManager::animationSprite(TiXmlElement *parent, SFMLSprite *sprite)
+void	ResourceManager::animationSprite(TiXmlElement *parent, Sprite *sprite)
 {
 	std::string	name;
 
@@ -217,7 +192,7 @@ void	ResourceManager::animationSprite(TiXmlElement *parent, SFMLSprite *sprite)
 	{
 		name = attrib->Name();
 		if (name == "speed")
-			sprite->setFrameRate(Converter::toInt<double>(attrib->Value()));
+			sprite->setSpeed(Converter::toInt<double>(attrib->Value()));
 		else if (name == "loop")
 			sprite->setRepeat((attrib->Value() == "yes") ? true : false);
 		else if (name == "pingpong")
@@ -225,7 +200,7 @@ void	ResourceManager::animationSprite(TiXmlElement *parent, SFMLSprite *sprite)
 	}
 }
 
-void	ResourceManager::translateSprite(TiXmlElement *parent, SFMLSprite *sprite)
+void	ResourceManager::translateSprite(TiXmlElement *parent, Sprite *sprite)
 {
 	int			x = 0;
 	int			y = 0;
@@ -243,7 +218,7 @@ void	ResourceManager::translateSprite(TiXmlElement *parent, SFMLSprite *sprite)
 	sprite->setTranslate(x, y);
 }
 
-void	ResourceManager::gridSprite(TiXmlElement *parent, SFMLSprite *sprite)
+void	ResourceManager::gridSprite(TiXmlElement *parent, Sprite *sprite)
 {
 	int			x = 0, y = 0;
 	int			width = 0, height = 0;

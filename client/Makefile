@@ -2,10 +2,13 @@ NAME		=  ../rtype
 
 DIR		=  .
 
-SRCS		= $(DIR)/main.cpp								\
-		  $(DIR)/Game.cpp									\
-		  $(DIR)/Loading.cpp								\
-		  $(DIR)/Wall.cpp
+SRCS		= $(DIR)/main.cpp				\
+		  $(DIR)/Game.cpp					\
+		  $(DIR)/Loading.cpp				\
+		  $(DIR)/Wall.cpp					\
+		  $(DIR)/SFMLSprite.cpp				\
+		  $(DIR)/SFMLSpriteProvider.cpp		\
+		  $(DIR)/RendererManager.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 

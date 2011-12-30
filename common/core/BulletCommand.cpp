@@ -1,3 +1,4 @@
+#include <math.h>
 #include "BulletCommand.hpp"
 #include "Bullet.hpp"
 #include "bulletmlparser.h"

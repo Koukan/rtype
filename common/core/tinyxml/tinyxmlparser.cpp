@@ -64,7 +64,7 @@ const char* TiXmlBase::ReadText(	const char* p,
 									std::string* text, 
 									bool trimWhiteSpace, 
 									const char* endTag, 
-									bool caseInsensitive )
+									bool /*caseInsensitive*/ )
 {
     *text = "";
 	if ( !trimWhiteSpace			// certain tags always keep whitespace

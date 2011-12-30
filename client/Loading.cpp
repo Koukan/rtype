@@ -2,6 +2,7 @@
 #include "Game.hpp"
 #include "Bullet.hpp"
 #include "Wall.hpp"
+#include "SFMLSpriteProvider.hpp"
 
 Loading::Loading() : GameState("Loading")
 {
@@ -45,6 +46,7 @@ void	Loading::buttonClick()
 
 void	Loading::onStart()
 {
+  this->loadSpriteProvider(*(new SFMLSpriteProvider));
   this->load("resources/intro.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 5);

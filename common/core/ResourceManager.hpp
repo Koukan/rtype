@@ -2,12 +2,10 @@
 
 #include <map>
 #include <list>
-#include <SFML/Graphics.hpp>
 #include "BulletResourceManager.hpp"
 #include "tinyxml.h"
-
-class Sprite;
-class SFMLSprite;
+#include "Sprite.hpp"
+#include "SpriteProvider.hpp"
 
 class ResourceManager : public BulletResourceManager
 {
@@ -15,12 +13,10 @@ class ResourceManager : public BulletResourceManager
 	ResourceManager();
 	virtual ~ResourceManager();
 	void			load(std::string const &path);
+	void			loadSpriteProvider(SpriteProvider &provider);
 	Sprite			*getSprite(std::string const &name) const;
 
   private:
-	typedef std::map<std::string, SFMLSprite*>	SpritesMap;
-	typedef std::map<std::string, sf::Texture*>	ImagesMap;
-
 	template <typename T>
 	struct			Method
 	{
@@ -46,21 +42,18 @@ class ResourceManager : public BulletResourceManager
 	void			loadText(TiXmlNode *parent);
 	void			loadDeclaration(TiXmlNode *parent);
 	void			loadSprite(TiXmlNode *parent);
-	SFMLSprite		*addSprite(std::string const &name);
-	sf::Texture		*addImage(std::string const &path);
 	void			get2Int(std::string const &data, std::string const &sep,
 							int &a, int &b);
 
 	// sprite parsing
-	void			imageSprite(TiXmlElement *parent, SFMLSprite *sprite);
-	void			scaleSprite(TiXmlElement *parent, SFMLSprite *sprite);
-	void			animationSprite(TiXmlElement *parent, SFMLSprite *sprite);
-	void			translateSprite(TiXmlElement *parent, SFMLSprite *sprite);
-	void			gridSprite(TiXmlElement *parent, SFMLSprite *sprite);
+	void			imageSprite(TiXmlElement *parent, Sprite *sprite);
+	void			scaleSprite(TiXmlElement *parent, Sprite *sprite);
+	void			animationSprite(TiXmlElement *parent, Sprite *sprite);
+	void			translateSprite(TiXmlElement *parent, Sprite *sprite);
+	void			gridSprite(TiXmlElement *parent, Sprite *sprite);
 
+	SpriteProvider	*_provider;
 	TiXmlDocument	_document;
-	SpritesMap		_sprites;
-	ImagesMap		_images;
 };
 
 #include "ResourceManager.ipp"

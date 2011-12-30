@@ -7,12 +7,10 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/ModuleManager.cpp                          \
 		  $(DIR)/GSManager.cpp								\
 		  $(DIR)/Callback.cpp								\
-		  $(DIR)/InputModule.cpp							\
 		  $(DIR)/GameObject.cpp								\
 		  $(DIR)/GameObjectManager.cpp						\
 		  $(DIR)/PhysicObject.cpp							\
 		  $(DIR)/PhysicManager.cpp							\
-		  $(DIR)/RendererManager.cpp						\
 		  $(DIR)/Callback_Impl/Callback_Impl_Function.cpp	\
 		  $(DIR)/GameState.cpp								\
 		  $(DIR)/BulletCommand.cpp							\
@@ -29,7 +27,6 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/QuadTree/Node.cpp							\
 		  $(DIR)/QuadTree/TreeElement.cpp					\
 		  $(DIR)/ResourceManager.cpp						\
-		  $(DIR)/SFMLSprite.cpp								\
 		  $(DIR)/tinyxml/tinyxml.cpp						\
 		  $(DIR)/tinyxml/tinyxmlerror.cpp					\
 		  $(DIR)/tinyxml/tinyxmlparser.cpp
@@ -44,9 +41,9 @@ AR			= ar r
 
 RANLIB		= ranlib
 
-CXXFLAGS	= -W -Wall -Wextra -O2 -pipe -fPIC -I Callback_Impl -I QuadTree -I bulletml -I tinyxml -I ../libnet/include -I ../libnet/include/thread
+CXXFLAGS	= -W -Wall -Wextra -g3 -pipe -fPIC -I Callback_Impl -I QuadTree -I bulletml -I tinyxml -I ../libnet/include -I ../libnet/include/thread
 
-LDFLAGS		= -lnet -L bulletml -lbulletml -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS		= -lnet -L bulletml -lbulletml
 
 
 $(NAMESTATIC)		: $(OBJS)

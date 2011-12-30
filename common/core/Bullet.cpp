@@ -1,3 +1,4 @@
+#include <math.h>
 #include "Bullet.hpp"
 #include "CircleHitBox.hpp"
 
