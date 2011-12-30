@@ -29,7 +29,6 @@ public:
   virtual void	onChange();
   virtual void	onResume();
   virtual void	update(double elapseTime = 0);
-  void			command(Command &command);
   void			pause(Pause paused = ALL);
   void			play();
   Pause			getPaused();

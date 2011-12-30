@@ -32,15 +32,10 @@ void			CommandDispatcher::update(double)
 		command = this->_commands.front();
 		this->_commands.pop();
 		this->_mutex.unlock();
-		if (command->state)
-			command->state->command(*command);
-		else
+		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
 		{
-			for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
-			{
-				if ((*it)->handleCommand(*command))
-					break ;
-			}
+			if ((*it)->handleCommand(*command))
+				break ;
 		}
 		delete command;
 		this->_mutex.lock();

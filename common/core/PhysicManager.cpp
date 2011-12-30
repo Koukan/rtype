@@ -25,8 +25,9 @@ void		PhysicManager::update(double elapsedTime)
 	for (std::list<GameState*>::const_iterator it = this->_glist.begin();
 		it != this->_glist.end(); it++)
 	{
-		collisionGroupsMap const	&collisionGroups = (*it)->getCollisionGroups();
-		groupsMap const			&groups = (*it)->getGroups();
+		GameObjectManager::collisionGroupsMap const
+		&collisionGroups = (*it)->getCollisionGroups();
+		GameObjectManager::groupsMap const			&groups = (*it)->getGroups();
 
 		tmptime = elapsedTime;
 		for (; tmptime >= 0; tmptime -= CUTTIME)
@@ -42,14 +43,14 @@ void		PhysicManager::destroy()
 {
 }
 
-void		PhysicManager::move(groupsMap const &groups, double time)
+void		PhysicManager::move(GameObjectManager::groupsMap const &groups, double time)
 {
 	std::set<GameObject*>::const_iterator	it1, it2;
 	double									timeEffect;
 
 	if (!groups.size())
 		return ;
-	for (groupsMap::const_iterator itGroups = groups.begin();
+	for (GameObjectManager::groupsMap::const_iterator itGroups = groups.begin();
 		 itGroups != groups.end(); ++itGroups)
 	{
 		if (itGroups->second->getPhysic())
@@ -68,13 +69,13 @@ void		PhysicManager::move(groupsMap const &groups, double time)
 	groups.begin()->second->getState().deleteObjects();
 }
 
-void		PhysicManager::collide(groupsMap const &groups,
-				       collisionGroupsMap const &collisionGroups)
+void		PhysicManager::collide(GameObjectManager::groupsMap const &groups,
+				       GameObjectManager::collisionGroupsMap const &collisionGroups)
 {
-	groupsMap::const_iterator				itGroups, temp;
-	std::set<GameObject*>::const_iterator	it1, it2;
+	GameObjectManager::groupsMap::const_iterator	itGroups, temp;
+	std::set<GameObject*>::const_iterator			it1, it2;
 
-	for (collisionGroupsMap::const_iterator itCol = collisionGroups.begin();
+	for (GameObjectManager::collisionGroupsMap::const_iterator itCol = collisionGroups.begin();
 		 itCol != collisionGroups.end(); itCol++)
 	{
 		temp = groups.find(itCol->first.first);
@@ -82,10 +83,7 @@ void		PhysicManager::collide(groupsMap const &groups,
 		{
 			itGroups = groups.find(itCol->first.second);
 			if (itGroups != groups.end())
-			{
 				temp->second->getQuadTree().collide(itGroups->second->getQuadTree(), QuadTree::LEFT);
-				// itGroups->second->getQuadTree().collide(temp->second->getQuadTree(), QuadTree::RIGHT);
-			}
 		}
 	}
 	groups.begin()->second->getState().deleteObjects();

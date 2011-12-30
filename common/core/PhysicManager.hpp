@@ -16,8 +16,9 @@ class PhysicManager : public GameStateObserver
 	virtual void	destroy();
 
   private:
-    void			move(groupsMap const &, double);
-    void			collide(groupsMap const&, collisionGroupsMap const&);
+    void			move(GameObjectManager::groupsMap const &, double);
+    void			collide(GameObjectManager::groupsMap const&,
+							GameObjectManager::collisionGroupsMap const&);
 };
 
 #endif		/* _PHYSICMANAGER_ */

@@ -28,16 +28,10 @@ void		GameState::update(double)
 {
 }
 
-void		GameState::command(Command &command)
-{
-	this->handleCommand(command);
-}
-
 void		GameState::pause(Pause paused)
 {
   this->_paused = paused;
 }
-
 
 void		GameState::play()
 {

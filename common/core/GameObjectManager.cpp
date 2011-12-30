@@ -21,57 +21,57 @@ Group::~Group()
 }
 
 // getter
-bool			Group::getPhysic() const
+bool						Group::getPhysic() const
 {
 	return this->_physic;
 }
 
-int			Group::getLayer() const
+int							Group::getLayer() const
 {
 	return this->_layer;
 }
 
-double			Group::getTimeEffect() const
+double						Group::getTimeEffect() const
 {
 	return this->_timeEffectGroup->getTimeEffect();
 }
 
-TimeEffectGroup		*Group::getTimeEffectGroup() const
+TimeEffectGroup				*Group::getTimeEffectGroup() const
 {
 	return this->_timeEffectGroup;
 }
 
-Group::gameObjectSet const	&Group::getObjects(void) const
+Group::gameObjectSet const	&Group::getObjects() const
 {
 	return this->_objects;
 }
 
-QuadTree	&Group::getQuadTree() const
+QuadTree					&Group::getQuadTree() const
 {
 	return (*this->_quadTree);
 }
 
-std::string const &Group::getName() const
+std::string const			&Group::getName() const
 {
 	return (this->_name);
 }
 
-GameState	&Group::getState()
+GameState					&Group::getState() const
 {
 	return (this->_gameState);
 }
 
-void		Group::setLayer(int layer)
+void						Group::setLayer(int layer)
 {
 	this->_layer = layer;
 }
 
-void		Group::setPhysic(bool physicable)
+void						Group::setPhysic(bool physicable)
 {
 	this->_physic = physicable;
 }
 
-void		Group::setTimeEffect(double timeEffect)
+void						Group::setTimeEffect(double timeEffect)
 {
 	this->_timeEffectGroup->setTimeEffect(timeEffect);
 }
@@ -106,20 +106,6 @@ void		Group::removeObject(GameObject *object)
 {
 	this->_objects.erase(object);
 }
-
-/*void		Group::draw(double elapseTime) const
-{
-	if (this->_layer <= 0)
-		return ;
-	gameObjectSet::const_iterator		it2;
-
-	for (gameObjectSet::const_iterator it = this->_objects.begin();
-			it != this->_objects.end();)
-	{
-		it2 = it++;
-		static_cast<DrawableObject*>(*it2)->draw(elapseTime);
-	}
-}*/
 
 void		Group::deleteObjects()
 {
@@ -180,6 +166,17 @@ void	GameObjectManager::removeGameObject(GameObject *object)
     object->getGroup()->removeObject(object);
 }
 
+void	GameObjectManager::callCollision(PhysicObject &obj1,
+										 PhysicObject &obj2)
+{
+		collisionGroupsMap::iterator it =
+			this->_collisionGroups.find(stringPair(obj1.getGroup()->getName(),
+								   			obj2.getGroup()->getName()));
+
+		if (it != this->_collisionGroups.end())
+			(*it->second)(obj1, obj2);
+}
+
 void	GameObjectManager::setGroup(const std::string &name, int layer,
 				    bool physic, std::string const &timeEffectGroup)
 {
@@ -187,18 +184,14 @@ void	GameObjectManager::setGroup(const std::string &name, int layer,
   this->_groups[name]->setFlags(layer, physic, timeEffectGroup);
 }
 
-/*void	GameObjectManager::drawGameObject() const
-{
-  for (groupsDisplay::const_iterator it = _display.begin(); it != _display.end(); it++)
-    it->second->draw(it->second->getTimeEffectGroup()->getElapseTime());
-}*/
-
-collisionGroupsMap const	&GameObjectManager::getCollisionGroups(void) const
+GameObjectManager::collisionGroupsMap const
+&GameObjectManager::getCollisionGroups(void) const
 {
   return this->_collisionGroups;
 }
 
-groupsMap const			&GameObjectManager::getGroups(void) const
+GameObjectManager::groupsMap const
+&GameObjectManager::getGroups(void) const
 {
   return this->_groups;
 }

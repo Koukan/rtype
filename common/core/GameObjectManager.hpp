@@ -11,6 +11,7 @@
 #include "PhysicsSubscriber.hpp"
 #include "PhysicsSubscriber2.hpp"
 #include "QuadTree.hpp"
+#include "PhysicObject.hpp"
 
 class GameState;
 class GameObjectManager;
@@ -26,7 +27,6 @@ class Group
 
     void	addObject(GameObject *object);
     void	removeObject(GameObject *object);
-    //void	draw(double elapseTime) const;
     void	addDelete(GameObject *object);
     void	deleteObjects();
 
@@ -45,7 +45,7 @@ class Group
     gameObjectSet const	&getObjects() const;
 	QuadTree			&getQuadTree() const;
 	std::string const	&getName() const;
-	GameState			&getState();
+	GameState			&getState() const;
 
   private:
     GameState					&_gameState;
@@ -58,14 +58,13 @@ class Group
 	std::string					_name;
 };
 
-typedef std::pair<std::string, std::string>			stringPair;
-typedef	std::map<stringPair, IPhysicsSubscriber*>	collisionGroupsMap;
-typedef std::map<std::string, Group*>				groupsMap;
-
 class GameObjectManager : public TimeEffectManager
 {
   public:
-	typedef std::multimap<int, Group*>	groupsDisplay;
+	typedef std::pair<std::string, std::string>			stringPair;
+	typedef	std::map<stringPair, IPhysicsSubscriber*>	collisionGroupsMap;
+	typedef std::map<std::string, Group*>				groupsMap;
+	typedef std::multimap<int, Group*>					groupsDisplay;
 
     GameObjectManager();
     virtual ~GameObjectManager();
@@ -75,12 +74,13 @@ class GameObjectManager : public TimeEffectManager
     void	addGameObject(GameObject *object, const std::string &group = "default",
 		    	int layer = 1);
     void	removeGameObject(GameObject *object);
-    //void	drawGameObject() const;
+	void	callCollision(PhysicObject &obj1, PhysicObject &obj2);
 
     // setter
     template <class InstanceClass>
-    void	setCollisionGroups(const std::string &group1, const std::string &group2,
-			void (InstanceClass::*function)(GameObject&));
+    void	setCollisionGroups(const std::string &group1,
+				const std::string &group2,
+				void (InstanceClass::*function)(GameObject&));
     void	setGroup(const std::string &name, int layer,
 		    	bool physic, std::string const &timeEffectGroup);
 
@@ -94,7 +94,7 @@ class GameObjectManager : public TimeEffectManager
 	void						deleteObjects();
 	groupsDisplay const			&getDisplayObjects() const;
 
-  protected:
+  private:
     collisionGroupsMap			_collisionGroups;
     groupsMap					_groups;
     groupsDisplay				_display;
