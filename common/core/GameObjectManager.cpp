@@ -3,7 +3,6 @@
 #include "DrawableObject.hpp"
 #include "GameObject.hpp"
 #include "GameState.hpp"
-#include <iostream>
 
 Group::Group(GameState &state, int layer, std::string const &timeEffectGroup, std::string const &name,
 	     bool physic)

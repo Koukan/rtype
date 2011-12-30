@@ -21,6 +21,7 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/CircleHitBox.cpp							\
 		  $(DIR)/HitBox.cpp									\
 		  $(DIR)/RectHitBox.cpp								\
+		  $(DIR)/CommandHandler.cpp							\
 		  $(DIR)/CommandDispatcher.cpp						\
 		  $(DIR)/GameStateObserver.cpp						\
 		  $(DIR)/QuadTree/QuadTree.cpp						\
@@ -29,7 +30,8 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/ResourceManager.cpp						\
 		  $(DIR)/tinyxml/tinyxml.cpp						\
 		  $(DIR)/tinyxml/tinyxmlerror.cpp					\
-		  $(DIR)/tinyxml/tinyxmlparser.cpp
+		  $(DIR)/tinyxml/tinyxmlparser.cpp					\
+		  $(DIR)/../libnet/src/thread/PosixMutex.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include <cstdlib>
 #include "Module.hpp"
 #include "GameState.hpp"
 #include "Observer.hpp"

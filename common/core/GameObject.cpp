@@ -1,4 +1,3 @@
-#include <iostream>
 #include "GameObject.hpp"
 #include "GameObjectManager.hpp"
 #include "GameState.hpp"
