@@ -8,7 +8,8 @@ SRCS		= $(DIR)/main.cpp				\
 		  $(DIR)/Wall.cpp					\
 		  $(DIR)/SFMLSprite.cpp				\
 		  $(DIR)/SFMLSpriteProvider.cpp		\
-		  $(DIR)/RendererManager.cpp
+		  $(DIR)/RendererManager.cpp		\
+		  $(DIR)/InputModule.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 
