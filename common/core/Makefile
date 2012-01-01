@@ -1,5 +1,5 @@
-NAMESTATIC		=  libcore.a
-NAMEDYNAMIC		=  libcore.so
+NAMESTATIC		=  ../libcore.a
+NAMEDYNAMIC		=  ../libcore.so
 
 DIR			=  .
 
@@ -45,10 +45,11 @@ RANLIB		= ranlib
 
 CXXFLAGS	= -W -Wall -Wextra -g3 -pipe -fPIC -I Callback_Impl -I QuadTree -I bulletml -I tinyxml -I ../libnet/include -I ../libnet/include/thread
 
-LDFLAGS		= -lnet -L bulletml -lbulletml
-
+LDFLAGS		= -L bulletml -lbulletml
 
 $(NAMESTATIC)		: $(OBJS)
+					make -C tinyxml
+					make -C bulletml
 					$(AR) $(NAMESTATIC) $(OBJS)
 					$(RANLIB) $(NAMESTATIC)
 
@@ -56,13 +57,18 @@ $(NAMEDYNAMIC)		: $(OBJS)
 					$(CXX) $(OBJS) -shared -o $(NAMEDYNAMIC)
 
 all		: $(NAMESTATIC) $(NAMEDYNAMIC)
+		make -C tinyxml
+		make -C bulletml
 
 clean		:
+		make clean -C tinyxml
+		make clean -C bulletml
 		$(RM) $(OBJS)
 
 fclean		: clean
+		make fclean -C tinyxml
+		make fclean -C bulletml
 		$(RM) $(NAMESTATIC)
 		$(RM) $(NAMEDYNAMIC)
 
 re		: fclean all
-

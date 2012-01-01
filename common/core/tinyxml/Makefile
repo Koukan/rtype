@@ -114,6 +114,8 @@ ${OUTPUT}: ${OBJS}
 clean:
 	-rm -f core ${OBJS} ${OUTPUT}
 
+fclean: clean
+
 depend:
 	makedepend ${INCS} ${SRCS}
 

@@ -1,5 +1,5 @@
-NAMESTATIC		=  libnet.a
-NAMEDYNAMIC		=  libnet.so
+NAMESTATIC		=  ../libnet.a
+NAMEDYNAMIC		=  ../libnet.so
 
 DIR		=  ./src
 

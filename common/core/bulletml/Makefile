@@ -8,8 +8,8 @@ OBJS = bulletmlparser-tinyxml.o bulletmlparser.o bulletmltree.o calc.o formula-v
 all: libbulletml.a
 
 libbulletml.a: $(OBJS)
-	$(AR) -r libbulletml.a $(OBJS) $(LIBS)
-	$(RANLIB) libbulletml.a
+	$(AR) -r ../../libbulletml.a $(OBJS) $(LIBS)
+	$(RANLIB) ../../libbulletml.a
 
 clean:
 	rm -f *.o
