@@ -3,43 +3,38 @@
 
 NET_USE_NAMESPACE
 
-PosixMutex::PosixMutex()
+Mutex::Mutex()
 {
-  pthread_mutex_init(&mutex, 0);
+  pthread_mutex_init(&_mutex, 0);
 }
 
-PosixMutex::PosixMutex(mutexattr_t *attr)
+Mutex::~Mutex()
 {
-  pthread_mutex_init(&mutex, attr);
+  pthread_mutex_destroy(&_mutex);
 }
 
-PosixMutex::~PosixMutex()
+bool	Mutex::lock(void)
 {
-  pthread_mutex_destroy(&mutex);
+  return static_cast<bool>(!pthread_mutex_lock(&_mutex));
 }
 
-bool	PosixMutex::lock(void)
+bool	Mutex::unlock(void)
 {
-  return static_cast<bool>(!pthread_mutex_lock(&mutex));
+  return static_cast<bool>(!pthread_mutex_unlock(&_mutex));
 }
 
-bool	PosixMutex::unlock(void)
+bool	Mutex::tryLock(void)
 {
-  return static_cast<bool>(!pthread_mutex_unlock(&mutex));
+  return static_cast<bool>(!pthread_mutex_trylock(&_mutex));
 }
 
-bool	PosixMutex::tryLock(void)
-{
-  return static_cast<bool>(!pthread_mutex_trylock(&mutex));
-}
-
-bool	PosixMutex::timedLock(int sec, int nano)
+bool	Mutex::timedLock(int sec, int nano)
 {
   struct timespec ts;
 
   ts.tv_sec = sec;
   ts.tv_nsec = nano;
-  return static_cast<bool>(!pthread_mutex_timedlock(&mutex, &ts));
+  return static_cast<bool>(!pthread_mutex_timedlock(&_mutex, &ts));
 }
 
 #endif

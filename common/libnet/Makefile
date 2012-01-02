@@ -5,7 +5,6 @@ DIR		=  ./src
 
 SRCS		= $(DIR)/InetAddr.cpp				\
 				$(DIR)/Error.cpp				\
-				$(DIR)/PacketHandler.cpp		\
 				$(DIR)/Socket.cpp				\
 				$(DIR)/SocketIO.cpp				\
 				$(DIR)/SocketAcceptor.cpp		\
@@ -22,8 +21,10 @@ SRCS		= $(DIR)/InetAddr.cpp				\
 				$(DIR)/DataBlock.cpp			\
 				$(DIR)/UdpPacketHandler.cpp		\
 				$(DIR)/IOVec.cpp				\
+				$(DIR)/Clock.cpp				\
 				$(DIR)/thread/PosixMutex.cpp	\
 				$(DIR)/thread/PosixThread.cpp	\
+				$(DIR)/thread/ScopedLock.cpp	\
 				$(DIR)/thread/TSS.cpp			\
 				$(DIR)/thread/WinMutex.cpp		\
 				$(DIR)/thread/WinThread.cpp

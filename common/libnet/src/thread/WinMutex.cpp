@@ -4,33 +4,31 @@
 
 NET_USE_NAMESPACE
 
-bool	WinMutex::lock(void)
+bool	Mutex::lock(void)
 {
-  return (WaitForSingleObject(_handle, INFINITE) == WAIT_OBJECT_0);
+  EnterCriticalSection(&_mutex);
 }
 
-bool	WinMutex::unlock(void)
+bool	Mutex::unlock(void)
 {
-  return (ReleaseMutex(_handle));
+  LeaveCriticalSectioni(&_mutex);
 }
 
-bool	WinMutex::tryLock(void)
+bool	Mutex::tryLock(void)
 {
-  return (WaitForSingleObject(_handle, 0) == WAIT_OBJECT_0);
 }
 
-bool	WinMutex::timedLock(int sec, int nano)
+bool	Mutex::timedLock(int sec, int nano)
 {
-  return (WaitForSingleObject(_handle, sec * 1000 + nano / 1000000) == WAIT_OBJECT_0);
 }
 
-WinMutex::WinMutex()
+Mutex::Mutex()
 {
-  _handle = CreateMutex(NULL, FALSE, NULL);
+  InitializeCriticalSection(&_mutex);
 }
 
-WinMutex::~WinMutex()
+Mutex::~Mutex()
 {
-  CloseHandle(_handle);
+  DeleteCriticalSection(&_mutex);
 }
 #endif
