@@ -22,17 +22,15 @@ SRCS		= $(DIR)/InetAddr.cpp				\
 				$(DIR)/UdpPacketHandler.cpp		\
 				$(DIR)/IOVec.cpp				\
 				$(DIR)/Clock.cpp				\
+				$(DIR)/thread/Thread.cpp		\
 				$(DIR)/thread/PosixMutex.cpp	\
 				$(DIR)/thread/PosixThread.cpp	\
-				$(DIR)/thread/ScopedLock.cpp	\
-				$(DIR)/thread/TSS.cpp			\
-				$(DIR)/thread/WinMutex.cpp		\
-				$(DIR)/thread/WinThread.cpp
+				$(DIR)/thread/ScopedLock.cpp
 
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CXX			= g++
+CXX			= g++ 
 
 RM			= rm -f
 
@@ -40,7 +38,7 @@ AR			= ar r
 
 RANLIB		= ranlib
 
-CXXFLAGS	= -W -Wall -Wextra -O2 -pipe -fPIC -I include/ -I include/thread
+CXXFLAGS	= -W -Wall -Wextra -O2 -pipe -I include/ -I include/thread
 
 LDFLAGS		= 
 
@@ -52,7 +50,7 @@ $(NAMESTATIC)		: $(OBJS)
 $(NAMEDYNAMIC)		: $(OBJS)
 					$(CXX) $(OBJS) -shared -o $(NAMEDYNAMIC)
 
-all		: $(NAMESTATIC) $(NAMEDYNAMIC)
+all		: $(NAMESTATIC) 
 
 clean		:
 		$(RM) $(OBJS)

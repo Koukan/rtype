@@ -5,77 +5,67 @@ NET_USE_NAMESPACE
 
 static DWORD WINAPI		starter(void *arg)
 {
-  OSThread<WinThread>	**tmp = static_cast<OSThread<WinThread> **>(arg);
+  Thread	**tmp = static_cast<Thread**>(arg);
   (*tmp)->run();
   delete tmp;
   return (0);
 }
 
-WinThread::WinThread() : state(false)
-{}
-
-WinThread::~WinThread()
-{
-  if (state)
-    this->cancel();
-  CloseHandle(_handle);
-}
-
-bool	WinThread::start(OSThread<WinThread> *thread)
+bool	Thread::start()
  {
-   if (this->state == false)
+   if (this->_state == false)
    {
-     OSThread<WinThread>	**tmp = new (OSThread<WinThread>*);
+     Thread	**tmp = new (Thread*);
      *tmp = thread;
-     _handle = CreateThread(0, 0, starter, tmp, 0, 0);
-     bool ret = (_handle) ? true : false;
+     _tid = CreateThread(0, 0, starter, tmp, 0, 0);
+     bool ret = (_tid) ? true : false;
      if (ret)
-	this->state = true;
+	this->_state = true;
      return (ret);
   }
   else
     return (false);
 }
 
-bool	WinThread::cancel(void)
+bool	Thread::cancel()
 {
   bool	ret;
 
-  if (state == true)
+  if (_state == true)
   {
-    ret = TerminateThread(_handle, 0);
+    ret = TerminateThread(_tid, 0);
     if (ret)
-      state = false;
+      _state = false;
     return (ret);
   }
   else
     return (false);
 }
 
-bool		WinThread::join(void **exit_value)
+bool		Thread::join(void **exit_value)
 {
    DWORD	ret;
 
-   if (state != false)
+   if (_state != false)
     {
-      ret = WaitForSingleObject(_handle, INFINITE);
+      ret = WaitForSingleObject(_tid, INFINITE);
       if (ret == WAIT_OBJECT_0)
-      	state = false;
+      	_state = false;
       return (ret == WAIT_OBJECT_0);
     }
    else
       return false;
 }
 
-bool		WinThread::tryjoin(void **exit_value)
+bool		Thread::tryjoin(void **exit_value)
 {
    DWORD	ret;
 
-    if (state != false)
+    if (_state != false)
      {
-       ret = WaitForSingleObject(_handle, 0);
+       ret = WaitForSingleObject(_tid, 0);
        if (ret == WAIT_OBJECT_0)
-	 state = false;
+	 _state = false;
        return (ret == WAIT_OBJECT_0);
      }
    else

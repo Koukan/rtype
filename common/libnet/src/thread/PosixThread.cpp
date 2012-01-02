@@ -5,84 +5,76 @@ NET_USE_NAMESPACE
 
 static void		*starter(void *arg)
 {
-  OSThread<PosixThread>	**tmp = static_cast<OSThread<PosixThread> **>(arg);
+  Thread	**tmp = static_cast<Thread **>(arg);
   (*tmp)->run();
   delete tmp;
   return (0);
 }
 
-PosixThread::PosixThread() : state(false)
-{}
+//bool	PosixThread::operator==(const PosixThread &thread)
+//{
+//return static_cast<bool>(pthread_equal(_tid, thread._tid));
+//}
 
-PosixThread::~PosixThread()
-{
-  if (state)
-    this->cancel();
-}
-
-bool	PosixThread::operator==(const PosixThread &thread)
-{
-  return static_cast<bool>(pthread_equal(tid, thread.tid));
-}
-
-bool	PosixThread::start(OSThread<PosixThread> *thread)
+bool	Thread::start()
  {
-   if (this->state == false)
+   if (this->_state == false)
    {
-     OSThread<PosixThread>	**tmp = new (OSThread<PosixThread>*);
-     *tmp = thread;
-     bool ret = static_cast<bool>(!pthread_create(&tid,
+     Thread	**tmp = new (Thread*);
+     *tmp = this;
+     bool ret = static_cast<bool>(!pthread_create(&_tid,
 			    0, starter,
 			    static_cast<void*>(tmp)));
      if (ret)
-	this->state = true;
+		this->_state = true;
      return (ret);
   }
   else
     return (false);
 }
 
-bool	PosixThread::cancel(void)
+bool	Thread::cancel()
 {
   bool	ret;
 
-  if (state == true)
+  if (_state == true)
   {
-    ret = static_cast<bool>(!pthread_cancel(tid));
+    ret = static_cast<bool>(!pthread_cancel(_tid));
     if (ret)
-      state = false;
+      _state = false;
     return (ret);
   }
   else
     return (false);
 }
 
-bool		PosixThread::join(void **exit_value)
+bool		Thread::join(void **exit_value)
 {
    bool		ret;
 
-   if (state != false)
+   if (_state != false)
     {
-      ret = static_cast<bool>(!pthread_join(tid, exit_value));
-      state = false;
+      ret = static_cast<bool>(!pthread_join(_tid, exit_value));
+      _state = false;
       return (ret);
     }
    else
       return false;
 }
 
-bool		PosixThread::tryjoin(void **exit_value)
+bool		Thread::tryjoin(void **exit_value)
 {
    bool		ret;
 
-    if (state != false)
+    if (_state != false)
      {
-       ret = static_cast<bool>(!pthread_tryjoin_np(tid, exit_value));
+       ret = static_cast<bool>(!pthread_tryjoin_np(_tid, exit_value));
        if (ret)
-	 state = false;
+	 	_state = false;
        return (ret);
      }
    else
      return false;
 }
+
 #endif
