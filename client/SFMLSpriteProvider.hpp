@@ -15,7 +15,11 @@ class SFMLSpriteProvider : public SpriteProvider
 
   private:
 	typedef	std::map<std::string, SFMLSprite*>	SpritesMap;
+	#if SFML_VERSION_MAJOR == 2
 	typedef	std::map<std::string, sf::Texture*>	ImagesMap;
+	#else
+	typedef std::map<std::string, sf::Image*>	ImagesMap;
+	#endif
 
 	SpritesMap		_sprites;
 	ImagesMap		_images;

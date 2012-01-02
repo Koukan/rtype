@@ -35,7 +35,7 @@ Sprite		*SFMLSpriteProvider::addSprite(std::string const &name)
 }
 
 Sprite		*SFMLSpriteProvider::getSprite(std::string const &name) const
-{	
+{
 	SFMLSprite					*sprite = 0;
 	SpritesMap::const_iterator	it = this->_sprites.find(name);
 
@@ -50,14 +50,23 @@ void		SFMLSpriteProvider::addImage(std::string const &path, Sprite &sprite)
 {
 	ImagesMap::iterator	it = this->_images.find(path);
 
+	#if SFML_VERSION_MAJOR == 2
+	#define SETTEXTURE(a) (static_cast<SFMLSprite*>(&sprite)->SetTexture(a));
+	#else
+	#define SETTEXTURE(a) (static_cast<SFMLSprite*>(&sprite)->SetImage(a));
+	#endif
 	if (it == this->_images.end())
 	{
-		sf::Texture		*texture = new sf::Texture;
+		#if SFML_VERSION_MAJOR == 2
+		sf::Texture	*texture = new sf::Texture;
+		#else
+		sf::Image	*texture = new sf::Image;
+		#endif
 		if (!texture->LoadFromFile(path))
 			std::cerr << "Image at " << path << " was not found." << std::endl;
 		this->_images[path] = texture;
-		static_cast<SFMLSprite*>(&sprite)->SetTexture(*texture);
+		SETTEXTURE(*texture);
 	}
 	else
-		static_cast<SFMLSprite*>(&sprite)->SetTexture(*it->second);
+		SETTEXTURE(*it->second);
 }
