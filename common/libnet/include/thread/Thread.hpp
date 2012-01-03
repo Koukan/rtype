@@ -1,12 +1,8 @@
 # ifndef	_OOPTHREAD_H
 #  define	_OOPTHREAD_H
 
-#include "NetDef.hpp"
-#include "ThreadSubscriber.hpp"
+# if defined (_WIN32)
 
-NET_BEGIN_NAMESPACE
-
-# if defined (WIN32)
 #define _WINSOCKAPI_
 #include <windows.h>
 
@@ -21,7 +17,12 @@ NET_BEGIN_NAMESPACE
 
 # endif
 
-class		Thread
+#include "NetDef.hpp"
+#include "ThreadSubscriber.hpp"
+
+NET_BEGIN_NAMESPACE
+
+class NET_DLLREQ	Thread
 {
  public:
  Thread(IThreadSubscriber &func);

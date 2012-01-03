@@ -25,7 +25,8 @@ SRCS		= $(DIR)/InetAddr.cpp				\
 				$(DIR)/thread/Thread.cpp		\
 				$(DIR)/thread/PosixMutex.cpp	\
 				$(DIR)/thread/PosixThread.cpp	\
-				$(DIR)/thread/ScopedLock.cpp
+				$(DIR)/thread/ScopedLock.cpp	\
+				$(DIR)/thread/PosixConditionVar.cpp
 
 
 OBJS		= $(SRCS:.cpp=.o)

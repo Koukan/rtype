@@ -38,7 +38,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>.\include;$(IncludePath)</IncludePath>
+    <IncludePath>.\include\thread;.\include;$(IncludePath)</IncludePath>
     <OutDir>lib\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,6 +84,7 @@
     <ClInclude Include="include\EpollPolicy.hpp" />
     <ClInclude Include="include\InetAddr.hpp" />
     <ClInclude Include="include\IOVec.hpp" />
+    <ClInclude Include="include\NetDef.hpp" />
     <ClInclude Include="include\NetHandler.hpp" />
     <ClInclude Include="include\network.h" />
     <ClInclude Include="include\Packet.hpp" />
@@ -98,16 +99,20 @@
     <ClInclude Include="include\SocketDatagram.hpp" />
     <ClInclude Include="include\SocketIO.hpp" />
     <ClInclude Include="include\SocketStream.hpp" />
+    <ClInclude Include="include\thread\Mutex.hpp" />
+    <ClInclude Include="include\thread\Thread.hpp" />
     <ClInclude Include="include\UdpPacketHandler.hpp" />
     <ClInclude Include="include\WFMOPolicy.hpp" />
     <ClInclude Include="include\SyncPolicy.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Clock.cpp" />
     <ClCompile Include="src\DataBlock.cpp" />
     <ClCompile Include="src\EpollPolicy.cpp" />
     <ClCompile Include="src\Error.cpp" />
     <ClCompile Include="src\InetAddr.cpp" />
     <ClCompile Include="src\IOVec.cpp" />
+    <ClCompile Include="src\KqueuePolicy.cpp" />
     <ClCompile Include="src\NetHandler.cpp" />
     <ClCompile Include="src\Packet.cpp" />
     <ClCompile Include="src\PollPolicy.cpp" />
@@ -119,6 +124,12 @@
     <ClCompile Include="src\SocketDatagram.cpp" />
     <ClCompile Include="src\SocketIO.cpp" />
     <ClCompile Include="src\SocketStream.cpp" />
+    <ClCompile Include="src\thread\PosixMutex.cpp" />
+    <ClCompile Include="src\thread\PosixThread.cpp" />
+    <ClCompile Include="src\thread\ScopedLock.cpp" />
+    <ClCompile Include="src\thread\Thread.cpp" />
+    <ClCompile Include="src\thread\WinMutex.cpp" />
+    <ClCompile Include="src\thread\WinThread.cpp" />
     <ClCompile Include="src\UdpPacketHandler.cpp" />
     <ClCompile Include="src\WFMOPolicy.cpp" />
   </ItemGroup>

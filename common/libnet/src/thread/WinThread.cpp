@@ -16,11 +16,11 @@ bool	Thread::start()
    if (this->_state == false)
    {
      Thread	**tmp = new (Thread*);
-     *tmp = thread;
+     *tmp = this;
      _tid = CreateThread(0, 0, starter, tmp, 0, 0);
      bool ret = (_tid) ? true : false;
      if (ret)
-	this->_state = true;
+		this->_state = true;
      return (ret);
   }
   else
@@ -33,7 +33,7 @@ bool	Thread::cancel()
 
   if (_state == true)
   {
-    ret = TerminateThread(_tid, 0);
+    ret = TerminateThread(_tid, 0) != 0;
     if (ret)
       _state = false;
     return (ret);

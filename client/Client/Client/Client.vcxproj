@@ -32,6 +32,7 @@
     <ClCompile Include="..\..\..\common\core\GameStateObserver.cpp" />
     <ClCompile Include="..\..\..\common\core\GSManager.cpp" />
     <ClCompile Include="..\..\..\common\core\HitBox.cpp" />
+    <ClCompile Include="..\..\..\common\core\InputManager.cpp" />
     <ClCompile Include="..\..\..\common\core\Module.cpp" />
     <ClCompile Include="..\..\..\common\core\ModuleManager.cpp" />
     <ClCompile Include="..\..\..\common\core\PhysicManager.cpp" />

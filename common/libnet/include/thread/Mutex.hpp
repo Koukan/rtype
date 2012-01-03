@@ -3,8 +3,6 @@
 
 #include "NetDef.hpp"
 
-NET_BEGIN_NAMESPACE
-
 # if defined (_WIN32)
 #define _WINSOCKAPI_
 #include <windows.h>
@@ -20,21 +18,23 @@ NET_BEGIN_NAMESPACE
 
 # endif
 
-class		Mutex
+NET_BEGIN_NAMESPACE
+
+class NET_DLLREQ Mutex
 {
   public:
 	Mutex();
-	~Mutex();
-	bool	lock(void);
-	bool	unlock(void);
-	bool	tryLock(void);
+	virtual ~Mutex();
+	bool	lock();
+	bool	unlock();
+	bool	tryLock();
 	bool	timedLock(int sec, int nano);
 
-  private:
+  protected:
 	MUTEX    _mutex;
 };
 
-class		ScopedLock
+class NET_DLLREQ ScopedLock
 {
   public:
 	ScopedLock(Mutex &mutex);
