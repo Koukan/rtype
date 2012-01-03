@@ -47,7 +47,7 @@ void			CommandHandler::handle(double)
 		this->_mutex.unlock();
 		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
 		{
-			if ((*it)->handleCommand(*command))
+			if ((*it)->handle(*command))
 				break ;
 		}
 		delete command;

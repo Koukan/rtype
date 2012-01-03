@@ -1,7 +1,9 @@
 #include "GameState.hpp"
+#include "CommandDispatcher.hpp"
 
 GameState::GameState(const std::string &name) : name(name), _paused(NONE), _inputManager(*this)
 {
+	CommandDispatcher::get().registerHandler(*this);
 }
 
 GameState::~GameState()

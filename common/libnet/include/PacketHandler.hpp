@@ -73,7 +73,6 @@ public:
 		  return ret;
 		}
 		while (!this->isBlocking());
-		std::cout << "ca pue" << std::endl;
 	   return 0;
 	}
 
