@@ -4,7 +4,7 @@
 #include <map>
 #include <string>
 #include "Module.hpp"
-#include "SharedLoader.hpp"
+//#include "SharedLoader.hpp"
 
 class ModuleManager : public Module
 {
@@ -22,7 +22,7 @@ public:
 private:
 	void			load(std::string const &path, int rate);
 
-	SharedLoader						_loader;
+//	SharedLoader						_loader;
 	std::map<std::string, Module *>		_modules;
 	bool								_stop;
 };
