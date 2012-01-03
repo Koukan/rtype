@@ -19,23 +19,28 @@ void		PhysicManager::update(double elapsedTime)
 {
 	if (elapsedTime == 0)
 		return ;
-	double					time;
-	double					tmptime;
 
 	for (std::list<GameState*>::const_iterator it = this->_glist.begin();
 		it != this->_glist.end(); it++)
-	{
-		GameObjectManager::collisionGroupsMap const
-		&collisionGroups = (*it)->getCollisionGroups();
-		GameObjectManager::groupsMap const			&groups = (*it)->getGroups();
+		PhysicManager::apply(**it, elapsedTime);
+}
 
-		tmptime = elapsedTime;
-		for (; tmptime >= 0; tmptime -= CUTTIME)
-		{
-			time = (((static_cast<int>(tmptime) / CUTTIME) > 0) ? CUTTIME : tmptime) / 1000;
-			this->move(groups, time);
-			this->collide(groups, collisionGroups);
-		}
+void		PhysicManager::apply(GameState &state, double elapsedTime)
+{
+	if (elapsedTime == 0)
+		return ;
+	double		time;
+	double		tmptime;
+	GameObjectManager::collisionGroupsMap const
+	&collisionGroups = state.getCollisionGroups();
+	GameObjectManager::groupsMap const			&groups = state.getGroups();
+
+	tmptime = elapsedTime;
+	for (; tmptime >= 0; tmptime -= CUTTIME)
+	{
+		time = (((static_cast<int>(tmptime) / CUTTIME) > 0) ? CUTTIME : tmptime) / 1000;
+		PhysicManager::move(groups, time);
+		PhysicManager::collide(groups, collisionGroups);
 	}
 }
 

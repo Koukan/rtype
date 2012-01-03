@@ -12,7 +12,7 @@ int			ThreadPool::init(size_t nbThread)
 {
 	Net::Thread		*thread;
 
-	for (; nbThread == 0; nbThread--)
+	for (; nbThread > 0; nbThread--)
 	{
 		thread = new Net::Thread(this, &ThreadPool::handleTask);
 		_threadsList.push_back(thread);

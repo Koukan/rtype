@@ -14,10 +14,11 @@ class PhysicManager : public GameStateObserver
 	virtual void	init();
     virtual void	update(double elapsedTime);
 	virtual void	destroy();
+	static void		apply(GameState &state, double elapsedTime);
 
   private:
-    void			move(GameObjectManager::groupsMap const &, double);
-    void			collide(GameObjectManager::groupsMap const&,
+    static void		move(GameObjectManager::groupsMap const &, double);
+    static void		collide(GameObjectManager::groupsMap const&,
 							GameObjectManager::collisionGroupsMap const&);
 };
 

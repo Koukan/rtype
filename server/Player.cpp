@@ -18,7 +18,6 @@ Player::~Player()
 
 int			Player::handleInputPacket(Net::Packet &packet)
 {
-	std::cout << "packet" << std::endl;
 	static void			(Player::* const methods[])(Net::Packet&) = {
 			&Player::connection,
 			&Player::etablished,
@@ -34,11 +33,9 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	packet >> type;
 	if (type < sizeof(methods) / sizeof(*methods))
 	{
-		std::cout << "je suis dedans" << std::endl;
 		(this->*methods[type])(packet);
 		return 1;
 	}
-		std::cout << "je suis dehors" << std::endl;
 	return 0;
 }
 

@@ -11,5 +11,4 @@ GameLogic::~GameLogic()
 
 void		GameLogic::update(double)
 {
-	std::cout << "ca marche" << std::endl;
 }
