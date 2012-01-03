@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <exception>
 
-# if defined (WIN32)
+# if defined (_WIN32)
 #  include <windows.h>
 
 class SharedLoader

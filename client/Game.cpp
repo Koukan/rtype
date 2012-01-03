@@ -15,8 +15,11 @@ Game::~Game()
 
 void		Game::init()
 {
+#if defined (YOUPI)
+	rgerg;
+#endif
   #if defined (WIN32)
-  srand(GetTickCount());
+  srand(0/*GetTickCount()*/);
   #else
   srand(time(NULL));
   #endif

@@ -5,7 +5,7 @@
 
 NET_BEGIN_NAMESPACE
 
-# if defined (WIN32)
+# if defined (_WIN32)
 #define _WINSOCKAPI_
 #include <windows.h>
 

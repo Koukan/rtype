@@ -39,12 +39,12 @@ void    ModuleManager::loadModule(Module &module)
 
 void    ModuleManager::loadModule(std::string const &path, double rate)
 {
-  Module *tmp = _loader.load<Module*>(path, "export_instance");
-  if (tmp)
-  {
-    tmp->_targetRate = rate;
-    this->loadModule(*tmp);
-  }
+  //Module *tmp = _loader.load<Module*>(path, "export_instance");
+  //if (tmp)
+  //{
+  //  tmp->_targetRate = rate;
+  //  this->loadModule(*tmp);
+  //}
 }
 
 void    ModuleManager::unloadModule(std::string const &name)

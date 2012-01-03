@@ -110,7 +110,6 @@
     <ClCompile Include="src\IOVec.cpp" />
     <ClCompile Include="src\NetHandler.cpp" />
     <ClCompile Include="src\Packet.cpp" />
-    <ClCompile Include="src\PacketHandler.cpp" />
     <ClCompile Include="src\PollPolicy.cpp" />
     <ClCompile Include="src\Reactor.cpp" />
     <ClCompile Include="src\SetupNetwork.cpp" />
