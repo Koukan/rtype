@@ -20,21 +20,21 @@ NET_BEGIN_NAMESPACE
 
 # endif
 
-class		Mutex
+class NET_DLLREQ Mutex
 {
   public:
 	Mutex();
-	~Mutex();
-	bool	lock(void);
-	bool	unlock(void);
-	bool	tryLock(void);
+	virtual ~Mutex();
+	bool	lock();
+	bool	unlock();
+	bool	tryLock();
 	bool	timedLock(int sec, int nano);
 
-  private:
+  protected:
 	MUTEX    _mutex;
 };
 
-class		ScopedLock
+class NET_DLLREQ ScopedLock
 {
   public:
 	ScopedLock(Mutex &mutex);

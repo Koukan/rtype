@@ -21,7 +21,7 @@ NET_BEGIN_NAMESPACE
 
 # endif
 
-class		Thread
+class NET_DLLREQ	Thread
 {
  public:
  Thread(IThreadSubscriber &func);

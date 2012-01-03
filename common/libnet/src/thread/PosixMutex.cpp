@@ -13,17 +13,17 @@ Mutex::~Mutex()
   pthread_mutex_destroy(&_mutex);
 }
 
-bool	Mutex::lock(void)
+bool	Mutex::lock()
 {
   return static_cast<bool>(!pthread_mutex_lock(&_mutex));
 }
 
-bool	Mutex::unlock(void)
+bool	Mutex::unlock()
 {
   return static_cast<bool>(!pthread_mutex_unlock(&_mutex));
 }
 
-bool	Mutex::tryLock(void)
+bool	Mutex::tryLock()
 {
   return static_cast<bool>(!pthread_mutex_trylock(&_mutex));
 }
