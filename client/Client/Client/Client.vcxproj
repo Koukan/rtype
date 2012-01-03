@@ -1,0 +1,201 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\common\core\Bullet.cpp" />
+    <ClCompile Include="..\..\..\common\core\BulletCommand.cpp" />
+    <ClCompile Include="..\..\..\common\core\bulletml\bulletmlparser-tinyxml.cc" />
+    <ClCompile Include="..\..\..\common\core\bulletml\bulletmlparser.cc" />
+    <ClCompile Include="..\..\..\common\core\bulletml\bulletmlrunner.cc" />
+    <ClCompile Include="..\..\..\common\core\bulletml\bulletmlrunnerimpl.cc" />
+    <ClCompile Include="..\..\..\common\core\bulletml\bulletmltree.cc" />
+    <ClCompile Include="..\..\..\common\core\bulletml\calc.cc" />
+    <ClCompile Include="..\..\..\common\core\bulletml\formula-variables.cc" />
+    <ClCompile Include="..\..\..\common\core\BulletResourceManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\Callback.cpp" />
+    <ClCompile Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Function.cpp" />
+    <ClCompile Include="..\..\..\common\core\CircleHitBox.cpp" />
+    <ClCompile Include="..\..\..\common\core\CommandDispatcher.cpp" />
+    <ClCompile Include="..\..\..\common\core\CommandHandler.cpp" />
+    <ClCompile Include="..\..\..\common\core\GameObject.cpp" />
+    <ClCompile Include="..\..\..\common\core\GameObjectManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\GameState.cpp" />
+    <ClCompile Include="..\..\..\common\core\GameStateObserver.cpp" />
+    <ClCompile Include="..\..\..\common\core\GSManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\HitBox.cpp" />
+    <ClCompile Include="..\..\..\common\core\Module.cpp" />
+    <ClCompile Include="..\..\..\common\core\ModuleManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\PhysicManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\PhysicObject.cpp" />
+    <ClCompile Include="..\..\..\common\core\PolyHitBox.cpp" />
+    <ClCompile Include="..\..\..\common\core\QuadTree\Node.cpp" />
+    <ClCompile Include="..\..\..\common\core\QuadTree\QuadTree.cpp" />
+    <ClCompile Include="..\..\..\common\core\QuadTree\TreeElement.cpp" />
+    <ClCompile Include="..\..\..\common\core\RectHitBox.cpp" />
+    <ClCompile Include="..\..\..\common\core\ResourceManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\TimeEffectManager.cpp" />
+    <ClCompile Include="..\..\..\common\core\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\common\core\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\common\core\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\..\Clock.cpp" />
+    <ClCompile Include="..\..\Game.cpp" />
+    <ClCompile Include="..\..\InputModule.cpp" />
+    <ClCompile Include="..\..\Loading.cpp" />
+    <ClCompile Include="..\..\main.cpp" />
+    <ClCompile Include="..\..\RendererManager.cpp" />
+    <ClCompile Include="..\..\SFMLSprite.cpp" />
+    <ClCompile Include="..\..\SFMLSpriteProvider.cpp" />
+    <ClCompile Include="..\..\Wall.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\common\core\Bullet.hpp" />
+    <ClInclude Include="..\..\..\common\core\BulletCommand.hpp" />
+    <ClInclude Include="..\..\..\common\core\bulletml\auto_ptr_fix.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmlcommon.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmlerror.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmlparser-tinyxml.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmlparser.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmlrunner.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmlrunnerimpl.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\bulletmltree.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\calc.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\formula-variables.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\formula.h" />
+    <ClInclude Include="..\..\..\common\core\bulletml\tree.h" />
+    <ClInclude Include="..\..\..\common\core\BulletResourceManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Function.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Function_UserData.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Function_UserData2.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Method.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Method_UserData.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_UserData.hpp" />
+    <ClInclude Include="..\..\..\common\core\Callback_Impl\Callback_Impl_UserData2.hpp" />
+    <ClInclude Include="..\..\..\common\core\CircleHitBox.hpp" />
+    <ClInclude Include="..\..\..\common\core\Command.hpp" />
+    <ClInclude Include="..\..\..\common\core\CommandDispatcher.hpp" />
+    <ClInclude Include="..\..\..\common\core\CommandHandler.hpp" />
+    <ClInclude Include="..\..\..\common\core\Converter.hpp" />
+    <ClInclude Include="..\..\..\common\core\DrawableObject.hpp" />
+    <ClInclude Include="..\..\..\common\core\GameObject.hpp" />
+    <ClInclude Include="..\..\..\common\core\GameObjectManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\GameState.hpp" />
+    <ClInclude Include="..\..\..\common\core\GameStateInstance.hpp" />
+    <ClInclude Include="..\..\..\common\core\GameStateManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\GameStateObserver.hpp" />
+    <ClInclude Include="..\..\..\common\core\GSManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\HitBox.hpp" />
+    <ClInclude Include="..\..\..\common\core\IPhysicsSubscriber.hpp" />
+    <ClInclude Include="..\..\..\common\core\Module.hpp" />
+    <ClInclude Include="..\..\..\common\core\ModuleManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\NonCopyable.hpp" />
+    <ClInclude Include="..\..\..\common\core\Observable.hpp" />
+    <ClInclude Include="..\..\..\common\core\Observer.hpp" />
+    <ClInclude Include="..\..\..\common\core\PhysicManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\PhysicObject.hpp" />
+    <ClInclude Include="..\..\..\common\core\PhysicsSubscriber2.hpp" />
+    <ClInclude Include="..\..\..\common\core\PolyHitBox.hpp" />
+    <ClInclude Include="..\..\..\common\core\QuadTree\Node.hpp" />
+    <ClInclude Include="..\..\..\common\core\QuadTree\QuadTree.hpp" />
+    <ClInclude Include="..\..\..\common\core\QuadTree\TreeElement.hpp" />
+    <ClInclude Include="..\..\..\common\core\RectHitBox.hpp" />
+    <ClInclude Include="..\..\..\common\core\ResourceManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\Singleton.hpp" />
+    <ClInclude Include="..\..\..\common\core\Sprite.hpp" />
+    <ClInclude Include="..\..\..\common\core\SpriteProvider.hpp" />
+    <ClInclude Include="..\..\..\common\core\TimeEffectManager.hpp" />
+    <ClInclude Include="..\..\..\common\core\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\..\AudioManager.hpp" />
+    <ClInclude Include="..\..\Font.hpp" />
+    <ClInclude Include="..\..\Game.hpp" />
+    <ClInclude Include="..\..\InputManager.hpp" />
+    <ClInclude Include="..\..\InputModule.hpp" />
+    <ClInclude Include="..\..\Loading.hpp" />
+    <ClInclude Include="..\..\RendererManager.hpp" />
+    <ClInclude Include="..\..\SFMLSprite.hpp" />
+    <ClInclude Include="..\..\SFMLSpriteProvider.hpp" />
+    <ClInclude Include="..\..\Sound.hpp" />
+    <ClInclude Include="..\..\Wall.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\common\core\bulletml\calc.yy" />
+    <None Include="..\..\..\common\core\Callback.ipp" />
+    <None Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Function_UserData.ipp" />
+    <None Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Function_UserData2.ipp" />
+    <None Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Method.ipp" />
+    <None Include="..\..\..\common\core\Callback_Impl\Callback_Impl_Method_UserData.ipp" />
+    <None Include="..\..\..\common\core\Callback_Impl\Callback_Impl_UserData.ipp" />
+    <None Include="..\..\..\common\core\Callback_Impl\Callback_Impl_UserData2.ipp" />
+    <None Include="..\..\..\common\core\GameObjectManager.ipp" />
+    <None Include="..\..\..\common\core\GSManager.ipp" />
+    <None Include="..\..\..\common\core\ResourceManager.ipp" />
+    <None Include="..\..\InputManager.ipp" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{06224EDF-EB16-4B4C-BF4C-0998733B09C4}</ProjectGuid>
+    <RootNamespace>Client</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>C:\Development\Environment\SFML\SFML-2.0\include;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\core\tinyxml;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\libnet\include\thread;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\core\QuadTree;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\core\Callback_Impl;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\core;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\libnet\include;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\core\bulletml;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Development\Environment\SFML\SFML-2.0\lib\Debug;C:\Users\El_Gigante\Desktop\rtype-2014-cerisi_m\common\libnet\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libnet.lib;sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
