@@ -38,7 +38,7 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	return 0;
 }
 
-int		Player::setGame(Game &game)
+void		Player::setGame(Game &game)
 {
 	this->_game = &game;
 }
@@ -62,7 +62,7 @@ int		Player::listGame(Net::Packet&)
 	return 1;
 }
 
-void		Player::connectGame(Net::Packet &packet)
+int		Player::connectGame(Net::Packet &packet)
 {
 	uint16_t	id;
 	packet << id;
@@ -71,14 +71,14 @@ void		Player::connectGame(Net::Packet &packet)
 	{
 		if (game->addPlayer(*this))
 		{
-			return;
+			return 1;
 		}
 		Net::Packet		answer(4);
 		packet << static_cast<uint8_t>(14);
 		packet << static_cast<uint16_t>(1);
 		packet << '\n';
 		this->handleOutputPacket(answer);
-		return;
+		return 1;
 	}
 	Net::Packet		answer(4);
 	packet << static_cast<uint8_t>(14);
@@ -88,12 +88,12 @@ void		Player::connectGame(Net::Packet &packet)
 	return 1;
 }
 
-void		Player::player(Net::Packet &)
+int		Player::player(Net::Packet &)
 {
 	return 1;
 }
 
-void		Player::createGame(Net::Packet &packet)
+int		Player::createGame(Net::Packet &packet)
 {
 	uint8_t		maxPlayer;
 	packet >> maxPlayer;
@@ -101,7 +101,7 @@ void		Player::createGame(Net::Packet &packet)
 	if (game)
 	{
 		game->addPlayer(*this);
-		return ;
+		return 1;
 	}
 	Net::Packet		answer(4);
 	answer << static_cast<uint8_t>(14);
