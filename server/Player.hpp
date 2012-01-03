@@ -13,14 +13,11 @@ class Player : public Net::PacketHandler<>
 	void			setGame(Game &game);
 
   private:
-	void			connection(Net::Packet &packet);
-	void			etablished(Net::Packet &packet);
-	void			listGame(Net::Packet &packet);
-	void			game(Net::Packet &packet);
-	void			endGame(Net::Packet &packet);
-	void			connectGame(Net::Packet &packet);
-	void			player(Net::Packet &packet);
-	void			createGame(Net::Packet &packet);
+	int			connection(Net::Packet &packet);
+	int			listGame(Net::Packet &packet);
+	int			connectGame(Net::Packet &packet);
+	int			player(Net::Packet &packet);
+	int			createGame(Net::Packet &packet);
 
 	std::string		_name;
 	Game			*_game;

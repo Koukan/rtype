@@ -18,12 +18,12 @@ Player::~Player()
 
 int			Player::handleInputPacket(Net::Packet &packet)
 {
-	static void			(Player::* const methods[])(Net::Packet&) = {
+	static int			(Player::* const methods[])(Net::Packet&) = {
 			&Player::connection,
-			&Player::etablished,
+			NULL,
 			&Player::listGame,
-			&Player::game,
-			&Player::endGame,
+			NULL,
+			NULL,
 			&Player::connectGame,
 			&Player::player,
 			&Player::createGame
@@ -31,20 +31,19 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	uint8_t			type;
 
 	packet >> type;
-	if (type < sizeof(methods) / sizeof(*methods))
+	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
-		(this->*methods[type])(packet);
-		return 1;
+		return (this->*methods[type])(packet);
 	}
 	return 0;
 }
 
-void		Player::setGame(Game &game)
+int		Player::setGame(Game &game)
 {
 	this->_game = &game;
 }
 
-void		Player::connection(Net::Packet &packet)
+int		Player::connection(Net::Packet &packet)
 {
 	std::string		name;
 	Net::Packet		answer(2);
@@ -55,22 +54,12 @@ void		Player::connection(Net::Packet &packet)
 	answer << '\n';
 	this->handleOutputPacket(answer);
 	std::cout << "Player " << name << " connected" << std::endl;
+	return 1;
 }
 
-void		Player::etablished(Net::Packet&)
+int		Player::listGame(Net::Packet&)
 {
-}
-
-void		Player::listGame(Net::Packet&)
-{
-}
-
-void		Player::game(Net::Packet&)
-{
-}
-
-void		Player::endGame(Net::Packet&)
-{
+	return 1;
 }
 
 void		Player::connectGame(Net::Packet &packet)
@@ -96,10 +85,12 @@ void		Player::connectGame(Net::Packet &packet)
 	packet << static_cast<uint16_t>(2);
 	packet << '\n';
 	this->handleOutputPacket(answer);
+	return 1;
 }
 
 void		Player::player(Net::Packet &)
 {
+	return 1;
 }
 
 void		Player::createGame(Net::Packet &packet)
@@ -117,4 +108,5 @@ void		Player::createGame(Net::Packet &packet)
 	answer << static_cast<uint16_t>(3);
 	answer << '\n';
 	this->handleOutputPacket(answer);
+	return 1;
 }

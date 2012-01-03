@@ -42,16 +42,20 @@ void		Player::setGame(Game &game)
 
 int		Player::etablished(Net::Packet&)
 {
+	return 1;
 }
 
 int		Player::game(Net::Packet&)
 {
+	return 1;
 }
 
 int		Player::endGame(Net::Packet&)
 {
+	return 1;
 }
 
 int		Player::player(Net::Packet &)
 {
+	return 1;
 }
