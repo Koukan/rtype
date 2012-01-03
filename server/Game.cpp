@@ -1,10 +1,13 @@
 #include "Game.hpp"
 #include "Server.hpp"
 #include "GameTask.hpp"
+#include "Server.hpp"
+#include "PhysicManager.hpp"
 
 Game::Game(uint16_t id, uint8_t maxPlayers)
 	: Module("Game" + id, 20), _id(id), _maxPlayers(maxPlayers)
 {
+	Server::get().loadModule(*this);
 }
 
 Game::~Game()
@@ -26,7 +29,8 @@ void		Game::destroy()
 
 void		Game::updateGameState(double elapsedTime)
 {
-	this->_logic.update(elapsedTime);	
+	PhysicManager::apply(this->_logic, elapsedTime);
+	this->_logic.update(elapsedTime);
 }
 
 bool		Game::addPlayer(Player &player)

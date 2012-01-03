@@ -30,14 +30,14 @@ public:
 		packet << "Koukan";
 		packet << '\n';
 		this->handleOutputPacket(packet);
-		//Packet	answer(64);
-		//answer << static_cast<uint8_t>(7);
-		//answer << static_cast<uint8_t>(4);
-		//answer << '\n';
-		//this->handleOutputPacket(answer);
+		Packet	answer(64);
+		answer << static_cast<uint8_t>(7);
+		answer << static_cast<uint8_t>(4);
+		answer << '\n';
+		this->handleOutputPacket(answer);
 	}
 
-	virtual int handleInputPacket(Packet const &input)
+	virtual int handleInputPacket(Packet &input)
 	{
 		std::cout << "answer" << std::endl;
 		return 1;
