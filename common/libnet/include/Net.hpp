@@ -4,6 +4,7 @@
 #include "SyncPolicy.hpp"
 #include "PacketHandler.hpp"
 #include "Error.hpp"
+#include "Clock.hpp"
 #include "thread/Mutex.hpp"
 #include "thread/Thread.hpp"
 #include "thread/TSS.hpp"

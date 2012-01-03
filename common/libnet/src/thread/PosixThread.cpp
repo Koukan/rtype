@@ -23,7 +23,7 @@ bool	Thread::start()
      Thread	**tmp = new (Thread*);
      *tmp = this;
      bool ret = static_cast<bool>(!pthread_create(&_tid,
-			    0, starter,
+			    0, &starter,
 			    static_cast<void*>(tmp)));
      if (ret)
 		this->_state = true;

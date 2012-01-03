@@ -57,7 +57,7 @@ $(NAMESTATIC)		: $(OBJS)
 $(NAMEDYNAMIC)		: $(OBJS)
 					$(CXX) $(OBJS) -shared -o $(NAMEDYNAMIC)
 
-all		: $(NAMESTATIC) $(NAMEDYNAMIC)
+all		: $(NAMESTATIC)
 		make -C tinyxml
 		make -C bulletml
 
