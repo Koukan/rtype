@@ -2,8 +2,6 @@
 #  define	_OOPTHREAD_H
 
 # if defined (_WIN32)
-#include "NetDef.hpp"
-#include "ThreadSubscriber.hpp"
 
 #define _WINSOCKAPI_
 #include <windows.h>
@@ -18,6 +16,9 @@
 #define THREAD pthread_t
 
 # endif
+
+#include "NetDef.hpp"
+#include "ThreadSubscriber.hpp"
 
 NET_BEGIN_NAMESPACE
 
