@@ -14,11 +14,11 @@ Loading::Loading() : GameState("Loading")
 Loading::~Loading()
 {}
 
-//void	Loading::escape(const CL_InputEvent &)
-//{
-  	//GameStateManager::get().popState();
-  	//Game::get().quit();
-//}
+void	Loading::escape(const InputCommand &)
+{
+  	GameStateManager::get().popState();
+  	Game::get().quit();
+}
 
 //void	Loading::click(const CL_InputEvent &event)
 //{
@@ -28,16 +28,16 @@ void	Loading::update(double time)
 {
 }
 
-//void	Loading::slowTest(const CL_InputEvent &event)
-//{
-  //if (event.id == CL_MOUSE_WHEEL_DOWN)
-  //{
-    //double timeEffect = this->getTimeEffect() - 0.1;
-    //this->setTimeEffect("default", (timeEffect < 0) ? 0 : timeEffect);
-  //}
-  //else
-    //this->setTimeEffect("default", this->getTimeEffect() + 0.1);
-//}
+void	Loading::slowTest(const InputCommand &event)
+{
+	if (event.MouseWheel.Delta < 0)
+  {
+		  double timeEffect = this->getTimeEffect() - 0.1;
+		  this->setTimeEffect("default", (timeEffect < 0) ? 0 : timeEffect);
+  }
+	else
+		this->setTimeEffect("default", this->getTimeEffect() + 0.1);
+}
 
 void	Loading::buttonClick()
 {
@@ -82,7 +82,7 @@ void	Loading::onStart()
   // end GUI
 
   // Input
-  //this->registerInputCallback(CL_InputEvent::pressed, *this, &Loading::escape, CL_InputDevice::keyboard, CL_KEY_ESCAPE);
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &Loading::escape, (int)Keyboard::Key::Escape);
   //this->registerInputCallback(CL_InputEvent::pressed, *this, &Loading::slowTest, CL_InputDevice::pointer, CL_MOUSE_WHEEL_UP);
   //this->registerInputCallback(CL_InputEvent::pressed, *this, &Loading::slowTest, CL_InputDevice::pointer, CL_MOUSE_WHEEL_DOWN);
   //this->registerInputCallback(CL_InputEvent::released, *this, &Loading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);

@@ -12,9 +12,9 @@ public:
 	virtual	void	update(double elapseTime = 0);
 
 private:
-	//void			escape(const CL_InputEvent &event);
+	void			escape(const InputCommand &event);
 	//void			click(const CL_InputEvent &event);
-	//void			slowTest(const CL_InputEvent &event);
+	void			slowTest(const InputCommand &event);
 	void			buttonClick();
 
 	BulletCommand		*_bullet;

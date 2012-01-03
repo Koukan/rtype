@@ -3,7 +3,6 @@
 #include <list>
 #include <queue>
 #include "Command.hpp"
-#include "CommandHandler.hpp"
 #include "Mutex.hpp"
 
 class CommandHandler

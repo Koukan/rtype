@@ -1,6 +1,6 @@
 #include "GameState.hpp"
 
-GameState::GameState(const std::string &name) : name(name), _paused(NONE)
+GameState::GameState(const std::string &name) : name(name), _paused(NONE), _inputManager(*this)
 {
 }
 
@@ -38,7 +38,12 @@ void		GameState::play()
   this->_paused = NONE;
 }
 
-GameState::Pause	GameState::getPaused()
+GameState::Pause	GameState::getPaused() const
 {
   return this->_paused;
+}
+
+InputManager		&GameState::getInput()
+{
+  return this->_inputManager;
 }

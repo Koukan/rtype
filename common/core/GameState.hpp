@@ -2,11 +2,11 @@
 #define 	_GAMESTATE_
 
 #include <string>
-//#include "InputManager.hpp"
 #include "GameObjectManager.hpp"
 #include "CommandHandler.hpp"
 #include "ResourceManager.hpp"
 #include "Command.hpp"
+#include "InputManager.hpp"
 
 class Game;
 
@@ -31,12 +31,14 @@ public:
   virtual void	update(double elapseTime = 0);
   void			pause(Pause paused = ALL);
   void			play();
-  Pause			getPaused();
+  Pause			getPaused() const;
+  InputManager	&getInput();
 
   const std::string	name;
 
 private:
-  Pause		_paused;
+  Pause			_paused;
+  InputManager	_inputManager;
 };
 
 #endif		/* _GAMESTATE_ */

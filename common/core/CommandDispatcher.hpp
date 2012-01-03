@@ -1,8 +1,9 @@
 #pragma once
 
+#include "Singleton.hpp"
 #include "Module.hpp"
 
-class CommandDispatcher : public Module
+class CommandDispatcher : public Module, public Singleton<CommandDispatcher>
 {
   public:
     CommandDispatcher();

@@ -38,7 +38,8 @@ public:
 				  if (_delimiter.empty())
 				  {
 					Packet	packet(*_inpacket);
-					this->handleInputPacket(packet);
+					if (this->handleInputPacket(packet) <= 0)
+						return -1;
 				  }
 			  }
 			  else if (!_delimiter.empty())
@@ -72,6 +73,7 @@ public:
 		  return ret;
 		}
 		while (!this->isBlocking());
+		std::cout << "ca pue" << std::endl;
 	   return 0;
 	}
 

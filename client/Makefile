@@ -13,14 +13,14 @@ SRCS		= $(DIR)/main.cpp				\
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CXX		= g++
+CXX		= g++ 
 
 RM		= rm -f
 
 CXXFLAGS	= -g3 -std=c++0x -pipe -I ../common/core -I../common/core/Callback_Impl -I../common/core/QuadTree -I../common/core/bulletml -I../common/core/tinyxml \
 			  -I../common/libnet/include -I../common/libnet/include/thread
 
-LDFLAGS		= -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system -L ../common -lcore -lbulletml -lnet
+LDFLAGS		= -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system -L ../common -lcore -lbulletml -lnet -lstdc++ -lm
 
 $(NAME)		: $(OBJS)
 		$(CXX) -o $(NAME) $(OBJS) $(LDFLAGS)
