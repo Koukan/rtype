@@ -2,8 +2,6 @@
 
 #include "NetDef.hpp"
 
-NET_BEGIN_NAMESPACE
-
 #if defined(__linux__)
 #include "EpollPolicy.hpp"
 #define DefaultSyncPolicy NET_NAMESPACE::EpollPolicy
@@ -17,5 +15,3 @@ NET_BEGIN_NAMESPACE
 #include "PollPolicy.hpp"
 #define DefaultSyncPolicy NET_NAMESPACE::PollPolicy
 #endif
-
-NET_END_NAMESPACE

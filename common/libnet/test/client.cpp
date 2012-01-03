@@ -25,24 +25,22 @@ public:
 
 	virtual	void init()
 	{
-	   Packet test(64);
-	   test << std::string("c'est moi\n");
-	   this->handleOutputPacket(test);
+		Packet packet(64);
+		packet << static_cast<uint8_t>(0);
+		packet << "Koukan";
+		packet << '\n';
+		this->handleOutputPacket(packet);
+		//Packet	answer(64);
+		//answer << static_cast<uint8_t>(7);
+		//answer << static_cast<uint8_t>(4);
+		//answer << '\n';
+		//this->handleOutputPacket(answer);
 	}
 
 	virtual int handleInputPacket(Packet const &input)
 	{
-		Packet	&test = *(input.duplicate());
-		std::string	str;
-		test >> str;
-		std::cout << str << std::endl;
-		bool		bo;
-		test >> bo;
-		std::cout << bo << std::endl;
-		int		ret;
-		test >> ret;
-		std::cout << ret << std::endl;
-		return 0;
+		std::cout << "answer" << std::endl;
+		return 1;
 	}
 
 
@@ -53,7 +51,7 @@ private:
 int  main(int ac, char **av)
 {
   SetupNetwork  		init;
-  InetAddr				test("127.0.0.1", "4500");
+  InetAddr				test("127.0.0.1", "25557");
   Reactor				*reactor = new Policy();
 /*  Acceptor<Client>		acceptor;
 
