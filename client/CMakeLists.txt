@@ -29,98 +29,155 @@ set(SFML_LIBRARIES
 ENDIF(WIN32)
 #####
 
+##### Linking libnet
+set(NET_SRCS_DIR "../common/libnet/src/")
+set(NET_INCLUDE_DIR "../common/libnet/include")
+set(NET_MUTEX_INCLUDE_DIR "../common/libnet/include/thread/")
+set(NET_MUTEX_SRCS_DIR "../common/libnet/src/thread/")
+
+set(SRCS_NET
+	${NET_SRCS_DIR}InetAddr.cpp
+	${NET_SRCS_DIR}Error.cpp
+	${NET_SRCS_DIR}Socket.cpp
+	${NET_SRCS_DIR}SocketIO.cpp
+	${NET_SRCS_DIR}SocketAcceptor.cpp
+	${NET_SRCS_DIR}SocketConnector.cpp
+	${NET_SRCS_DIR}SocketStream.cpp
+	${NET_SRCS_DIR}SocketDatagram.cpp
+	${NET_SRCS_DIR}SetupNetwork.cpp
+	${NET_SRCS_DIR}NetHandler.cpp
+	${NET_SRCS_DIR}Reactor.cpp			
+	${NET_SRCS_DIR}PollPolicy.cpp		
+	${NET_SRCS_DIR}EpollPolicy.cpp		
+	${NET_SRCS_DIR}KqueuePolicy.cpp		
+	${NET_SRCS_DIR}Packet.cpp			
+	${NET_SRCS_DIR}DataBlock.cpp		
+	${NET_SRCS_DIR}UdpPacketHandler.cpp	
+	${NET_SRCS_DIR}IOVec.cpp			
+	${NET_SRCS_DIR}Clock.cpp			
+	${NET_MUTEX_SRCS_DIR}PosixMutex.cpp
+	${NET_MUTEX_SRCS_DIR}PosixThread.cpp
+	${NET_MUTEX_SRCS_DIR}ScopedLock.cpp
+	${NET_MUTEX_SRCS_DIR}PosixConditionVar.cpp
+)
+	
+add_library(
+	net
+	STATIC
+	${SRCS_NET}
+)
+
 ##### Linking core
-set(CORE_INCLUDE_DIR
+set(CORE_DIR
 	"../common/core/"
 )
-set(CORE_CALLBACK_INCLUDE_DIR
+set(CORE_CALLBACK_DIR
 	"../common/core/Callback_Impl/"
 )
 set(CORE_QUADTREE_INCLUDE_DIR
 	"../common/core/QuadTree/"
 )
-set(CORE_BULLETML_INCLUDE_DIR
+set(CORE_BULLETML_DIR
 	"../common/core/bulletml/"
 )
-set(CORE_TINYXML_INCLUDE_DIR
+set(CORE_TINYXML_DIR
 	"../common/core/tinyxml/"
 )
-set(CORE_LIBRARY
-	core
-)
-
-##### Linking libnet
-set(NET_INCLUDE_DIR "../common/libnet/include")
-set(NET_MUTEX_INCLUDE_DIR "../common/libnet/include/thread/")
-set(NET_LIBRARY
-	net
-)
-
-
-##### Setting the output directory for the solution
-foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
-    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
-    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
-    set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
-    set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
-endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
-#####
-
-set(TARGET_NAME rtype_client)
 
 ##### Add core headers
-set(SRCS_CORE
-	${CORE_INCLUDE_DIR}Bullet.hpp
-	${CORE_INCLUDE_DIR}BulletCommand.hpp
-	${CORE_INCLUDE_DIR}BulletResourceManager.hpp
-	${CORE_INCLUDE_DIR}Callback.hpp
-	${CORE_INCLUDE_DIR}Callback.ipp
-	${CORE_INCLUDE_DIR}CircleHitBox.hpp
-	${CORE_INCLUDE_DIR}Command.hpp
-	${CORE_INCLUDE_DIR}CommandDispatcher.hpp
-	${CORE_INCLUDE_DIR}CommandHandler.hpp
-	${CORE_INCLUDE_DIR}Converter.hpp
-	${CORE_INCLUDE_DIR}DrawableObject.hpp
-	${CORE_INCLUDE_DIR}GameObject.hpp
-	${CORE_INCLUDE_DIR}GameObjectManager.hpp
-	${CORE_INCLUDE_DIR}GameObjectManager.ipp
-	${CORE_INCLUDE_DIR}GameState.hpp
-	${CORE_INCLUDE_DIR}GameStateManager.hpp
-	${CORE_INCLUDE_DIR}GameStateObserver.hpp
-	${CORE_INCLUDE_DIR}GSManager.hpp
-	${CORE_INCLUDE_DIR}HitBox.hpp
-	${CORE_INCLUDE_DIR}InputManager.hpp
-	${CORE_INCLUDE_DIR}IPhysicsSubscriber.hpp
-	${CORE_INCLUDE_DIR}Module.hpp
-	${CORE_INCLUDE_DIR}ModuleManager.hpp
-	${CORE_INCLUDE_DIR}NonCopyable.hpp
-	${CORE_INCLUDE_DIR}Observable.hpp
-	${CORE_INCLUDE_DIR}PhysicManager.hpp
-	${CORE_INCLUDE_DIR}PhysicObject.hpp
-	${CORE_INCLUDE_DIR}PhysicsSubscriber.hpp
-	${CORE_INCLUDE_DIR}PhysicsSubscriber2.hpp
-	${CORE_INCLUDE_DIR}PolyHitBox.hpp
-	${CORE_INCLUDE_DIR}RectHitBox.hpp
-	${CORE_INCLUDE_DIR}ResourceManager.hpp
-	${CORE_INCLUDE_DIR}ResourceManager.ipp
-	${CORE_INCLUDE_DIR}SharedLoader.hpp
-	${CORE_INCLUDE_DIR}Sprite.hpp
-	${CORE_INCLUDE_DIR}SpriteProvider.hpp
-	${CORE_INCLUDE_DIR}TimeEffectManager.hpp
-	${CORE_INCLUDE_DIR}Singleton.hpp
-	${CORE_CALLBACK_INCLUDE_DIR}Callback_Impl.hpp
+set(INCLUDES_CORE
+	${CORE_DIR}Bullet.hpp
+	${CORE_DIR}BulletCommand.hpp
+	${CORE_DIR}BulletResourceManager.hpp
+	${CORE_DIR}Callback.hpp
+	${CORE_DIR}Callback.ipp
+	${CORE_DIR}CircleHitBox.hpp
+	${CORE_DIR}Command.hpp
+	${CORE_DIR}CommandDispatcher.hpp
+	${CORE_DIR}CommandHandler.hpp
+	${CORE_DIR}Converter.hpp
+	${CORE_DIR}DrawableObject.hpp
+	${CORE_DIR}GameObject.hpp
+	${CORE_DIR}GameObjectManager.hpp
+	${CORE_DIR}GameObjectManager.ipp
+	${CORE_DIR}GameState.hpp
+	${CORE_DIR}GameStateManager.hpp
+	${CORE_DIR}GameStateObserver.hpp
+	${CORE_DIR}GSManager.hpp
+	${CORE_DIR}HitBox.hpp
+	${CORE_DIR}InputManager.hpp
+	${CORE_DIR}IPhysicsSubscriber.hpp
+	${CORE_DIR}Module.hpp
+	${CORE_DIR}ModuleManager.hpp
+	${CORE_DIR}NonCopyable.hpp
+	${CORE_DIR}Observable.hpp
+	${CORE_DIR}PhysicManager.hpp
+	${CORE_DIR}PhysicObject.hpp
+	${CORE_DIR}PhysicsSubscriber.hpp
+	${CORE_DIR}PhysicsSubscriber2.hpp
+	${CORE_DIR}PolyHitBox.hpp
+	${CORE_DIR}RectHitBox.hpp
+	${CORE_DIR}ResourceManager.hpp
+	${CORE_DIR}ResourceManager.ipp
+	${CORE_DIR}SharedLoader.hpp
+	${CORE_DIR}Sprite.hpp
+	${CORE_DIR}SpriteProvider.hpp
+	${CORE_DIR}TimeEffectManager.hpp
+	${CORE_DIR}Singleton.hpp
+	${CORE_CALLBACK_DIR}Callback_Impl.hpp
 	${CORE_QUADTREE_INCLUDE_DIR}QuadTree.hpp
-	${CORE_BULLETML_INCLUDE_DIR}bulletmlparser.h
-	${CORE_TINYXML_INCLUDE_DIR}tinyxml.h
+	${CORE_BULLETML_DIR}bulletmlparser.h
+	${CORE_TINYXML_DIR}tinyxml.h
 )
 
-SOURCE_GROUP (core_headers FILES(${SRCS_CORE}))
-
-##### Add libnet headers
-set(SRCS_NET
-	${NET_MUTEX_INCLUDE_DIR}Mutex.hpp
+set(SRCS_CORE
+	${CORE_DIR}Bullet.cpp
+	${CORE_DIR}BulletCommand.cpp
+	${CORE_DIR}BulletResourceManager.cpp
+	${CORE_DIR}Callback.cpp
+	${CORE_DIR}CircleHitBox.cpp
+	${CORE_DIR}CommandDispatcher.cpp
+	${CORE_DIR}CommandHandler.cpp
+	${CORE_DIR}GameObject.cpp
+	${CORE_DIR}GameObjectManager.cpp
+	${CORE_DIR}GameState.cpp
+	${CORE_DIR}GameStateObserver.cpp
+	${CORE_DIR}GSManager.cpp
+	${CORE_DIR}HitBox.cpp
+	${CORE_DIR}InputManager.cpp
+	${CORE_DIR}Module.cpp
+	${CORE_DIR}ModuleManager.cpp
+	${CORE_DIR}PhysicManager.cpp
+	${CORE_DIR}PhysicObject.cpp
+	${CORE_DIR}PolyHitBox.cpp
+	${CORE_DIR}RectHitBox.cpp
+	${CORE_DIR}ResourceManager.cpp
+	${CORE_DIR}TimeEffectManager.cpp
+	${CORE_QUADTREE_INCLUDE_DIR}QuadTree.cpp
+	${CORE_QUADTREE_INCLUDE_DIR}Node.cpp
+	${CORE_QUADTREE_INCLUDE_DIR}TreeElement.cpp
+	${CORE_BULLETML_DIR}bulletmlparser.cc
+	${CORE_BULLETML_DIR}bulletmlparser-tinyxml.cc
+	${CORE_BULLETML_DIR}bulletmltree.cc
+	${CORE_BULLETML_DIR}calc.cc
+	${CORE_BULLETML_DIR}formula-variables.cc
+	${CORE_BULLETML_DIR}bulletmlrunner.cc
+	${CORE_BULLETML_DIR}bulletmlrunnerimpl.cc
+	${CORE_TINYXML_DIR}tinyxml.cpp
+	${CORE_TINYXML_DIR}tinyxmlerror.cpp
+	${CORE_TINYXML_DIR}tinyxmlparser.cpp
+	${CORE_CALLBACK_DIR}/Callback_Impl_Function.cpp
 )
-SOURCE_GROUP (net_headers FILES(${SRCS_NET}))
+SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
+
+add_library(
+	core
+	SHARED
+	${SRCS_CORE}
+)
+
+
+set(TARGET_NAME rtype_client)
 
 ##	Font.cpp
 ##	Font.hpp
@@ -128,13 +185,10 @@ SOURCE_GROUP (net_headers FILES(${SRCS_NET}))
 ##	AudioManager.hpp
 
 set(SRCS
-	${SRCS_CORE}
-	${SRCS_NET}
+	${INCLUDES_CORE}
 	main.cpp
 	Game.cpp
 	Game.hpp
-	InputManager.cpp
-	InputManager.hpp
 	InputModule.cpp
 	InputModule.hpp
 	Loading.cpp
@@ -150,6 +204,18 @@ set(SRCS
 	Wall.hpp
 )
 
+
+
+##### Setting the output directory for the solution
+foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
+    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
+    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
+    set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
+    set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
+endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
+#####
+
+
 add_executable(
 	${TARGET_NAME}
 	${SRCS}
@@ -157,18 +223,23 @@ add_executable(
 
 include_directories (
 	${SFML_INCLUDE_DIR}
-	${CORE_INCLUDE_DIR}
+	${CORE_DIR}
 	${NET_INCLUDE_DIR}
 	${NET_MUTEX_INCLUDE_DIR}
-	${CORE_CALLBACK_INCLUDE_DIR}
+	${CORE_CALLBACK_DIR}
 	${CORE_QUADTREE_INCLUDE_DIR}
-	${CORE_BULLETML_INCLUDE_DIR}
-	${CORE_TINYXML_INCLUDE_DIR}
+	${CORE_BULLETML_DIR}
+	${CORE_TINYXML_DIR}
+)
+
+target_link_libraries(
+	core
+	net
 )
 
 target_link_libraries(
 	${TARGET_NAME}
 	${SFML_LIBRARIES}
-	${CORE_LIBRARY}
-	${NET_LIBRARY}
+	core
+	net
 )
