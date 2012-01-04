@@ -19,7 +19,7 @@ set(SFML_LIBRARIES
 )
 ELSE(WIN32)
 set(TYPE "Unix")
-set(SFML_INCLUDE_DIR /usr/include/SFML)
+set(SFML_INCLUDE_DIR "/usr/include/SFML")
 set(SFML_LIBRARIES
 	sfml-graphics
 	sfml-window
@@ -105,6 +105,7 @@ set(INCLUDES_CORE
 	${CORE_DIR}GameStateObserver.hpp
 	${CORE_DIR}GSManager.hpp
 	${CORE_DIR}HitBox.hpp
+	${CORE_DIR}Input.hpp
 	${CORE_DIR}InputManager.hpp
 	${CORE_DIR}IPhysicsSubscriber.hpp
 	${CORE_DIR}Module.hpp
@@ -172,7 +173,7 @@ SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
 add_library(
 	core
-	SHARED
+	STATIC
 	${SRCS_CORE}
 )
 
@@ -207,12 +208,12 @@ set(SRCS
 
 
 ##### Setting the output directory for the solution
-foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
-    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
-    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
-    set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
-    set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
-endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
+##foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
+##    string( TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG )
+##    set( CMAKE_RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
+ ##   set( CMAKE_LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
+##    set( CMAKE_ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG} ${EXECUTABLE_OUTPUT_PATH} )
+##endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 #####
 
 
@@ -223,19 +224,22 @@ add_executable(
 
 include_directories (
 	${SFML_INCLUDE_DIR}
-	${CORE_DIR}
 	${NET_INCLUDE_DIR}
 	${NET_MUTEX_INCLUDE_DIR}
+	${CORE_DIR}
 	${CORE_CALLBACK_DIR}
 	${CORE_QUADTREE_INCLUDE_DIR}
 	${CORE_BULLETML_DIR}
 	${CORE_TINYXML_DIR}
 )
 
+###### linking net to core
 target_link_libraries(
 	core
 	net
 )
+
+###link_directories(/chemin/vers/boost_x_xx_x/stage/lib)
 
 target_link_libraries(
 	${TARGET_NAME}
