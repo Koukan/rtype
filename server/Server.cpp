@@ -13,11 +13,11 @@ Server::~Server()
 
 int			Server::init(std::string const &port)
 {
-	NetworkModule		*network = new NetworkModule;
+	NetworkModule		&network = NetworkModule::get();
 
 	this->ModuleManager::init();
 	this->ThreadPool::init(NBTHREAD);
-	network->setPort(port);
-	this->loadModule(*network);
+	network.setPort(port);
+	this->loadModule(network);
 	this->update(0);
 }

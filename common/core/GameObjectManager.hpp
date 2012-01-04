@@ -71,7 +71,7 @@ class GameObjectManager : public TimeEffectManager
 
     void	addGroup(const std::string &group, int layer = 1,
 		    	std::string const &timeEffectGroup = "default");
-    void	addGameObject(GameObject *object, const std::string &group = "default",
+    bool	addGameObject(GameObject *object, const std::string &group = "default",
 		    	int layer = 1);
     void	removeGameObject(GameObject *object);
 	void	callCollision(PhysicObject &obj1, PhysicObject &obj2);
@@ -85,6 +85,7 @@ class GameObjectManager : public TimeEffectManager
 		    	bool physic, std::string const &timeEffectGroup);
 
     // getter
+	GameObject					*getGameObject(uint32_t id);
     collisionGroupsMap const	&getCollisionGroups() const;
     groupsMap const				&getGroups() const;
     bool						existingGroup(const std::string &group) const;
@@ -95,7 +96,11 @@ class GameObjectManager : public TimeEffectManager
 	groupsDisplay const			&getDisplayObjects() const;
 
   private:
+	typedef	std::map<uint32_t, GameObject*>	IdMap;
+
+	uint32_t					_id;
     collisionGroupsMap			_collisionGroups;
+	IdMap						_objects;
     groupsMap					_groups;
     groupsDisplay				_display;
 	std::set<GameObject*>		_deleteList;

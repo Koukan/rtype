@@ -3,7 +3,7 @@
 #include "GameState.hpp"
 
 GameObject::GameObject(double x, double y, Group *group)
-	: _x(x), _y(y), _delete(false), _group(group)
+	: _x(x), _y(y), _delete(false), _id(1), _group(group)
 {}
 
 GameObject::~GameObject(void)

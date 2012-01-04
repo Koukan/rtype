@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stdint.h>
 #include <cstdlib>
 
 class GameObjectManager;
@@ -12,12 +13,14 @@ public:
 	virtual ~GameObject(void);
 
 	// setter
+	void				setId(uint32_t id);
 	virtual void		setX(double x);
 	virtual void		setY(double y);
 	virtual void		setPosition(double x, double y);
 	void				setGroup(Group *group);
 
 	// getter
+	uint32_t	getId();
 	double		getX() const;
 	double		getY() const;
 	Group		*getGroup() const;
@@ -29,5 +32,8 @@ protected:
 	double			_x;
 	double 			_y;
 	bool			_delete;
+	uint32_t		_id;
 	Group			*_group;
+
+	friend class GameObjectManager;
 };
