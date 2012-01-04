@@ -2,15 +2,18 @@
 #include "Player.hpp"
 #include "Game.hpp"
 #include "Server.hpp"
+#include "NetworkModule.hpp"
 
 Player::Player() : Net::PacketHandler<>(4096, "\n"),
 		_name(""), _game(0)
 {
+	NetworkModule::get().addUDPPlayer(*this);
 	std::cout << "Client connected" << std::endl;
 }
 
 Player::~Player()
 {
+	NetworkModule::get().addUDPPlayer(*this);
 	std::cout << "Client disconnected" << std::endl;
 	if (this->_game)
 		this->_game->removePlayer(*this);

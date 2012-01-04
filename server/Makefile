@@ -10,7 +10,9 @@ SRCS		= $(DIR)/main.cpp				\
 			  $(DIR)/Game.cpp				\
 			  $(DIR)/ThreadPool.cpp			\
 			  $(DIR)/GameTask.cpp			\
-			  $(DIR)/GameLogic.cpp
+			  $(DIR)/GameLogic.cpp			\
+			  $(DIR)/UdpHandler.cpp			\
+			  $(DIR)/PacketCommand.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 
