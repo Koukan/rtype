@@ -13,8 +13,9 @@ class Player : public Net::PacketHandler<>
 	void			setGame(Game &game);
 
   private:
-	int			connection(Net::Packet &packet);
-	int			listGame(Net::Packet &packet);
+	int			etablished(Net::Packet &packet);
+	int			game(Net::Packet &packet);
+	int			endGame(Net::Packet &packet);
 	int			connectGame(Net::Packet &packet);
 	int			player(Net::Packet &packet);
 	int			createGame(Net::Packet &packet);

@@ -177,6 +177,9 @@
     <ClCompile Include="..\..\..\common\core\tinyxml\tinyxmlparser.cpp">
       <Filter>Source Files\core\tinyxml</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\common\core\InputManager.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\AudioManager.hpp">

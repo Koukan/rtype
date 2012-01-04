@@ -36,7 +36,7 @@ SRCS		= $(DIR)/Module.cpp								\
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CXX			= g++ 
+CXX			= g++
 
 RM			= rm -f
 
@@ -48,6 +48,10 @@ CXXFLAGS	= -W -Wall -Wextra -g3 -pipe -I Callback_Impl -I QuadTree -I bulletml -
 
 LDFLAGS		= -L bulletml -lbulletml -lstdc++
 
+all		: $(NAMESTATIC)
+		make -C tinyxml
+		make -C bulletml
+
 $(NAMESTATIC)		: $(OBJS)
 					make -C tinyxml
 					make -C bulletml
@@ -56,10 +60,6 @@ $(NAMESTATIC)		: $(OBJS)
 
 $(NAMEDYNAMIC)		: $(OBJS)
 					$(CXX) $(OBJS) -shared -o $(NAMEDYNAMIC)
-
-all		: $(NAMESTATIC)
-		make -C tinyxml
-		make -C bulletml
 
 clean		:
 		make clean -C tinyxml
