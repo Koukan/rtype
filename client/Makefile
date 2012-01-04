@@ -9,6 +9,7 @@ SRCS		= $(DIR)/main.cpp				\
 		  $(DIR)/SFMLSprite.cpp				\
 		  $(DIR)/SFMLSpriteProvider.cpp		\
 		  $(DIR)/RendererManager.cpp		\
+		  $(DIR)/Player.cpp		\
 		  $(DIR)/InputModule.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
