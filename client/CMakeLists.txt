@@ -67,6 +67,13 @@ add_library(
 	${SRCS_NET}
 )
 
+set_source_files_properties (
+  ${SRCS_NET}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-std=c++0x"
+)
+
 ##### Linking core
 set(CORE_DIR
 	"../common/core/"
@@ -171,12 +178,18 @@ set(SRCS_CORE
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
+##set_source_files_properties (
+##  ${SRCS_CORE}
+##  PROPERTIES
+##  COMPILE_FLAGS
+##  "-std=c++0x"
+##)
+
 add_library(
 	core
 	STATIC
 	${SRCS_CORE}
 )
-
 
 set(TARGET_NAME rtype_client)
 
@@ -205,7 +218,12 @@ set(SRCS
 	Wall.hpp
 )
 
-
+set_source_files_properties (
+  ${SRCS}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-std=c++0x"
+)
 
 ##### Setting the output directory for the solution
 ##foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
