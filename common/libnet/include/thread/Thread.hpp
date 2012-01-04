@@ -21,7 +21,7 @@
 
 NET_BEGIN_NAMESPACE
 
-class		Thread
+class NET_DLLREQ	Thread
 {
  public:
  Thread(IThreadSubscriber &func);

@@ -25,7 +25,7 @@ NET_BEGIN_NAMESPACE
 
 #endif
 
-class Clock
+class NET_DLLREQ Clock
 {
 public:
 	Clock();
