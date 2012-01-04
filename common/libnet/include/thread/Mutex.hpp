@@ -3,8 +3,6 @@
 
 #include "NetDef.hpp"
 
-NET_BEGIN_NAMESPACE
-
 # if defined (_WIN32)
 #define _WINSOCKAPI_
 #include <windows.h>
@@ -19,6 +17,8 @@ NET_BEGIN_NAMESPACE
 #define MUTEX pthread_mutex_t
 
 # endif
+
+NET_BEGIN_NAMESPACE
 
 class		Mutex
 {

@@ -7,19 +7,23 @@ NET_USE_NAMESPACE
 bool	Mutex::lock(void)
 {
   EnterCriticalSection(&_mutex);
+  return true;
 }
 
 bool	Mutex::unlock(void)
 {
-  LeaveCriticalSectioni(&_mutex);
+  LeaveCriticalSection(&_mutex);
+  return true;
 }
 
 bool	Mutex::tryLock(void)
 {
+	return true;
 }
 
 bool	Mutex::timedLock(int sec, int nano)
 {
+	return true;
 }
 
 Mutex::Mutex()
