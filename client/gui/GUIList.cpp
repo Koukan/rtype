@@ -1,8 +1,9 @@
 #include "GUIList.hpp"
 
 GUIList::GUIList()
-  : focusLabel(NULL), isFocused(false)
+  : isFocused(false)
 {
+  focusLabel = labels.begin();
 }
 
 void GUIList::addLabel(Label *label)
@@ -14,11 +15,16 @@ void GUIList::addLabel(Label *label)
 
 void GUIList::EventLeft()
 {
-  
+  if (focusLabel == labels.begin())
+    focusLabel = labels.end();
+  --focusLabel;
 }
 
 void GUIList::EventRight()
 {
+  ++focusLabel;
+  if (focusLabel == labels.end())
+    focusLabel = labels.begin();
 }
 
 void GUIList::draw()
