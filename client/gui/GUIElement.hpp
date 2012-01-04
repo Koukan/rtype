@@ -11,6 +11,10 @@ public:
   void unfocus() = 0;
 
 protected:
+  void focus();
+  void unfocus();
+
+  bool isFocused;
   int _width;
   int _height;
 };
