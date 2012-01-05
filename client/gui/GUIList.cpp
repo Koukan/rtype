@@ -32,16 +32,6 @@ void GUIList::draw()
   
 }
 
-void GUIList::focus()
-{
-  isFocused = true;
-}
-
-void GUIList::unfocus()
-{
-  isFocused = false;
-}
-
 bool GUIList::GUIHandleCommand(Command const &command)
 {
   return true;

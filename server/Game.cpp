@@ -3,6 +3,8 @@
 #include "GameTask.hpp"
 #include "Server.hpp"
 #include "PhysicManager.hpp"
+#include "CommandDispatcher.hpp"
+#include "PacketCommand.hpp"
 
 Game::Game(uint16_t id, uint8_t maxPlayers)
 	: Module("Game" + id, 20), _id(id), _maxPlayers(maxPlayers)
@@ -53,6 +55,31 @@ void		Game::removePlayer(Player &player)
 		{
 			this->_list.erase(it);
 			return ;
+		}
+	}
+}
+
+void		Game::sendTCPPacket(Net::Packet &packet, Player *player)
+{
+	this->sendPacket("TCPPacket", packet, player);
+}
+
+void		Game::sendUDPPacket(Net::Packet &packet, Player *player)
+{
+	this->sendPacket("UDPPacket", packet, player);
+}
+
+void		Game::sendPacket(std::string const &type,
+							 Net::Packet &packet,
+							 Player *player)
+{
+	for (std::list<Player*>::iterator it = this->_list.begin();
+		 it != this->_list.end(); it++)
+	{
+		if (player != *it)
+		{
+			CommandDispatcher::get().pushCommand(*(
+				new PacketCommand(type, **it, packet)));
 		}
 	}
 }

@@ -9,3 +9,13 @@ void GUIElement::setY(int y)
 {
   this->_y = y;
 }
+
+void GUIList::focus()
+{
+  isFocused = true;
+}
+
+void GUIList::unfocus()
+{
+  isFocused = false;
+}
