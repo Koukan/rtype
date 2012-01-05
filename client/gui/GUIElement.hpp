@@ -11,6 +11,7 @@ public:
   virtual bool GUIHandleCommand(Command const &command) = 0;
   virtual void focus() = 0;
   virtual void unfocus() = 0;
+  virtual void handleFunction() = 0;
 
 protected:
   void focus();
