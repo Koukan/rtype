@@ -33,6 +33,12 @@ bool		GSManager::pushState(const std::string &name,
 	return push(name, true, paused);
 }
 
+bool		GSManager::pushState(GameState &state,
+						GameState::Pause paused)
+{
+	return push(state, true, paused, false);
+}
+
 bool		GSManager::changeState(const std::string &name,
 					      GameState::Pause paused, bool del)
 {
@@ -95,14 +101,7 @@ bool		GSManager::push(const std::string &name, bool changed,
 	it = find(_loadedStates.begin(), _loadedStates.end(), name);
 	if (it != _loadedStates.end())
 	{
-		if (changed && !_currentStates.empty())
-		{
-			_currentStates.back()->onChange();
-			_currentStates.back()->pause(paused);
-		}
-		_currentStates.push_back(*it);
-		(*it)->onResume();
-		(*it)->play();
+		this->push(**it, changed, paused, true);
 		_loadedStates.erase(it);
 		notify(this->_currentStates);
 		return true;
@@ -110,18 +109,29 @@ bool		GSManager::push(const std::string &name, bool changed,
 	instanceMap::iterator		lit = _keeper.find(name);
 	if (lit != _keeper.end())
 	{
-		GameState	*state = lit->second->newInstance();
-		if (changed && !_currentStates.empty())
-		{
-			_currentStates.back()->onChange();
-			_currentStates.back()->pause(paused);
-		}
-		_currentStates.push_back(state);
-		state->onStart();
+		this->push(*lit->second->newInstance(), changed, paused, false);
 		notify(this->_currentStates);
 		return true;
 	}
 	return false;
+}
+
+bool		GSManager::push(GameState &state, bool changed,
+							GameState::Pause paused, bool resume)
+{
+	if (changed && !_currentStates.empty())
+	{
+		_currentStates.back()->onChange();
+		_currentStates.back()->pause(paused);
+	}
+	_currentStates.push_back(&state);
+	if (resume)
+	{
+		state.onResume();
+		state.play();
+	}
+	else
+		state.onStart();
 }
 
 void		GSManager::pop(bool changed, bool del)
