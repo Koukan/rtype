@@ -14,9 +14,10 @@ template<typename IOType = SocketStream>
 class PacketHandler : public Service<IOType>
 {
 public:
-	PacketHandler(size_t size = 2048, std::string const &deli = "") :  _delimiter(deli), _inpacket(0), _enableWhitelist(false)
+	PacketHandler(size_t size = 2048, std::string const &deli = "", bool sizeHeader = false) :  _delimiter(deli), _inpacket(0), _enableWhitelist(false), _left(0)
 	{
 		this->setSize(size);
+		this->_func = (sizeHeader) ? &PacketHandler<IOType>::regularInput : &PacketHandler<IOType>::headerSizeInput;
 	}
 
 	virtual ~PacketHandler()
@@ -25,55 +26,9 @@ public:
 		  delete _inpacket;
 	}
 
-	virtual	int	handleInput(Socket &)
+	virtual	int	handleInput(Socket &sock)
 	{
-		do
-		{
-		  int	ret = this->recv(*_inpacket);
-		  if (ret > 0)
-		  {
-			  if (_inpacket->isFull())
-			  {
-				  _inpacket->wr_ptr(0);
-				  if (_delimiter.empty())
-				  {
-					Packet	packet(*_inpacket);
-					if (this->handleInputPacket(packet) <= 0)
-						return -1;
-				  }
-			  }
-			  else if (!_delimiter.empty())
-			  {
-				  size_t	windex = _inpacket->getWindex();
-				  char	*base = _inpacket->base();
-				  char	*current = base;
-				  size_t prev = std::string::npos;
-				  _tmp.assign(base, windex);
-				  size_t pos = _tmp.find(_delimiter, 0);
-				  for (; pos != std::string::npos; pos = _tmp.find(_delimiter, pos + _delimiter.size()))
-				  {
-					  base[pos] = '\0';
-					  _temp.assign(current, &base[pos] - current);
-					  Packet	result(_temp, _temp._vec.iov_len);
-					  if (this->handleInputPacket(result) <= 0)
-						  return -1;
-					  current =  &base[pos + _delimiter.size()];
-					  prev = pos;
-				  }
-				  if (prev != std::string::npos)
-				  {
-					  prev = windex - prev - _delimiter.size();
-					  ::memmove(base, current, prev);
-					  _inpacket->wr_ptr(prev);
-				  }
-			  }
-		  }
-		  if (ret == -1 && (errno == EWOULDBLOCK || errno == EINTR))
-			return 1;
-		  return ret;
-		}
-		while (!this->isBlocking());
-	   return 0;
+		return (this->*_func)(sock);
 	}
 
 	virtual	int	handleOutput(Socket &)
@@ -169,6 +124,87 @@ protected:
 	std::set<InetAddr>	_whitelist;
 	DataBlock			_temp;
 	std::list<Packet*>	_outputPacket;
+
+private:
+	int					regularInput(Socket &)
+	{
+		int				ret = 0;
+		do
+		{
+			 ret = this->recv(*_inpacket);
+			 if (ret > 0)
+			 {
+			  if (_inpacket->isFull())
+			  {
+				  _inpacket->wr_ptr(0);
+				  if (_delimiter.empty())
+				  {
+					Packet	packet(*_inpacket);
+					if (this->handleInputPacket(packet) <= 0)
+						return -1;
+				  }
+			  }
+			  else if (!_delimiter.empty())
+			  {
+				  size_t	windex = _inpacket->getWindex();
+				  char	*base = _inpacket->base();
+				  char	*current = base;
+				  size_t prev = std::string::npos;
+				  _tmp.assign(base, windex);
+				  size_t pos = _tmp.find(_delimiter, 0);
+				  for (; pos != std::string::npos; pos = _tmp.find(_delimiter, pos + _delimiter.size()))
+				  {
+					  base[pos] = '\0';
+					  _temp.assign(current, &base[pos] - current);
+					  Packet	result(_temp, _temp._vec.iov_len);
+					  if (this->handleInputPacket(result) <= 0)
+						  return -1;
+					  current =  &base[pos + _delimiter.size()];
+					  prev = pos;
+				  }
+				  if (prev != std::string::npos)
+				  {
+					  prev = windex - prev - _delimiter.size();
+					  ::memmove(base, current, prev);
+					  _inpacket->wr_ptr(prev);
+				  }
+				 }
+			  }
+			  if (ret == -1 && (errno == EWOULDBLOCK || errno == EINTR))
+				return 1;
+			}
+			while (!this->isBlocking());
+			return ret;
+	}
+
+	int					headerSizeInput(Socket &)
+	{
+		int	ret	= 0;
+		do
+		{
+			ret = this->recv(*_inpacket, (_left == 0) ? sizeof(uint32_t) : _left);
+			if (_left == 0)
+			{
+				(*_inpacket) >> _left;
+				return ret;
+			}
+			if (ret > 0)
+			{
+				_left -= ret;
+				if (_left == 0)
+				{
+					Packet	packet(*_inpacket);
+					if (this->handleInputPacket(packet) <= 0)
+						return -1;
+				}
+			}
+		}
+		while (!this->isBlocking());
+		return ret;
+	}
+
+	size_t				_left;
+	int					(PacketHandler<IOType>::*_func)(Socket &);
 };
 
 NET_END_NAMESPACE

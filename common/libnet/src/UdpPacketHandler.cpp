@@ -19,9 +19,10 @@ UdpPacketHandler::~UdpPacketHandler()
 
 int UdpPacketHandler::handleInput(Socket &)
 {
+	int	ret = 0;
 	do
 	{
-		int	ret = this->recv(*_inpacket);
+		ret = this->recv(*_inpacket);
 		if (ret > 0)
 		{
 			_inpacket->wr_ptr(0);
@@ -37,8 +38,7 @@ int UdpPacketHandler::handleInput(Socket &)
 		}
 		else if (ret == -1 && (errno == EWOULDBLOCK || errno == EINTR))
 			return 1;
-		return ret;
 	}
 	while (!this->isBlocking());
-	return 0;
+	return ret;
 }

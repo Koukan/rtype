@@ -22,7 +22,7 @@ int			ThreadPool::init(size_t nbThread)
 
 void		ThreadPool::pushTask(Task &task)
 {
-	Net::ScopedLock		lock(this->_mutex);
+	Net::ScopedLock		lock(this->_condvar);
 
 	this->_tasksList.push(&task);
 }
@@ -33,17 +33,14 @@ void		ThreadPool::handleTask()
 
 	while (true)
 	{
-		this->_mutex.lock();
+		this->_condvar.lock();
 		if (this->_tasksList.empty())
-		{
-			this->_mutex.unlock();
-			Net::Clock::sleep(10);
-		}
+			this->_condvar.wait();
 		else
 		{
 			task = this->_tasksList.front();
 			this->_tasksList.pop();
-			this->_mutex.unlock();
+			this->_condvar.unlock();
 			(*task)();
 			delete task;
 		}

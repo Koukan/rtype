@@ -23,8 +23,8 @@ public:
 	int	recvmsg(Packet &packet, size_t index = 0, InetAddr *addr = 0, int flags = 0);
 	int	send(const char *buff, size_t size, int flags = 0);
 	int	recv(char *buff, size_t size, int flags = 0);
-	virtual	int	send(Packet &packet, int flags = 0);
-	virtual int	recv(Packet &packet, int flags = 0);
+	virtual	int	send(Packet &packet, int flags = 0, int size = -1);
+	virtual int	recv(Packet &packet, int flags = 0, int size = -1);
 };
 
 NET_END_NAMESPACE

@@ -80,11 +80,13 @@ int		SocketDatagram::setTTLMulticast(uint32_t value, InetAddr const &addr)
 	  return -1;
 }
 
-int		SocketDatagram::recv(Packet &packet, int flags)
+int		SocketDatagram::recv(Packet &packet, int flags, int packsize)
 {
 	struct sockaddr_storage		tmp;
 	socklen_t					size = sizeof(tmp);
-	int ret = ::recvfrom(_handle, packet.wr_ptr(), packet.capacity() - packet.getWindex(), flags, reinterpret_cast<sockaddr*>(&tmp), &size);
+	int							toread = (packsize == -1) ? packet.capacity() - packet.getWindex() : packsize;
+
+	int ret = ::recvfrom(_handle, packet.wr_ptr(), toread, flags, reinterpret_cast<sockaddr*>(&tmp), &size);
 	if (ret > 0)
 	{
 		packet.wr_ptr(packet.getWindex() + ret);
@@ -94,9 +96,11 @@ int		SocketDatagram::recv(Packet &packet, int flags)
 	return ret;
 }
 
-int		SocketDatagram::send(Packet &packet, int flags)
+int		SocketDatagram::send(Packet &packet, int flags, int packsize)
 {
-	int ret = ::sendto(_handle, packet.wr_ptr(), packet.size() - packet.getWindex(), flags, packet.getAddr(), packet.getAddr().getSize());
+	int							tosend = (packsize == -1) ? packet.size() - packet.getWindex() : packsize;
+
+	int ret = ::sendto(_handle, packet.wr_ptr(), tosend, flags, packet.getAddr(), packet.getAddr().getSize());
 	if (ret > 0)
 		packet.wr_ptr(packet.getWindex() + ret);
 	return ret;

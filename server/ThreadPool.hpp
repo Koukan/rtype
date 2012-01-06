@@ -21,5 +21,5 @@ class ThreadPool
 
 	threadList			_threadsList;
 	taskList			_tasksList;
-	Net::Mutex			_mutex;
+	Net::ConditionVar	_condvar;
 };

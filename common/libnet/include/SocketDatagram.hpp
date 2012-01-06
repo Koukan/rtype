@@ -25,8 +25,8 @@ public:
 	int	leave(InetAddr const &addr);
 	int	setTTLMulticast(uint32_t value, InetAddr const &addr);
 
-	virtual int	send(Packet &packet, int flags = 0);
-	virtual int	recv(Packet &packet, int flags = 0);
+	virtual int	send(Packet &packet, int flags = 0, int size = -1);
+	virtual int	recv(Packet &packet, int flags = 0, int size = -1);
 
 private:
 	int	bind(InetAddr const &addr);

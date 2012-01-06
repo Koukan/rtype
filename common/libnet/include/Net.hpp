@@ -7,5 +7,6 @@
 #include "Clock.hpp"
 #include "thread/Mutex.hpp"
 #include "thread/Thread.hpp"
+#include "thread/ConditionVar.hpp"
 #include "thread/TSS.hpp"
 
