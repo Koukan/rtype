@@ -13,9 +13,12 @@ set(SFMLDIR "C:/Development/Environment/SFML2.0")
 set(SFML_STATIC_LIBRARIES TRUE)
 ##find_package(SFML 2.0 REQUIRED SYSTEM GRAPHICS WINDOW)
 set(SFML_LIBRARIES
-	${SFML_GRAPHICS_LIBRARY}
-	${SFML_WINDOW_LIBRARY}
-	${SFML_SYSTEM_LIBRARY}
+	sfml-graphics
+	sfml-window
+	sfml-system
+#	${SFML_GRAPHICS_LIBRARY}
+#	${SFML_WINDOW_LIBRARY}
+#	${SFML_SYSTEM_LIBRARY}
 )
 ELSE(WIN32)
 set(TYPE "Unix")
@@ -57,8 +60,11 @@ set(SRCS_NET
 	${NET_SRCS_DIR}Clock.cpp			
 	${NET_MUTEX_SRCS_DIR}PosixMutex.cpp
 	${NET_MUTEX_SRCS_DIR}PosixThread.cpp
-	${NET_MUTEX_SRCS_DIR}ScopedLock.cpp
 	${NET_MUTEX_SRCS_DIR}PosixConditionVar.cpp
+	${NET_MUTEX_SRCS_DIR}WinMutex.cpp
+	${NET_MUTEX_SRCS_DIR}WinThread.cpp
+	${NET_MUTEX_SRCS_DIR}WinConditionVar.cpp
+	${NET_MUTEX_SRCS_DIR}ScopedLock.cpp
 )
 	
 add_library(
