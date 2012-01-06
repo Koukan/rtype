@@ -1,5 +1,14 @@
 #include "GUIElement.hpp"
 
+GUIElement(int x = 0, int y = 0, int width = 0, int height = 0)
+  : DrawableObject(x, y), _width(width), _height(height)
+{
+}
+
+~GUIElement()
+{
+}
+
 void GUIElement::setX(int x)
 {
   this->_x = x;
@@ -10,12 +19,12 @@ void GUIElement::setY(int y)
   this->_y = y;
 }
 
-void GUIList::focus()
+void GUIElement::focus()
 {
-  isFocused = true;
+  this->_isFocused = true;
 }
 
-void GUIList::unfocus()
+void GUIElement::unfocus()
 {
-  isFocused = false;
+  this->_isFocused = false;
 }

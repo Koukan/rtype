@@ -4,18 +4,10 @@ VLayout::VLayout()
 {
 }
 
-void VLayout::pressUp()
+virtual void		VLayout::draw(double elapseTime)
 {
-  if (this->_focusElement == this->_elements.begin())
-    this->_focusElement = --(this->_elements.end());
-  else
-    --this->_focusElement;
-}
-
-void VLayout::pressDown()
-{
-  if (this->_focusElement == --(this->_elements.end()))
-    this->_focusElement = this->_elements.begin();
-  else
-    ++this->_focusElement;
+  for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
+    {
+      *(it)->draw();
+    }
 }

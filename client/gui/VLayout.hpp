@@ -6,7 +6,6 @@ class VLayout : public Layout
 {
 public:
   VLayout();
-private:
-  void pressUp();
-  void pressDown();
+
+  virtual void		draw(double elapseTime);
 };

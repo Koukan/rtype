@@ -15,13 +15,26 @@ void Layout::insertElementAtEnd(GUIElement &elem)
   this->_elements.push_back(&elem);
 }
 
-bool Layout::GUIHandleCommand(Command const &command)
+void Layout::pressUp()
 {
-  //
-  /* handle command */
-  //
+  if (this->_focusElement == this->_elements.begin())
+    this->_focusElement = --(this->_elements.end());
+  else
+    --this->_focusElement;
+}
 
-  if (this->_focusElement)
-    return (this->_focusElement->GUIHandleCommand(command));
-  return (false);
+void Layout::pressDown()
+{
+  if (this->_focusElement == --(this->_elements.end()))
+    this->_focusElement = this->_elements.begin();
+  else
+    ++this->_focusElement;
+}
+
+void Layout::handleFunction()
+{
+  if (this->_focusElement != this->_elements.end())
+    {
+      *(this->_focusElement)->handleFunction();
+    }
 }
