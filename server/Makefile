@@ -2,15 +2,19 @@ NAME		=  ../rtype-server
 
 DIR			=  .
 
-SRCS		= $(DIR)/main.cpp				\
-			  $(DIR)/Server.cpp				\
-			  $(DIR)/NetworkModule.cpp		\
-			  $(DIR)/Player.cpp				\
-			  $(DIR)/GameManager.cpp		\
-			  $(DIR)/Game.cpp				\
-			  $(DIR)/ThreadPool.cpp			\
-			  $(DIR)/GameTask.cpp			\
-			  $(DIR)/GameLogic.cpp
+SRCS		= $(DIR)/main.cpp					\
+			  $(DIR)/Server.cpp					\
+			  $(DIR)/NetworkModule.cpp			\
+			  $(DIR)/Player.cpp					\
+			  $(DIR)/GameManager.cpp			\
+			  $(DIR)/Game.cpp					\
+			  $(DIR)/ThreadPool.cpp				\
+			  $(DIR)/GameTask.cpp				\
+			  $(DIR)/GameLogic.cpp				\
+			  $(DIR)/UdpHandler.cpp				\
+			  $(DIR)/PacketCommand.cpp			\
+			  $(DIR)/File.cpp					\
+			  $(DIR)/ServerResourceManager.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 

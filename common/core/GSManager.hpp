@@ -15,6 +15,7 @@ public:
   virtual void	update(double elapsedTime = 0);
   virtual void	destroy();
   bool			pushState(const std::string &name, GameState::Pause paused = GameState::ALL);
+  bool			pushState(GameState &state, GameState::Pause paused = GameState::ALL);
   bool			changeState(const std::string &name, GameState::Pause paused = GameState::ALL,
 				  			bool del = true);
   void			popState(bool del = true);
@@ -38,6 +39,7 @@ private:
   typedef std::map<std::string, GameStateKeeper*>	instanceMap;
 
   bool			push(const std::string &name, bool changed, GameState::Pause paused);
+  bool			push(GameState &state, bool changed, GameState::Pause paused, bool resume);
   void			pop(bool changed, bool del);
 
 protected:
