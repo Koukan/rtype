@@ -3,9 +3,10 @@
 #include "Game.hpp"
 #include "Server.hpp"
 #include "NetworkModule.hpp"
+#include "PacketType.hpp"
 
-Player::Player() : Net::PacketHandler<>(4096, "\n"),
-		_name(""), _game(0)
+Player::Player() : Net::PacketHandler<>(4096, "", true),
+		_name(""), _game(0), _idPacket(0)
 {
 	NetworkModule::get().addUDPPlayer(*this);
 	std::cout << "Client connected" << std::endl;
@@ -46,15 +47,42 @@ void		Player::setGame(Game &game)
 	this->_game = &game;
 }
 
+uint32_t	Player::getPacketId()
+{
+	return this->_idPacket++;
+}
+
+void		Player::resetPacketId()
+{
+	this->_idPacket = 0;
+}
+
+void		Player::addPacket(uint32_t id, Net::Packet &packet)
+{
+	this->_packets.push_back(std::make_pair(id, packet));
+	while (this->_packets.size() > 50)
+		this->_packets.pop_front();
+}
+
+Net::Packet const	&Player::getPacket(uint32_t id) const
+{
+	for (packetsList::const_iterator it = this->_packets.end();
+		 it != this->_packets.begin() && it->first > id; it--)
+	{
+		if (it->first == id)
+			return it->second;
+	}
+}
+
 int		Player::connection(Net::Packet &packet)
 {
 	std::string		name;
-	Net::Packet		answer(2);
+	Net::Packet		answer(5);
 
 	packet >> name;
 	this->_name = name;
-	answer << static_cast<uint8_t>(1);
-	answer << '\n';
+	answer << 1;
+	answer << static_cast<uint8_t>(TCP::ETABLISHED);
 	this->handleOutputPacket(answer);
 	std::cout << "Player " << name << " connected" << std::endl;
 	return 1;
@@ -76,17 +104,17 @@ int		Player::connectGame(Net::Packet &packet)
 		{
 			return 1;
 		}
-		Net::Packet		answer(4);
-		packet << static_cast<uint8_t>(14);
-		packet << static_cast<uint16_t>(1);
-		packet << '\n';
+		Net::Packet		answer(7);
+		answer << 3;
+		answer << static_cast<uint8_t>(TCP::ERROR);
+		answer << static_cast<uint16_t>(Error::GAME_FULL);
 		this->handleOutputPacket(answer);
 		return 1;
 	}
-	Net::Packet		answer(4);
-	packet << static_cast<uint8_t>(14);
-	packet << static_cast<uint16_t>(2);
-	packet << '\n';
+	Net::Packet		answer(7);
+	answer << 3;
+	answer << static_cast<uint8_t>(TCP::ERROR);
+	answer << static_cast<uint16_t>(Error::GAME_NOT_EXIST);
 	this->handleOutputPacket(answer);
 	return 1;
 }
@@ -106,10 +134,10 @@ int		Player::createGame(Net::Packet &packet)
 		game->addPlayer(*this);
 		return 1;
 	}
-	Net::Packet		answer(4);
-	answer << static_cast<uint8_t>(14);
-	answer << static_cast<uint16_t>(3);
-	answer << '\n';
+	Net::Packet		answer(7);
+	answer << 3;
+	answer << static_cast<uint8_t>(TCP::ERROR);
+	answer << static_cast<uint16_t>(Error::SERVER_FULL);
 	this->handleOutputPacket(answer);
 	return 1;
 }

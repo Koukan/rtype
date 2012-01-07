@@ -8,6 +8,7 @@ class GameLogic : public GameState
     GameLogic();
     virtual ~GameLogic();
 	virtual void		update(double elapsedTime);
+	virtual bool		handleCommand(Command &command);
 
   private:
 };

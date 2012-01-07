@@ -35,7 +35,8 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/GUIManager.cpp					\
 		  $(DIR)/GUILayout.cpp					\
 		  $(DIR)/GUIElement.cpp					\
-		  $(DIR)/../libnet/src/thread/PosixMutex.cpp
+		  $(DIR)/../libnet/src/thread/PosixMutex.cpp		\
+		  $(DIR)/md5.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 
