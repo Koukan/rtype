@@ -1,6 +1,6 @@
 #include "ServerResourceManager.hpp"
 
-ServerResourceManager::ServerResourceManager()
+ServerResourceManager::ServerResourceManager() : _id(1)
 {
 }
 
@@ -9,8 +9,10 @@ ServerResourceManager::~ServerResourceManager()
 }
 
 Sprite		*ServerResourceManager::addSprite(
-				std::string const &)
+				std::string const &name)
 {
+	if (this->_ids.find(name) == this->_ids.end())
+		this->_ids[name] = _id++;
 	return new Sprite;
 }
 
@@ -31,4 +33,13 @@ void		ServerResourceManager::addImage(
 		else
 			delete file;
 	}
+}
+
+uint32_t	ServerResourceManager::getId(std::string const &name) const
+{
+	std::map<std::string, uint32_t>::const_iterator it = _ids.find(name);
+
+	if (it != this->_ids.end())
+		return it->second;
+	return 0;
 }

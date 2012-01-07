@@ -12,3 +12,7 @@ GameLogic::~GameLogic()
 void		GameLogic::update(double)
 {
 }
+
+bool		GameLogic::handleCommand(Command &command)
+{
+}
