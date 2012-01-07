@@ -214,12 +214,20 @@ set(SRCS
 	Loading.cpp
 	Loading.hpp
 	main.cpp
+	NetworkModule.cpp
+	NetworkModule.hpp
+	PacketCommand.cpp
+	PacketCommand.hpp
+	Player.cpp
+	Player.hpp
 	RendererManager.cpp
 	RendererManager.hpp
 	SFMLSprite.cpp
 	SFMLSprite.hpp
 	SFMLSpriteProvider.cpp
 	SFMLSpriteProvider.hpp
+	UdpHandler.cpp
+	UdpHandler.hpp
 	Wall.cpp
 	Wall.hpp
 )
