@@ -61,14 +61,14 @@ void		NetworkModule::addUDPPlayer(Player &player)
 {
 	Net::InetAddr		addr;
 
-	player.getRemoteAddr(addr);
-	this->_udp.addAddr(addr);
+	if (player.getRemoteAddr(addr) != -1) 
+		this->_udp.addAddr(addr);
 }
 
 void		NetworkModule::removeUDPPlayer(Player &player)
 {
 	Net::InetAddr		addr;
 
-	player.getRemoteAddr(addr);
-	this->_udp.removeAddr(addr);
+	if (player.getRemoteAddr(addr) != -1)
+		this->_udp.removeAddr(addr);
 }
