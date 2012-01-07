@@ -1,33 +1,8 @@
 cmake_minimum_required (VERSION 2.8)
 
-project(R-Type_Client)
+project(R-Type_Server)
 
 set(EXECUTABLE_OUTPUT_PATH ../)
-
-##### Linking the sfml libraries
-IF(WIN32)
-set(TYPE "Windows")
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
-set(SFML_INCLUDE_DIR "C:/Development/Environment/SFML-1.6/include")
-set(SFMLDIR "C:/Development/Environment/SFML-1.6")
-set(SFML_STATIC_LIBRARIES TRUE)
-find_package(SFML 1.6 REQUIRED SYSTEM GRAPHICS WINDOW)
-set(SFML_LIBRARIES
-	${SFML_GRAPHICS_LIBRARY}
-	${SFML_WINDOW_LIBRARY}
-	${SFML_SYSTEM_LIBRARY}
-)
-ELSE(WIN32)
-set(TYPE "Unix")
-set(SFML_INCLUDE_DIR "/usr/include/SFML")
-set(SFML_LIBRARIES
-	sfml-graphics
-	sfml-window
-	sfml-system
-	dl
-)
-ENDIF(WIN32)
-#####
 
 ##### Linking libnet
 set(NET_SRCS_DIR "../common/libnet/src/")
@@ -144,6 +119,7 @@ set(INCLUDES_CORE
 )
 
 set(SRCS_CORE
+	${INCLUDES_CORE}
 	${CORE_DIR}Bullet.cpp
 	${CORE_DIR}BulletCommand.cpp
 	${CORE_DIR}BulletResourceManager.cpp
@@ -189,39 +165,36 @@ add_library(
 	${SRCS_CORE}
 )
 
-set(TARGET_NAME rtype_client)
-
-##	Font.cpp
-##	Font.hpp
-##	AudioManager.cpp
-##	AudioManager.hpp
-
 set(SRCS
 	${INCLUDES_CORE}
+	CMakeLists.txt
 	main.cpp
+	File.cpp
+	File.hpp
 	Game.cpp
 	Game.hpp
-	InputModule.cpp
-	InputModule.hpp
-	Loading.cpp
-	Loading.hpp
-	main.cpp
+	GameLogic.cpp
+	GameLogic.hpp
+	GameManager.cpp
+	GameManager.hpp
+	GameTask.cpp
+	GameTask.hpp
 	NetworkModule.cpp
 	NetworkModule.hpp
 	PacketCommand.cpp
 	PacketCommand.hpp
 	Player.cpp
 	Player.hpp
-	RendererManager.cpp
-	RendererManager.hpp
-	SFMLSprite.cpp
-	SFMLSprite.hpp
-	SFMLSpriteProvider.cpp
-	SFMLSpriteProvider.hpp
+	Server.cpp
+	Server.hpp
+	ServerResourceManager.cpp
+	ServerResourceManager.hpp
+	Task.hpp
+	ThreadPool.cpp
+	ThreadPool.hpp
 	UdpHandler.cpp
 	UdpHandler.hpp
-	Wall.cpp
-	Wall.hpp
+	main.cpp
 )
 
 IF(!WIN32)
@@ -244,12 +217,11 @@ endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 
 
 add_executable(
-	${TARGET_NAME}
+	RType_server
 	${SRCS}
 )
 
 include_directories (
-	${SFML_INCLUDE_DIR}
 	${NET_INCLUDE_DIR}
 	${NET_MUTEX_INCLUDE_DIR}
 	${CORE_DIR}
@@ -268,8 +240,7 @@ target_link_libraries(
 ###link_directories(/chemin/vers/boost_x_xx_x/stage/lib)
 
 target_link_libraries(
-	${TARGET_NAME}
-	${SFML_LIBRARIES}
+	RType_server
 	core
 	net
 )
