@@ -117,6 +117,9 @@ set(INCLUDES_CORE
 	${CORE_DIR}GameStateManager.hpp
 	${CORE_DIR}GameStateObserver.hpp
 	${CORE_DIR}GSManager.hpp
+	${CORE_DIR}GUIElement.hpp
+	${CORE_DIR}GUIManager.hpp
+	${CORE_DIR}GUILayout.hpp
 	${CORE_DIR}HitBox.hpp
 	${CORE_DIR}Input.hpp
 	${CORE_DIR}InputManager.hpp
@@ -157,6 +160,9 @@ set(SRCS_CORE
 	${CORE_DIR}GameState.cpp
 	${CORE_DIR}GameStateObserver.cpp
 	${CORE_DIR}GSManager.cpp
+	${CORE_DIR}GUIElement.cpp
+	${CORE_DIR}GUIManager.cpp
+	${CORE_DIR}GUILayout.cpp
 	${CORE_DIR}HitBox.cpp
 	${CORE_DIR}InputManager.cpp
 	${CORE_DIR}Module.cpp
@@ -234,10 +240,7 @@ set(SRCS
 	Wall.cpp
 	Wall.hpp
 	${GUI_SRC_DIR}/ButtonSprite.cpp
-	${GUI_SRC_DIR}/GUIElement.cpp
-	${GUI_SRC_DIR}/Layout.cpp
-	${GUI_SRC_DIR}/VLayout.cpp
-	${GUI_SRC_DIR}/GUIManager.cpp
+	${GUI_SRC_DIR}/GUIVLayout.cpp
 )
 
 set_source_files_properties (

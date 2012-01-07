@@ -1,8 +1,8 @@
 #include "GUIElement.hpp"
-#include "Layout.hpp"
+#include "GUILayout.hpp"
 #include "GameStateManager.hpp"
 
-GUIElement::GUIElement(int x, int y, int width, int height, Layout *layout)
+GUIElement::GUIElement(int x, int y, int width, int height, GUILayout *layout)
   : DrawableObject(x, y), _width(width), _height(height)
 {
   if (layout)
