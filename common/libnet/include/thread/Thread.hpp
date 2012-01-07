@@ -5,22 +5,22 @@
 
 #define _WINSOCKAPI_
 #include <windows.h>
-
 #define THREAD HANDLE
-
 # else
-
 #include	<pthread.h>
 #include	<stdlib.h>
-
-#define THREAD pthread_t
-
 # endif
 
 #include "NetDef.hpp"
 #include "ThreadSubscriber.hpp"
 
 NET_BEGIN_NAMESPACE
+
+# if defined (_WIN32)
+typedef	HANDLE thread_t;
+#else
+typedef pthread_t thread_t;
+# endif
 
 class NET_DLLREQ	Thread
 {
@@ -50,7 +50,7 @@ class NET_DLLREQ	Thread
  private:
  IThreadSubscriber 	*_func;
  bool				_state;
- THREAD				_tid;
+ thread_t			_tid;
 };
 
 NET_END_NAMESPACE

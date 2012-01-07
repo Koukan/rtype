@@ -1,6 +1,13 @@
 #include "Layout.hpp"
 
-Layout::Layout()
+Layout::Layout(int x, int y, int width, int height, Layout *layout)
+  : GUIElement(x, y, width, height, layout)
+{
+  this->_focusElement = this->_elements.begin();
+}
+
+Layout::Layout(int x, int y, int width, int height)
+  : GUIElement(x, y, width, height)
 {
   this->_focusElement = this->_elements.begin();
 }
@@ -15,26 +22,42 @@ void Layout::insertElementAtEnd(GUIElement &elem)
   this->_elements.push_back(&elem);
 }
 
-void Layout::pressUp()
+void Layout::prevElement()
 {
+  if (this->_focusElement != this->_elements.end())
+    (*this->_focusElement)->unfocus();
   if (this->_focusElement == this->_elements.begin())
     this->_focusElement = --(this->_elements.end());
   else
     --this->_focusElement;
+  if (this->_focusElement != this->_elements.end())
+    (*this->_focusElement)->focus();
 }
 
-void Layout::pressDown()
+void Layout::nextElement()
 {
-  if (this->_focusElement == --(this->_elements.end()))
+  if (this->_focusElement == this->_elements.end())
     this->_focusElement = this->_elements.begin();
   else
-    ++this->_focusElement;
+    {
+    (*this->_focusElement)->unfocus();
+      ++this->_focusElement;
+    }
+  if (this->_focusElement != this->_elements.end())
+    (*this->_focusElement)->focus();
 }
 
-void Layout::handleFunction()
+bool Layout::handleGUICommand(InputCommand const &command)
 {
   if (this->_focusElement != this->_elements.end())
+    return ((*(this->_focusElement))->handleGUICommand(command));
+  return (false);
+}
+
+void		Layout::draw(double elapseTime)
+{
+  for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
     {
-      *(this->_focusElement)->handleFunction();
+      (*it)->draw(elapseTime);
     }
 }

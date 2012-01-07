@@ -6,19 +6,19 @@
 # if defined (_WIN32)
 #define _WINSOCKAPI_
 #include <windows.h>
-
-#define MUTEX CRITICAL_SECTION 
-
 # else
 #  include	<pthread.h>
 #  include	<time.h>
 #  include	<stdlib.h>
-
-#define MUTEX pthread_mutex_t
-
 # endif
 
 NET_BEGIN_NAMESPACE
+
+# if defined (_WIN32)
+typedef	CRITICAL_SECTION mutex_t;
+#else
+typedef pthread_mutex_t mutex_t;
+# endif
 
 class NET_DLLREQ Mutex
 {
@@ -31,7 +31,7 @@ class NET_DLLREQ Mutex
 	bool	timedLock(int sec, int nano);
 
   protected:
-	MUTEX    _mutex;
+	mutex_t    _mutex;
 };
 
 class NET_DLLREQ ScopedLock

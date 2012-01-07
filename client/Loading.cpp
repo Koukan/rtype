@@ -3,6 +3,7 @@
 #include "Bullet.hpp"
 #include "Wall.hpp"
 #include "SFMLSpriteProvider.hpp"
+#include "GUIButton.hpp"
 
 Loading::Loading() : GameState("Loading")
 {
@@ -41,6 +42,7 @@ void	Loading::slowTest(const InputCommand &event)
 
 void	Loading::buttonClick()
 {
+  std::cout << "youpi" << std::endl;
 		//this->setComponentVisibility(false);
 }
 
@@ -73,6 +75,8 @@ void	Loading::onStart()
   // end bulletml test
 
   // GUI
+
+  new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("", "", "")), 0, 0, 20, 20);
   //CL_PushButton *button1 = this->create<CL_PushButton>("button1");
   //button1->set_geometry(CL_Rect(100, 200, 200, 320));
   //this->getGUIComponent<CL_PushButton>("button1")->set_text("Okay!");

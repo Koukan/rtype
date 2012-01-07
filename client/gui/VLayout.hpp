@@ -5,7 +5,9 @@
 class VLayout : public Layout
 {
 public:
-  VLayout();
+  VLayout(int x, int y, int width, int height, Layout *layout);
+  VLayout(int x, int y, int width, int height);
+  ~VLayout();
 
-  virtual void		draw(double elapseTime);
+  virtual bool handleGUICommand(InputCommand const &command);
 };
