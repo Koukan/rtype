@@ -1,9 +1,11 @@
 #include "GameState.hpp"
 #include "CommandDispatcher.hpp"
 
-GameState::GameState(const std::string &name) : name(name), _paused(NONE), _inputManager(*this)
+GameState::GameState(const std::string &name) : name(name), _paused(NONE), _GUIManager(/*this*/), _inputManager(*this)
 {
 	CommandDispatcher::get().registerHandler(*this);
+	this->registerHandler(this->_GUIManager);
+	this->_GUIManager.registerHandler(this->_inputManager);
 }
 
 GameState::~GameState()
@@ -48,4 +50,9 @@ GameState::Pause	GameState::getPaused() const
 InputManager		&GameState::getInput()
 {
   return this->_inputManager;
+}
+
+GUIManager		&GameState::getGUI()
+{
+  return this->_GUIManager;
 }

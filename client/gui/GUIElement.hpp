@@ -1,18 +1,24 @@
 #pragma once
 
 #include "DrawableObject.hpp"
+#include "Input.hpp"
+
+class Layout;
 
 class GUIElement : public DrawableObject
 {
 public:
-  GUIElement(int x = 0, int y = 0, int width = 0, int height = 0);
+  GUIElement(int x, int y, int width, int height, Layout *layout);
+  GUIElement(int x, int y, int width, int height);
   virtual ~GUIElement();
 
-  virtual void handleFunction() = 0;
-
-protected:
+  virtual bool handleGUICommand(InputCommand const &command) = 0;
+  void setX(int x);
+  void setY(int y);
   void focus();
   void unfocus();
+
+protected:
 
   bool _isFocused;
   int _width;

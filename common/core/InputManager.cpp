@@ -3,7 +3,6 @@
 
 InputManager::InputManager(GameState &game) : _gs(game), _flush(false) 
 {
-  game.registerHandler(*this);
 }
 
 InputManager::~InputManager()
