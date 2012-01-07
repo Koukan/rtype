@@ -13,7 +13,7 @@ public:
   {
   }
 
-  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite &sprite, int width, int height, Layout *layout)
+  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite &sprite, int width, int height, GUILayout *layout)
     : GUIElement(0, 0, width, height, layout), _instance(&instance), _func(func), _sprite(&sprite)
   {
   }

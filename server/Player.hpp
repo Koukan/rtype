@@ -9,11 +9,11 @@ class Player : public Net::PacketHandler<>
   public:
     Player();
     virtual ~Player();
-	virtual int		handleInputPacket(Net::Packet &packet);
-	void			setGame(Game &game);
-	uint32_t		getPacketId();
-	void			resetPacketId();
-	void			addPacket(uint32_t id, Net::Packet &packet);
+	virtual int			handleInputPacket(Net::Packet &packet);
+	void				setGame(Game &game);
+	uint32_t			getPacketId();
+	void				resetPacketId();
+	void				addPacket(uint32_t id, Net::Packet &packet);
 	Net::Packet const	&getPacket(uint32_t id) const;
 
   private:

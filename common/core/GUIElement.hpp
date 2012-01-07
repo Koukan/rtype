@@ -3,12 +3,12 @@
 #include "DrawableObject.hpp"
 #include "Input.hpp"
 
-class Layout;
+class GUILayout;
 
 class GUIElement : public DrawableObject
 {
 public:
-  GUIElement(int x, int y, int width, int height, Layout *layout);
+  GUIElement(int x, int y, int width, int height, GUILayout *layout);
   GUIElement(int x, int y, int width, int height);
   virtual ~GUIElement();
 

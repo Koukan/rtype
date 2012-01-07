@@ -16,6 +16,11 @@ class ServerResourceManager : public Singleton<ServerResourceManager>, public Sp
 	virtual void	addImage(std::string const &path, Sprite &);
 	void			loadResource(std::string const &path);
 
+	//getter
+	uint32_t		getId(std::string const &path) const;
+
   private:
+	uint32_t						_id;
 	std::map<std::string, File*>	_resources;
+	std::map<std::string, uint32_t> _ids;
 };

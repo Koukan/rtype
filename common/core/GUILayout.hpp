@@ -3,7 +3,7 @@
 #include <list>
 #include "GUIElement.hpp"
 
-class Layout : public GUIElement
+class GUILayout : public GUIElement
 {
 public:
   void insertElementAtBegin(GUIElement &elem);
@@ -15,8 +15,8 @@ public:
   void nextElement();
 
 protected:
-  Layout(int x, int y, int width, int height, Layout *layout);
-  Layout(int x, int y, int width, int height);
+  GUILayout(int x, int y, int width, int height, GUILayout *layout);
+  GUILayout(int x, int y, int width, int height);
 
 protected:
   std::list<GUIElement *> _elements;

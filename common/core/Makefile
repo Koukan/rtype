@@ -32,6 +32,9 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/tinyxml/tinyxml.cpp						\
 		  $(DIR)/tinyxml/tinyxmlerror.cpp					\
 		  $(DIR)/tinyxml/tinyxmlparser.cpp					\
+		  $(DIR)/GUIManager.cpp					\
+		  $(DIR)/GUILayout.cpp					\
+		  $(DIR)/GUIElement.cpp					\
 		  $(DIR)/../libnet/src/thread/PosixMutex.cpp		\
 		  $(DIR)/md5.cpp
 
@@ -45,7 +48,7 @@ AR			= ar r
 
 RANLIB		= ranlib
 
-CXXFLAGS	= -W -Wall -Wextra -g3 -pipe -I Callback_Impl -I QuadTree -I bulletml -I tinyxml -I ../libnet/include -I ../libnet/include/thread
+CXXFLAGS	= -W -Wall -Wextra -g3 -pipe -I Callback_Impl -I QuadTree -I bulletml -I tinyxml -I gui -I ../libnet/include -I ../libnet/include/thread
 
 LDFLAGS		= -L bulletml -lbulletml -lstdc++
 
