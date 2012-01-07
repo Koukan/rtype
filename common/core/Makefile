@@ -32,7 +32,8 @@ SRCS		= $(DIR)/Module.cpp								\
 		  $(DIR)/tinyxml/tinyxml.cpp						\
 		  $(DIR)/tinyxml/tinyxmlerror.cpp					\
 		  $(DIR)/tinyxml/tinyxmlparser.cpp					\
-		  $(DIR)/../libnet/src/thread/PosixMutex.cpp
+		  $(DIR)/../libnet/src/thread/PosixMutex.cpp		\
+		  $(DIR)/md5.cpp
 
 OBJS		= $(SRCS:.cpp=.o)
 

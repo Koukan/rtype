@@ -22,7 +22,7 @@ CXX			= g++
 
 RM			= rm -f
 
-CXXFLAGS	= -g3 -std=c++0x -pipe -I ../common/core -I../common/core/Callback_Impl -I../common/core/QuadTree -I../common/core/bulletml -I../common/core/tinyxml \
+CXXFLAGS	= -g3 -std=c++0x -pipe -I ../common -I ../common/core -I../common/core/Callback_Impl -I../common/core/QuadTree -I../common/core/bulletml -I../common/core/tinyxml \
 			  -I../common/libnet/include -I../common/libnet/include/thread
 
 LDFLAGS		= -lpthread -ldl -lsfml-graphics -lsfml-window -lsfml-system -L ../common -lcore -lbulletml -lnet

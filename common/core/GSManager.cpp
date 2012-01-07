@@ -132,6 +132,7 @@ bool		GSManager::push(GameState &state, bool changed,
 	}
 	else
 		state.onStart();
+	return true;
 }
 
 void		GSManager::pop(bool changed, bool del)

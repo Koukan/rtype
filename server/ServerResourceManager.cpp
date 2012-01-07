@@ -23,4 +23,12 @@ Sprite		*ServerResourceManager::getSprite(
 void		ServerResourceManager::addImage(
 				std::string const &path, Sprite &)
 {
+	if (this->_resources.find(path) == this->_resources.end())
+	{
+		File	*file = new File;
+		if (file->load(path))
+			this->_resources[path] = file;
+		else
+			delete file;
+	}
 }
