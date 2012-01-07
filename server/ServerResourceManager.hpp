@@ -17,5 +17,5 @@ class ServerResourceManager : public Singleton<ServerResourceManager>, public Sp
 	void			loadResource(std::string const &path);
 
   private:
-	std::map<std::string, File*>	_res;
+	std::map<std::string, File*>	_resources;
 };

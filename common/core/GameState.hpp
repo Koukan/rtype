@@ -7,6 +7,7 @@
 #include "ResourceManager.hpp"
 #include "Command.hpp"
 #include "InputManager.hpp"
+#include "GUIManager.hpp"
 
 class Game;
 
@@ -32,13 +33,15 @@ public:
   void			pause(Pause paused = ALL);
   void			play();
   Pause			getPaused() const;
-  InputManager	&getInput();
+  InputManager		&getInput();
+  GUIManager		&getGUI();
 
   const std::string	name;
 
 private:
   Pause			_paused;
-  InputManager	_inputManager;
+  GUIManager	_GUIManager;
+  InputManager  _inputManager;
 };
 
 #endif		/* _GAMESTATE_ */

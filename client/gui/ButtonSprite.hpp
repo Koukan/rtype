@@ -17,11 +17,11 @@ public:
 	       std::string const &buttonClickedSprite);
   ~ButtonSprite();
 
-  updateState(enum ButtonSprite::eState);
-  draw(int x, int y, double elapseTime = 0);
+  void updateState(enum ButtonSprite::eState);
+  void draw(int x, int y, double elapseTime = 0);
 private:
   Sprite	*_defaultSprite;
   Sprite	*_selectedSprite;
   Sprite	*_clickedSprite;
-  enum e_state	_state;
-}
+  enum eState	_state;
+};

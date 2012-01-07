@@ -1,4 +1,5 @@
 #include "ButtonSprite.hpp"
+#include "GameStateManager.hpp"
 
 ButtonSprite::ButtonSprite(std::string const &buttonSprite,
 			   std::string const &buttonSelectedSprite,
@@ -6,19 +7,24 @@ ButtonSprite::ButtonSprite(std::string const &buttonSprite,
 {
   GameState *gameState = &(GameStateManager::get().getCurrentState());
 
-  this->_defaultButton = gameState->getSprite(buttonSprite);
-  this->_selectedButton = gameState->getSprite(buttonSelectedSprite);
-  this->_clickedButton = gameState->getSprite(buttonClickedSprite);
+  this->_defaultSprite = gameState->getSprite(buttonSprite);
+  this->_selectedSprite = gameState->getSprite(buttonSelectedSprite);
+  this->_clickedSprite = gameState->getSprite(buttonClickedSprite);
 }
 
 ButtonSprite::~ButtonSprite()
 {
-  delete this->_defaultButton;
-  delete this->_selectedButton;
-  delete this->_clickedButton;  
+  delete this->_defaultSprite;
+  delete this->_selectedSprite;
+  delete this->_clickedSprite;  
 }
 
-ButtonSprite::draw(int x, int y, double elapseTime)
+void ButtonSprite::updateState(enum ButtonSprite::eState state)
+{
+  this->_state = state;
+}
+
+void ButtonSprite::draw(int x, int y, double elapseTime)
 {
   if (_state == DEFAULT)
     this->_defaultSprite->draw(x, y, elapseTime);

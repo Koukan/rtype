@@ -167,7 +167,6 @@ add_library(
 
 set(SRCS
 	${INCLUDES_CORE}
-	CMakeLists.txt
 	main.cpp
 	File.cpp
 	File.hpp

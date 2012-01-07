@@ -195,6 +195,9 @@ set(TARGET_NAME rtype_client)
 ##	Font.hpp
 ##	AudioManager.cpp
 ##	AudioManager.hpp
+set(GUI_INCLUDE_DIR "gui")
+
+set(GUI_SRC_DIR "gui")
 
 set(SRCS
 	${INCLUDES_CORE}
@@ -222,6 +225,11 @@ set(SRCS
 	UdpHandler.hpp
 	Wall.cpp
 	Wall.hpp
+	${GUI_SRC_DIR}/ButtonSprite.cpp
+	${GUI_SRC_DIR}/GUIElement.cpp
+	${GUI_SRC_DIR}/Layout.cpp
+	${GUI_SRC_DIR}/VLayout.cpp
+	${GUI_SRC_DIR}/GUIManager.cpp
 )
 
 IF(!WIN32)
@@ -257,6 +265,7 @@ include_directories (
 	${CORE_QUADTREE_INCLUDE_DIR}
 	${CORE_BULLETML_DIR}
 	${CORE_TINYXML_DIR}
+	${GUI_INCLUDE_DIR}
 )
 
 ###### linking net to core

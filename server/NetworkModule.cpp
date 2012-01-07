@@ -1,6 +1,8 @@
 #include "NetworkModule.hpp"
 #include "CommandDispatcher.hpp"
 #include "PacketCommand.hpp"
+#include "PacketType.hpp"
+#include "GameCommand.hpp"
 
 NetworkModule::NetworkModule() : Module("NetworkModule", 20), _reactor(0)
 {
@@ -34,22 +36,40 @@ void		NetworkModule::destroy()
 
 bool		NetworkModule::handleCommand(Command &command)
 {
-	if (command.name == "TCPPacket")
+	//if (command.name == "TCPPacket")
+	//{
+		//PacketCommand &cmd = static_cast<PacketCommand&>(command);
+		//cmd.player.handleOutputPacket(cmd.packet);
+		//return true;
+	//}
+	//else if (command.name == "UDPPacket")
+	//{
+		//PacketCommand &cmd = static_cast<PacketCommand&>(command);
+		//Net::InetAddr	addr;
+		//cmd.player.getRemoteAddr(addr);
+		//cmd.packet.setDestination(addr);
+		//this->_udp.handleOutputPacket(cmd.packet);
+		//return true;
+	//}
+	//return false;
+	if (command.name == "Spawn")
 	{
-		PacketCommand &cmd = static_cast<PacketCommand&>(command);
-		cmd.player.handleOutputPacket(cmd.packet);
+		GameCommand	&cmd = static_cast<GameCommand&>(command);
+		if (cmd.player)
+		{
+			Net::Packet		packet(29);
+			packet << 29 - sizeof(uint32_t);
+			packet << static_cast<uint8_t>(UDP::SPAWN);
+			packet << cmd.player->getPacketId();
+			packet << cmd.idResource;
+			packet << cmd.idObject;
+			packet << cmd.x;
+			packet << cmd.y;
+			packet << cmd.vx;
+			packet << cmd.vy;
+		}
 		return true;
 	}
-	else if (command.name == "UDPPacket")
-	{
-		PacketCommand &cmd = static_cast<PacketCommand&>(command);
-		Net::InetAddr	addr;
-		cmd.player.getRemoteAddr(addr);
-		cmd.packet.setDestination(addr);
-		this->_udp.handleOutputPacket(cmd.packet);
-		return true;
-	}
-	return false;
 }
 
 void		NetworkModule::setPort(std::string const &port)
@@ -61,14 +81,14 @@ void		NetworkModule::addUDPPlayer(Player &player)
 {
 	Net::InetAddr		addr;
 
-	player.getRemoteAddr(addr);
-	this->_udp.addAddr(addr);
+	if (player.getRemoteAddr(addr) != -1) 
+		this->_udp.addAddr(addr);
 }
 
 void		NetworkModule::removeUDPPlayer(Player &player)
 {
 	Net::InetAddr		addr;
 
-	player.getRemoteAddr(addr);
-	this->_udp.removeAddr(addr);
+	if (player.getRemoteAddr(addr) != -1)
+		this->_udp.removeAddr(addr);
 }

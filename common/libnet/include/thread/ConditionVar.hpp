@@ -7,20 +7,19 @@
 #if defined  (_WIN32)
 #define _WINSOCKAPI_
 #include <windows.h>
-
-#define CONDVAR CONDITION_VARIABLE
-
 #else
-
 #include <pthread.h>
-
-#define	CONDVAR	pthread_cond_t
-
 #endif
 
 #include "Mutex.hpp"
 
 NET_BEGIN_NAMESPACE
+
+# if defined (_WIN32)
+typedef	CONDITION_VARIABLE cond_t;
+#else
+typedef pthread_cond_t cond_t;
+# endif
 
 class NET_DLLREQ ConditionVar : public Mutex
 {
@@ -35,7 +34,7 @@ public:
 	bool	timedWait(int ms);
 
 private:
-	CONDVAR 	_cond;
+	cond_t 	_cond;
 };
 
 NET_END_NAMESPACE

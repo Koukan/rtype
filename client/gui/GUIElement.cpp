@@ -1,11 +1,22 @@
 #include "GUIElement.hpp"
+#include "Layout.hpp"
+#include "GameStateManager.hpp"
 
-GUIElement(int x = 0, int y = 0, int width = 0, int height = 0)
+GUIElement::GUIElement(int x, int y, int width, int height, Layout *layout)
   : DrawableObject(x, y), _width(width), _height(height)
 {
+  if (layout)
+    layout->insertElementAtEnd(*this);
 }
 
-~GUIElement()
+GUIElement::GUIElement(int x, int y, int width, int height)
+  : DrawableObject(x, y), _width(width), _height(height)
+{
+  Singleton<GameStateManager>::get().getCurrentState().getGUI().insertElementAtEnd(*this);
+  Singleton<GameStateManager>::get().getCurrentState().getGUI().nextElement();
+}
+
+GUIElement::~GUIElement()
 {
 }
 
