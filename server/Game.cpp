@@ -41,6 +41,7 @@ bool		Game::addPlayer(Player &player)
 	{
 		this->_list.push_back(&player);
 		player.setGame(*this);
+		player.setId(_logic.getLastAttributedId());
 		return true;
 	}
 	return false;

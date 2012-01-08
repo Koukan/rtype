@@ -69,7 +69,7 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 	packet >> Vx;
 	packet >> Vy;
 	GameCommand *gc = new GameCommand("move");
-	gc->idObject = id_object;
+	gc->idObject = player.getId();
 	gc->x = x;
 	gc->y = y;
 	gc->vx = Vx;
