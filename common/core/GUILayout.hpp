@@ -21,7 +21,7 @@ public:
 protected:
   GUILayout(int x, int y, int width, int height, GUILayout *layout);
   GUILayout(int x, int y, int width, int height);
-  ~GUILayout();
+  virtual ~GUILayout();
 
 protected:
   std::list<GUIElement *> _elements;

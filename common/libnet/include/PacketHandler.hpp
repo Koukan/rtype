@@ -88,7 +88,7 @@ public:
 		return 0;
 	}
 
-	virtual	int handleOutputPacket(Packet &output)
+	virtual	int handleOutputPacket(Packet const &output)
 	{
 		if (_outputPacket.empty())
 			this->_reactor->registerHandler(*this, *this, Reactor::READ | Reactor::WRITE);

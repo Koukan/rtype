@@ -8,17 +8,28 @@ template <typename T>
 class GUIButton : public GUIElement
 {
 public:
-  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite &sprite, int x, int y, int width, int height)
-    : GUIElement(x, y, width, height), _instance(&instance), _func(func), _sprite(&sprite)
+  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite *sprite, int x, int y, int width, int height)
+    : GUIElement(x, y, width, height), _instance(&instance), _func(func)
   {
+    if (sprite)
+      this->_sprite = new ButtonSprite(*sprite);
+    else
+      this->_sprite = 0;
   }
 
-  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite &sprite, int width, int height, GUILayout *layout)
-    : GUIElement(0, 0, width, height, layout), _instance(&instance), _func(func), _sprite(&sprite)
+  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite *sprite, int width, int height, GUILayout *layout)
+    : GUIElement(0, 0, width, height, layout), _instance(&instance), _func(func)
   {
+    if (sprite)
+      this->_sprite = new ButtonSprite(*sprite);
+    else
+      this->_sprite = 0;
   }
 
-  ~GUIButton() {}
+  ~GUIButton()
+  {
+    delete this->_sprite;
+  }
 
   virtual bool handleGUICommand(InputCommand const &command)
   {
@@ -41,23 +52,27 @@ public:
 
   virtual void	draw(double elapseTime)
   {
-    this->_sprite->draw(this->_x, this->_y, elapseTime);
+    if (this->_sprite)
+      this->_sprite->draw(this->_x, this->_y, elapseTime);
   }
 
   virtual void	draw(int x, int y, double elapseTime)
   {
-    this->_sprite->draw(x, y, elapseTime);
+    if (this->_sprite)
+      this->_sprite->draw(x, y, elapseTime);
   }
 
   virtual void focus()
   {
-    this->_sprite->updateState(ButtonSprite::SELECTED);
+    if (this->_sprite)
+      this->_sprite->updateState(ButtonSprite::SELECTED);
     this->GUIElement::focus();
   }
 
   virtual void unfocus()
   {
-    this->_sprite->updateState(ButtonSprite::DEFAULT);
+    if (this->_sprite)
+      this->_sprite->updateState(ButtonSprite::DEFAULT);
     this->GUIElement::unfocus();
   }
 
