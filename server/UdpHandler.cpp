@@ -45,12 +45,12 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 
 int			UdpHandler::spawn(Net::Packet &packet, Player&)
 {
-
+return 0;
 }
 
 int			UdpHandler::destroy(Net::Packet &packet, Player&)
 {
-
+return 0;
 }
 
 int			UdpHandler::move(Net::Packet &packet, Player &player)
@@ -81,19 +81,15 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 
 int			UdpHandler::score(Net::Packet &packet, Player&)
 {
-
+	return 0;
 }
 
 int			UdpHandler::statement(Net::Packet &packet, Player&)
 {
-
+	return 0;
 }
 
 int         UdpHandler::retrieve(Net::Packet &packet, Player&)
 {
-<<<<<<< HEAD
-
-=======
-	return true;
->>>>>>> 1a39e757bcaca5cb87202a1e9648eb47e370fcbe
+	return 0;
 }
