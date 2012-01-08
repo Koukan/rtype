@@ -136,10 +136,11 @@ set(INCLUDES_CORE
 	${CORE_DIR}PolyHitBox.hpp
 	${CORE_DIR}RectHitBox.hpp
 	${CORE_DIR}ResourceManager.hpp
-	${CORE_DIR}ResourceManager.ipp
 	${CORE_DIR}SharedLoader.hpp
 	${CORE_DIR}Sprite.hpp
 	${CORE_DIR}SpriteProvider.hpp
+	${CORE_DIR}SpriteProvider.ipp
+	${CORE_DIR}XMLProvider.hpp
 	${CORE_DIR}TimeEffectManager.hpp
 	${CORE_DIR}Singleton.hpp
 	${CORE_CALLBACK_DIR}Callback_Impl.hpp
@@ -175,7 +176,9 @@ set(SRCS_CORE
 	${CORE_DIR}PolyHitBox.cpp
 	${CORE_DIR}RectHitBox.cpp
 	${CORE_DIR}ResourceManager.cpp
+	${CORE_DIR}SpriteProvider.cpp
 	${CORE_DIR}TimeEffectManager.cpp
+	${CORE_DIR}XMLProvider.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}QuadTree.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}Node.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}TreeElement.cpp
