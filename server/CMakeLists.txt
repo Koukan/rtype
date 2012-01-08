@@ -192,6 +192,7 @@ set(SRCS
 	File.hpp
 	Game.cpp
 	Game.hpp
+	GameCommand.hpp
 	GameLogic.cpp
 	GameLogic.hpp
 	GameManager.cpp
