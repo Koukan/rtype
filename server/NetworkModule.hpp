@@ -19,6 +19,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void			setPort(std::string const &port);
 	void			addUDPPlayer(Player &player);
 	void			removeUDPPlayer(Player &player);
+	Player			*getPlayerByAddr(Net::InetAddr const &addr) const;
 
   private:
 	struct	Method
@@ -40,4 +41,5 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	UdpHandler				_udp;
 	std::string				_port;
 	Net::SetupNetwork		_init;
+	std::map<Net::InetAddr, Player *>		_players;
 };

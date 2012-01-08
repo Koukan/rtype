@@ -64,7 +64,10 @@ void		NetworkModule::addUDPPlayer(Player &player)
 	Net::InetAddr		addr;
 
 	if (player.getRemoteAddr(addr) != -1)
+	{
+		_players[addr] = &player;
 		this->_udp.addAddr(addr);
+	}
 }
 
 void		NetworkModule::removeUDPPlayer(Player &player)
@@ -72,7 +75,17 @@ void		NetworkModule::removeUDPPlayer(Player &player)
 	Net::InetAddr		addr;
 
 	if (player.getRemoteAddr(addr) != -1)
+	{
+		_players.erase(addr);
 		this->_udp.removeAddr(addr);
+	}
+}
+
+Player 		*NetworkModule::getPlayerByAddr(Net::InetAddr const &addr) const
+{
+	std::map<Net::InetAddr, Player *>::const_iterator it = _players.find(addr);
+
+	return ((it != _players.end()) ? it->second : 0);
 }
 
 void		NetworkModule::spawnCommand(Command const &command)

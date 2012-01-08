@@ -53,6 +53,7 @@ void		SFMLSprite::update(double elapsedTime)
 		}
 		this->_currentFrame = nb;
 		//this->SetSubRect(this->_rect[this->_currentFrame]);
+		//this->SetTextureRect(this->_rect[this->_currentFrame]);
 	}
 }
 
