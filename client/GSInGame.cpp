@@ -1,11 +1,12 @@
 #include <iostream>
 #include "GSInGame.hpp"
 #include "Input.hpp"
+#include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
 GSInGame::GSInGame() : GameState("Game")
 {
-
+  CommandDispatcher::get().registerHandler(*this);
 }
 
 GSInGame::~GSInGame()
@@ -29,6 +30,18 @@ void		GSInGame::update(double elapsedTime)
 void		GSInGame::onEnd()
 {
 
+}
+
+bool		GSInGame::handleCommand(Command &command)
+{
+  static Method const	methods[] = {
+	{"moveUp", &GSInGame::moveUp},
+        {"moveDown", &GSInGame::moveDown},
+        {"moveLeft", &GSInGame::moveLeft},
+        {"moveRight", &GSInGame::moveRight}
+  };
+
+  return (true);
 }
 
 void		GSInGame::moveUp(InputCommand const &event)
