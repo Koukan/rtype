@@ -50,7 +50,7 @@ void	GSLoading::buttonClick()
 
 }
 
-void	Loading::listChoice(std::string const &name)
+void	GSLoading::listChoice(std::string const &name)
 {
   std::cout << name << std::endl;
 		//this->setComponentVisibility(false);
@@ -87,7 +87,7 @@ void	GSLoading::onStart()
   // GUI
 
   GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
-  GUIList<GSLoading> *guilist = new GUIList<Loading>(*this, &Loading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
   guilist->addLabel("un");
   guilist->addLabel("deux");
   guilist->addLabel("trois");
