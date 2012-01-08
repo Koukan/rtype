@@ -83,3 +83,8 @@ void		Game::sendPacket(std::string const &type,
 		}
 	}
 }
+
+GameLogic	&Game::getGameLogic()
+{
+  return _logic;
+}

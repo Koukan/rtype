@@ -17,6 +17,7 @@ class Game : public Module
 	void			removePlayer(Player &player);
 	void			sendTCPPacket(Net::Packet &packet, Player *player = 0);
 	void			sendUDPPacket(Net::Packet &packet, Player *player = 0);
+	GameLogic		&getGameLogic();
 
   private:
 	void			sendPacket(std::string const &type,

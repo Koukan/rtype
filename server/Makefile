@@ -18,7 +18,7 @@ SRCS		= $(DIR)/main.cpp					\
 
 OBJS		= $(SRCS:.cpp=.o)
 
-CXX			= g++
+CXX			= g++ 
 
 RM			= rm -f
 
