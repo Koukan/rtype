@@ -40,7 +40,7 @@ bool		GSInGame::handleCommand(Command &command)
 	{"down", &GSInGame::moveDown},
 	{"left", &GSInGame::moveLeft},
 	{"life", &GSInGame::life},
-    {"move", &GSInGame::move},
+	{"move", &GSInGame::move},
 	{"retrieve", &GSInGame::retrieve},
 	{"right", &GSInGame::moveRight},
 	{"score", &GSInGame::score},
@@ -108,6 +108,7 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
+	delete (this->getGameObject(event.idObject));
 }
 
 void		GSInGame::score(GameCommand const &event)
