@@ -278,8 +278,6 @@ target_link_libraries(
 	net
 )
 
-###link_directories(/chemin/vers/boost_x_xx_x/stage/lib)
-
 target_link_libraries(
 	${TARGET_NAME}
 	${SFML_LIBRARIES}

@@ -247,11 +247,9 @@ include_directories (
 	${CORE_TINYXML_DIR}
 	${COMMON_INCLUDE_DIR}
 )
-IF(!WIN32)
-set(LIB_THREAD
-	pthread
-)
-ENDIF(!WIN32)
+
+find_package (Threads)
+
 
 ###### linking net to core
 target_link_libraries(
@@ -263,6 +261,5 @@ target_link_libraries(
 	RType_server
 	core
 	net
-	${LIB_THREAD}
-	
+	${CMAKE_THREAD_LIBS_INIT}
 )
