@@ -220,10 +220,12 @@ set(SRCS
 	main.cpp
 	Game.cpp
 	Game.hpp
+	GSInGame.cpp
+	GSInGame.hpp
 	InputModule.cpp
 	InputModule.hpp
-	Loading.cpp
-	Loading.hpp
+	GSLoading.cpp
+	GSLoading.hpp
 	main.cpp
 	NetworkModule.cpp
 	NetworkModule.hpp

@@ -239,3 +239,8 @@ GameObjectManager::groupsDisplay const	&GameObjectManager::getDisplayObjects() c
 {
 	return this->_display;
 }
+
+uint32_t			GameObjectManager::getLastAttributedId() const
+{
+ 	return _id;
+}

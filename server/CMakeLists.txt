@@ -215,6 +215,8 @@ set(SRCS
 	UdpHandler.cpp
 	UdpHandler.hpp
 	main.cpp
+	BCommand.cpp
+	BCommand.hpp
 )
 
 IF(!WIN32)

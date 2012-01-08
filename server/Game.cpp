@@ -7,13 +7,15 @@
 #include "PacketCommand.hpp"
 
 Game::Game(uint16_t id, uint8_t maxPlayers)
-	: Module("Game" + id, 20), _id(id), _maxPlayers(maxPlayers)
+	: Module("Game" + id, 20), _logic(*(new GameLogic(*this))),
+	  _id(id), _maxPlayers(maxPlayers)
 {
 	Server::get().loadModule(*this);
 }
 
 Game::~Game()
 {
+	delete &this->_logic;
 }
 
 void		Game::init()
@@ -41,6 +43,7 @@ bool		Game::addPlayer(Player &player)
 	{
 		this->_list.push_back(&player);
 		player.setGame(*this);
+		player.setId(_logic.getLastAttributedId());
 		return true;
 	}
 	return false;

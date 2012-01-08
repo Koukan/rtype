@@ -20,7 +20,7 @@ public:
 	void				setGroup(Group *group);
 
 	// getter
-	uint32_t	getId();
+	uint32_t	getId() const;
 	double		getX() const;
 	double		getY() const;
 	Group		*getGroup() const;

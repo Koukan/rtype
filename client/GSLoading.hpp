@@ -3,11 +3,11 @@
 #include "GameState.hpp"
 #include "BulletCommand.hpp"
 
-class Loading : public GameState
+class GSLoading : public GameState
 {
 public:
-	Loading();
-	~Loading();
+	GSLoading();
+	~GSLoading();
 	virtual void	onStart();
 	virtual	void	update(double elapseTime = 0);
 
