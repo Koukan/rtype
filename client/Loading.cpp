@@ -96,7 +96,7 @@ void	Loading::onStart()
   // end GUI
 
   // Input
-  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &Loading::escape, (int)Keyboard::Key::Escape);
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &Loading::escape, (int)Keyboard::Escape);
   this->getInput().registerInputCallback(InputCommand::MouseWheelMoved, *this, &Loading::slowTest);
   //this->registerInputCallback(CL_InputEvent::pressed, *this, &Loading::slowTest, CL_MOUSE_WHEEL_DOWN);
   //this->registerInputCallback(CL_InputEvent::released, *this, &Loading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);
