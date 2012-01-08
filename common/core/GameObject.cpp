@@ -12,6 +12,11 @@ GameObject::~GameObject(void)
     _group->removeObject(this);
 }
 
+uint32_t	GameObject::getId() const
+{
+	return this->_id;
+}
+
 double		GameObject::getX() const
 {
   return _x;

@@ -1,4 +1,4 @@
-#include "Loading.hpp"
+#include "GSLoading.hpp"
 #include "Game.hpp"
 #include "Bullet.hpp"
 #include "Wall.hpp"
@@ -8,31 +8,31 @@
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
 
-Loading::Loading() : GameState("Loading")
+GSLoading::GSLoading() : GameState("GSLoading")
 {
   //AudioManager::get().load("intro", "resource/sound/06-multiplayer-mouse-mania.ogg");
   //AudioManager::get().play("intro", "test", "intro");
   //AudioManager::get().setVolume("intro", "test", 1.0f);
 }
 
-Loading::~Loading()
+GSLoading::~GSLoading()
 {}
 
-void	Loading::escape(const InputCommand &)
+void	GSLoading::escape(const InputCommand &)
 {
   	GameStateManager::get().popState();
   	Game::get().quit();
 }
 
-//void	Loading::click(const CL_InputEvent &event)
+//void	GSLoading::click(const CL_InputEvent &event)
 //{
 //}
 
-void	Loading::update(double time)
+void	GSLoading::update(double time)
 {
 }
 
-void	Loading::slowTest(const InputCommand &event)
+void	GSLoading::slowTest(const InputCommand &event)
 {
 	if (event.MouseWheel.Delta < 0)
   {
@@ -43,7 +43,7 @@ void	Loading::slowTest(const InputCommand &event)
 		this->setTimeEffect("default", this->getTimeEffect() + 0.1);
 }
 
-void	Loading::buttonClick()
+void	GSLoading::buttonClick()
 {
   std::cout << "youpi" << std::endl;
 		//this->setComponentVisibility(false);
@@ -56,7 +56,7 @@ void	Loading::listChoice(std::string const &name)
 		//this->setComponentVisibility(false);
 }
 
-void	Loading::onStart()
+void	GSLoading::onStart()
 {
   this->loadSpriteProvider(*(new SFMLSpriteProvider));
   this->load("resources/intro.xml");
@@ -87,27 +87,30 @@ void	Loading::onStart()
   // GUI
 
   GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
-  GUIList<Loading> *guilist = new GUIList<Loading>(*this, &Loading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  GUIList<GSLoading> *guilist = new GUIList<Loading>(*this, &Loading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
   guilist->addLabel("un");
   guilist->addLabel("deux");
   guilist->addLabel("trois");
   for (int i = 0; i < 6; ++i)
     {
       GUILayout *layout2 = new GUIHLayout(0, 0, 100, 50, layout);
-      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
     }
   //CL_PushButton *button1 = this->create<CL_PushButton>("button1");
   //button1->set_geometry(CL_Rect(100, 200, 200, 320));
   //this->getGUIComponent<CL_PushButton>("button1")->set_text("Okay!");
-  //button1->func_clicked() = CL_Callback_v0(this, &Loading::buttonClick);
+  //button1->func_clicked() = CL_Callback_v0(this, &GSLoading::buttonClick);
   //CL_LineEdit *lineedit =  this->create<CL_LineEdit>("lineedit");
   //lineedit->set_geometry(CL_Rect(100, 100, 200, 120));
   // end GUI
 
   // Input
-  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &Loading::escape, (int)Keyboard::Escape);
-  this->getInput().registerInputCallback(InputCommand::MouseWheelMoved, *this, &Loading::slowTest);
-  //this->registerInputCallback(CL_InputEvent::pressed, *this, &Loading::slowTest, CL_MOUSE_WHEEL_DOWN);
-  //this->registerInputCallback(CL_InputEvent::released, *this, &Loading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSLoading::escape, (int)Keyboard::Escape);
+  this->getInput().registerInputCallback(InputCommand::MouseWheelMoved, *this, &GSLoading::slowTest);
+  //this->registerInputCallback(CL_InputEvent::pressed, *this, &GSLoading::slowTest, CL_MOUSE_WHEEL_DOWN);
+  //this->registerInputCallback(CL_InputEvent::released, *this, &GSLoading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);
   // End Input
 }

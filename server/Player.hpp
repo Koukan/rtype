@@ -12,6 +12,8 @@ class Player : public Net::PacketHandler<>
     virtual ~Player();
 	virtual int			handleInputPacket(Net::Packet &packet);
 	void				setGame(Game &game);
+	void				setId(uint32_t id);
+	uint32_t			getId() const;
 	uint32_t			getPacketId();
 	void				resetPacketId();
 	void				addPacket(uint32_t id, Net::Packet &packet);
@@ -30,5 +32,6 @@ class Player : public Net::PacketHandler<>
 	std::string		_name;
 	Game			*_game;
 	uint32_t		_idPacket;
+	uint32_t		_idShip;
 	packetsList		_packets;
 };

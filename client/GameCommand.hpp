@@ -18,7 +18,5 @@ class GameCommand : public Command
 	int16_t				y;
 	int16_t				vx;
 	int16_t				vy;
-	Player				*player;
-	Game				*game;
 };
 
