@@ -1,4 +1,5 @@
 #include <iostream>
+#include "RectHitBox.hpp"
 #include "GSInGame.hpp"
 #include "Input.hpp"
 #include "CommandDispatcher.hpp"
@@ -77,6 +78,10 @@ void		GSInGame::moveRight(InputCommand const &event)
 
 void		GSInGame::spawn(GameCommand const &event)
 {
+	HitBox *tmp = new RectHitBox(event.x, event.y, 2, 2); //tmp
+
+	//GameObject *obj = new PhysicObject(*tmp, event.vx, event.vy);
+
 
 }
 
@@ -100,4 +105,15 @@ void		GSInGame::retrieve(GameCommand const &event)
 
 void		GSInGame::move(GameCommand const &event)
 {
+	try
+	{
+		PhysicObject *obj = _gameObjects.at(event.idObject);
+
+		obj->setX(event.x);
+		obj->setY(event.y);
+		obj->setVx(event.vx);
+		obj->setVy(event.vy);
+	}
+	catch(std::out_of_range &)
+	{}
 }

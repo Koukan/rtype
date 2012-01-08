@@ -70,14 +70,15 @@ add_library(
 	${SRCS_NET}
 )
 
-IF(!WIN32)
+IF(WIN32)
+ELSE(WIN32)
 set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
   "-std=c++0x -W -Wall"
 )
-ENDIF(!WIN32)
+ENDIF(WIN32)
 
 ##### Linking core
 set(CORE_DIR
@@ -190,14 +191,15 @@ set(SRCS_CORE
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
-IF(!WIN32)
+IF(WIN32)
+ELSE(WIN32)
 set_source_files_properties (
   ${SRCS_CORE}
   PROPERTIES
   COMPILE_FLAGS
   "-W -Wall"
 )
-ENDIF(!WIN32)
+ENDIF(WIN32)
 
 add_library(
 	core
@@ -228,6 +230,8 @@ set(SRCS
 	InputModule.cpp
 	InputModule.hpp
 	main.cpp
+	Monster.cpp
+	Monster.hpp
 	NetworkModule.cpp
 	NetworkModule.hpp
 	PacketCommand.cpp
@@ -250,14 +254,15 @@ set(SRCS
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )
 
-IF(!WIN32)
+IF(WIN32)
+ELSE(WIN32)
 set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
   "-std=c++0x -W -Wall"
 )
-ENDIF(!WIN32)
+ENDIF(WIN32)
 
 ##### Setting the output directory for the solution
 foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
