@@ -75,7 +75,7 @@ set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
@@ -147,6 +147,7 @@ set(INCLUDES_CORE
 )
 
 set(SRCS_CORE
+	${INCLUDES_CORE}
 	${CORE_DIR}Bullet.cpp
 	${CORE_DIR}BulletCommand.cpp
 	${CORE_DIR}BulletResourceManager.cpp
@@ -188,6 +189,15 @@ set(SRCS_CORE
 	${CORE_CALLBACK_DIR}/Callback_Impl_Function.cpp
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
+
+IF(!WIN32)
+set_source_files_properties (
+  ${SRCS_CORE}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-W -Wall"
+)
+ENDIF(!WIN32)
 
 add_library(
 	core
@@ -243,7 +253,7 @@ set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
