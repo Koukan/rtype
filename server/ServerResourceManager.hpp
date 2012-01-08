@@ -12,7 +12,7 @@ class ServerResourceManager : public Singleton<ServerResourceManager>, public Sp
     ServerResourceManager();
     virtual ~ServerResourceManager();
 	virtual Sprite	*addSprite(std::string const &);
-	virtual Sprite	*getSprite(std::string const &);
+	virtual Sprite	*getSprite(std::string const &) const;
 	virtual void	addImage(std::string const &path, Sprite &);
 	void			loadResource(std::string const &path);
 

@@ -18,7 +18,7 @@ void		UdpHandler::init()
 }
 
 int			UdpHandler::handleInputPacket(Net::Packet &packet)
-{	
+{
 	static int			(UdpHandler::* const methods[])(Net::Packet&, Player&) = {
 			&UdpHandler::spawn,
 			&UdpHandler::destroy,
