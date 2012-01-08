@@ -79,14 +79,17 @@ void	Loading::onStart()
   // GUI
 
   GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   for (int i = 0; i < 6; ++i)
     {
       GUILayout *layout2 = new GUIHLayout(0, 0, 100, 50, layout);
-      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
-      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
-      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
-      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", sprite, 50, 50, layout2);
     }
+
   //CL_PushButton *button1 = this->create<CL_PushButton>("button1");
   //button1->set_geometry(CL_Rect(100, 200, 200, 320));
   //this->getGUIComponent<CL_PushButton>("button1")->set_text("Okay!");

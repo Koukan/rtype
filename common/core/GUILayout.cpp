@@ -14,12 +14,18 @@ GUILayout::GUILayout(int x, int y, int width, int height)
 
 GUILayout::~GUILayout()
 {
+  for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
+    {
+      delete *it;
+    }
 }
 
 void GUILayout::focus()
 {
   if (this->_focusElement == this->_elements.end())
     this->nextElement();
+  else
+    (*this->_focusElement)->focus();
   this->GUIElement::focus();
 }
 
@@ -28,9 +34,8 @@ void GUILayout::unfocus()
   if (this->_focusElement != this->_elements.end())
     {
       (*this->_focusElement)->unfocus();
-      this->_focusElement = this->_elements.end();
     }
-  this->GUIElement::focus();
+  this->GUIElement::unfocus();
 }
 
 void GUILayout::insertElementAtBegin(GUIElement &elem)

@@ -19,6 +19,8 @@ public:
 
   void updateState(enum ButtonSprite::eState);
   void draw(int x, int y, double elapseTime = 0);
+  ButtonSprite *clone() const;
+
 private:
   Sprite	*_defaultSprite;
   Sprite	*_selectedSprite;
