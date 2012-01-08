@@ -43,37 +43,42 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	return 0;
 }
 
-int			UdpHandler::spawn(Net::Packet &packet, Player&)
+int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 {
-return 0;
+	uint32_t	id_packet;
+
+	//if (packet.size() < 24)
+	//return 0;
+	GameCommand *gc = new GameCommand("spawn");
+	packet >> id_packet;
+	packet >> gc->idObject;
+	packet >> gc->idResource;
+	gc->idObject = player.getId();
+	packet >> gc->x;
+	packet >> gc->y;
+	packet >> gc->vx;
+	packet >> gc->vy;
+	gc->player = &player;
+	player.getGameLogic().pushCommand(*gc);
+	return 1;
 }
 
 int			UdpHandler::destroy(Net::Packet &packet, Player&)
 {
-return 0;
+	return 0;
 }
 
 int			UdpHandler::move(Net::Packet &packet, Player &player)
 {
-	uint32_t	id_object;
-	int16_t		x;
-	int16_t		y;
-	int16_t		Vx;
-	int16_t		Vy;
-
 	//if (packet.size() < 24)
 	//return 0;
-	packet >> id_object;
-	packet >> x;
-	packet >> y;
-	packet >> Vx;
-	packet >> Vy;
 	GameCommand *gc = new GameCommand("move");
+	packet >> gc->idObject;
 	gc->idObject = player.getId();
-	gc->x = x;
-	gc->y = y;
-	gc->vx = Vx;
-	gc->vy = Vy;
+	packet >> gc->x;
+	packet >> gc->y;
+	packet >> gc->vx;
+	packet >> gc->vy;
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
@@ -89,7 +94,12 @@ int			UdpHandler::statement(Net::Packet &packet, Player&)
 	return 0;
 }
 
-int         UdpHandler::retrieve(Net::Packet &packet, Player&)
+int         UdpHandler::retrieve(Net::Packet &packet, Player &player)
 {
-	return 0;
+	uint32_t	packet_id;
+
+	Net::Packet const *tmp = player.getPacket(packet_id);
+	if (tmp)
+		this->handleOutputPacket(*tmp);
+	return 1;
 }
