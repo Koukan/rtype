@@ -22,8 +22,6 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	Player			*getPlayerByAddr(Net::InetAddr const &addr) const;
 
   private:
-	typedef	std::map<uint16_t, std::map<uint32_t, Net::Packet*>>	PacketMem;
-
 	struct	Method
 	{
 		std::string	name;
@@ -43,6 +41,5 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	UdpHandler				_udp;
 	std::string				_port;
 	Net::SetupNetwork		_init;
-	PacketMem				_packets;
 	std::map<Net::InetAddr, Player *>		_players;
 };
