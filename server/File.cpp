@@ -34,4 +34,5 @@ bool		File::load(std::string const &path)
 		this->_md5.assign(md5, 16);
 		this->_path = path;
 	}
+	return false;
 }
