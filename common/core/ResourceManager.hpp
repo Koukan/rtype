@@ -5,36 +5,30 @@
 #include "BulletResourceManager.hpp"
 #include "tinyxml.h"
 #include "Sprite.hpp"
-#include "SpriteProvider.hpp"
+#include "Font.hpp"
+#include "XMLProvider.hpp"
 
-class ResourceManager : public BulletResourceManager
+class ResourceManager : public BulletResourceManager, public XMLProvider
 {
   public:
 	ResourceManager();
 	virtual ~ResourceManager();
 	void			load(std::string const &path);
-	void			loadSpriteProvider(SpriteProvider &provider);
+	void			addProvider(XMLProvider &provider);
 	Sprite			*getSprite(std::string const &name) const;
+	Font			*getFont(std::string const &name) const;
+
+  template <typename T>
+  struct			Method
+  {
+    T			name;
+    void		(ResourceManager::*func)(TiXmlNode *);
+  };
 
   private:
-	template <typename T>
-	struct			Method
-	{
-		T			name;
-		void		(ResourceManager::*func)(TiXmlNode*);
-	};
+	typedef std::map<std::string, XMLProvider *> ProviderMap;
 
-	template <typename T>
-	struct			Method_2
-	{
-		std::string	name;
-		void		(ResourceManager::*func)(TiXmlElement*, T);
-	};
-
-	void			load(TiXmlNode *parent);
-	template <typename T>
-	void			loadElement(TiXmlNode *parent, T data,
-								Method_2<T> const *tab, size_t sizeTab);
+	void			handleXML(TiXmlNode *parent);
 	void			loadDocument(TiXmlNode *parent);
 	void			loadElement(TiXmlNode *parent);
 	void			loadComment(TiXmlNode *parent);
@@ -45,15 +39,6 @@ class ResourceManager : public BulletResourceManager
 	void			get2Int(std::string const &data, std::string const &sep,
 							int &a, int &b);
 
-	// sprite parsing
-	void			imageSprite(TiXmlElement *parent, Sprite *sprite);
-	void			scaleSprite(TiXmlElement *parent, Sprite *sprite);
-	void			animationSprite(TiXmlElement *parent, Sprite *sprite);
-	void			translateSprite(TiXmlElement *parent, Sprite *sprite);
-	void			gridSprite(TiXmlElement *parent, Sprite *sprite);
-
-	SpriteProvider	*_provider;
+	ProviderMap	_providers;
 	TiXmlDocument	_document;
 };
-
-#include "ResourceManager.ipp"

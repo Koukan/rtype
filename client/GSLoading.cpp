@@ -58,7 +58,7 @@ void	GSLoading::listChoice(std::string const &name)
 
 void	GSLoading::onStart()
 {
-  this->loadSpriteProvider(*(new SFMLSpriteProvider));
+  this->addProvider(*(new SFMLSpriteProvider));
   this->load("resources/intro.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 5);
