@@ -1,6 +1,6 @@
 template <typename T>
-void			ResourceManager::loadElement(TiXmlNode *parent, T data,
-							Method_2<T> const *tab, size_t sizeTab)
+void			SpriteProvider::loadElement(TiXmlNode *parent, T data,
+							Method<T> const *tab, size_t sizeTab)
 {
 	if (!parent || !tab || !sizeTab)
 		return ;
