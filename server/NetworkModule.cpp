@@ -70,6 +70,7 @@ bool		NetworkModule::handleCommand(Command &command)
 		}
 		return true;
 	}
+	return false;
 }
 
 void		NetworkModule::setPort(std::string const &port)

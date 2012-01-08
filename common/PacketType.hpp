@@ -31,7 +31,7 @@ namespace TCP
 		END_RESOURCE = 11,
 		END_RESOURCES = 12,
 		GAMESTATE = 13,
-		ERROR = 14
+		TCP_ERROR = 14 // may be Error, but WinGDI.h already defines it on Windows
 	};
 }
 
