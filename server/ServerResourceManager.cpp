@@ -17,7 +17,7 @@ Sprite		*ServerResourceManager::addSprite(
 }
 
 Sprite		*ServerResourceManager::getSprite(
-				std::string const &)
+				std::string const &) const
 {
 	return 0;
 }

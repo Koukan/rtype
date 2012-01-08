@@ -72,7 +72,7 @@ void		BulletCommand::createSimpleBullet(double direction, double speed)
 void		BulletCommand::createBullet(BulletMLState* state,
 				  	    double direction, double speed)
 {
-	this->_state.addGameObject(new BulletCommand(state, _state, _x, _y, direction, speed), state->getGroup());
+	this->_state.addGameObject(new BulletCommand(state, _state, _x, _y, dtor(direction), speed), state->getGroup());
 	delete state;
 }
 

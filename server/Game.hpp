@@ -25,8 +25,8 @@ class Game : public Module
 							   Net::Packet &packet,
 							   Player *player);
 
+	GameLogic			&_logic;
 	uint16_t			_id;
 	uint8_t				_maxPlayers;
 	std::list<Player*>	_list;
-	GameLogic			_logic;
 };

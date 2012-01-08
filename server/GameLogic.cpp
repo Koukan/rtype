@@ -1,7 +1,9 @@
 #include <iostream>
+#include "Game.hpp"
 #include "GameLogic.hpp"
 
-GameLogic::GameLogic() : GameState("GameLogic")
+GameLogic::GameLogic(Game &game)
+	: GameState("GameLogic"), _game(game)
 {
 }
 
@@ -16,4 +18,9 @@ void		GameLogic::update(double)
 bool		GameLogic::handleCommand(Command &command)
 {
 	return true;
+}
+
+Game		&GameLogic::getGame() const
+{
+	return this->_game;
 }
