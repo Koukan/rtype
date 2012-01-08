@@ -94,6 +94,7 @@ class GameObjectManager : public TimeEffectManager
 	void						addDeleteObject(GameObject *obj);
 	void						deleteObjects();
 	groupsDisplay const			&getDisplayObjects() const;
+	uint32_t					getLastAttributedId() const;
 
   private:
 	typedef	std::map<uint32_t, GameObject*>	IdMap;

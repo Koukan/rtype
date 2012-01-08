@@ -6,7 +6,7 @@
 #include "PacketType.hpp"
 
 Player::Player() : Net::PacketHandler<>(4096, "", true),
-		_name(""), _game(0), _idPacket(0)
+		_name(""), _game(0), _idPacket(0), _idShip(0)
 {
 	NetworkModule::get().addUDPPlayer(*this);
 	std::cout << "Client connected" << std::endl;
@@ -45,6 +45,16 @@ int			Player::handleInputPacket(Net::Packet &packet)
 void		Player::setGame(Game &game)
 {
 	this->_game = &game;
+}
+
+void		Player::setId(uint32_t id)
+{
+	this->_idShip = id;
+}
+
+uint32_t	Player::getId() const
+{
+	return this->_idShip;
 }
 
 uint32_t	Player::getPacketId()

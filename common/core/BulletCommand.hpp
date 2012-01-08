@@ -34,7 +34,7 @@ class BulletCommand : public BulletMLRunner, public Bullet
     virtual double	getBulletSpeedY();
     virtual void	move(double time);
 
-  private:
+  protected:
     double			_turn;
     bool			_end;
     GameState		&_state;

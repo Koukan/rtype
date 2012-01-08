@@ -3,7 +3,8 @@
 #include "RendererManager.hpp"
 #include "InputModule.hpp"
 #include "PhysicManager.hpp"
-#include "Loading.hpp"
+#include "GSLoading.hpp"
+#include "GSInGame.hpp"
 #include "CommandDispatcher.hpp"
 
 Game::Game() : _quit(false)
@@ -30,8 +31,10 @@ void		Game::init()
   this->loadModule(RendererManager::get());
   this->loadModule(*(new InputModule));
   this->loadModule(*(new PhysicManager));
-  GameStateManager::get().loadState<Loading>("Loading");
+  GameStateManager::get().loadState<GSLoading>("Loading");
   GameStateManager::get().changeState("Loading");
+  // GameStateManager::get().loadState<GSInGame>("Game");
+  // GameStateManager::get().changeState("Game");
 }
 
 void		Game::quit()

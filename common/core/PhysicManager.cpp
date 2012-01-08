@@ -91,5 +91,6 @@ void		PhysicManager::collide(GameObjectManager::groupsMap const &groups,
 				temp->second->getQuadTree().collide(itGroups->second->getQuadTree(), QuadTree::LEFT);
 		}
 	}
-	groups.begin()->second->getState().deleteObjects();
+	if (groups.size() != 0)
+	  groups.begin()->second->getState().deleteObjects();
 }

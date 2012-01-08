@@ -7,23 +7,21 @@
 #include <time.h>
 #include "NetDef.hpp"
 
-NET_BEGIN_NAMESPACE
-
 #if defined (_WIN32)
 #define _WINSOCKAPI_
 #define EPOCHFILETIME (116444736000000000LL)
-
 #include <windows.h>
-
-#define TIME DWORD
-
 #else
-
 #include <sys/time.h>
-
-#define TIME struct timeval
-
 #endif
+
+NET_BEGIN_NAMESPACE
+
+# if defined (_WIN32)
+typedef	DWORD clocktime_t;
+#else
+typedef struct timeval clocktime_t;
+# endif
 
 class NET_DLLREQ Clock
 {
@@ -44,7 +42,7 @@ public:
 
 private:
 	bool						_paused;
-	TIME						_time;
+	clocktime_t					_time;
 };
 
 NET_END_NAMESPACE

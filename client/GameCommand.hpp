@@ -7,8 +7,7 @@ class GameCommand : public Command
 {
   public:
     GameCommand(std::string const &name) : Command(name),
-		idObject(0), idResource(0), x(0), y(0), vx(0), vy(0),
-		player(0), game(0)
+		idObject(0), idResource(0), x(0), y(0), vx(0), vy(0)
 		{}
     virtual ~GameCommand(){}
 
@@ -18,7 +17,5 @@ class GameCommand : public Command
 	int16_t				y;
 	int16_t				vx;
 	int16_t				vy;
-	Player				*player;
-	Game				*game;
 };
 

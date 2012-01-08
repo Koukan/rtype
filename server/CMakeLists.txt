@@ -53,7 +53,7 @@ set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
@@ -172,6 +172,15 @@ set(SRCS_CORE
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
+IF(!WIN32)
+set_source_files_properties (
+  ${SRCS_CORE}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-W -Wall"
+)
+ENDIF(!WIN32)
+
 add_library(
 	core
 	STATIC
@@ -185,6 +194,7 @@ set(SRCS
 	File.hpp
 	Game.cpp
 	Game.hpp
+	GameCommand.hpp
 	GameLogic.cpp
 	GameLogic.hpp
 	GameManager.cpp
@@ -207,6 +217,8 @@ set(SRCS
 	UdpHandler.cpp
 	UdpHandler.hpp
 	main.cpp
+	BCommand.cpp
+	BCommand.hpp
 )
 
 IF(!WIN32)
@@ -214,7 +226,7 @@ set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
@@ -249,11 +261,9 @@ include_directories (
 	${CORE_TINYXML_DIR}
 	${COMMON_INCLUDE_DIR}
 )
-IF(!WIN32)
-set(LIB_THREAD
-	pthread
-)
-ENDIF(!WIN32)
+
+find_package (Threads)
+
 
 ###### linking net to core
 target_link_libraries(
@@ -265,6 +275,5 @@ target_link_libraries(
 	RType_server
 	core
 	net
-	${LIB_THREAD}
-	
+	${CMAKE_THREAD_LIBS_INIT}
 )

@@ -75,7 +75,7 @@ set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
@@ -148,6 +148,7 @@ set(INCLUDES_CORE
 )
 
 set(SRCS_CORE
+	${INCLUDES_CORE}
 	${CORE_DIR}Bullet.cpp
 	${CORE_DIR}BulletCommand.cpp
 	${CORE_DIR}BulletResourceManager.cpp
@@ -191,6 +192,15 @@ set(SRCS_CORE
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
+IF(!WIN32)
+set_source_files_properties (
+  ${SRCS_CORE}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-W -Wall"
+)
+ENDIF(!WIN32)
+
 add_library(
 	core
 	STATIC
@@ -212,10 +222,13 @@ set(SRCS
 	main.cpp
 	Game.cpp
 	Game.hpp
+	GameCommand.hpp
+	GSInGame.cpp
+	GSInGame.hpp
+	GSLoading.cpp
+	GSLoading.hpp
 	InputModule.cpp
 	InputModule.hpp
-	Loading.cpp
-	Loading.hpp
 	main.cpp
 	NetworkModule.cpp
 	NetworkModule.hpp
@@ -233,6 +246,7 @@ set(SRCS
 	UdpHandler.hpp
 	Wall.cpp
 	Wall.hpp
+	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )
@@ -242,7 +256,7 @@ set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
@@ -278,8 +292,6 @@ target_link_libraries(
 	core
 	net
 )
-
-###link_directories(/chemin/vers/boost_x_xx_x/stage/lib)
 
 target_link_libraries(
 	${TARGET_NAME}

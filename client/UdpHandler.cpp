@@ -16,4 +16,5 @@ void		UdpHandler::init()
 
 int			UdpHandler::handleInputPacket(Net::Packet &packet)
 {
+	return 0;
 }
