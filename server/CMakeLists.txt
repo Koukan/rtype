@@ -53,7 +53,7 @@ set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
@@ -170,6 +170,15 @@ set(SRCS_CORE
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
+IF(!WIN32)
+set_source_files_properties (
+  ${SRCS_CORE}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-W -Wall"
+)
+ENDIF(!WIN32)
+
 add_library(
 	core
 	STATIC
@@ -212,7 +221,7 @@ set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x"
+  "-std=c++0x -W -Wall"
 )
 ENDIF(!WIN32)
 
