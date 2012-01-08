@@ -87,7 +87,7 @@ int		Player::connectGame(Net::Packet &packet)
 	// packet << static_cast<uint16_t>(2);
 	// packet << '\n';
 	// this->handleOutputPacket(answer);
-	// return 1;
+	 return 1;
 }
 
 int		Player::player(Net::Packet &)
@@ -110,5 +110,5 @@ int		Player::createGame(Net::Packet &packet)
 	// answer << static_cast<uint16_t>(3);
 	// answer << '\n';
 	// this->handleOutputPacket(answer);
-	// return 1;
+	 return 1;
 }

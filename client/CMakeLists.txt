@@ -101,6 +101,7 @@ set(INCLUDES_CORE
 	${CORE_DIR}Bullet.hpp
 	${CORE_DIR}BulletCommand.hpp
 	${CORE_DIR}BulletResourceManager.hpp
+	${CORE_DIR}ButtonSprite.hpp
 	${CORE_DIR}Callback.hpp
 	${CORE_DIR}Callback.ipp
 	${CORE_DIR}CircleHitBox.hpp
@@ -151,6 +152,7 @@ set(SRCS_CORE
 	${CORE_DIR}Bullet.cpp
 	${CORE_DIR}BulletCommand.cpp
 	${CORE_DIR}BulletResourceManager.cpp
+	${CORE_DIR}ButtonSprite.cpp
 	${CORE_DIR}Callback.cpp
 	${CORE_DIR}CircleHitBox.cpp
 	${CORE_DIR}CommandDispatcher.cpp
@@ -220,12 +222,13 @@ set(SRCS
 	main.cpp
 	Game.cpp
 	Game.hpp
+	GameCommand.hpp
 	GSInGame.cpp
 	GSInGame.hpp
-	InputModule.cpp
-	InputModule.hpp
 	GSLoading.cpp
 	GSLoading.hpp
+	InputModule.cpp
+	InputModule.hpp
 	main.cpp
 	NetworkModule.cpp
 	NetworkModule.hpp
@@ -243,7 +246,7 @@ set(SRCS
 	UdpHandler.hpp
 	Wall.cpp
 	Wall.hpp
-	${GUI_SRC_DIR}/ButtonSprite.cpp
+	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )

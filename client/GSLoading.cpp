@@ -4,6 +4,7 @@
 #include "Wall.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "GUIButton.hpp"
+#include "GUIList.hpp"
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
 
@@ -46,6 +47,13 @@ void	GSLoading::buttonClick()
 {
   std::cout << "youpi" << std::endl;
 		//this->setComponentVisibility(false);
+
+}
+
+void	GSLoading::listChoice(std::string const &name)
+{
+  std::cout << name << std::endl;
+		//this->setComponentVisibility(false);
 }
 
 void	GSLoading::onStart()
@@ -79,14 +87,21 @@ void	GSLoading::onStart()
   // GUI
 
   GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  guilist->addLabel("un");
+  guilist->addLabel("deux");
+  guilist->addLabel("trois");
   for (int i = 0; i < 6; ++i)
     {
       GUILayout *layout2 = new GUIHLayout(0, 0, 100, 50, layout);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
     }
+
   //CL_PushButton *button1 = this->create<CL_PushButton>("button1");
   //button1->set_geometry(CL_Rect(100, 200, 200, 320));
   //this->getGUIComponent<CL_PushButton>("button1")->set_text("Okay!");
