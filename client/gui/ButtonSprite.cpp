@@ -4,6 +4,7 @@
 ButtonSprite::ButtonSprite(std::string const &buttonSprite,
 			   std::string const &buttonSelectedSprite,
 			   std::string const &buttonClickedSprite)
+  : _state(ButtonSprite::DEFAULT)
 {
   GameState *gameState = &(GameStateManager::get().getCurrentState());
 
@@ -26,10 +27,10 @@ void ButtonSprite::updateState(enum ButtonSprite::eState state)
 
 void ButtonSprite::draw(int x, int y, double elapseTime)
 {
-  if (_state == DEFAULT)
+  if (_state == DEFAULT && this->_defaultSprite)
     this->_defaultSprite->draw(x, y, elapseTime);
-  else if (_state == SELECTED)
+  else if (_state == SELECTED && this->_selectedSprite)
     this->_selectedSprite->draw(x, y, elapseTime);
-  else if (_state == CLICKED)
+  else if (_state == CLICKED && this->_clickedSprite)
     this->_clickedSprite->draw(x, y, elapseTime);
 }

@@ -13,10 +13,16 @@ public:
   virtual ~GUIElement();
 
   virtual bool handleGUICommand(InputCommand const &command) = 0;
-  void setX(int x);
-  void setY(int y);
-  void focus();
-  void unfocus();
+  virtual void draw(double elapseTime) = 0;
+  virtual void draw(int x, int y, double elapseTime) {}
+  virtual void focus();
+  virtual void unfocus();
+
+  int getWidth() const;
+  int getHeight() const;
+
+  void setWidth(int width);
+  void setHeight(int height);
 
 protected:
 

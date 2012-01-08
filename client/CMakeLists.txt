@@ -241,6 +241,7 @@ set(SRCS
 	Wall.hpp
 	${GUI_SRC_DIR}/ButtonSprite.cpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
+	${GUI_SRC_DIR}/GUIHLayout.cpp
 )
 
 set_source_files_properties (
