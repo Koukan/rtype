@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 #include <list>
 #include "GameState.hpp"
 #include "BulletCommand.hpp"
@@ -16,6 +17,7 @@ private:
 	//void			click(const CL_InputEvent &event);
 	void			slowTest(const InputCommand &event);
 	void			buttonClick();
+	void			listChoice(std::string const &name);
 
 	BulletCommand		*_bullet;
 };
