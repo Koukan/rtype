@@ -20,13 +20,10 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void			setIP(std::string const &ip);
 
   private:
-	typedef std::map<uint16_t, std::map<uint32_t, Net::Packet*>>	PacketMem;
-
 	Net::Reactor	       	*_reactor;
 	Net::Connector<Player>	_connector;
 	UdpHandler	       	_udp;
 	std::string	       	_port;
 	std::string	       	_ip;
 	Net::SetupNetwork      	_init;
-	PacketMem	       	_packets;
 };

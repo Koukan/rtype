@@ -142,3 +142,8 @@ int		Player::createGame(Net::Packet &packet)
 	this->handleOutputPacket(answer);
 	return 1;
 }
+
+GameLogic           &Player::getGameLogic()
+{
+	return _game->getGameLogic();
+}

@@ -4,6 +4,8 @@
 #include "Wall.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "GUIButton.hpp"
+#include "GUIVLayout.hpp"
+#include "GUIHLayout.hpp"
 
 Loading::Loading() : GameState("Loading")
 {
@@ -76,7 +78,15 @@ void	Loading::onStart()
 
   // GUI
 
-  new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("", "", "")), 0, 0, 20, 20);
+  GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  for (int i = 0; i < 6; ++i)
+    {
+      GUILayout *layout2 = new GUIHLayout(0, 0, 100, 50, layout);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+      new GUIButton<Loading>(*this, &Loading::buttonClick, "test", *(new ButtonSprite("default button", "selected button", "pressed button")), 50, 50, layout2);
+    }
   //CL_PushButton *button1 = this->create<CL_PushButton>("button1");
   //button1->set_geometry(CL_Rect(100, 200, 200, 320));
   //this->getGUIComponent<CL_PushButton>("button1")->set_text("Okay!");
@@ -86,7 +96,7 @@ void	Loading::onStart()
   // end GUI
 
   // Input
-  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &Loading::escape, (int)Keyboard::Key::Escape);
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &Loading::escape, (int)Keyboard::Escape);
   this->getInput().registerInputCallback(InputCommand::MouseWheelMoved, *this, &Loading::slowTest);
   //this->registerInputCallback(CL_InputEvent::pressed, *this, &Loading::slowTest, CL_MOUSE_WHEEL_DOWN);
   //this->registerInputCallback(CL_InputEvent::released, *this, &Loading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);

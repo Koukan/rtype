@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Net.hpp"
+#include "GameLogic.hpp"
 
 class Game;
 
@@ -14,6 +15,7 @@ class Player : public Net::PacketHandler<>
 	uint32_t			getPacketId();
 	void				resetPacketId();
 	void				addPacket(uint32_t id, Net::Packet &packet);
+	GameLogic       	&getGameLogic();
 	Net::Packet const	*getPacket(uint32_t id) const;
 
   private:

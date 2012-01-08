@@ -1,27 +1,27 @@
-#include "GUIVLayout.hpp"
+#include "GUIHLayout.hpp"
 
-GUIVLayout::GUIVLayout(int x, int y, int width, int height, GUILayout *layout)
+GUIHLayout::GUIHLayout(int x, int y, int width, int height, GUILayout *layout)
   : GUILayout(x, y, width, height, layout)
 {
 }
 
-GUIVLayout::GUIVLayout(int x, int y, int width, int height)
+GUIHLayout::GUIHLayout(int x, int y, int width, int height)
   : GUILayout(x, y, width, height)
 {
 }
 
-GUIVLayout::~GUIVLayout()
+GUIHLayout::~GUIHLayout()
 {
 }
 
-bool GUIVLayout::handleGUICommand(InputCommand const &command)
+bool GUIHLayout::handleGUICommand(InputCommand const &command)
 {
-  if (command.Type == InputCommand::KeyPressed && command.Key.Code == Keyboard::Up)
+  if (command.Type == InputCommand::KeyPressed && command.Key.Code == Keyboard::Left)
     {
       this->prevElement();
       return (true);
     }
-  else if (command.Type == InputCommand::KeyPressed && command.Key.Code == Keyboard::Down)
+  else if (command.Type == InputCommand::KeyPressed && command.Key.Code == Keyboard::Right)
     {
       this->nextElement();
       return (true);
@@ -29,22 +29,22 @@ bool GUIVLayout::handleGUICommand(InputCommand const &command)
   return (this->GUILayout::handleGUICommand(command));
 }
 
-void GUIVLayout::draw(double elapseTime)
+void GUIHLayout::draw(double elapseTime)
 {
   int x = this->_x;
   int y = this->_y;
   for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
     {
       (*it)->draw(x, y, elapseTime);
-      y += (*it)->getHeight();
+      x += (*it)->getWidth();
     }
 }
 
-void GUIVLayout::draw(int x, int y, double elapseTime)
+void GUIHLayout::draw(int x, int y, double elapseTime)
 {
   for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
     {
       (*it)->draw(x, y, elapseTime);
-      y += (*it)->getHeight();
+      x += (*it)->getWidth();
     }
 }
