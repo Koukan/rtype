@@ -15,4 +15,5 @@ void		GameLogic::update(double)
 
 bool		GameLogic::handleCommand(Command &command)
 {
+	return true;
 }

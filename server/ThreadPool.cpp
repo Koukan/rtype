@@ -8,7 +8,7 @@ ThreadPool::~ThreadPool()
 {
 }
 
-int			ThreadPool::init(size_t nbThread)
+bool			ThreadPool::init(size_t nbThread)
 {
 	Net::Thread		*thread;
 
@@ -16,8 +16,10 @@ int			ThreadPool::init(size_t nbThread)
 	{
 		thread = new Net::Thread(this, &ThreadPool::handleTask);
 		_threadsList.push_back(thread);
-		thread->start();
+		if (thread->start())
+			return false;
 	}
+	return true;
 }
 
 void		ThreadPool::pushTask(Task &task)

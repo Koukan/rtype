@@ -14,7 +14,7 @@ class Player : public Net::PacketHandler<>
 	uint32_t			getPacketId();
 	void				resetPacketId();
 	void				addPacket(uint32_t id, Net::Packet &packet);
-	Net::Packet const	&getPacket(uint32_t id) const;
+	Net::Packet const	*getPacket(uint32_t id) const;
 
   private:
 	typedef std::list<std::pair<uint32_t, Net::Packet> >	packetsList;

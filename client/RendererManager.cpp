@@ -46,6 +46,7 @@ void				RendererManager::update(double elapsedTime)
 				}
 			}
 		}
+		(*it)->getGUI().draw(elapsedTime);
 	}
 	this->flip();
 }

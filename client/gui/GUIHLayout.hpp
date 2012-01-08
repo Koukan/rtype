@@ -2,12 +2,12 @@
 
 #include "GUILayout.hpp"
 
-class GUIVLayout : public GUILayout
+class GUIHLayout : public GUILayout
 {
 public:
-  GUIVLayout(int x, int y, int width, int height, GUILayout *layout);
-  GUIVLayout(int x, int y, int width, int height);
-  ~GUIVLayout();
+  GUIHLayout(int x, int y, int width, int height, GUILayout *layout);
+  GUIHLayout(int x, int y, int width, int height);
+  ~GUIHLayout();
 
   virtual void draw(double elapseTime);
   virtual void draw(int x, int y, double elapseTime);

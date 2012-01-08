@@ -10,7 +10,7 @@ class ThreadPool
   public:
     ThreadPool();
     virtual ~ThreadPool();
-	int			init(size_t nbThread);
+	bool			init(size_t nbThread);
 	void		pushTask(Task &task);
 
   private:
