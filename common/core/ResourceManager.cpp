@@ -125,8 +125,8 @@ void			ResourceManager::loadDeclaration(TiXmlNode *)
 }
 
 void		ResourceManager::get2Int(std::string const &data,
-									 std::string const &sep,
-									 int &a, int &b)
+					 std::string const &sep,
+					 int &a, int &b)
 {
 	size_t	pos = data.find(sep);
 
@@ -134,5 +134,5 @@ void		ResourceManager::get2Int(std::string const &data,
 	if (pos == std::string::npos)
 		b = 0;
 	else
-		b = Converter::toInt<int>(data.substr(pos));
+		b = Converter::toInt<int>(data.substr(pos + sep.size()));
 }

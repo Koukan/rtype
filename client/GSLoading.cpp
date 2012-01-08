@@ -8,7 +8,7 @@
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
 
-GSLoading::GSLoading() : GameState("GSLoading")
+GSLoading::GSLoading() : GameState("Loading")
 {
   //AudioManager::get().load("intro", "resource/sound/06-multiplayer-mouse-mania.ogg");
   //AudioManager::get().play("intro", "test", "intro");
@@ -60,12 +60,19 @@ void	GSLoading::onStart()
 {
   this->addProvider(*(new SFMLSpriteProvider));
   this->load("resources/intro.xml");
+  this->load("resources/player1.xml");
+  this->load("resources/player2.xml");
+  this->load("resources/player3.xml");
+  this->load("resources/player4.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 5);
   this->addGroup("walls");
   this->addGroup("poly1", 12);
   this->addGroup("poly2", 11);
   this->addGroup("particle", 20);
+
+  Sprite *test = this->getSprite("player4");
+  this->addGameObject(test);
 
   double x = -50, y = -50, width = 1100, height = 820, wallWidth = 500;
   new Wall(-wallWidth + x, -wallWidth + y, width + 2 * wallWidth, wallWidth, "walls");
