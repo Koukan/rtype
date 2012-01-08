@@ -48,7 +48,7 @@ bool		GSInGame::handleCommand(Command &command)
 	{
 		if (command.name == methods[i].name)
 		{
-			(this->*methods[i].method)(command);
+			(this->*methods[i].method)(static_cast<GameCommand const &>(command));
 			return true;
 		}
 	}

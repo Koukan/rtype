@@ -17,7 +17,7 @@ private:
 	struct Method
 	{
 	  std::string const &	name;
-	  void (GSInGame::*method)(InputCommand const &);
+	  void (GSInGame::*method)(GameCommand const &);
 	};
 
 	void		moveUp(InputCommand const &event);
