@@ -101,7 +101,7 @@ void			ResourceManager::loadElement(TiXmlNode *parent)
 		{
 		  if (name == (*it).first)
 		    {
-		      (*it).second->handleXML(parent);
+		      (*it).second->handleXML(child);
 		      break ;
 		    }
 		}
