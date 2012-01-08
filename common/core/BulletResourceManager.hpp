@@ -4,8 +4,6 @@
 #include <map>
 #include "bulletmlparser.h"
 
-typedef std::map<std::string, BulletMLParser*>	bulletParsers;
-
 class BulletResourceManager
 {
   public:
@@ -17,5 +15,7 @@ class BulletResourceManager
 	BulletMLParser	*getBulletParser(std::string const &name);
 
   private:
+	typedef std::map<std::string, BulletMLParser*>	bulletParsers;
+
 	bulletParsers	_parsers;
 };
