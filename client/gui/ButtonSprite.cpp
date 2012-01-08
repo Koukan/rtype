@@ -3,8 +3,9 @@
 
 ButtonSprite::ButtonSprite(std::string const &buttonSprite,
 			   std::string const &buttonSelectedSprite,
-			   std::string const &buttonClickedSprite)
-  : _state(ButtonSprite::DEFAULT)
+			   std::string const &buttonClickedSprite,
+			   int width, int height)
+  : _width(width), _height(height), _state(ButtonSprite::DEFAULT)
 {
   GameState *gameState = &(GameStateManager::get().getCurrentState());
 
@@ -33,4 +34,14 @@ void ButtonSprite::draw(int x, int y, double elapseTime)
     this->_selectedSprite->draw(x, y, elapseTime);
   else if (_state == CLICKED && this->_clickedSprite)
     this->_clickedSprite->draw(x, y, elapseTime);
+}
+
+int ButtonSprite::getWidth()
+{
+  return this->_width;
+}
+
+int ButtonSprite::getHeight()
+{
+  return this->_height;
 }

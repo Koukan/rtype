@@ -220,12 +220,13 @@ set(SRCS
 	main.cpp
 	Game.cpp
 	Game.hpp
+	GameCommand.hpp
 	GSInGame.cpp
 	GSInGame.hpp
-	InputModule.cpp
-	InputModule.hpp
 	GSLoading.cpp
 	GSLoading.hpp
+	InputModule.cpp
+	InputModule.hpp
 	main.cpp
 	NetworkModule.cpp
 	NetworkModule.hpp
@@ -244,6 +245,7 @@ set(SRCS
 	Wall.cpp
 	Wall.hpp
 	${GUI_SRC_DIR}/ButtonSprite.cpp
+	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )

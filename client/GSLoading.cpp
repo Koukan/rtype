@@ -4,6 +4,7 @@
 #include "Wall.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "GUIButton.hpp"
+#include "GUIList.hpp"
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
 
@@ -46,6 +47,13 @@ void	GSLoading::buttonClick()
 {
   std::cout << "youpi" << std::endl;
 		//this->setComponentVisibility(false);
+
+}
+
+void	GSLoading::listChoice(std::string const &name)
+{
+  std::cout << name << std::endl;
+		//this->setComponentVisibility(false);
 }
 
 void	GSLoading::onStart()
@@ -79,6 +87,10 @@ void	GSLoading::onStart()
   // GUI
 
   GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  guilist->addLabel("un");
+  guilist->addLabel("deux");
+  guilist->addLabel("trois");
   for (int i = 0; i < 6; ++i)
     {
       GUILayout *layout2 = new GUIHLayout(0, 0, 100, 50, layout);
