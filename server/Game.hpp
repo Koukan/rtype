@@ -18,6 +18,7 @@ class Game : public Module
 	void			sendTCPPacket(Net::Packet &packet, Player *player = 0);
 	void			sendUDPPacket(Net::Packet &packet, Player *player = 0);
 	GameLogic		&getGameLogic();
+	std::list<Player*> const	&getPlayers() const;
 
   private:
 	void			sendPacket(std::string const &type,

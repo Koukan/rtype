@@ -59,14 +59,9 @@ void		Game::removePlayer(Player &player)
 	}
 }
 
-void		Game::sendTCPPacket(Net::Packet &packet, Player *player)
+std::list<Player*> const &Game::getPlayers() const
 {
-	this->sendPacket("TCPPacket", packet, player);
-}
-
-void		Game::sendUDPPacket(Net::Packet &packet, Player *player)
-{
-	this->sendPacket("UDPPacket", packet, player);
+	return this->_list;
 }
 
 void		Game::sendPacket(std::string const &type,

@@ -64,14 +64,15 @@ void		Player::addPacket(uint32_t id, Net::Packet &packet)
 		this->_packets.pop_front();
 }
 
-Net::Packet const	&Player::getPacket(uint32_t id) const
+Net::Packet const	*Player::getPacket(uint32_t id) const
 {
 	for (packetsList::const_iterator it = this->_packets.end();
 		 it != this->_packets.begin() && it->first > id; it--)
 	{
 		if (it->first == id)
-			return it->second;
+			return &(it->second);
 	}
+	return 0;
 }
 
 int		Player::connection(Net::Packet &packet)
@@ -106,14 +107,14 @@ int		Player::connectGame(Net::Packet &packet)
 		}
 		Net::Packet		answer(7);
 		answer << 3;
-		answer << static_cast<uint8_t>(TCP::ERROR);
+		answer << static_cast<uint8_t>(TCP::TCP_ERROR);
 		answer << static_cast<uint16_t>(Error::GAME_FULL);
 		this->handleOutputPacket(answer);
 		return 1;
 	}
 	Net::Packet		answer(7);
 	answer << 3;
-	answer << static_cast<uint8_t>(TCP::ERROR);
+	answer << static_cast<uint8_t>(TCP::TCP_ERROR);
 	answer << static_cast<uint16_t>(Error::GAME_NOT_EXIST);
 	this->handleOutputPacket(answer);
 	return 1;
@@ -136,7 +137,7 @@ int		Player::createGame(Net::Packet &packet)
 	}
 	Net::Packet		answer(7);
 	answer << 3;
-	answer << static_cast<uint8_t>(TCP::ERROR);
+	answer << static_cast<uint8_t>(TCP::TCP_ERROR);
 	answer << static_cast<uint16_t>(Error::SERVER_FULL);
 	this->handleOutputPacket(answer);
 	return 1;

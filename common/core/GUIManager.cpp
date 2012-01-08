@@ -1,10 +1,8 @@
 #include "GUIManager.hpp"
-//#include "GameStateManager.hpp"
 
 GUIManager::GUIManager()
   : GUILayout(0, 0, 0, 0, 0)
 {
-  //  Singleton<GameStateManager>::get().addGameObject(this);
 }
 
 GUIManager::~GUIManager()

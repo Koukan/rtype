@@ -43,7 +43,23 @@ public:
   {
     this->_sprite->draw(this->_x, this->_y, elapseTime);
   }
-  
+
+  virtual void	draw(int x, int y, double elapseTime)
+  {
+    this->_sprite->draw(x, y, elapseTime);
+  }
+
+  virtual void focus()
+  {
+    this->_sprite->updateState(ButtonSprite::SELECTED);
+    this->GUIElement::focus();
+  }
+
+  virtual void unfocus()
+  {
+    this->_sprite->updateState(ButtonSprite::DEFAULT);
+    this->GUIElement::unfocus();
+  }
 
 private:
   T *_instance;

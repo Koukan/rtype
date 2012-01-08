@@ -20,16 +20,6 @@ GUIElement::~GUIElement()
 {
 }
 
-void GUIElement::setX(int x)
-{
-  this->_x = x;
-}
-
-void GUIElement::setY(int y)
-{
-  this->_y = y;
-}
-
 void GUIElement::focus()
 {
   this->_isFocused = true;
@@ -38,4 +28,24 @@ void GUIElement::focus()
 void GUIElement::unfocus()
 {
   this->_isFocused = false;
+}
+
+int GUIElement::getWidth() const
+{
+  return (this->_width);
+}
+
+int GUIElement::getHeight() const
+{
+  return (this->_height);
+}
+
+void GUIElement::setWidth(int width)
+{
+  this->_width = width;
+}
+
+void GUIElement::setHeight(int height)
+{
+  this->_height = height;
 }

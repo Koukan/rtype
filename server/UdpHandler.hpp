@@ -19,6 +19,5 @@ private:
 	int			score(Net::Packet &packet, Player&);
 	int			statement(Net::Packet &packet, Player&);
 	int         retrieve(Net::Packet &packet, Player&);
-
 };
 
