@@ -12,13 +12,15 @@ ButtonSprite::ButtonSprite(std::string const &buttonSprite,
   this->_defaultSprite = gameState->getSprite(buttonSprite);
   this->_selectedSprite = gameState->getSprite(buttonSelectedSprite);
   this->_clickedSprite = gameState->getSprite(buttonClickedSprite);
+
+  gameState->getGUI().registerButtonSprite(*this);
 }
 
 ButtonSprite::~ButtonSprite()
 {
   delete this->_defaultSprite;
   delete this->_selectedSprite;
-  delete this->_clickedSprite;  
+  delete this->_clickedSprite;
 }
 
 void ButtonSprite::updateState(enum ButtonSprite::eState state)
