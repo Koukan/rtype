@@ -10,15 +10,15 @@ class CommandHandler
   public:
     CommandHandler();
     virtual ~CommandHandler();
-	virtual bool		handleCommand(Command &command);
-	bool				handle(Command &command);
+	virtual bool		handleCommand(Command const &command);
+	bool				handle(Command const &command);
 	void				handle(double elapsedTime = 0);
-	void				pushCommand(Command &command);
+	void				pushCommand(Command const &command);
 	void				registerHandler(CommandHandler &handler);
 	void				removeHandler(CommandHandler &handler);
 
   private:
 	std::list<CommandHandler*>	_handlers;
-	std::queue<Command*>		_commands;
+	std::queue<Command const *>		_commands;
 	Net::Mutex					_mutex;
 };

@@ -16,7 +16,6 @@ public:
 	virtual bool	handleCommand(Command &command);
 
 private:
-	typedef std::map<int, PhysicObject *> GameObjectsMap;
 
 	struct Method
 	{
@@ -30,10 +29,7 @@ private:
   	void		inputRight(InputCommand const &event);
 
 	// Command
-	void		moveUp(GameCommand const &event);
-  	void		moveDown(GameCommand const &event);
-  	void		moveLeft(GameCommand const &event);
-  	void		moveRight(GameCommand const &event);
+	void		inputMove(GameCommand const &event);
 
 	void		destroy(GameCommand const &event);
 	void		spawn(GameCommand const &event);
@@ -42,5 +38,8 @@ private:
 	void		retrieve(GameCommand const &event);
 	void		move(GameCommand const &event);
 
-	GameObjectsMap _gameObjects;
+
+	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;
+
+	uint32_t	_idPlayer;
 };
