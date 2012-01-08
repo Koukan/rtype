@@ -247,10 +247,8 @@ include_directories (
 	${CORE_TINYXML_DIR}
 	${COMMON_INCLUDE_DIR}
 )
-
 IF(!WIN32)
-target_link_libraries(
-	net
+set(LIB_THREAD
 	pthread
 )
 ENDIF(!WIN32)
@@ -265,5 +263,6 @@ target_link_libraries(
 	RType_server
 	core
 	net
+	${LIB_THREAD}
 	
 )

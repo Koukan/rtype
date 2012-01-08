@@ -91,9 +91,5 @@ int			UdpHandler::statement(Net::Packet &packet, Player&)
 
 int         UdpHandler::retrieve(Net::Packet &packet, Player&)
 {
-<<<<<<< HEAD
-
-=======
 	return true;
->>>>>>> 1a39e757bcaca5cb87202a1e9648eb47e370fcbe
 }

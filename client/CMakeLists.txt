@@ -272,13 +272,6 @@ include_directories (
 	${GUI_INCLUDE_DIR}
 )
 
-IF(!WIN32)
-target_link_libraries(
-	net
-	pthread
-)
-ENDIF(!WIN32)
-
 ###### linking net to core
 target_link_libraries(
 	core
