@@ -248,16 +248,22 @@ include_directories (
 	${COMMON_INCLUDE_DIR}
 )
 
+IF(!WIN32)
+target_link_libraries(
+	net
+	pthread
+)
+ENDIF(!WIN32)
+
 ###### linking net to core
 target_link_libraries(
 	core
 	net
 )
 
-###link_directories(/chemin/vers/boost_x_xx_x/stage/lib)
-
 target_link_libraries(
 	RType_server
 	core
 	net
+	
 )
