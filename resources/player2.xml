@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+<sprite name="player2">
+
+  <image file="resources/sprite/r-typesheet42.gif">
+    <grid pos="1,19"
+	  size="32,14"
+	  array="5,1"
+	  spacing="1,0"
+    />
+  </image>
+
+  <animation
+      speed="3000"
+      pingpong="yes"
+   />
+
+  <scale x="2.0" y="2.0" />
+
+</sprite>
+</resources>
