@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.hpp"
 #include "BulletCommand.hpp"
+#include "GameCommand.hpp"
 
 class GSInGame : public GameState
 {
@@ -23,5 +24,10 @@ private:
   	void		moveDown(InputCommand const &event);
   	void		moveLeft(InputCommand const &event);
   	void		moveRight(InputCommand const &event);
-	void		spawn();
+	void		destroy(GameCommand const &event);
+	void		spawn(GameCommand const &event);
+	void		score(GameCommand const &event);
+	void		life(GameCommand const &event);
+	void		retrieve(GameCommand const &event);
+	void		move(GameCommand const &event);
 };

@@ -35,13 +35,24 @@ void		GSInGame::onEnd()
 bool		GSInGame::handleCommand(Command &command)
 {
   static Method const	methods[] = {
-	{"moveUp", &GSInGame::moveUp},
-        {"moveDown", &GSInGame::moveDown},
-        {"moveLeft", &GSInGame::moveLeft},
-        {"moveRight", &GSInGame::moveRight}
+	{"destroy", &GSInGame::destroy},
+	{"life", &GSInGame::life},
+    {"move", &GSInGame::move},
+	{"retrieve", &GSInGame::retrieve},
+	{"score", &GSInGame::score},
+	{"spawn", &GSInGame::spawn}
   };
 
-  return (true);
+  for (size_t i = 0;
+		 i < sizeof(methods) / sizeof(*methods); i++)
+	{
+		if (command.name == methods[i].name)
+		{
+			(this->*methods[i].method)(command);
+			return true;
+		}
+	}
+  return (false);
 }
 
 void		GSInGame::moveUp(InputCommand const &event)
@@ -64,7 +75,29 @@ void		GSInGame::moveRight(InputCommand const &event)
 	std::cout << "Right is pressed !" << std::endl;
 }
 
-void		GSInGame::spawn()
+void		GSInGame::spawn(GameCommand const &event)
 {
 
+}
+
+void		GSInGame::destroy(GameCommand const &event)
+{
+}
+
+void		GSInGame::score(GameCommand const &event)
+{
+
+}
+
+void		GSInGame::life(GameCommand const &event)
+{
+}
+
+void		GSInGame::retrieve(GameCommand const &event)
+{
+
+}
+
+void		GSInGame::move(GameCommand const &event)
+{
 }
