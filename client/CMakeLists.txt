@@ -221,6 +221,7 @@ set(TARGET_NAME rtype_client)
 set(GUI_INCLUDE_DIR "gui")
 
 set(GUI_SRC_DIR "gui")
+set(INCLUDES_COMMON_DIR "../common/")
 
 set(SRCS
 	${INCLUDES_CORE}
@@ -241,6 +242,7 @@ set(SRCS
 	NetworkModule.hpp
 	PacketCommand.cpp
 	PacketCommand.hpp
+	${INCLUDES_COMMON_DIR}PacketType.hpp
 	Player.cpp
 	Player.hpp
 	RendererManager.cpp
@@ -284,6 +286,7 @@ add_executable(
 )
 
 include_directories (
+	${INCLUDES_COMMON_DIR}
 	${SFML_INCLUDE_DIR}
 	${NET_INCLUDE_DIR}
 	${NET_MUTEX_INCLUDE_DIR}
