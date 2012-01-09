@@ -5,7 +5,7 @@
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
-GSInGame::GSInGame() : GameState("Game")
+GSInGame::GSInGame() : GameState("Game"), _lastIdPacket(0)
 {
   CommandDispatcher::get().registerHandler(*this);
 }
@@ -33,11 +33,8 @@ bool		GSInGame::handleCommand(Command &command)
 	{"destroy", &GSInGame::destroy},
 	{"down", &GSInGame::inputMove},
 	{"left", &GSInGame::inputMove},
-	{"life", &GSInGame::life},
 	{"move", &GSInGame::move},
-	{"retrieve", &GSInGame::retrieve},
 	{"right", &GSInGame::inputMove},
-	{"score", &GSInGame::score},
 	{"spawn", &GSInGame::spawn},
 	{"up", &GSInGame::inputMove}
   };
@@ -120,7 +117,7 @@ void		GSInGame::inputMove(GameCommand const &event)
 
 	if (obj)
 		this->updatePositions(event, *obj);
-	this->pushCommand(event);
+	CommandDispatcher::get().pushCommand(event);
 }
 
 void		GSInGame::spawn(GameCommand const &event)
@@ -142,13 +139,15 @@ void		GSInGame::score(GameCommand const &event)
 
 }
 
-void		GSInGame::life(GameCommand const &event)
+void		GSInGame::retrieve(uint32_t idPacket)
 {
-}
+	GameCommand cmd("retrieve");
 
-void		GSInGame::retrieve(GameCommand const &event)
-{
-
+	for (uint32_t id = _lastIdPacket; id < idPacket; ++id)
+	{
+		cmd.idObject = id;
+		CommandDispatcher.get().pushCommand();
+	}
 }
 
 void		GSInGame::move(GameCommand const &event)

@@ -28,18 +28,18 @@ private:
   	void		inputLeft(InputCommand const &event);
   	void		inputRight(InputCommand const &event);
 
-	// Command
+	// HandleCommand
 	void		inputMove(GameCommand const &event);
 
 	void		destroy(GameCommand const &event);
 	void		spawn(GameCommand const &event);
 	void		score(GameCommand const &event);
 	void		life(GameCommand const &event);
-	void		retrieve(GameCommand const &event);
 	void		move(GameCommand const &event);
 
-
+	void		retrieve(uint32_t idPacket);
 	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;
 
 	uint32_t	_idPlayer;
+	uint32_t	_lastIdPacket;
 };
