@@ -90,21 +90,21 @@ void	GSLoading::onStart()
 
   // GUI
 
-  // GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
-  // ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  // GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
-  // guilist->addLabel("un");
-  // guilist->addLabel("deux");
-  // guilist->addLabel("trois");
-  // for (int i = 0; i < 6; ++i)
-  //   {
-  //     GUILayout *layout2 = new GUIHLayout(0, 0, 100, 70, layout);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //   }
+  GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  guilist->addLabel("un");
+  guilist->addLabel("deux");
+  guilist->addLabel("trois");
+  for (int i = 0; i < 6; ++i)
+    {
+      GUILayout *layout2 = new GUIHLayout(0, 0, 100, 70, layout);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+    }
 
   // end GUI
 
