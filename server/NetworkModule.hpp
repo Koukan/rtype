@@ -15,7 +15,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	virtual void	init();
 	virtual void	update(double elapsedTime);
 	virtual void	destroy();
-	virtual bool	handleCommand(Command &command);
+	virtual bool	handleCommand(Command const &command);
 	void			setPort(std::string const &port);
 	void			addUDPPlayer(Player &player);
 	void			removeUDPPlayer(Player &player);
@@ -36,10 +36,10 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 					std::list<Player*> const &list,
 					bool needId, Player *player);
 
-	Net::Reactor			*_reactor;
-	Net::Acceptor<Player>	_acceptor;
-	UdpHandler				_udp;
-	std::string				_port;
-	Net::SetupNetwork		_init;
-	std::map<Net::InetAddr, Player *>		_players;
+	Net::Reactor						*_reactor;
+	Net::Acceptor<Player>				_acceptor;
+	UdpHandler							_udp;
+	std::string							_port;
+	Net::SetupNetwork					_init;
+	std::map<Net::InetAddr, Player *>	_players;
 };

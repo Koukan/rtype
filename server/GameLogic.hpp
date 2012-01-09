@@ -10,7 +10,7 @@ class GameLogic : public GameState
     GameLogic(Game &game);
     virtual ~GameLogic();
 	virtual void		update(double elapsedTime);
-	virtual bool		handleCommand(Command &command);
+	virtual bool		handleCommand(Command const &command);
 	Game				&getGame() const;
 
   private:

@@ -15,9 +15,9 @@ void		GameLogic::update(double)
 {
 }
 
-bool		GameLogic::handleCommand(Command &command)
+bool		GameLogic::handleCommand(Command const &command)
 {
-	return true;
+	return false;
 }
 
 Game		&GameLogic::getGame() const
