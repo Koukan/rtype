@@ -11,9 +11,7 @@ GSInGame::GSInGame() : GameState("Game")
 }
 
 GSInGame::~GSInGame()
-{
-
-}
+{}
 
 void		GSInGame::onStart()
 {
@@ -24,28 +22,24 @@ void		GSInGame::onStart()
 }
 
 void		GSInGame::update(double elapsedTime)
-{
-
-}
+{}
 
 void		GSInGame::onEnd()
-{
-
-}
+{}
 
 bool		GSInGame::handleCommand(Command &command)
 {
   static Method const	methods[] = {
 	{"destroy", &GSInGame::destroy},
-	{"down", &GSInGame::moveDown},
-	{"left", &GSInGame::moveLeft},
+	{"down", &GSInGame::inputMove},
+	{"left", &GSInGame::inputMove},
 	{"life", &GSInGame::life},
 	{"move", &GSInGame::move},
 	{"retrieve", &GSInGame::retrieve},
-	{"right", &GSInGame::moveRight},
+	{"right", &GSInGame::inputMove},
 	{"score", &GSInGame::score},
 	{"spawn", &GSInGame::spawn},
-	{"up", &GSInGame::moveUp}
+	{"up", &GSInGame::inputMove}
   };
 
   for (size_t i = 0;
@@ -62,39 +56,71 @@ bool		GSInGame::handleCommand(Command &command)
 
 void		GSInGame::inputUp(InputCommand const &event)
 {
+	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
+	GameCommand cmd("up");
 
+	if (obj)
+	{
+		cmd.x = static_cast<int16_t>(obj->getX());
+		cmd.y = static_cast<int16_t>(obj->getY());
+		cmd.vx = static_cast<int16_t>(obj->getVx());
+		cmd.vy = static_cast<int16_t>(obj->getVy() - 1);
+	}
+	this->pushCommand(cmd);
 }
 
 void		GSInGame::inputDown(InputCommand const &event)
 {
+	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
+	GameCommand cmd("down");
+
+	if (obj)
+	{
+		cmd.x = static_cast<int16_t>(obj->getX());
+		cmd.y = static_cast<int16_t>(obj->getY());
+		cmd.vx = static_cast<int16_t>(obj->getVx());
+		cmd.vy = static_cast<int16_t>(obj->getVy() + 1);
+	}
+	this->pushCommand(cmd);
 }
 
 void		GSInGame::inputLeft(InputCommand const &event)
 {
+	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
+	GameCommand cmd("left");
+
+	if (obj)
+	{
+		cmd.x = static_cast<int16_t>(obj->getX());
+		cmd.y = static_cast<int16_t>(obj->getY());
+		cmd.vx = static_cast<int16_t>(obj->getVx() - 1);
+		cmd.vy = static_cast<int16_t>(obj->getVy());
+	}
+	this->pushCommand(cmd);
 }
 
 void		GSInGame::inputRight(InputCommand const &event)
 {
+	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
+	GameCommand cmd("right");
+
+	if (obj)
+	{
+		cmd.x = static_cast<int16_t>(obj->getX());
+		cmd.y = static_cast<int16_t>(obj->getY());
+		cmd.vx = static_cast<int16_t>(obj->getVx() + 1);
+		cmd.vy = static_cast<int16_t>(obj->getVy());
+	}
+	this->pushCommand(cmd);
 }
 
-void		GSInGame::moveUp(GameCommand const &event)
+void		GSInGame::inputMove(GameCommand const &event)
 {
-	std::cout << "Up is pressed !" << std::endl;
-}
+	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 
-void		GSInGame::moveDown(GameCommand const &event)
-{
-	std::cout << "Down is pressed !" << std::endl;
-}
-
-void		GSInGame::moveLeft(GameCommand const &event)
-{
-	std::cout << "Left is pressed !" << std::endl;
-}
-
-void		GSInGame::moveRight(GameCommand const &event)
-{
-	std::cout << "Right is pressed !" << std::endl;
+	if (obj)
+		this->updatePositions(event, *obj);
+	this->pushCommand(event);
 }
 
 void		GSInGame::spawn(GameCommand const &event)
@@ -127,15 +153,16 @@ void		GSInGame::retrieve(GameCommand const &event)
 
 void		GSInGame::move(GameCommand const &event)
 {
-	try
-	{
-		PhysicObject *obj = _gameObjects.at(event.idObject);
+	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 
-		obj->setX(event.x);
-		obj->setY(event.y);
-		obj->setVx(event.vx);
-		obj->setVy(event.vy);
-	}
-	catch(std::out_of_range &)
-	{}
+	if (obj)
+		this->updatePositions(event, *obj);
+}
+
+void		GSInGame::updatePositions(GameCommand const &event, PhysicObject &obj) const
+{
+	obj.setX(event.x);
+	obj.setY(event.y);
+	obj.setVx(event.vx);
+	obj.setVy(event.vy);
 }

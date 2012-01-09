@@ -6,7 +6,7 @@ CommandHandler::CommandHandler()
 
 CommandHandler::~CommandHandler()
 {
-	Command		*command;
+	Command		const *command;
 	while (!this->_commands.empty())
 	{
 		command = this->_commands.front();
@@ -15,12 +15,12 @@ CommandHandler::~CommandHandler()
 	}
 }
 
-bool			CommandHandler::handleCommand(Command &)
+bool			CommandHandler::handleCommand(Command const &)
 {
 	return false;
 }
 
-bool			CommandHandler::handle(Command &command)
+bool			CommandHandler::handle(Command const &command)
 {
 	std::list<CommandHandler*>::const_iterator 	it;
 	bool										ret = false;
@@ -36,8 +36,8 @@ bool			CommandHandler::handle(Command &command)
 
 void			CommandHandler::handle(double)
 {
-	Command										*command;
-	std::list<CommandHandler*>::const_iterator 	it;
+	Command		const *command;
+	std::list<CommandHandler *>::const_iterator 	it;
 
 	this->_mutex.lock();
 	while (!this->_commands.empty())
@@ -56,7 +56,7 @@ void			CommandHandler::handle(double)
 	this->_mutex.unlock();
 }
 
-void			CommandHandler::pushCommand(Command &command)
+void			CommandHandler::pushCommand(Command const &command)
 {
 	Net::ScopedLock		lock(this->_mutex);
 
