@@ -146,7 +146,7 @@ void		GSInGame::retrieve(uint32_t idPacket)
 	for (uint32_t id = _lastIdPacket; id < idPacket; ++id)
 	{
 		cmd.idObject = id;
-		CommandDispatcher.get().pushCommand();
+		CommandDispatcher::get().pushCommand(cmd);
 	}
 }
 
