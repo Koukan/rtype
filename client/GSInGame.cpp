@@ -33,6 +33,7 @@ bool		GSInGame::handleCommand(Command const &command)
 	{"destroy", &GSInGame::destroy},
 	{"down", &GSInGame::inputMove},
 	{"left", &GSInGame::inputMove},
+	{"life", &GSInGame::life},
 	{"move", &GSInGame::move},
 	{"right", &GSInGame::inputMove},
 	{"spawn", &GSInGame::spawn},
@@ -122,6 +123,11 @@ void		GSInGame::inputMove(GameCommand const &event)
 
 void		GSInGame::spawn(GameCommand const &event)
 {
+	if (event.idObject - 1 > _lastIdPacket)
+		this->retrieve(event.idObject - 1);
+	else
+		_lastIdPacket = event.idObject;
+
 	HitBox *tmp = new RectHitBox(event.x, event.y, 2, 2); //tmp
 
 	//GameObject *obj = new PhysicObject(*tmp, event.vx, event.vy);
@@ -131,7 +137,20 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
+	if (event.idObject - 1 > _lastIdPacket)
+		this->retrieve(event.idObject - 1);
+	else
+		_lastIdPacket = event.idObject;
 	delete (this->getGameObject(event.idObject));
+}
+
+void		GSInGame::life(GameCommand const &event)
+{
+	if (event.idObject - 1 > _lastIdPacket)
+		this->retrieve(event.idObject - 1);
+	else
+		_lastIdPacket = event.idObject;
+	//actions
 }
 
 void		GSInGame::score(GameCommand const &event)
@@ -143,7 +162,7 @@ void		GSInGame::retrieve(uint32_t idPacket)
 {
 	GameCommand cmd("retrieve");
 
-	for (uint32_t id = _lastIdPacket; id < idPacket; ++id)
+	for (uint32_t id = _lastIdPacket; id <= idPacket; ++id)
 	{
 		cmd.idObject = id;
 		CommandDispatcher::get().pushCommand(cmd);
