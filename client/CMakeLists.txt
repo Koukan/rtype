@@ -70,14 +70,15 @@ add_library(
 	${SRCS_NET}
 )
 
-IF(!WIN32)
+IF(WIN32)
+ELSE(WIN32)
 set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
   "-std=c++0x -W -Wall"
 )
-ENDIF(!WIN32)
+ENDIF(WIN32)
 
 ##### Linking core
 set(CORE_DIR
@@ -135,10 +136,11 @@ set(INCLUDES_CORE
 	${CORE_DIR}PolyHitBox.hpp
 	${CORE_DIR}RectHitBox.hpp
 	${CORE_DIR}ResourceManager.hpp
-	${CORE_DIR}ResourceManager.ipp
 	${CORE_DIR}SharedLoader.hpp
 	${CORE_DIR}Sprite.hpp
 	${CORE_DIR}SpriteProvider.hpp
+	${CORE_DIR}SpriteProvider.ipp
+	${CORE_DIR}XMLProvider.hpp
 	${CORE_DIR}TimeEffectManager.hpp
 	${CORE_DIR}Singleton.hpp
 	${CORE_CALLBACK_DIR}Callback_Impl.hpp
@@ -174,7 +176,9 @@ set(SRCS_CORE
 	${CORE_DIR}PolyHitBox.cpp
 	${CORE_DIR}RectHitBox.cpp
 	${CORE_DIR}ResourceManager.cpp
+	${CORE_DIR}SpriteProvider.cpp
 	${CORE_DIR}TimeEffectManager.cpp
+	${CORE_DIR}XMLProvider.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}QuadTree.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}Node.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}TreeElement.cpp
@@ -192,14 +196,15 @@ set(SRCS_CORE
 )
 SOURCE_GROUP (core_headers FILES(${INCLUDES_CORE}))
 
-IF(!WIN32)
+IF(WIN32)
+ELSE(WIN32)
 set_source_files_properties (
   ${SRCS_CORE}
   PROPERTIES
   COMPILE_FLAGS
   "-W -Wall"
 )
-ENDIF(!WIN32)
+ENDIF(WIN32)
 
 add_library(
 	core
@@ -230,6 +235,8 @@ set(SRCS
 	InputModule.cpp
 	InputModule.hpp
 	main.cpp
+	Monster.cpp
+	Monster.hpp
 	NetworkModule.cpp
 	NetworkModule.hpp
 	PacketCommand.cpp
@@ -251,14 +258,15 @@ set(SRCS
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )
 
-IF(!WIN32)
+IF(WIN32)
+ELSE(WIN32)
 set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
   "-std=c++0x -W -Wall"
 )
-ENDIF(!WIN32)
+ENDIF(WIN32)
 
 ##### Setting the output directory for the solution
 foreach( OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES} )
