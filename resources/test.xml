@@ -16,6 +16,7 @@
 </action>
 
 <bullet label="centerbit" group="ship" sprite="bullet" simpleGroup="shot" simpleSprite="bullet">
+<!--<hitbox type="cercle" radius="2">-->
 <direction type="absolute">180</direction>
 <speed>0</speed>
 <action>
