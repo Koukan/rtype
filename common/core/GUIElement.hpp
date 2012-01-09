@@ -14,7 +14,7 @@ public:
 
   virtual bool handleGUICommand(InputCommand const &command) = 0;
   virtual void draw(double elapseTime) = 0;
-  virtual void draw(int x, int y, double elapseTime) {}
+  virtual void draw(int /*x*/, int /*y*/, double /*elapseTime*/) {}
   virtual void focus();
   virtual void unfocus();
 
