@@ -1,3 +1,4 @@
+#include <iostream>
 #include "SpriteProvider.hpp"
 #include "Converter.hpp"
 
@@ -134,5 +135,5 @@ void		SpriteProvider::get2Int(std::string const &data,
 	if (pos == std::string::npos)
 		b = 0;
 	else
-		b = Converter::toInt<int>(data.substr(pos));
+		b = Converter::toInt<int>(data.substr(pos + sep.size()));
 }

@@ -15,9 +15,9 @@ int	main(int /*ac*/, char**av)
     Game::get().update(0);
     return 0;
   }
-  catch (...)
+  catch (std::exception &e)
   {
-	std::cerr << "Unhandled Exception" << std::endl;
+    std::cerr << "Unhandled Exception : " << e.what() << std::endl;
     return 1;
   }
 }
