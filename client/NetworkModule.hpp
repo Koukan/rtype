@@ -15,7 +15,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	virtual void		init();
 	virtual void		update(double elapsedTime);
 	virtual void		destroy();
-	virtual bool		handleCommand(Command &command);
+	virtual bool		handleCommand(Command const &command);
         void			setPort(std::string const &port);
 	void			setIP(std::string const &ip);
 

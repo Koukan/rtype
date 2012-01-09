@@ -23,7 +23,7 @@ void	       	NetworkModule::init(void)
 		this->_udp.init();
 }
 
-void	       	NetworkModule::update(double elapsedTime)
+void	       	NetworkModule::update(double)
 {
 	if (this->_reactor)
 		this->_reactor->waitForEvent(0);
@@ -34,17 +34,17 @@ void	       	NetworkModule::destroy(void)
 
 }
 
-bool		NetworkModule::handleCommand(Command &command)
+bool		NetworkModule::handleCommand(Command const &command)
 {
 	if (command.name == "TCPPacket")
 	{
-		PacketCommand &cmd = static_cast<PacketCommand&>(command);
+		PacketCommand const &cmd = static_cast<PacketCommand const &>(command);
 		cmd.player.handleOutputPacket(cmd.packet);
 		return true;
 	}
 	else if (command.name == "UDPPacket")
 	{
-		PacketCommand &cmd = static_cast<PacketCommand&>(command);
+		PacketCommand const &cmd = static_cast<PacketCommand const &>(command);
 		Net::InetAddr	addr;
 		cmd.player.getRemoteAddr(addr);
 		cmd.packet.setDestination(addr);

@@ -27,7 +27,7 @@ void		GSInGame::update(double elapsedTime)
 void		GSInGame::onEnd()
 {}
 
-bool		GSInGame::handleCommand(Command &command)
+bool		GSInGame::handleCommand(Command const &command)
 {
   static Method const	methods[] = {
 	{"destroy", &GSInGame::destroy},
