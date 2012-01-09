@@ -4,11 +4,11 @@
 
 class Game;
 
-class Player : public Net::PacketHandler<>
+class Server : public Net::PacketHandler<>
 {
   public:
-    Player();
-    virtual ~Player();
+    Server();
+    virtual ~Server();
 	virtual int		handleInputPacket(Net::Packet &packet);
 	void			setGame(Game &game);
 

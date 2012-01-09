@@ -1,34 +1,29 @@
 #include <iostream>
-#include "Player.hpp"
+#include "Server.hpp"
 #include "Game.hpp"
 #include "NetworkModule.hpp"
 
-Player::Player() : Net::PacketHandler<>(4096, "\n"),
+Server::Server() : Net::PacketHandler<>(4096, "\n"),
 		_name(""), _game(0)
 {
-	// NetworkModule::get().addUDPPlayer(*this);
-	std::cout << "Client connected" << std::endl;
+	NetworkModule::get().setServer(this);
 }
 
-Player::~Player()
+Server::~Server()
 {
-	// NetworkModule::get().addUDPPlayer(*this);
-	std::cout << "Client disconnected" << std::endl;
-	// if (this->_game)
-	// 	this->_game->removePlayer(*this);
 }
 
-int			Player::handleInputPacket(Net::Packet &packet)
+int			Server::handleInputPacket(Net::Packet &packet)
 {
-	static int			(Player::* const methods[])(Net::Packet&) = {
-			&Player::connection,
+	static int			(Server::* const methods[])(Net::Packet&) = {
+			&Server::connection,
 			NULL,
-			&Player::listGame,
+			&Server::listGame,
 			NULL,
 			NULL,
-			&Player::connectGame,
-			&Player::player,
-			&Player::createGame
+			&Server::connectGame,
+			&Server::player,
+			&Server::createGame
 	};
 	uint8_t			type;
 
@@ -40,12 +35,12 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	return 0;
 }
 
-void		Player::setGame(Game &game)
+void		Server::setGame(Game &game)
 {
 	this->_game = &game;
 }
 
-int		Player::connection(Net::Packet &packet)
+int			Server::connection(Net::Packet &packet)
 {
 	std::string		name;
 	Net::Packet		answer(2);
@@ -59,12 +54,12 @@ int		Player::connection(Net::Packet &packet)
 	return 1;
 }
 
-int		Player::listGame(Net::Packet&)
+int		Server::listGame(Net::Packet&)
 {
 	return 1;
 }
 
-int		Player::connectGame(Net::Packet &packet)
+int		Server::connectGame(Net::Packet &packet)
 {
 	// uint16_t	id;
 	// packet << id;
@@ -90,12 +85,12 @@ int		Player::connectGame(Net::Packet &packet)
 	 return 1;
 }
 
-int		Player::player(Net::Packet &)
+int		Server::player(Net::Packet &)
 {
 	return 1;
 }
 
-int		Player::createGame(Net::Packet &packet)
+int		Server::createGame(Net::Packet &packet)
 {
 	// uint8_t		maxPlayer;
 	// packet >> maxPlayer;

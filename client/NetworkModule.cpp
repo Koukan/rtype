@@ -90,3 +90,8 @@ void		NetworkModule::sendPacket(Net::Packet &packet)
 	packet.setDestination(this->_ip);
 	this->_udp.handleOutputPacket(packet);
 }
+
+void		NetworkModule::setServer(Server *server)
+{
+	_server = server;
+}
