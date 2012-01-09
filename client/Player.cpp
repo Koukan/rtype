@@ -3,7 +3,7 @@
 #include "Game.hpp"
 #include "NetworkModule.hpp"
 
-Player::Player() : Net::PacketHandler<>(4096, "\n"),
+Player::Player() : Net::PacketHandler<>(4096, "", true),
 		_name(""), _game(0)
 {
 	// NetworkModule::get().addUDPPlayer(*this);
@@ -47,15 +47,15 @@ void		Player::setGame(Game &game)
 
 int		Player::connection(Net::Packet &packet)
 {
-	std::string		name;
-	Net::Packet		answer(2);
+	//std::string		name;
+	//Net::Packet		answer(2);
 
-	packet >> name;
-	this->_name = name;
-	answer << static_cast<uint8_t>(1);
-	answer << '\n';
-	this->handleOutputPacket(answer);
-	std::cout << "Player " << name << " connected" << std::endl;
+	//packet >> name;
+	//this->_name = name;
+	//answer << static_cast<uint8_t>(1);
+	//answer << '\n';
+	//this->handleOutputPacket(answer);
+	//std::cout << "Player " << name << " connected" << std::endl;
 	return 1;
 }
 

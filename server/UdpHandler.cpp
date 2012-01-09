@@ -98,6 +98,7 @@ int         UdpHandler::retrieve(Net::Packet &packet, Player &player)
 {
 	uint32_t	packet_id;
 
+	packet >> packet_id;
 	Net::Packet const *tmp = player.getPacket(packet_id);
 	if (tmp)
 		this->handleOutputPacket(*tmp);

@@ -31,3 +31,8 @@ Game		*GameManager::createGame(uint8_t maxPlayers)
 	this->_games[this->_id++] = game;
 	return game;
 }
+
+GameManager::gamesMap const &GameManager::getGameList() const
+{
+	return _games;
+}
