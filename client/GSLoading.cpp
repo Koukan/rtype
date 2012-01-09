@@ -60,10 +60,7 @@ void	GSLoading::onStart()
 {
   this->addProvider(*(new SFMLSpriteProvider));
   this->load("resources/intro.xml");
-  this->load("resources/player1.xml");
-  this->load("resources/player2.xml");
-  this->load("resources/player3.xml");
-  this->load("resources/player4.xml");
+  this->load("resources/player.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 5);
   this->addGroup("walls");
@@ -71,7 +68,7 @@ void	GSLoading::onStart()
   this->addGroup("poly2", 11);
   this->addGroup("particle", 20);
 
-  Sprite *test = this->getSprite("player4");
+  Sprite *test = this->getSprite("player1");
   this->addGameObject(test);
 
   double x = -50, y = -50, width = 1100, height = 820, wallWidth = 500;

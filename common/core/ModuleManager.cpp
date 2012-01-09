@@ -37,7 +37,7 @@ void    ModuleManager::loadModule(Module &module)
   module.init();
 }
 
-void    ModuleManager::loadModule(std::string const &path, double rate)
+void    ModuleManager::loadModule(std::string const &, double )
 {
   //Module *tmp = _loader.load<Module*>(path, "export_instance");
   //if (tmp)

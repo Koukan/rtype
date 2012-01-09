@@ -51,11 +51,11 @@ void		InputManager::flushInput()
   _flush = true;
 }
 
-bool		InputManager::handleCommand(Command &cmd)
+bool		InputManager::handleCommand(Command const &cmd)
 {
   if (cmd.name == "Input")
   {
-	this->handleInput(static_cast<InputCommand&>(cmd));
+	this->handleInput(static_cast<InputCommand const &>(cmd));
     return true;
   }
   return false;

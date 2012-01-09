@@ -13,10 +13,11 @@ GUIManager::~GUIManager()
     }
 }
 
-bool		GUIManager::handleCommand(Command &command)
+bool		GUIManager::handleCommand(Command const &command)
 {
+
   if (command.name == "Input")
-    return (this->handleGUICommand(static_cast<InputCommand&>(command)));
+    return (this->handleGUICommand(static_cast<InputCommand const &>(command)));
   return (false);
 }
 

@@ -13,7 +13,7 @@ public:
   GUIManager();
   ~GUIManager();
 
-  virtual bool		handleCommand(Command &command);
+  virtual bool		handleCommand(Command const &command);
   void			registerButtonSprite(ButtonSprite &sprite);
 
 private:
