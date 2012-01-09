@@ -23,15 +23,15 @@ set(SRCS_NET
 	${NET_SRCS_DIR}SocketDatagram.cpp
 	${NET_SRCS_DIR}SetupNetwork.cpp
 	${NET_SRCS_DIR}NetHandler.cpp
-	${NET_SRCS_DIR}Reactor.cpp			
-	${NET_SRCS_DIR}PollPolicy.cpp		
-	${NET_SRCS_DIR}EpollPolicy.cpp		
-	${NET_SRCS_DIR}KqueuePolicy.cpp		
-	${NET_SRCS_DIR}Packet.cpp			
-	${NET_SRCS_DIR}DataBlock.cpp		
-	${NET_SRCS_DIR}UdpPacketHandler.cpp	
-	${NET_SRCS_DIR}IOVec.cpp			
-	${NET_SRCS_DIR}Clock.cpp			
+	${NET_SRCS_DIR}Reactor.cpp
+	${NET_SRCS_DIR}PollPolicy.cpp
+	${NET_SRCS_DIR}EpollPolicy.cpp
+	${NET_SRCS_DIR}KqueuePolicy.cpp
+	${NET_SRCS_DIR}Packet.cpp
+	${NET_SRCS_DIR}DataBlock.cpp
+	${NET_SRCS_DIR}UdpPacketHandler.cpp
+	${NET_SRCS_DIR}IOVec.cpp
+	${NET_SRCS_DIR}Clock.cpp
 	${NET_MUTEX_SRCS_DIR}PosixMutex.cpp
 	${NET_MUTEX_SRCS_DIR}PosixThread.cpp
 	${NET_MUTEX_SRCS_DIR}PosixConditionVar.cpp
@@ -41,7 +41,7 @@ set(SRCS_NET
 	${NET_MUTEX_SRCS_DIR}WinConditionVar.cpp
 	${NET_MUTEX_SRCS_DIR}ScopedLock.cpp
 )
-	
+
 add_library(
 	net
 	STATIC
@@ -97,7 +97,7 @@ set(INCLUDES_CORE
 	${CORE_DIR}GameStateObserver.hpp
 	${CORE_DIR}GUIManager.hpp
 	${CORE_DIR}GUILayout.hpp
-	${CORE_DIR}GUIElement.hpp	
+	${CORE_DIR}GUIElement.hpp
 	${CORE_DIR}GSManager.hpp
 	${CORE_DIR}HitBox.hpp
 	${CORE_DIR}Input.hpp
@@ -115,7 +115,6 @@ set(INCLUDES_CORE
 	${CORE_DIR}PolyHitBox.hpp
 	${CORE_DIR}RectHitBox.hpp
 	${CORE_DIR}ResourceManager.hpp
-	${CORE_DIR}ResourceManager.ipp
 	${CORE_DIR}SharedLoader.hpp
 	${CORE_DIR}Sprite.hpp
 	${CORE_DIR}SpriteProvider.hpp
@@ -143,7 +142,7 @@ set(SRCS_CORE
 	${CORE_DIR}GameStateObserver.cpp
 	${CORE_DIR}GUIManager.cpp
 	${CORE_DIR}GUILayout.cpp
-	${CORE_DIR}GUIElement.cpp	
+	${CORE_DIR}GUIElement.cpp
 	${CORE_DIR}GSManager.cpp
 	${CORE_DIR}HitBox.cpp
 	${CORE_DIR}InputManager.cpp
@@ -154,7 +153,9 @@ set(SRCS_CORE
 	${CORE_DIR}PhysicObject.cpp
 	${CORE_DIR}PolyHitBox.cpp
 	${CORE_DIR}RectHitBox.cpp
+	${CORE_DIR}SpriteProvider.cpp
 	${CORE_DIR}ResourceManager.cpp
+	${CORE_DIR}XMLProvider.cpp
 	${CORE_DIR}TimeEffectManager.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}QuadTree.cpp
 	${CORE_QUADTREE_INCLUDE_DIR}Node.cpp
@@ -250,7 +251,7 @@ endforeach( OUTPUTCONFIG CMAKE_CONFIGURATION_TYPES )
 
 
 add_executable(
-	RType_server
+	rtype_server
 	${SRCS}
 )
 
@@ -275,7 +276,7 @@ target_link_libraries(
 )
 
 target_link_libraries(
-	RType_server
+	rtype_server
 	core
 	net
 	${CMAKE_THREAD_LIBS_INIT}

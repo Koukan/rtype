@@ -90,7 +90,6 @@ void			ResourceManager::loadDocument(TiXmlNode *parent)
 void			ResourceManager::loadElement(TiXmlNode *parent)
 {
 	std::string		name;
-	size_t			i;
 	ProviderMap::iterator	it;
 
 	for (TiXmlNode *child = parent->FirstChild(); child != 0;

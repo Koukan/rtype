@@ -17,7 +17,7 @@ public:
 
 	void	handleInput(const InputCommand &event);
 	void	flushInput();
-	virtual bool	handleCommand(Command &cmd);
+	virtual bool	handleCommand(Command const &cmd);
 
 	template <typename T>
 	void        registerInputCallback(InputCommand::EventType eventType, T &instance,

@@ -13,7 +13,7 @@ public:
 	virtual void	onStart();
 	virtual void	onEnd();
 	virtual void	update(double elapsedTime);
-	virtual bool	handleCommand(Command &command);
+	virtual bool	handleCommand(Command const &command);
 
 private:
 

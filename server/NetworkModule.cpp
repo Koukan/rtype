@@ -34,7 +34,7 @@ void		NetworkModule::destroy()
 {
 }
 
-bool		NetworkModule::handleCommand(Command &command)
+bool		NetworkModule::handleCommand(Command const &command)
 {
 	static Method const	methods[] = {
 		{"Spawn", &NetworkModule::spawnCommand},
