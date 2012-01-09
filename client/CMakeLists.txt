@@ -258,6 +258,8 @@ set(SRCS
 	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
+	ScrollingSprite.hpp
+	ScrollingSprite.cpp
 )
 
 IF(WIN32)
