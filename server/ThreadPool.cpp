@@ -16,7 +16,7 @@ bool			ThreadPool::init(size_t nbThread)
 	{
 		thread = new Net::Thread(this, &ThreadPool::handleTask);
 		_threadsList.push_back(thread);
-		if (thread->start())
+		if (!thread->start())
 			return false;
 	}
 	return true;

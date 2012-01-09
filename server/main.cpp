@@ -11,11 +11,12 @@ int		main(int ac, char **av)
   chdir(path.substr(0, path.rfind('/')).c_str());
   try
   {
+	bool		ret;
 	if (ac > 1)
-		Server::get().init(av[1]);
+		ret = Server::get().init(av[1]);
 	else
-		Server::get().init();
-    return 0;
+		ret = Server::get().init();
+    return (ret) ? 0 : 1;
   }
   catch (...)
   {
