@@ -221,6 +221,7 @@ set(TARGET_NAME rtype_client)
 set(GUI_INCLUDE_DIR "gui")
 
 set(GUI_SRC_DIR "gui")
+set(INCLUDES_COMMON_DIR "../common/")
 
 set(SRCS
 	${INCLUDES_CORE}
@@ -241,10 +242,11 @@ set(SRCS
 	NetworkModule.hpp
 	PacketCommand.cpp
 	PacketCommand.hpp
-	Player.cpp
-	Player.hpp
+	${INCLUDES_COMMON_DIR}PacketType.hpp
 	RendererManager.cpp
 	RendererManager.hpp
+	Server.cpp
+	Server.hpp
 	SFMLSprite.cpp
 	SFMLSprite.hpp
 	SFMLSpriteProvider.cpp
@@ -256,6 +258,8 @@ set(SRCS
 	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
+	ScrollingSprite.hpp
+	ScrollingSprite.cpp
 )
 
 IF(WIN32)
@@ -284,6 +288,7 @@ add_executable(
 )
 
 include_directories (
+	${INCLUDES_COMMON_DIR}
 	${SFML_INCLUDE_DIR}
 	${NET_INCLUDE_DIR}
 	${NET_MUTEX_INCLUDE_DIR}

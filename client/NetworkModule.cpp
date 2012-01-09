@@ -1,6 +1,7 @@
 #include "NetworkModule.hpp"
 #include "CommandDispatcher.hpp"
 #include "PacketCommand.hpp"
+#include "PacketType.hpp"
 
 NetworkModule::NetworkModule(void) : Module("NetworkModule", 20), _reactor(0)
 {
@@ -36,22 +37,42 @@ void	       	NetworkModule::destroy(void)
 
 bool		NetworkModule::handleCommand(Command const &command)
 {
-	if (command.name == "TCPPacket")
+	static Method const	methods[] = {
+		{"Move", &NetworkModule::moveCommand}
+	};
+
+	for (size_t i = 0;
+		 i < sizeof(methods) / sizeof(*methods); i++)
 	{
-		PacketCommand const &cmd = static_cast<PacketCommand const &>(command);
-		cmd.player.handleOutputPacket(cmd.packet);
-		return true;
-	}
-	else if (command.name == "UDPPacket")
-	{
-		PacketCommand const &cmd = static_cast<PacketCommand const &>(command);
-		Net::InetAddr	addr;
-		cmd.player.getRemoteAddr(addr);
-		cmd.packet.setDestination(addr);
-		this->_udp.handleOutputPacket(cmd.packet);
-		return true;
+		if (command.name == methods[i].name)
+		{
+			(this->*methods[i].method)(static_cast<GameCommand const &>(command));
+			return true;
+		}
 	}
 	return false;
+}
+
+void		NetworkModule::moveCommand(GameCommand const &cmd)
+{
+	Net::Packet		packet(21);
+	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
+	packet << static_cast<uint8_t>(UDP::MOVE);
+	packet << cmd.idObject;
+	packet << cmd.x;
+	packet << cmd.y;
+	packet << cmd.vx;
+	packet << cmd.vy;
+	this->sendPacket(packet);
+}
+
+void		NetworkModule::retrieveCommand(GameCommand const &cmd)
+{
+	Net::Packet		packet(13);
+	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
+	packet << static_cast<uint8_t>(UDP::RETRIEVE);
+	packet << cmd.idObject;
+	this->sendPacket(packet);
 }
 
 void		NetworkModule::setPort(std::string const &port)
@@ -62,4 +83,15 @@ void		NetworkModule::setPort(std::string const &port)
 void		NetworkModule::setIP(std::string const &ip)
 {
 	this->_ip = ip;
+}
+
+void		NetworkModule::sendPacket(Net::Packet &packet)
+{
+	packet.setDestination(this->_ip);
+	this->_udp.handleOutputPacket(packet);
+}
+
+void		NetworkModule::setServer(Server *server)
+{
+	_server = server;
 }

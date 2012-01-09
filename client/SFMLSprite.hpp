@@ -23,6 +23,9 @@ class SFMLSprite : public Sprite, public sf::Sprite
 		virtual void	draw(double elapsedTime = 0);
 		virtual void	draw(int x, int y, double elapsedTime = 0);
 
+		virtual int	getWidth() const;
+		virtual int	getHeight() const;
+
 	private:
 		sf::RenderWindow			*_window;
 		double						_frameRate;

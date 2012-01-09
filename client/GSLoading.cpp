@@ -7,6 +7,7 @@
 #include "GUIList.hpp"
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
+#include "ScrollingSprite.hpp"
 
 GSLoading::GSLoading() : GameState("Loading")
 {
@@ -69,7 +70,7 @@ void	GSLoading::onStart()
   this->addGroup("particle", 20);
 
   Sprite *test = this->getSprite("player1");
-  this->addGameObject(test);
+  this->addGameObject(test, "player", 20);
 
   double x = -50, y = -50, width = 1100, height = 820, wallWidth = 500;
   new Wall(-wallWidth + x, -wallWidth + y, width + 2 * wallWidth, wallWidth, "walls");
@@ -85,26 +86,31 @@ void	GSLoading::onStart()
   // bulletml test
   this->addBulletParser("resources/test.xml", "Test");
   _bullet = new BulletCommand("Test", *this, 512, 360);
-  this->addGameObject(_bullet, "ship");
+  this->addGameObject(_bullet, "ship", 1);
   // end bulletml test
 
   // GUI
 
-  GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
-  ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
-  guilist->addLabel("un");
-  guilist->addLabel("deux");
-  guilist->addLabel("trois");
-  for (int i = 0; i < 6; ++i)
-    {
-      GUILayout *layout2 = new GUIHLayout(0, 0, 100, 70, layout);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-    }
+  // GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  // ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  // GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  // guilist->addLabel("un");
+  // guilist->addLabel("deux");
+  // guilist->addLabel("trois");
+  // for (int i = 0; i < 6; ++i)
+  //   {
+  //     GUILayout *layout2 = new GUIHLayout(0, 0, 100, 70, layout);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //   }
+
+  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
+  obj->pushSprite("space background");
+
+  this->addGameObject(obj, "background", 1);
 
   // end GUI
 
