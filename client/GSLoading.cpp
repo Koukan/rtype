@@ -86,28 +86,22 @@ void	GSLoading::onStart()
 
   // GUI
 
-  GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
-  ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
-  guilist->addLabel("un");
-  guilist->addLabel("deux");
-  guilist->addLabel("trois");
-  for (int i = 0; i < 6; ++i)
-    {
-      GUILayout *layout2 = new GUIHLayout(0, 0, 100, 50, layout);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
-      new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 50, 50, layout2);
-    }
+  // GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  // ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  // GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
+  // guilist->addLabel("un");
+  // guilist->addLabel("deux");
+  // guilist->addLabel("trois");
+  // for (int i = 0; i < 6; ++i)
+  //   {
+  //     GUILayout *layout2 = new GUIHLayout(0, 0, 100, 70, layout);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
+  //   }
 
-  //CL_PushButton *button1 = this->create<CL_PushButton>("button1");
-  //button1->set_geometry(CL_Rect(100, 200, 200, 320));
-  //this->getGUIComponent<CL_PushButton>("button1")->set_text("Okay!");
-  //button1->func_clicked() = CL_Callback_v0(this, &GSLoading::buttonClick);
-  //CL_LineEdit *lineedit =  this->create<CL_LineEdit>("lineedit");
-  //lineedit->set_geometry(CL_Rect(100, 100, 200, 120));
   // end GUI
 
   // Input
