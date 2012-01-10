@@ -25,10 +25,13 @@ private:
   int _width;
   int _height;
   double _speed;
-  ScrollingSprite::eDirection _dir;
+  
   std::list<Sprite *> _sprites;
   std::list<Sprite *>::const_iterator _current;
+  void (ScrollingSprite::*_scrolling)(int elapseTime);
 
+  void hScrolling(int elapseTime);
+  void vScrolling(int elapseTime);
   std::list<Sprite *>::const_iterator nextSprite(std::list<Sprite *>::const_iterator const &it);
   std::list<Sprite *>::const_iterator prevSprite(std::list<Sprite *>::const_iterator const &it);
 };
