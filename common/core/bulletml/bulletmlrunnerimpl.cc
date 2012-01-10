@@ -4,6 +4,7 @@
 #include "bulletmlerror.h"
 #include "formula-variables.h"
 
+#include <iostream>
 #include "auto_ptr_fix.h"
 
 #include <cassert>
@@ -145,6 +146,24 @@ void BulletMLRunnerImpl::setDirection() {
     if (dir == 0) return;
 
     dir_ = getDirection(dir);
+}
+
+void BulletMLRunnerImpl::setHitBox(BulletMLState &state) {
+    BulletMLNode* box = act_->getChild(BulletMLNode::hitbox);
+    if (box == 0) return;
+
+		state.setShape(box->getShape());
+		state.setWidth(box->getWidth());
+		state.setHeight(box->getHeight());
+}
+
+void BulletMLRunnerImpl::setSimpleHitBox(BulletMLState &state) {
+    BulletMLNode* box = act_->getChild(BulletMLNode::simpleHitbox);
+    if (box == 0) return;
+
+		state.setSimpleShape(box->getSimpleShape());
+		state.setSimpleWidth(box->getSimpleWidth());
+		state.setSimpleHeight(box->getSimpleHeight());
 }
 
 bool BulletMLRunnerImpl::isTurnEnd() {
@@ -328,6 +347,9 @@ void BulletMLRunnerImpl::runBullet() {
 		state->setSprite(act_->getSprite());
 		state->setBulletGroup(act_->getBulletGroup());
 		state->setBulletSprite(act_->getBulletSprite());
+
+		setHitBox(*state);
+		setSimpleHitBox(*state);
 		// end add
 
 		runner_->createBullet(state, dir_, spd_);

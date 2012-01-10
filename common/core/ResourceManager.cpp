@@ -43,14 +43,14 @@ Sprite			*ResourceManager::getSprite(std::string const &name) const
   return 0;
 }
 
-/*Font			*ResourceManager::getFont(std::string const &name) const
+Font			*ResourceManager::getFont(std::string const &name) const
 {
-  ProviderMap::iterator it;
+  ProviderMap::const_iterator it;
 
-  if (it = this->_providers.find("font") != this->_providers.end())
+  if ((it = this->_providers.find("font")) != this->_providers.end())
     return (static_cast<FontProvider*>((*it).second))->getFont(name);
   return 0;
-  }*/
+}
 
 void			ResourceManager::handleXML(TiXmlNode *parent)
 {

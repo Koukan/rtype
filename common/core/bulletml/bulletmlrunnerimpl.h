@@ -127,6 +127,8 @@ private:
 
     void setDirection();
     void setSpeed();
+	void setHitBox(BulletMLState &state);
+	void setSimpleHitBox(BulletMLState &state);
 
     void shotInit() {
 		spd_.disValidate();

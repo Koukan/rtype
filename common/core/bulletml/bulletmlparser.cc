@@ -100,7 +100,8 @@ void BulletMLParser::addAttribute(const MyAttributes& attr,
 			ite++;
 			const std::string val(*ite);
 			ite++;
-			if (key == "type") elem->setType(val);
+			if (key == "type")
+				elem->setType(val);
 			else if (key == "label") {
 				BulletMLNode::Name name = elem->getName();
 				BulletMLNode::Name domain;
@@ -162,6 +163,28 @@ void BulletMLParser::addAttribute(const MyAttributes& attr,
 					elem->setBulletGroup(val);
 				else if (key == "simpleSprite")
 					elem->setBulletSprite(val);
+			}
+			else if (elem->getName() == BulletMLNode::hitbox)
+			{
+				if (key == "shape")
+					elem->setShape(val);
+				else if (key == "radius")
+					elem->setWidth(val);
+				else if (key == "width")
+					elem->setWidth(val);
+				else if (key == "height")
+					elem->setHeight(val);
+			}
+			else if (elem->getName() == BulletMLNode::simpleHitbox)
+			{
+				if (key == "shape")
+					elem->setSimpleShape(val);
+				else if (key == "radius")
+					elem->setSimpleWidth(val);
+				else if (key == "width")
+					elem->setSimpleWidth(val);
+				else if (key == "height")
+					elem->setSimpleHeight(val);
 			}
 		}
 	}

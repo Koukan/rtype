@@ -111,6 +111,8 @@ set(INCLUDES_CORE
 	${CORE_DIR}CommandHandler.hpp
 	${CORE_DIR}Converter.hpp
 	${CORE_DIR}DrawableObject.hpp
+	${CORE_DIR}Font.hpp
+	${CORE_DIR}FontProvider.hpp
 	${CORE_DIR}GameObject.hpp
 	${CORE_DIR}GameObjectManager.hpp
 	${CORE_DIR}GameObjectManager.ipp
@@ -159,6 +161,7 @@ set(SRCS_CORE
 	${CORE_DIR}CircleHitBox.cpp
 	${CORE_DIR}CommandDispatcher.cpp
 	${CORE_DIR}CommandHandler.cpp
+	${CORE_DIR}FontProvider.cpp
 	${CORE_DIR}GameObject.cpp
 	${CORE_DIR}GameObjectManager.cpp
 	${CORE_DIR}GameState.cpp
@@ -202,7 +205,7 @@ set_source_files_properties (
   ${SRCS_CORE}
   PROPERTIES
   COMPILE_FLAGS
-  "-W -Wall"
+  "-W -Wall -g3"
 )
 ENDIF(WIN32)
 
@@ -226,6 +229,10 @@ set(INCLUDES_COMMON_DIR "../common/")
 set(SRCS
 	${INCLUDES_CORE}
 	main.cpp
+	SFMLFont.cpp
+	SFMLFont.hpp
+	SFMLFontProvider.cpp
+	SFMLFontProvider.hpp
 	Game.cpp
 	Game.hpp
 	GameCommand.hpp
@@ -245,6 +252,8 @@ set(SRCS
 	${INCLUDES_COMMON_DIR}PacketType.hpp
 	RendererManager.cpp
 	RendererManager.hpp
+	ScrollingSprite.hpp
+	ScrollingSprite.cpp
 	Server.cpp
 	Server.hpp
 	SFMLSprite.cpp
@@ -258,8 +267,6 @@ set(SRCS
 	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
-	ScrollingSprite.hpp
-	ScrollingSprite.cpp
 )
 
 IF(WIN32)

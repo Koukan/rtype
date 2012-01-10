@@ -25,10 +25,10 @@ void		Game::init()
   this->loadModule(RendererManager::get());
   this->loadModule(*(new InputModule));
   this->loadModule(*(new PhysicManager));
-  //GameStateManager::get().loadState<GSLoading>("Loading");
-  //GameStateManager::get().changeState("Loading");
-  GameStateManager::get().loadState<GSInGame>("Game");
-  GameStateManager::get().changeState("Game");
+  GameStateManager::get().loadState<GSLoading>("Loading");
+  GameStateManager::get().changeState("Loading");
+ // GameStateManager::get().loadState<GSInGame>("Game");
+ //GameStateManager::get().changeState("Game");
 }
 
 void		Game::quit()

@@ -2,8 +2,12 @@
 #include "GameStateManager.hpp"
 
 ScrollingSprite::ScrollingSprite(int x, int y, int width, int height, ScrollingSprite::eDirection dir, double speed)
-  : DrawableObject(x, y), _width(width), _height(height), _speed(speed), _dir(dir)
+  : DrawableObject(x, y), _width(width), _height(height), _speed(speed)
 {
+  if (dir == ScrollingSprite::HORIZONTAL)
+    this->_scrolling = &ScrollingSprite::hScrolling;
+  else
+    this->_scrolling = &ScrollingSprite::vScrolling;
 }
 
 ScrollingSprite::~ScrollingSprite()
@@ -22,6 +26,34 @@ void ScrollingSprite::pushSprite(std::string const &spriteName)
 }
 
 void ScrollingSprite::draw(double elapseTime)
+{
+  (this->*(this->_scrolling))(elapseTime);
+}
+
+void ScrollingSprite::setSpeed(int speed)
+{
+  this->_speed = speed;
+}
+
+std::list<Sprite *>::const_iterator ScrollingSprite::nextSprite(std::list<Sprite *>::const_iterator const &it)
+{
+  if (it == --this->_sprites.end())
+    return (this->_sprites.begin());
+
+  std::list<Sprite *>::const_iterator tmp = it;
+  return (++tmp);
+}
+
+std::list<Sprite *>::const_iterator ScrollingSprite::prevSprite(std::list<Sprite *>::const_iterator const &it)
+{
+  if (it == this->_sprites.begin())
+    return (--this->_sprites.end());
+
+  std::list<Sprite *>::const_iterator tmp = it;
+  return (--tmp);
+}
+
+void ScrollingSprite::hScrolling(int elapseTime)
 {
   std::list<Sprite *>::const_iterator it = this->_current;
   static double x = 0;
@@ -52,25 +84,33 @@ void ScrollingSprite::draw(double elapseTime)
     }
 }
 
-void ScrollingSprite::setSpeed(int speed)
+void ScrollingSprite::vScrolling(int elapseTime)
 {
-  this->_speed = speed;
-}
+  std::list<Sprite *>::const_iterator it = this->_current;
+  static double y = 0;
+  int y2 = y;
 
-std::list<Sprite *>::const_iterator ScrollingSprite::nextSprite(std::list<Sprite *>::const_iterator const &it)
-{
-  if (it == --this->_sprites.end())
-    return (this->_sprites.begin());
-
-  std::list<Sprite *>::const_iterator tmp = it;
-  return (++tmp);
-}
-
-std::list<Sprite *>::const_iterator ScrollingSprite::prevSprite(std::list<Sprite *>::const_iterator const &it)
-{
-  if (it == this->_sprites.begin())
-    return (--this->_sprites.end());
-
-  std::list<Sprite *>::const_iterator tmp = it;
-  return (--tmp);
+  while (y2 < this->_height)
+    {
+      (*it)->draw(this->_x, this->_y + y2, elapseTime);
+      it = this->nextSprite(it);
+      y2 += (*it)->getHeight();
+    }
+  y += this->_speed * elapseTime;
+  if (y + (*this->_current)->getHeight() < 0)
+    {
+      while (y + (*this->_current)->getHeight() < 0)
+	{
+	  this->_current = this->nextSprite(this->_current);
+	  y += (*this->_current)->getHeight();
+	}
+    }
+  else if (y > 0)
+    {
+      while (y > 0)
+	{
+	  this->_current = this->prevSprite(this->_current);
+	  y -= (*this->_current)->getHeight();
+	}
+    }
 }
