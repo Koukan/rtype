@@ -39,7 +39,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 
 	struct	Method
 	{
-		std::string	name;
+		std::string	const name;
 		void	(NetworkModule::*method)(GameCommand const &);
 	};
 

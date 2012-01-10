@@ -268,7 +268,7 @@ set_source_files_properties (
   ${SRCS}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x -W -Wall"
+  "-std=c++0x -W -Wall -g3"
 )
 ENDIF(WIN32)
 
@@ -309,6 +309,8 @@ target_link_libraries(
 target_link_libraries(
 	${TARGET_NAME}
 	${SFML_LIBRARIES}
+	stdc++
+	pthread
 	core
 	net
 )

@@ -56,6 +56,11 @@ uint32_t	Player::getId() const
 	return this->_idShip;
 }
 
+std::string const   &Player::getName() const
+{
+	return _name;
+}
+
 uint32_t	Player::getPacketId()
 {
 	return this->_idPacket++;
@@ -127,6 +132,7 @@ int		Player::connectGame(Net::Packet &packet)
 	{
 		if (game->addPlayer(*this))
 		{
+
 			return 1;
 		}
 		return this->sendError(Error::GAME_FULL);

@@ -12,24 +12,24 @@ public:
 	~GSInGame();
 	virtual void	onStart();
 	virtual void	onEnd();
-	virtual void	update(double elapsedTime);
+	virtual void	update(double elapsedTime = 0);
 	virtual bool	handleCommand(Command const &command);
 
 private:
 
 	struct Method
 	{
-	  std::string const &	name;
+	  std::string const		name;
 	  void (GSInGame::*method)(GameCommand const &);
 	};
 
 	void		inputUp(InputCommand const &event);
-  	void		inputDown(InputCommand const &event);
+ 	void		inputDown(InputCommand const &event);
   	void		inputLeft(InputCommand const &event);
   	void		inputRight(InputCommand const &event);
 
 	// HandleCommand
-	void		inputMove(GameCommand const &event);
+//	void		inputMove(GameCommand const &event);
 
 	void		destroy(GameCommand const &event);
 	void		spawn(GameCommand const &event);

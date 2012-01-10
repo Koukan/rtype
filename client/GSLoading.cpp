@@ -117,7 +117,7 @@ void	GSLoading::onStart()
   // Input
   this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSLoading::escape, (int)Keyboard::Escape);
   this->getInput().registerInputCallback(InputCommand::MouseWheelMoved, *this, &GSLoading::slowTest);
-  //this->registerInputCallback(CL_InputEvent::pressed, *this, &GSLoading::slowTest, CL_MOUSE_WHEEL_DOWN);
-  //this->registerInputCallback(CL_InputEvent::released, *this, &GSLoading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);
+//  this->registerInputCallback(CL_InputEvent::pressed, *this, &GSLoading::slowTest, CL_MOUSE_WHEEL_DOWN);
+ // this->registerInputCallback(CL_InputEvent::released, *this, &GSLoading::click, CL_InputDevice::pointer, CL_MOUSE_LEFT);
   // End Input
 }

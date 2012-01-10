@@ -31,10 +31,13 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void		spawnCommand(Command const &command);
 	void		destroyCommand(Command const &command);
 	void		moveCommand(Command const &command);
-
-	void		sendPacket(Net::Packet &packet,
+	void		sendUDPPacket(Net::Packet &packet,
 					std::list<Player*> const &list,
 					bool needId, Player *player);
+	void		sendTCPPacket(Net::Packet &packet, std::list<Player*> const &list, Player *player);
+	void		statusCommand(Command const &command);
+	void		startgameCommand(Command const &command);
+
 
 	Net::Reactor						*_reactor;
 	Net::Acceptor<Player>				_acceptor;

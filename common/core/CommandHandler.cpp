@@ -58,9 +58,10 @@ void			CommandHandler::handle(double)
 
 void			CommandHandler::pushCommand(Command const &command)
 {
-	Net::ScopedLock		lock(this->_mutex);
+		//Net::ScopedLock		lock(this->_mutex);
 
 	this->_commands.push(&command);
+	this->handle(0);
 }
 
 void			CommandHandler::registerHandler(CommandHandler &handler)

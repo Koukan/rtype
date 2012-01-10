@@ -4,7 +4,7 @@
 #include "Server.hpp"
 #include "PhysicManager.hpp"
 #include "CommandDispatcher.hpp"
-#include "PacketCommand.hpp"
+#include "GameCommand.hpp"
 
 Game::Game(uint16_t id, uint8_t maxPlayers)
 	: Module("Game" + id, 20), _logic(*this),
@@ -44,6 +44,9 @@ bool		Game::addPlayer(Player &player)
 		this->_list.push_back(&player);
 		player.setGame(*this);
 		player.setId(_logic.getLastAttributedId());
+		this->broadcastStatus(player, 1);
+		if (this->_list.size()== this->_maxPlayers)
+			this->startGame();
 		return true;
 	}
 	return false;
@@ -82,22 +85,24 @@ std::list<Player*> const &Game::getPlayers() const
 	return this->_list;
 }
 
-void		Game::sendPacket(std::string const &type,
-							 Net::Packet &packet,
-							 Player *player)
-{
-	for (std::list<Player*>::iterator it = this->_list.begin();
-		 it != this->_list.end(); it++)
-	{
-		if (player != *it)
-		{
-			CommandDispatcher::get().pushCommand(*(
-				new PacketCommand(type, **it, packet)));
-		}
-	}
-}
-
 GameLogic	&Game::getGameLogic()
 {
   return _logic;
+}
+
+void		Game::broadcastStatus(Player &player, int status)
+{
+		GameCommand *tmp = new GameCommand("Status");
+		tmp->game = this;
+		tmp->player = &player;
+		tmp->idObject = status;
+		CommandDispatcher::get().pushCommand(*tmp);
+}
+
+void		Game::startGame()
+{
+		GameCommand *tmp = new GameCommand("Startgame");
+		tmp->game = this;
+		CommandDispatcher::get().pushCommand(*tmp);
+		
 }
