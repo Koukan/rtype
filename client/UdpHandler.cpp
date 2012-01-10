@@ -1,5 +1,4 @@
 #include "UdpHandler.hpp"
-#include "Player.hpp"
 
 UdpHandler::UdpHandler()
 {

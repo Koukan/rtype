@@ -2,6 +2,7 @@
 
 #include "Net.hpp"
 #include "GameLogic.hpp"
+#include "PacketType.hpp"
 
 class Game;
 
@@ -28,6 +29,9 @@ class Player : public Net::PacketHandler<>
 	int			connectGame(Net::Packet &packet);
 	int			player(Net::Packet &packet);
 	int			createGame(Net::Packet &packet);
+
+	int			sendError(Error::Type error);
+	int			sendResources();
 
 	std::string		_name;
 	Game			*_game;

@@ -7,7 +7,7 @@
 #include "PacketCommand.hpp"
 
 Game::Game(uint16_t id, uint8_t maxPlayers)
-	: Module("Game" + id, 20), _logic(*(new GameLogic(*this))),
+	: Module("Game" + id, 20), _logic(*this),
 	  _id(id), _maxPlayers(maxPlayers)
 {
 	Server::get().loadModule(*this);
@@ -60,6 +60,21 @@ void		Game::removePlayer(Player &player)
 			return ;
 		}
 	}
+}
+
+size_t		Game::nbPlayers() const
+{
+	return _list.size();
+}
+
+bool		Game::isFull() const
+{
+	return this->nbPlayers() == _maxPlayers;
+}
+
+uint16_t	Game::getId() const
+{
+	return _id;
 }
 
 std::list<Player*> const &Game::getPlayers() const

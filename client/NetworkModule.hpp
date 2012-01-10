@@ -4,7 +4,7 @@
 #include "Module.hpp"
 #include "Net.hpp"
 #include "UdpHandler.hpp"
-#include "Player.hpp"
+#include "Server.hpp"
 #include "Singleton.hpp"
 #include "GameCommand.hpp"
 
@@ -20,14 +20,22 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
     void			setPort(std::string const &port);
 	void			setIP(std::string const &ip);
 
+	void				setServer(Server *server);
   private:
 
-// Command
+// Command UDP
 
 	void		retrieveCommand(GameCommand const &command);
 	void		moveCommand(GameCommand const &command);
 
-	void		sendPacket(Net::Packet &packet);
+// Command TCP
+
+	void		connectionCommand(GameCommand const &command);
+	void		listGamesCommand(GameCommand const &command);
+	void		connectGameCommand(GameCommand const &cmd);
+	
+		
+	void		sendPacketUDP(Net::Packet &packet);
 
 	struct	Method
 	{
@@ -36,9 +44,10 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	};
 
 	Net::Reactor	       	*_reactor;
-	Net::Connector<Player>	_connector;
+	Net::Connector<Server>	_connector;
 	UdpHandler	       	_udp;
 	std::string	       	_port;
 	std::string	       	_ip;
 	Net::SetupNetwork      	_init;
+	Server*				_server;
 };

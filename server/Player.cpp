@@ -3,7 +3,6 @@
 #include "Game.hpp"
 #include "Server.hpp"
 #include "NetworkModule.hpp"
-#include "PacketType.hpp"
 
 Player::Player() : Net::PacketHandler<>(4096, "", true),
 		_name(""), _game(0), _idPacket(0), _idShip(0)
@@ -87,47 +86,52 @@ Net::Packet const	*Player::getPacket(uint32_t id) const
 
 int		Player::connection(Net::Packet &packet)
 {
-	std::string		name;
 	Net::Packet		answer(5);
 
-	packet >> name;
-	this->_name = name;
-	answer << 1;
+	packet >> _name;
+	answer << sizeof(uint8_t);
 	answer << static_cast<uint8_t>(TCP::ETABLISHED);
 	this->handleOutputPacket(answer);
-	std::cout << "Player " << name << " connected" << std::endl;
+	std::cout << "Player " << _name << " connected" << std::endl;
 	return 1;
 }
 
 int		Player::listGame(Net::Packet&)
-{
+{	
+	GameManager::gamesMap const &map = Server::get().getGameList();
+
+	for (GameManager::gamesMap::const_iterator it = map.begin(); it != map.end(); ++it)
+	{
+		Net::Packet		tmp(8);
+
+		tmp << 4;
+		tmp << static_cast<uint16_t>(it->second->getId());
+		tmp << static_cast<uint8_t>(it->second->nbPlayers());
+		tmp << static_cast<uint8_t>(it->second->isFull());
+		this->handleOutputPacket(tmp);
+	}
+	Net::Packet		end(3);
+	end << sizeof(uint8_t);
+	end << static_cast<uint8_t>(TCP::END_LIST_GAME);
+	this->handleOutputPacket(end);
 	return 1;
 }
 
 int		Player::connectGame(Net::Packet &packet)
 {
 	uint16_t	id;
-	packet << id;
+	packet >> id;
 	Game			*game = Server::get().getGame(id);
+
 	if (game)
 	{
 		if (game->addPlayer(*this))
 		{
 			return 1;
 		}
-		Net::Packet		answer(7);
-		answer << 3;
-		answer << static_cast<uint8_t>(TCP::TCP_ERROR);
-		answer << static_cast<uint16_t>(Error::GAME_FULL);
-		this->handleOutputPacket(answer);
-		return 1;
+		return this->sendError(Error::GAME_FULL);
 	}
-	Net::Packet		answer(7);
-	answer << 3;
-	answer << static_cast<uint8_t>(TCP::TCP_ERROR);
-	answer << static_cast<uint16_t>(Error::GAME_NOT_EXIST);
-	this->handleOutputPacket(answer);
-	return 1;
+	return this->sendError(Error::GAME_NOT_EXIST);
 }
 
 int		Player::player(Net::Packet &)
@@ -145,15 +149,21 @@ int		Player::createGame(Net::Packet &packet)
 		game->addPlayer(*this);
 		return 1;
 	}
-	Net::Packet		answer(7);
-	answer << 3;
-	answer << static_cast<uint8_t>(TCP::TCP_ERROR);
-	answer << static_cast<uint16_t>(Error::SERVER_FULL);
-	this->handleOutputPacket(answer);
-	return 1;
+	return this->sendError(Error::SERVER_FULL);
 }
 
 GameLogic           &Player::getGameLogic()
 {
 	return _game->getGameLogic();
+}
+
+int         		Player::sendError(Error::Type error)
+{	
+	Net::Packet		answer(7);
+
+	answer << (sizeof(uint8_t) + sizeof(uint16_t));
+	answer << static_cast<uint8_t>(TCP::TCP_ERROR);
+	answer << static_cast<uint16_t>(error);
+	this->handleOutputPacket(answer);
+	return 1;
 }

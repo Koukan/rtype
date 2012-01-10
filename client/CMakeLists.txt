@@ -243,10 +243,10 @@ set(SRCS
 	PacketCommand.cpp
 	PacketCommand.hpp
 	${INCLUDES_COMMON_DIR}PacketType.hpp
-	Player.cpp
-	Player.hpp
 	RendererManager.cpp
 	RendererManager.hpp
+	Server.cpp
+	Server.hpp
 	SFMLSprite.cpp
 	SFMLSprite.hpp
 	SFMLSpriteProvider.cpp
