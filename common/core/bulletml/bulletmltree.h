@@ -23,7 +23,7 @@ public:
 	typedef enum { bullet, action, fire, changeDirection, changeSpeed, accel,
 				   wait, repeat, bulletRef, actionRef, fireRef, vanish,
 				   horizontal, vertical, term, times, direction, speed, param,
-				   bulletml, nameSize } Name;
+				   bulletml, hitbox, nameSize} Name;
 
 private:
 	static Type string2type(const std::string& str);

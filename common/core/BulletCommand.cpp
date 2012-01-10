@@ -31,7 +31,6 @@ BulletCommand::BulletCommand(BulletMLState *state, GameState &gstate,
 {
 	if (!state->getSprite().empty())
 		this->setSprite(_state, state->getSprite());
-	std::cout << state->getLabel() << std::endl;
 	this->_simpleSprite = state->getBulletSprite();
 	this->_simpleGroup = state->getBulletGroup();
 }
