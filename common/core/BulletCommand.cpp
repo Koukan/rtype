@@ -2,6 +2,8 @@
 #include "BulletCommand.hpp"
 #include "Bullet.hpp"
 #include "bulletmlparser.h"
+#include "CircleHitBox.hpp"
+#include "RectHitBox.hpp"
 
 #ifndef M_PI
 #define M_PI 3.14159265358979323846
@@ -13,26 +15,49 @@ inline static double rtod(double x) { return x * 180 / M_PI; }
 BulletCommand::BulletCommand(std::string const &parser, GameState &gstate,
 		double x, double y, double direction, double speed)
 	: BulletMLRunner(gstate.getBulletParser(parser)), Bullet(x, y, direction, speed),
-	  _turn(0), _end(false), _state(gstate)
+	  _turn(0), _end(false), _state(gstate), _shape(BulletCommand::Circle),
+	  _width(1), _height(1)
 {
 }
 
-BulletCommand::BulletCommand(BulletMLParser *parser, GameState &gstate,
+BulletCommand::BulletCommand(BulletMLParser &parser, GameState &gstate,
 		double x, double y, double direction, double speed)
-	: BulletMLRunner(parser), Bullet(x, y, direction, speed),
-	  _turn(0), _end(false), _state(gstate)
+	: BulletMLRunner(&parser), Bullet(x, y, direction, speed),
+	  _turn(0), _end(false), _state(gstate), _shape(BulletCommand::Circle),
+	  _width(1), _height(1)
 {
 }
 
-BulletCommand::BulletCommand(BulletMLState *state, GameState &gstate,
+BulletCommand::BulletCommand(BulletMLState &state, GameState &gstate,
 		double x, double y, double direction, double speed)
-	: BulletMLRunner(state), Bullet(x, y, direction, speed),
-	  _turn(0), _end(false), _state(gstate)
+	: BulletMLRunner(&state), Bullet(x, y, direction, speed),
+	  _turn(0), _end(false), _state(gstate),
+	  _width(state.getWidth()), _height(state.getHeight())
 {
-	if (!state->getSprite().empty())
-		this->setSprite(_state, state->getSprite());
-	this->_simpleSprite = state->getBulletSprite();
-	this->_simpleGroup = state->getBulletGroup();
+	if (state.getShape() == "circle")
+		this->_shape = BulletCommand::Circle;
+	else if (state.getShape() == "rectangle")
+		this->_shape = BulletCommand::Rectangle;
+	if (!state.getSprite().empty())
+		this->setSprite(_state, state.getSprite());
+	this->_simpleSprite = state.getBulletSprite();
+	this->_simpleGroup = state.getBulletGroup();
+}
+
+BulletCommand::BulletCommand(BulletMLState &state, GameState &gstate,
+		HitBox &box, double x, double y, double direction, double speed)
+	: BulletMLRunner(&state), Bullet(box, x, y, direction, speed),
+	  _turn(0), _end(false), _state(gstate),
+	  _width(state.getWidth()), _height(state.getHeight())
+{
+	if (state.getShape() == "circle")
+		this->_shape = BulletCommand::Circle;
+	else if (state.getShape() == "rectangle")
+		this->_shape = BulletCommand::Rectangle;
+	if (!state.getSprite().empty())
+		this->setSprite(_state, state.getSprite());
+	this->_simpleSprite = state.getBulletSprite();
+	this->_simpleGroup = state.getBulletGroup();
 }
 
 BulletCommand::~BulletCommand()
@@ -66,13 +91,44 @@ double		BulletCommand::getRank()
 
 void		BulletCommand::createSimpleBullet(double direction, double speed)
 {
-  this->_state.addGameObject(new Bullet(_state, this->_simpleSprite, _x, _y, dtor(direction), speed), this->_simpleGroup);
+	HitBox		*box = 0;
+
+	if (_shape == BulletCommand::Circle)
+		box = new CircleHitBox(_x, _y,
+			static_cast<double>(_width));
+	else if (_shape == BulletCommand::Rectangle)
+		box = new RectHitBox(_x, _y,
+			static_cast<double>(_width),
+			static_cast<double>(_height));
+	if (box)
+	{
+		this->_state.addGameObject(new Bullet(_state, this->_simpleSprite,
+			*box, _x, _y, dtor(direction), speed), this->_simpleGroup);
+	}
 }
 
 void		BulletCommand::createBullet(BulletMLState* state,
 				  	    double direction, double speed)
 {
-	this->_state.addGameObject(new BulletCommand(state, _state, _x, _y, dtor(direction), speed), state->getGroup());
+	HitBox		*box = 0;
+
+	if (state->getShape() == "circle")
+		box = new CircleHitBox(_x, _y,
+			static_cast<double>(state->getRadius()));
+	else if (state->getShape() == "rectangle")
+		box = new RectHitBox(_x, _y,
+			static_cast<double>(state->getWidth()),
+			static_cast<double>(state->getHeight()));
+	if (box)
+	{
+		this->_state.addGameObject(new BulletCommand(*state, _state,
+			*box, _x, _y, dtor(direction), speed), state->getGroup());
+	}
+	else
+	{
+		this->_state.addGameObject(new BulletCommand(*state, _state,
+			_x, _y, dtor(direction), speed), state->getGroup());
+	}
 	delete state;
 }
 

@@ -22,20 +22,20 @@ bool		BulletResourceManager::addBulletParser(std::string const &path,
 
 	if (it != _parsers.end())
 		mem_parser = it->second;
-	try
-	{
+	//try
+	//{
 		BulletMLParserTinyXML *parser = new BulletMLParserTinyXML(path);
 		parser->build();
 		_parsers[name] = parser;
 		if (mem_parser)
 			delete mem_parser;
 
-	}
-	catch (BulletMLError e)
-	{
-		std::cerr << "BulletML xml \"" << path << "\" don't exist or not valid" << std::endl;
-		return false;
-	}
+	//}
+	//catch (BulletMLError e)
+	//{
+		//std::cerr << "BulletML xml \"" << path << "\" don't exist or not valid" << std::endl;
+		//return false;
+	//}
 	return true;
 }
 

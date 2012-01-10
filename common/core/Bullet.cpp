@@ -3,16 +3,24 @@
 #include "CircleHitBox.hpp"
 
 Bullet::Bullet(double x, double y, double direction, double speed)
-	: PhysicObject(*new CircleHitBox(x, y, 5)), _direction(direction),
+	: PhysicObject(*new CircleHitBox(x, y, 1)), _direction(direction),
 		_speed(speed), _sprite(0)
 {
   _vx = speed * sin(direction);
   _vy = speed * cos(direction);
 }
 
-Bullet::Bullet(ResourceManager &resource, std::string const & sprite,
-	       double x, double y, double direction, double speed)
-	: PhysicObject(*new RectHitBox(x, y, 5, 5)), _direction(direction),
+Bullet::Bullet(HitBox &box, double, double, double direction, double speed)
+	: PhysicObject(box), _direction(direction),
+		_speed(speed), _sprite(0)
+{
+  _vx = speed * sin(direction);
+  _vy = speed * cos(direction);
+}
+
+Bullet::Bullet(ResourceManager &resource, std::string const & sprite, HitBox &box,
+	       double, double, double direction, double speed)
+	: PhysicObject(box), _direction(direction),
 		_speed(speed), _sprite(0)
 {
   try

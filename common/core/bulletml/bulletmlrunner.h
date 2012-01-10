@@ -37,13 +37,27 @@ public:
 	DECLSPEC void setSprite(std::string const &sprite) { this->sprite_ = sprite; }
 	DECLSPEC void setBulletGroup(std::string const &group) { this->bulletGroup_ = group; }
 	DECLSPEC void setBulletSprite(std::string const &sprite) { this->bulletSprite_ = sprite; }
+	DECLSPEC void setShape(std::string const &shape) { this->shape_ = shape; }
+	DECLSPEC void setWidth(uint32_t val) { this->width_ = val; }
+	DECLSPEC void setHeight(uint32_t val) { this->height_ = val; }
+	DECLSPEC void setSimpleShape(std::string const &shape) { this->simpleShape_ = shape; }
+	DECLSPEC void setSimpleWidth(uint32_t val) { this->simpleWidth_ = val; }
+	DECLSPEC void setSimpleHeight(uint32_t val) { this->simpleHeight_ = val; }
 
 	// getter
-	DECLSPEC std::string const &getLabel() const { return this->label_; }
-	DECLSPEC std::string const &getGroup() const { return this->group_; }
-	DECLSPEC std::string const &getSprite() const { return this->sprite_; }
-	DECLSPEC std::string const &getBulletGroup() const { return this->bulletGroup_; }
-	DECLSPEC std::string const &getBulletSprite() const { return this->bulletSprite_; }
+	DECLSPEC std::string const	&getLabel() const { return this->label_; }
+	DECLSPEC std::string const	&getGroup() const { return this->group_; }
+	DECLSPEC std::string const	&getSprite() const { return this->sprite_; }
+	DECLSPEC std::string const	&getBulletGroup() const { return this->bulletGroup_; }
+	DECLSPEC std::string const	&getBulletSprite() const { return this->bulletSprite_; }
+	DECLSPEC std::string const	&getShape() const { return this->shape_; }
+	DECLSPEC uint32_t			getRadius() const { return this->width_; }
+	DECLSPEC uint32_t			getWidth() const { return this->width_; }
+	DECLSPEC uint32_t			getHeight() const { return this->height_; }
+	DECLSPEC std::string const	&getSimpleShape() const { return this->simpleShape_; }
+	DECLSPEC uint32_t			getSimpleRadius() const { return this->simpleWidth_; }
+	DECLSPEC uint32_t			getSimpleWidth() const { return this->simpleWidth_; }
+	DECLSPEC uint32_t			getSimpleHeight() const { return this->simpleHeight_; }
 
 private:
 	BulletMLParser*							bulletml_;
@@ -54,6 +68,12 @@ private:
 	std::string								sprite_;
 	std::string								bulletGroup_;
 	std::string								bulletSprite_;
+	std::string								shape_;
+	uint32_t								width_;
+	uint32_t								height_;
+	std::string								simpleShape_;
+	uint32_t								simpleWidth_;
+	uint32_t								simpleHeight_;
 };
 
 /// BulletML ‚ğÀs‚·‚éƒNƒ‰ƒX

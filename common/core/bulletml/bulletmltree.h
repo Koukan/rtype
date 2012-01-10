@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <memory>
 
+#include <stdint.h>
+
 #include <vector>
 
 #include "tree.h"
@@ -23,7 +25,7 @@ public:
 	typedef enum { bullet, action, fire, changeDirection, changeSpeed, accel,
 				   wait, repeat, bulletRef, actionRef, fireRef, vanish,
 				   horizontal, vertical, term, times, direction, speed, param,
-				   bulletml, hitbox, nameSize} Name;
+				   bulletml, hitbox, simpleHitbox, nameSize} Name;
 
 private:
 	static Type string2type(const std::string& str);
@@ -72,6 +74,12 @@ public:
 	void setSprite(std::string const &sprite) { this->sprite_ = sprite; }
 	void setBulletGroup(std::string const &group) { this->bulletGroup_ = group; }
 	void setBulletSprite(std::string const &sprite) { this->bulletSprite_ = sprite; }
+	void setShape(std::string const &shape) { this->shape_ = shape; }
+	void setWidth(std::string const &width) { this->width_ = strtol(width.c_str(), 0, 10); }
+	void setHeight(std::string const &height) { this->height_ = strtol(height.c_str(), 0, 10); }
+	void setSimpleShape(std::string const &shape) { this->simpleShape_ = shape; }
+	void setSimpleWidth(std::string const &width) { this->simpleWidth_ = strtol(width.c_str(), 0, 10); }
+	void setSimpleHeight(std::string const &height) { this->simpleHeight_ = strtol(height.c_str(), 0, 10); }
 
 	// getter
 	std::string const &getLabel() const { return this->label_; }
@@ -79,6 +87,12 @@ public:
 	std::string const &getSprite() const { return this->sprite_; }
 	std::string const &getBulletGroup() const { return this->bulletGroup_; }
 	std::string const &getBulletSprite() const { return this->bulletSprite_; }
+	std::string const &getShape() const { return this->shape_; }
+	uint32_t getWidth() const { return this->width_; }
+	uint32_t getHeight() const { return this->height_; }
+	std::string const &getSimpleShape() const { return this->simpleShape_; }
+	uint32_t getSimpleWidth() const { return this->simpleWidth_; }
+	uint32_t getSimpleHeight() const { return this->simpleHeight_; }
 
 protected:
     Name					name_;
@@ -90,6 +104,12 @@ protected:
 	std::string				sprite_;
 	std::string				bulletGroup_;
 	std::string				bulletSprite_;
+	std::string				shape_;
+	uint32_t				width_;
+	uint32_t				height_;
+	std::string				simpleShape_;
+	uint32_t				simpleWidth_;
+	uint32_t				simpleHeight_;
 };
 
 
