@@ -164,7 +164,8 @@ void		GSInGame::retrieve(uint32_t idPacket)
 {
 	for (uint32_t id = _lastIdPacket; id <= idPacket; ++id)
 	{
-		GameCommand *cmd = new GameCommand("retrieve", id);
+		GameCommand *cmd = new GameCommand("retrieve");
+		cmd->idObject = id;
 		CommandDispatcher::get().pushCommand(*cmd);
 	}
 }
