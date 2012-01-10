@@ -5,7 +5,7 @@
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
-GSInGame::GSInGame() : GameState("Game"), _lastIdPacket(0)
+GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _lastIdPacket(0)
 {
   CommandDispatcher::get().registerHandler(*this);
 }
@@ -22,7 +22,9 @@ void		GSInGame::onStart()
 }
 
 void		GSInGame::update(double elapsedTime)
-{}
+{
+	std::cout << "lol" << std::endl;
+}
 
 void		GSInGame::onEnd()
 {}
@@ -31,17 +33,12 @@ bool		GSInGame::handleCommand(Command const &command)
 {
   static Method const	methods[] = {
 	{"destroy", &GSInGame::destroy},
-	{"down", &GSInGame::inputMove},
-	{"left", &GSInGame::inputMove},
 	{"life", &GSInGame::life},
-	{"move", &GSInGame::move},
-	{"right", &GSInGame::inputMove},
 	{"spawn", &GSInGame::spawn},
-	{"up", &GSInGame::inputMove}
   };
 
   for (size_t i = 0;
-		 i < sizeof(methods) / sizeof(*methods); i++)
+		 i < sizeof(methods) / sizeof(*methods); ++i)
 	{
 		if (command.name == methods[i].name)
 		{
@@ -54,71 +51,74 @@ bool		GSInGame::handleCommand(Command const &command)
 
 void		GSInGame::inputUp(InputCommand const &event)
 {
+	std::cout << "up" << std::endl;
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
-	GameCommand cmd("up");
-
+	
 	if (obj)
 	{
-		cmd.x = static_cast<int16_t>(obj->getX());
-		cmd.y = static_cast<int16_t>(obj->getY());
-		cmd.vx = static_cast<int16_t>(obj->getVx());
-		cmd.vy = static_cast<int16_t>(obj->getVy() - 1);
+		GameCommand *cmd = new GameCommand("up");
+
+		cmd->x = static_cast<int16_t>(obj->getX());
+		cmd->y = static_cast<int16_t>(obj->getY());
+		cmd->vx = static_cast<int16_t>(obj->getVx());
+		cmd->vy = static_cast<int16_t>(obj->getVy() - 1);
+		this->updatePositions(*cmd, *obj);
+		CommandDispatcher::get().pushCommand(*cmd); //send to network
 	}
-	this->pushCommand(cmd);
 }
 
 void		GSInGame::inputDown(InputCommand const &event)
 {
+	std::cout << "down" << std::endl;
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
-	GameCommand cmd("down");
 
 	if (obj)
 	{
-		cmd.x = static_cast<int16_t>(obj->getX());
-		cmd.y = static_cast<int16_t>(obj->getY());
-		cmd.vx = static_cast<int16_t>(obj->getVx());
-		cmd.vy = static_cast<int16_t>(obj->getVy() + 1);
+		GameCommand *cmd = new GameCommand("down");
+
+		cmd->x = static_cast<int16_t>(obj->getX());
+		cmd->y = static_cast<int16_t>(obj->getY());
+		cmd->vx = static_cast<int16_t>(obj->getVx());
+		cmd->vy = static_cast<int16_t>(obj->getVy() + 1);
+		this->updatePositions(*cmd, *obj);
+		CommandDispatcher::get().pushCommand(*cmd); //send to network
 	}
-	this->pushCommand(cmd);
 }
 
 void		GSInGame::inputLeft(InputCommand const &event)
 {
+	std::cout << "left" << std::endl;
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
-	GameCommand cmd("left");
 
 	if (obj)
 	{
-		cmd.x = static_cast<int16_t>(obj->getX());
-		cmd.y = static_cast<int16_t>(obj->getY());
-		cmd.vx = static_cast<int16_t>(obj->getVx() - 1);
-		cmd.vy = static_cast<int16_t>(obj->getVy());
+		GameCommand *cmd = new GameCommand("left");
+
+		cmd->x = static_cast<int16_t>(obj->getX());
+		cmd->y = static_cast<int16_t>(obj->getY());
+		cmd->vx = static_cast<int16_t>(obj->getVx() - 1);
+		cmd->vy = static_cast<int16_t>(obj->getVy());
+		this->updatePositions(*cmd, *obj);
+		CommandDispatcher::get().pushCommand(*cmd); //send to network
 	}
-	this->pushCommand(cmd);
 }
 
 void		GSInGame::inputRight(InputCommand const &event)
 {
+	std::cout << "right" << std::endl;
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
-	GameCommand cmd("right");
 
 	if (obj)
 	{
-		cmd.x = static_cast<int16_t>(obj->getX());
-		cmd.y = static_cast<int16_t>(obj->getY());
-		cmd.vx = static_cast<int16_t>(obj->getVx() + 1);
-		cmd.vy = static_cast<int16_t>(obj->getVy());
+		GameCommand *cmd = new GameCommand("right");
+
+		cmd->x = static_cast<int16_t>(obj->getX());
+		cmd->y = static_cast<int16_t>(obj->getY());
+		cmd->vx = static_cast<int16_t>(obj->getVx() + 1);
+		cmd->vy = static_cast<int16_t>(obj->getVy());
+		this->updatePositions(*cmd, *obj);
+		CommandDispatcher::get().pushCommand(*cmd); //send to network
 	}
-	this->pushCommand(cmd);
-}
-
-void		GSInGame::inputMove(GameCommand const &event)
-{
-	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
-
-	if (obj)
-		this->updatePositions(event, *obj);
-	CommandDispatcher::get().pushCommand(event);
 }
 
 void		GSInGame::spawn(GameCommand const &event)
@@ -160,12 +160,11 @@ void		GSInGame::score(GameCommand const &event)
 
 void		GSInGame::retrieve(uint32_t idPacket)
 {
-	GameCommand cmd("retrieve");
-
 	for (uint32_t id = _lastIdPacket; id <= idPacket; ++id)
 	{
-		cmd.idObject = id;
-		CommandDispatcher::get().pushCommand(cmd);
+		GameCommand *cmd = new GameCommand("retrieve");
+		cmd->idObject = id;
+		CommandDispatcher::get().pushCommand(*cmd);
 	}
 }
 

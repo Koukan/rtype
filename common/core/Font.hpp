@@ -1,6 +1,7 @@
 #pragma once
 
 #include "DrawableObject.hpp"
+#include <string>
 
 class Font : public DrawableObject
 {
@@ -11,7 +12,4 @@ public:
 	virtual void	draw(double /*elapsedTime*/ = 0){}
 	virtual void	draw(int /*x*/, int /*y*/, double /*elapsedTime*/ = 0){}
 	virtual void	setText(std::string const & /*text*/) {}
-
-protected:
-	std::string	_text;
 };
