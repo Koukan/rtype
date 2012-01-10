@@ -23,12 +23,19 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void				setServer(Server *server);
   private:
 
-// Command
+// Command UDP
 
 	void		retrieveCommand(GameCommand const &command);
 	void		moveCommand(GameCommand const &command);
 
-	void		sendPacket(Net::Packet &packet);
+// Command TCP
+
+	void		connectionCommand(GameCommand const &command);
+	void		listGamesCommand(GameCommand const &command);
+	void		connectGameCommand(GameCommand const &cmd);
+	
+		
+	void		sendPacketUDP(Net::Packet &packet);
 
 	struct	Method
 	{

@@ -38,7 +38,12 @@ void	       	NetworkModule::destroy(void)
 bool		NetworkModule::handleCommand(Command const &command)
 {
 	static Method const	methods[] = {
-		{"Move", &NetworkModule::moveCommand}
+		{"Connection", &NetworkModule::connectionCommand},
+		{"ListGames", &NetworkModule::listGamesCommand},
+		{"ConnectGame", &NetworkModule::connectGameCommand},
+		{"Move", &NetworkModule::moveCommand},
+		{"Retrieve", &NetworkModule::retrieveCommand}
+		/*must be completed */
 	};
 
 	for (size_t i = 0;
@@ -53,6 +58,36 @@ bool		NetworkModule::handleCommand(Command const &command)
 	return false;
 }
 
+void		NetworkModule::connectionCommand(GameCommand const &cmd)
+{
+	Net::Packet		packet(sizeof(uint16_t) + cmd.name.length() + 1 + sizeof(uint8_t));
+
+	packet << (sizeof(uint8_t) + cmd.name.length() + 1);
+	packet << TCP::CONNECTION;
+	packet << cmd.name;
+	packet << '\0';
+	this->_server->handleOutputPacket(packet);
+}
+
+void		NetworkModule::listGamesCommand(GameCommand const &cmd)
+{
+	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t));
+
+	packet << (sizeof(uint8_t));
+	packet << TCP::LIST_GAMES;
+	this->_server->handleOutputPacket(packet);
+}
+
+void		NetworkModule::connectGameCommand(GameCommand const &cmd)
+{
+	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint16_t));
+
+	packet << (sizeof(uint8_t) + sizeof(uint16_t));
+	packet << TCP::LIST_GAMES;
+	packet << (static_cast<int16_t>(cmd.idObject));
+	this->_server->handleOutputPacket(packet);
+}
+
 void		NetworkModule::moveCommand(GameCommand const &cmd)
 {
 	Net::Packet		packet(21);
@@ -63,7 +98,7 @@ void		NetworkModule::moveCommand(GameCommand const &cmd)
 	packet << cmd.y;
 	packet << cmd.vx;
 	packet << cmd.vy;
-	this->sendPacket(packet);
+	this->sendPacketUDP(packet);
 }
 
 void		NetworkModule::retrieveCommand(GameCommand const &cmd)
@@ -72,7 +107,7 @@ void		NetworkModule::retrieveCommand(GameCommand const &cmd)
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::RETRIEVE);
 	packet << cmd.idObject;
-	this->sendPacket(packet);
+	this->sendPacketUDP(packet);
 }
 
 void		NetworkModule::setPort(std::string const &port)
@@ -85,7 +120,7 @@ void		NetworkModule::setIP(std::string const &ip)
 	this->_ip = ip;
 }
 
-void		NetworkModule::sendPacket(Net::Packet &packet)
+void		NetworkModule::sendPacketUDP(Net::Packet &packet)
 {
 	packet.setDestination(this->_ip);
 	this->_udp.handleOutputPacket(packet);

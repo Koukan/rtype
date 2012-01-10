@@ -15,15 +15,16 @@ Server::~Server()
 
 int			Server::handleInputPacket(Net::Packet &packet)
 {
-	static int			(Server::* const methods[])(Net::Packet&) = {
-			&Server::connection,
+	static bool			(Server::* const methods[])(Net::Packet const&) = {
 			NULL,
-			&Server::listGame,
+			&Server::treatEtablishedPacket,
 			NULL,
+			&Server::treatGamePacket,
+			&Server::treatEndListGamePacket,
 			NULL,
-			&Server::connectGame,
-			&Server::player,
-			&Server::createGame
+			&Server::treatPlayerPacket,
+			NULL
+			/* must be completed */
 	};
 	uint8_t			type;
 
@@ -32,7 +33,7 @@ int			Server::handleInputPacket(Net::Packet &packet)
 	{
 		return (this->*methods[type])(packet);
 	}
-	return 0;
+	return false;
 }
 
 void		Server::setGame(Game &game)
@@ -40,70 +41,22 @@ void		Server::setGame(Game &game)
 	this->_game = &game;
 }
 
-int			Server::connection(Net::Packet &packet)
+bool		Server::treatEtablishedPacket(Net::Packet const &packet)
 {
-	//std::string		name;
-	//Net::Packet		answer(2);
-
-	//packet >> name;
-	//this->_name = name;
-	//answer << static_cast<uint8_t>(1);
-	//answer << '\n';
-	//this->handleOutputPacket(answer);
-	//std::cout << "Player " << name << " connected" << std::endl;
-	return 1;
+	return true;
 }
 
-int		Server::listGame(Net::Packet&)
+bool		Server::treatGamePacket(Net::Packet const &packet)
 {
-	return 1;
+	return true;
 }
 
-int		Server::connectGame(Net::Packet &packet)
+bool		Server::treatEndListGamePacket(Net::Packet const &packet)
 {
-	// uint16_t	id;
-	// packet << id;
-	// Game			*game = Server::get().getGame(id);
-	// if (game)
-	// {
-	// 	if (game->addPlayer(*this))
-	// 	{
-	// 		return 1;
-	// 	}
-	// 	Net::Packet		answer(4);
-	// 	packet << static_cast<uint8_t>(14);
-	// 	packet << static_cast<uint16_t>(1);
-	// 	packet << '\n';
-	// 	this->handleOutputPacket(answer);
-	// 	return 1;
-	// }
-	// Net::Packet		answer(4);
-	// packet << static_cast<uint8_t>(14);
-	// packet << static_cast<uint16_t>(2);
-	// packet << '\n';
-	// this->handleOutputPacket(answer);
-	 return 1;
+	return true;
 }
 
-int		Server::player(Net::Packet &)
+bool		Server::treatPlayerPacket(Net::Packet const &packet)
 {
-	return 1;
-}
-
-int		Server::createGame(Net::Packet &packet)
-{
-	// uint8_t		maxPlayer;
-	// packet >> maxPlayer;
-	// Game		*game = Server::get().createGame(maxPlayer);
-	// if (game)
-	// {
-	// 	game->addPlayer(*this);
-	// 	return 1;
-	// }
-	// Net::Packet		answer(4);
-	// answer << static_cast<uint8_t>(14);
-	// answer << static_cast<uint16_t>(3);
-	// answer << '\n';
-	// this->handleOutputPacket(answer);
-	 return 1;
+	return true;
 }
