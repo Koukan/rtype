@@ -123,3 +123,13 @@ void		SFMLSprite::draw(int x, int y, double elapsedTime)
 	this->SetPosition(x + this->_tx, y + this->_ty);
 	this->_window->Draw(*this);
 }
+
+int	SFMLSprite::getWidth() const
+{
+  return (this->GetSize().x);
+}
+
+int	SFMLSprite::getHeight() const
+{
+  return (this->GetSize().y);
+}
