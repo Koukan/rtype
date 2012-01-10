@@ -11,9 +11,11 @@ class BulletCommand : public BulletMLRunner, public Bullet
   public:
     BulletCommand(std::string const &parser, GameState &gstate,
 		  double x = 0, double y = 0, double direction = 0, double speed = 0);
-    BulletCommand(BulletMLParser* parser, GameState &gstate,
+    BulletCommand(BulletMLParser &parser, GameState &gstate,
 		  double x = 0, double y = 0, double direction = 0, double speed = 0);
-    BulletCommand(BulletMLState* state, GameState &gstate,
+    BulletCommand(BulletMLState &state, GameState &gstate,
+		  double x = 0, double y = 0, double direction = 0, double speed = 0);
+    BulletCommand(BulletMLState &state, GameState &gstate, HitBox &box,
 		  double x = 0, double y = 0, double direction = 0, double speed = 0);
     virtual ~BulletCommand();
     virtual double	getBulletDirection();
@@ -35,9 +37,18 @@ class BulletCommand : public BulletMLRunner, public Bullet
     virtual void	move(double time);
 
   protected:
+	enum		Shape
+	{
+		Circle,
+		Rectangle
+	};
+
     double			_turn;
     bool			_end;
     GameState		&_state;
+	Shape			_shape;
+	uint32_t		_width;
+	uint32_t		_height;
 	std::string		_simpleSprite;
 	std::string		_simpleGroup;
 };

@@ -3,6 +3,7 @@
 #include "Bullet.hpp"
 #include "Wall.hpp"
 #include "SFMLSpriteProvider.hpp"
+#include "SFMLFontProvider.hpp"
 #include "GUIButton.hpp"
 #include "GUIList.hpp"
 #include "GUIVLayout.hpp"
@@ -60,6 +61,7 @@ void	GSLoading::listChoice(std::string const &name)
 void	GSLoading::onStart()
 {
   this->addProvider(*(new SFMLSpriteProvider));
+  this->addProvider(*(new SFMLFontProvider));
   this->load("resources/intro.xml");
   this->load("resources/player.xml");
   this->addGroup("ship", 10);
@@ -68,6 +70,10 @@ void	GSLoading::onStart()
   this->addGroup("poly1", 12);
   this->addGroup("poly2", 11);
   this->addGroup("particle", 20);
+
+  Font *font = this->getFont("font test");
+  font->setText("youpi");
+  this->addGameObject(font, "font", 21);
 
   Sprite *test = this->getSprite("player1");
   this->addGameObject(test, "player", 20);

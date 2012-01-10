@@ -48,6 +48,7 @@ BulletMLNode::Name BulletMLNode::string2name(const std::string& str) {
 	else if (str == "param") return param;
 	else if (str == "times") return times;
 	else if (str == "hitbox") return hitbox;
+	else if (str == "simpleHitbox") return simpleHitbox;
 	else BulletMLError::doAssert(
 		std::string("BulletML parser: unknown tag ") + str + ".");
 

@@ -2,7 +2,7 @@
 #include "bulletmlparser-tinyxml.h"
 #include "bulletmlerror.h"
 #include "bulletmltree.h"
-
+#include <iostream>
 #include <string>
 
 BulletMLParserTinyXML::BulletMLParserTinyXML(const std::string& filename)

@@ -3,12 +3,14 @@
 #include "PhysicObject.hpp"
 #include "Sprite.hpp"
 #include "ResourceManager.hpp"
+#include "HitBox.hpp"
 
 class Bullet : public PhysicObject
 {
   public:
     Bullet(double x = 0, double y = 0, double direction = 0, double speed = 0);
-    Bullet(ResourceManager &resource, std::string const &sprite,
+    Bullet(HitBox &box, double x = 0, double y = 0, double direction = 0, double speed = 0);
+    Bullet(ResourceManager &resource, std::string const &sprite, HitBox &box,
 	   double x = 0, double y = 0, double direction = 0, double speed = 0);
     virtual ~Bullet();
     virtual void	draw(double elapseTime);
