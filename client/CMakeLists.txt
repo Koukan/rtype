@@ -244,6 +244,8 @@ set(SRCS
 	GSLoading.hpp
 	GSMainMenu.cpp
 	GSMainMenu.hpp
+	GSCreateMenu.cpp
+	GSCreateMenu.hpp
 	InputModule.cpp
 	InputModule.hpp
 	main.cpp

@@ -1,4 +1,4 @@
-#include "GSMainMenu.hpp"
+#include <sstream>
 #include "GSCreateMenu.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
@@ -8,18 +8,32 @@
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
 #include "Game.hpp"
-#include "GSJoinGame.hpp"
 
-GSMainMenu::GSMainMenu()
+GSCreateMenu::GSCreateMenu()
   : GameState("mainMenu")
 {
 };
 
-GSMainMenu::~GSMainMenu()
+GSCreateMenu::~GSCreateMenu()
 {
 }
 
-void	GSMainMenu::onStart()
+void	GSCreateMenu::returnMainMenu()
+{
+  GameStateManager::get().popState();
+}
+
+void	GSCreateMenu::nbPlayerList(std::string const &nb)
+{
+  std::stringstream ss;
+
+  ss.clear();
+  ss << nb;
+  ss >> this->_nbPlayers;
+}
+
+
+void	GSCreateMenu::onStart()
 {
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -34,30 +48,15 @@ void	GSMainMenu::onStart()
   layout->setX((1024 - layout->getWidth()) / 2);
   layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", sprite, 300, 70, layout);
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", sprite, 300, 70, layout);
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::quitGame, "Quit", "buttonFont", sprite, 300, 70, layout);
+  GUIList<GSCreateMenu> *guilist = new GUIList<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *sprite, *sprite, *sprite, layout);
+  guilist->addLabel("1 Player");
+  guilist->addLabel("2 Players");
+  guilist->addLabel("3 Players");
+  guilist->addLabel("4 Players");
+  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", sprite, 200, 70, layout);
 
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
-}
-
-void	GSMainMenu::createGame()
-{
-  GameStateManager::get().loadState<GSCreateMenu>("createGame");
-  GameStateManager::get().pushState("createGame");
-}
-
-void	GSMainMenu::joinGame()
-{
-  GameStateManager::get().loadState<GSJoinGame>("joinGame");
-  GameStateManager::get().pushState("joinGame");
-}
-
-void	GSMainMenu::quitGame()
-{
-  	GameStateManager::get().popState();
-  	Game::get().quit();
 }
