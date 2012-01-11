@@ -30,7 +30,10 @@ public:
   {
     this->_labels.push_back(label);
     if (this->_focusLabel == this->_labels.end())
-      this->_focusLabel = this->_labels.begin();
+      {
+	this->_focusLabel = this->_labels.begin();
+	(this->_instance->*(this->_func))(*(_focusLabel));
+      }
   }
 
   virtual bool handleGUICommand(InputCommand const &command)
