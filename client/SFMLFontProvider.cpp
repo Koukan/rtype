@@ -28,5 +28,5 @@ Font	*SFMLFontProvider::getFont(std::string const &fontName) const
 
   if (it != this->_fonts.end())
     return (new SFMLFont(*(it->second)));
-  return (new SFMLFont());
+  return (0);
 }

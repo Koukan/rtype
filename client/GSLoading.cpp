@@ -54,7 +54,6 @@ void	GSLoading::buttonClick()
 
 void	GSLoading::listChoice(std::string const &name)
 {
-  std::cout << name << std::endl;
 		//this->setComponentVisibility(false);
 }
 
@@ -97,7 +96,7 @@ void	GSLoading::onStart()
 
   GUILayout *layout = new GUIVLayout(50, 50, 100, 100, 0);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, "font test", *sprite, *sprite, *sprite, layout);
+  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, "buttonFont", *sprite, *sprite, *sprite, layout);
   guilist->addLabel("un");
   guilist->addLabel("deux");
   guilist->addLabel("trois");
