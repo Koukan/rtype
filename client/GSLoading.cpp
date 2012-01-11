@@ -95,7 +95,7 @@ void	GSLoading::onStart()
 
   // GUI
 
-  GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  GUILayout *layout = new GUIVLayout(50, 50, 100, 100, 0);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, "font test", *sprite, *sprite, *sprite, layout);
   guilist->addLabel("un");

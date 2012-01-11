@@ -3,6 +3,7 @@
 #include "GUIElement.hpp"
 #include "ButtonSprite.hpp"
 #include "Font.hpp"
+#include "GameStateManager.hpp"
 #include <string>
 
 template <typename T>

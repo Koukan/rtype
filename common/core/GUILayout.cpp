@@ -1,13 +1,13 @@
 #include "GUILayout.hpp"
 
-GUILayout::GUILayout(int x, int y, int width, int height, GUILayout *layout)
-  : GUIElement(x, y, width, height, layout)
+GUILayout::GUILayout(int x, int y, int width, int height, int padding, GUILayout *layout)
+  : GUIElement(x, y, width, height, layout), _padding(padding)
 {
   this->_focusElement = this->_elements.begin();
 }
 
-GUILayout::GUILayout(int x, int y, int width, int height)
-  : GUIElement(x, y, width, height)
+GUILayout::GUILayout(int x, int y, int width, int height, int padding)
+  : GUIElement(x, y, width, height), _padding(padding)
 {
   this->_focusElement = this->_elements.begin();
 }

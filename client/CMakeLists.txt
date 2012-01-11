@@ -240,6 +240,8 @@ set(SRCS
 	GSInGame.hpp
 	GSLoading.cpp
 	GSLoading.hpp
+	GSMainMenu.cpp
+	GSMainMenu.hpp
 	InputModule.cpp
 	InputModule.hpp
 	main.cpp
