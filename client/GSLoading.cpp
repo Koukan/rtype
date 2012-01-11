@@ -71,11 +71,9 @@ void	GSLoading::onStart()
   this->addGroup("poly2", 11);
   this->addGroup("particle", 20);
 
-  Font *font = this->getFont("font test");
-  font->setText("youpi");
-  this->addGameObject(font, "font", 21);
-
   Sprite *test = this->getSprite("player1");
+  test->setX(250);
+  test->setY(600);
   this->addGameObject(test, "player", 20);
 
   double x = -50, y = -50, width = 1100, height = 820, wallWidth = 500;
@@ -97,21 +95,17 @@ void	GSLoading::onStart()
 
   // GUI
 
-  // GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
-  // ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  // GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), *(new ButtonSprite("default button", "selected button", "pressed button", 50, 50)), layout);
-  // guilist->addLabel("un");
-  // guilist->addLabel("deux");
-  // guilist->addLabel("trois");
-  // for (int i = 0; i < 6; ++i)
-  //   {
-  //     GUILayout *layout2 = new GUIHLayout(0, 0, 100, 70, layout);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //     new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test", sprite, 200, 70, layout2);
-  //   }
+  GUILayout *layout = new GUIVLayout(50, 50, 100, 100);
+  ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  GUIList<GSLoading> *guilist = new GUIList<GSLoading>(*this, &GSLoading::listChoice, "font test", *sprite, *sprite, *sprite, layout);
+  guilist->addLabel("un");
+  guilist->addLabel("deux");
+  guilist->addLabel("trois");
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 1", "font test", sprite, 200, 70, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 2", "font test", sprite, 200, 70, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 3", "font test", sprite, 200, 70, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 4", "font test", sprite, 200, 70, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 5", "font test", sprite, 200, 70, layout);
 
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");

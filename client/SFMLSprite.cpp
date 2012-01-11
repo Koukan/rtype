@@ -101,7 +101,11 @@ void		SFMLSprite::setGrid(uint32_t left, uint32_t top, uint32_t width,
 		x = left;
 		for (nb = nbx; nb != 0; nb--)
 		{
+			#if SFML_VERSION_MAJOR == 2
 			this->_rect.push_back(sf::IntRect(x, top, width, height));
+			#else
+			this->_rect.push_back(sf::IntRect(x, top, x + width, top + height));
+			#endif
 			x += spacex + width;
 		}
 		top += spacey + height;

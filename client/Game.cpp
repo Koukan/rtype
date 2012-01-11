@@ -28,7 +28,6 @@ void		Game::init()
   GameStateManager::get().loadState<GSLoading>("Loading");
   GameStateManager::get().changeState("Loading");
  // GameStateManager::get().loadState<GSInGame>("Game");
- //GameStateManager::get().changeState("Game");
 }
 
 void		Game::quit()

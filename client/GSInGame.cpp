@@ -2,6 +2,7 @@
 #include "RectHitBox.hpp"
 #include "GSInGame.hpp"
 #include "Input.hpp"
+#include "Monster.hpp"
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
@@ -128,11 +129,9 @@ void		GSInGame::spawn(GameCommand const &event)
 	else
 		_lastIdPacket = event.idObject;
 
-	HitBox *tmp = new RectHitBox(event.x, event.y, 2, 2); //tmp
-
-	//GameObject *obj = new PhysicObject(*tmp, event.vx, event.vy);
-
-
+	HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+	Monster *monster1 = new Monster(this->getSprite("monster"), *hitbox, event.vx, event.vy);
+	this->addGameObject(static_cast<GameObject *>(monster1), "monsterGroup");
 }
 
 void		GSInGame::destroy(GameCommand const &event)

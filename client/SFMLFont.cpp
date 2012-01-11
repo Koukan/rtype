@@ -9,16 +9,15 @@ SFMLFont::SFMLFont()
 SFMLFont::SFMLFont(std::string const &fileName, std::string const &strsize)
   : _window(RendererManager::get().getWindow())
 {
+  this->_font.LoadFromFile(fileName);
+  this->_str.SetFont(this->_font);
   if (strsize != "")
     {
       unsigned int size;
       std::istringstream buffer(strsize);
       buffer >> size;
-      this->_font.LoadFromFile(fileName, size);
+      this->_str.SetSize(size);
     }
-  else
-    this->_font.LoadFromFile(fileName);
-  this->_str.SetFont(this->_font);
 }
 
 SFMLFont::~SFMLFont()
@@ -33,7 +32,8 @@ void	SFMLFont::draw(double /*elapsedTime*/)
 
 void	SFMLFont::draw(int x, int y, double /*elapsedTime*/)
 {
-  this->_str.Move(x, y);
+  this->_str.SetX(x);
+  this->_str.SetY(y);
   this->_window->Draw(this->_str);
 }
 
