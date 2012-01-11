@@ -19,7 +19,7 @@ private:
 
 	struct Method
 	{
-	  std::string const &	name;
+	  std::string const	name;
 	  void (GSInGame::*method)(GameCommand const &);
 	};
 

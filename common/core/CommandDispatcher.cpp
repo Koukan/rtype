@@ -16,7 +16,7 @@ void			CommandDispatcher::init()
 
 void			CommandDispatcher::update(double elapsedTime)
 {
-//	this->handle(elapsedTime);
+	this->handle(elapsedTime);
 }
 
 void			CommandDispatcher::destroy()
