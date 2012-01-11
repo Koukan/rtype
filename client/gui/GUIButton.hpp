@@ -2,24 +2,29 @@
 
 #include "GUIElement.hpp"
 #include "ButtonSprite.hpp"
+#include "Font.hpp"
 #include <string>
 
 template <typename T>
 class GUIButton : public GUIElement
 {
 public:
-  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite *sprite, int x, int y, int width, int height)
-    : GUIElement(x, y, width, height), _instance(&instance), _func(func)
+  GUIButton(T &instance, void (T::*func)(), std::string const &name, std::string const &font, ButtonSprite *sprite, int x, int y, int width, int height)
+    : GUIElement(x, y, width, height), _instance(&instance), _func(func), _font(GameStateManager::get().getCurrentState().getFont(font))
   {
+    if (this->_font)
+      this->_font->setText(name);
     if (sprite)
       this->_sprite = new ButtonSprite(*sprite);
     else
       this->_sprite = 0;
   }
 
-  GUIButton(T &instance, void (T::*func)(), std::string const &name, ButtonSprite *sprite, int width, int height, GUILayout *layout)
-    : GUIElement(0, 0, width, height, layout), _instance(&instance), _func(func)
+  GUIButton(T &instance, void (T::*func)(), std::string const &name, std::string const &font, ButtonSprite *sprite, int width, int height, GUILayout *layout)
+    : GUIElement(0, 0, width, height, layout), _instance(&instance), _func(func), _font(GameStateManager::get().getCurrentState().getFont(font))
   {
+    if (this->_font)
+      this->_font->setText(name);
     if (sprite)
       this->_sprite = new ButtonSprite(*sprite);
     else
@@ -29,6 +34,7 @@ public:
   ~GUIButton()
   {
     delete this->_sprite;
+    delete this->_font;
   }
 
   virtual bool handleGUICommand(InputCommand const &command)
@@ -54,12 +60,16 @@ public:
   {
     if (this->_sprite)
       this->_sprite->draw(this->_x, this->_y, elapseTime);
+    if (this->_font)
+      this->_font->draw(this->_x, this->_y, elapseTime);
   }
 
   virtual void	draw(int x, int y, double elapseTime)
   {
     if (this->_sprite)
       this->_sprite->draw(x, y, elapseTime);
+    if (this->_font)
+      this->_font->draw(x, y, elapseTime);
   }
 
   virtual void focus()
@@ -76,8 +86,19 @@ public:
     this->GUIElement::unfocus();
   }
 
+  Font *getFont() const
+  {
+    return (this->_font);
+  }
+  
+  void setFont(Font *font)
+  {
+    this->_font = font;
+  }
+
 private:
   T *_instance;
   void (T::*_func)();
   ButtonSprite *_sprite;
+  Font *_font;
 };

@@ -33,7 +33,8 @@ void	SFMLFont::draw(double /*elapsedTime*/)
 
 void	SFMLFont::draw(int x, int y, double /*elapsedTime*/)
 {
-  this->_str.Move(x, y);
+  this->_str.SetX(x);
+  this->_str.SetY(y);
   this->_window->Draw(this->_str);
 }
 
