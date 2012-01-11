@@ -72,6 +72,8 @@ void	GSLoading::onStart()
   this->addGroup("particle", 20);
 
   Sprite *test = this->getSprite("player1");
+  test->setX(250);
+  test->setY(600);
   this->addGameObject(test, "player", 20);
 
   double x = -50, y = -50, width = 1100, height = 820, wallWidth = 500;
