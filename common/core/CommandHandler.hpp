@@ -16,9 +16,10 @@ class CommandHandler
 	void				pushCommand(Command const &command);
 	void				registerHandler(CommandHandler &handler);
 	void				removeHandler(CommandHandler &handler);
+	void				removeHandler();
 
   private:
 	std::list<CommandHandler*>	_handlers;
-	std::queue<Command const *>		_commands;
+	std::queue<Command const *>	_commands;
 	Net::Mutex					_mutex;
 };

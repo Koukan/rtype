@@ -80,3 +80,8 @@ void			CommandHandler::removeHandler(CommandHandler &handler)
 			this->_handlers.erase(it2);
 	}
 }
+
+void			CommandHandler::removeHandler()
+{
+	this->_handlers.clear();
+}

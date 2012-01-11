@@ -31,8 +31,10 @@ void		Game::init()
   this->loadModule(RendererManager::get());
   this->loadModule(*(new InputModule));
   this->loadModule(*(new PhysicManager));
+  this->loadModule(GameStateManager::get());
  GameStateManager::get().loadState<GSLoading>("Loading");
  GameStateManager::get().changeState("Loading");
+ CommandDispatcher::get().registerHandler(GameStateManager::get());
  //GameStateManager::get().loadState<GSInGame>("Game");
  //GameStateManager::get().changeState("Game");
 }

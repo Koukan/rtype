@@ -119,10 +119,14 @@ bool		GSManager::push(const std::string &name, bool changed,
 bool		GSManager::push(GameState &state, bool changed,
 							GameState::Pause paused, bool resume)
 {
-	if (changed && !_currentStates.empty())
+	if (!_currentStates.empty())
 	{
-		_currentStates.back()->onChange();
-		_currentStates.back()->pause(paused);
+		if (changed)
+		{
+			_currentStates.back()->onChange();
+			_currentStates.back()->pause(paused);
+		}
+		this->removeHandler(*_currentStates.back());
 	}
 	_currentStates.push_back(&state);
 	if (resume)
@@ -132,6 +136,7 @@ bool		GSManager::push(GameState &state, bool changed,
 	}
 	else
 		state.onStart();
+	this->registerHandler(state);
 	return true;
 }
 
