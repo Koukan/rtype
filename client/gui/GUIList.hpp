@@ -89,8 +89,12 @@ public:
     this->_leftArrow.draw(this->_x, this->_y, elapseTime);
     this->_middleSprite.draw(this->_x + this->_leftArrow.getWidth(), this->_y, elapseTime);
     this->_rightArrow.draw(this->_x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth(), this->_y, elapseTime);
-    this->_font->setText(*(this->_focusLabel));
-    this->_font->draw(this->_x + this->_leftArrow.getWidth(), this->_y, elapseTime);
+    if (this->_font)
+      {
+	this->_font->setText(*(this->_focusLabel));
+	this->_font->draw(this->_x + this->_leftArrow.getWidth() + ((this->_middleSprite.getWidth() - this->_font->getWidth()) / 2),
+			  this->_y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2), elapseTime);
+      }
   }
 
   virtual void draw(int x, int y, double elapseTime)
@@ -98,8 +102,12 @@ public:
     this->_leftArrow.draw(x, y, elapseTime);
     this->_middleSprite.draw(x + this->_leftArrow.getWidth(), y, elapseTime);
     this->_rightArrow.draw(x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth(), y, elapseTime);
-    this->_font->setText(*(this->_focusLabel));
-    this->_font->draw(x + this->_leftArrow.getWidth(), y, elapseTime);
+    if (this->_font)
+      {
+	this->_font->setText(*(this->_focusLabel));
+	this->_font->draw(x + this->_leftArrow.getWidth() + ((this->_middleSprite.getWidth() - this->_font->getWidth()) / 2),
+			  y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2), elapseTime);
+      }
   }
 
 private:

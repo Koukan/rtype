@@ -8,7 +8,6 @@
 class SFMLFont : public Font
 {
 public:
-  SFMLFont();
   SFMLFont(std::string const &fileName, std::string const &size);
   ~SFMLFont();
 

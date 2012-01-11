@@ -2,10 +2,6 @@
 #include "RendererManager.hpp"
 #include <sstream>
 
-SFMLFont::SFMLFont()
-{
-}
-
 SFMLFont::SFMLFont(std::string const &fileName, std::string const &strsize)
   : _window(RendererManager::get().getWindow())
 {
