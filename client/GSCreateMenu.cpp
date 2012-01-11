@@ -23,16 +23,19 @@ void	GSCreateMenu::returnMainMenu()
   GameStateManager::get().popState();
 }
 
-void	GSCreateMenu::nbPlayerList(std::string const &nb)
+void	GSCreateMenu::createParty()
 {
   std::stringstream ss;
 
   ss.clear();
-  ss << nb;
-  ss >> this->_nbPlayers;
+  ss << this->_nbPlayers;
   std::cout << this->_nbPlayers << std::endl;
 }
 
+void	GSCreateMenu::nbPlayerList(std::string const &nb)
+{
+  _nbPlayers = nb;
+}
 
 void	GSCreateMenu::onStart()
 {
@@ -49,12 +52,13 @@ void	GSCreateMenu::onStart()
   layout->setX((1024 - layout->getWidth()) / 2);
   layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", sprite, 200, 70, layout);
   GUIList<GSCreateMenu> *guilist = new GUIList<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *sprite, *sprite, *sprite, layout);
   guilist->addLabel("1 Player");
   guilist->addLabel("2 Players");
   guilist->addLabel("3 Players");
   guilist->addLabel("4 Players");
-  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", sprite, 200, 70, layout);
+  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::createParty, "Go", "buttonFont", sprite, 200, 70, layout);
 
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
