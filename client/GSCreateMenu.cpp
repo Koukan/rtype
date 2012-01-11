@@ -30,7 +30,6 @@ void	GSCreateMenu::nbPlayerList(std::string const &nb)
   ss.clear();
   ss << nb;
   ss >> this->_nbPlayers;
-  std::cout << this->_nbPlayers << std::endl;
 }
 
 
