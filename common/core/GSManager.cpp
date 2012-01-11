@@ -49,6 +49,7 @@ bool		GSManager::changeState(const std::string &name,
 void		GSManager::popState(bool del)
 {
 	pop(true, del);
+	this->registerHandler(*_currentStates.back());
 }
 
 void		GSManager::removeState(const std::string &name)
@@ -144,6 +145,7 @@ void		GSManager::pop(bool changed, bool del)
 {
 	if (!_currentStates.empty())
 	{
+		this->removeHandler(*_currentStates.back());
 		if (del)
 		{
 			_currentStates.back()->onEnd();

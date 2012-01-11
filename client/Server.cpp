@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Server.hpp"
 #include "Game.hpp"
+#include "PacketType.hpp"
 #include "NetworkModule.hpp"
 
 Server::Server() : Net::PacketHandler<>(4096, "", true),
@@ -15,7 +16,7 @@ Server::~Server()
 
 int			Server::handleInputPacket(Net::Packet &packet)
 {
-	static bool			(Server::* const methods[])(Net::Packet const&) = {
+	static bool			(Server::* const methods[])(Net::Packet &) = {
 			NULL,
 			&Server::treatEtablishedPacket,
 			NULL,
@@ -41,22 +42,52 @@ void		Server::setGame(Game &game)
 	this->_game = &game;
 }
 
-bool		Server::treatEtablishedPacket(Net::Packet const &packet)
+// Generer command comme gamecommand et la push dans commandDispatcher
+
+bool		Server::treatEtablishedPacket(Net::Packet &packet)
 {
+	uint8_t		type;
+
+	packet >> type;
+	
 	return true;
 }
 
-bool		Server::treatGamePacket(Net::Packet const &packet)
+bool		Server::treatGamePacket(Net::Packet &packet)
 {
+	uint8_t		type;
+	uint16_t	idGame;
+	uint8_t		nbPlayers;
+	uint8_t		state;
+
+	packet >> type;
+	packet >> idGame;
+	packet >> nbPlayers;
+	packet >> state;
+
 	return true;
 }
 
-bool		Server::treatEndListGamePacket(Net::Packet const &packet)
+bool		Server::treatEndListGamePacket(Net::Packet &packet)
 {
+	uint8_t		type;
+
+	packet >> type;
+
 	return true;
 }
 
-bool		Server::treatPlayerPacket(Net::Packet const &packet)
+bool		Server::treatPlayerPacket(Net::Packet &packet)
 {
+	uint8_t		type;
+	uint16_t	status;
+	std::string name;
+	uint8_t		idPlayer;
+
+	packet >> type;
+	packet >> status;
+	packet >> type;
+	packet >> idPlayer;
+
 	return true;
 }

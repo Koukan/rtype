@@ -13,10 +13,10 @@ class Server : public Net::PacketHandler<>
 	void			setGame(Game &game);
 
   private:
-	bool			treatEtablishedPacket(Net::Packet const &packet);
-	bool			treatGamePacket(Net::Packet const &packet);
-	bool			treatEndListGamePacket(Net::Packet const &packet);
-	bool			treatPlayerPacket(Net::Packet const &packet);
+	bool			treatEtablishedPacket(Net::Packet &packet);
+	bool			treatGamePacket(Net::Packet &packet);
+	bool			treatEndListGamePacket(Net::Packet &packet);
+	bool			treatPlayerPacket(Net::Packet &packet);
 
 
 	std::string		_name;

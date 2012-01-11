@@ -33,6 +33,8 @@ void				RendererManager::update(double elapsedTime)
 	for (std::list<GameState*>::const_iterator it = this->_glist.begin();
 			it != this->_glist.end(); it++)
 	{
+		if (((*it)->getPaused() & GameState::DRAW) != 0)
+				continue;
 		GameObjectManager::groupsDisplay const	&groups = (*it)->getDisplayObjects();
 		for (lit = groups.begin(); lit != groups.end(); lit++)
 		{
