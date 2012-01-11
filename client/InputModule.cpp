@@ -8,8 +8,9 @@
 
 InputModule::InputModule() : Module("InputModule", 20)
 {
+	#if (SFML_VERSION_MAJOR != 2)
 	_dict[sf::Key::A] = Keyboard::A;
-	_dict[sf::Key::B] = Keyboard::B;            
+	_dict[sf::Key::B] = Keyboard::B;
 	_dict[sf::Key::C] = Keyboard::C;
 	_dict[sf::Key::D] = Keyboard::D;
 	_dict[sf::Key::E] = Keyboard::E;
@@ -92,7 +93,7 @@ InputModule::InputModule() : Module("InputModule", 20)
 	_dict[sf::Key::Numpad6] = Keyboard::Numpad6;
 	_dict[sf::Key::Numpad7] = Keyboard::Numpad7;
 	_dict[sf::Key::Numpad8] = Keyboard::Numpad8;
-	_dict[sf::Key::Numpad9] = Keyboard::Numpad9;  
+	_dict[sf::Key::Numpad9] = Keyboard::Numpad9;
 	_dict[sf::Key::F1] = Keyboard::F1;
 	_dict[sf::Key::F2] = Keyboard::F2;
 	_dict[sf::Key::F3] = Keyboard::F3;
@@ -110,6 +111,7 @@ InputModule::InputModule() : Module("InputModule", 20)
 	_dict[sf::Key::F15] = Keyboard::F15;
 	_dict[sf::Key::Pause] = Keyboard::Pause;
 	_dict[sf::Key::Count] = Keyboard::KeyCount;
+#endif
 }
 
 InputModule::~InputModule()
@@ -123,7 +125,7 @@ void		InputModule::init()
 void		InputModule::update(double)
 {
  sf::Event  ev;
-		
+
  sf::RenderWindow *ptr = RendererManager::get().getWindow();
  #if (SFML_VERSION_MAJOR == 2)
  while (ptr->PollEvent(ev))
@@ -134,7 +136,7 @@ void		InputModule::update(double)
 	InputCommand *tmp = new InputCommand();
 
 	tmp->Type = static_cast<InputCommand::EventType>(ev.Type);
-	::memcpy(&tmp->Size, &ev.Size, 12); 
+	::memcpy(&tmp->Size, &ev.Size, 12);
 	#if (SFML_VERSION_MAJOR != 2)
 		if (tmp->Type == InputCommand::KeyPressed || tmp->Type == InputCommand::KeyReleased)
 			tmp->Key.Code = this->_dict[ev.Key.Code];

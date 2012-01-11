@@ -24,9 +24,8 @@ class Game : public Module
 	std::list<Player*> const	&getPlayers() const;
 
   private:
-	void			sendPacket(std::string const &type,
-							   Net::Packet &packet,
-							   Player *player);
+	void			broadcastStatus(Player &player, int status);
+	void			startGame();
 
 	GameLogic			_logic;
 	uint16_t			_id;

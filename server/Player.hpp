@@ -15,6 +15,7 @@ class Player : public Net::PacketHandler<>
 	void				setGame(Game &game);
 	void				setId(uint32_t id);
 	uint32_t			getId() const;
+	std::string const 	&getName() const;
 	uint32_t			getPacketId();
 	void				resetPacketId();
 	void				addPacket(uint32_t id, Net::Packet &packet);
