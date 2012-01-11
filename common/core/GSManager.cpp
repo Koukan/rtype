@@ -144,6 +144,7 @@ void		GSManager::pop(bool changed, bool del)
 {
 	if (!_currentStates.empty())
 	{
+		this->removeHandler(*_currentStates.back());
 		if (del)
 		{
 			_currentStates.back()->onEnd();
