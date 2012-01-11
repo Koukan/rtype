@@ -25,4 +25,6 @@
  <sprite name="selected button">
     <image file="resources/sprite/selected button.png" />
  </sprite>
+
+ <font name="font test" file="resources/font/TechnoHideo.ttf" size="100"/>
 </resources>
