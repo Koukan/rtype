@@ -1,4 +1,4 @@
-#include "GSMainMenu.hpp"
+#include "GSJoinGame.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
 #include "GUIButton.hpp"
@@ -7,18 +7,19 @@
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
 #include "Game.hpp"
-#include "GSJoinGame.hpp"
+#include "CommandDispatcher.hpp"
+#include "GameCommand.hpp"
 
-GSMainMenu::GSMainMenu()
+GSJoinGame::GSJoinGame()
   : GameState("mainMenu")
 {
 };
 
-GSMainMenu::~GSMainMenu()
+GSJoinGame::~GSJoinGame()
 {
 }
 
-void	GSMainMenu::onStart()
+void	GSJoinGame::onStart()
 {
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -32,30 +33,23 @@ void	GSMainMenu::onStart()
   GUILayout *layout = new GUIVLayout((1024 - 100) / 2, (768 - 100) / 2, 300, 300, 20);
   layout->setX((1024 - layout->getWidth()) / 2);
   layout->setY((768 - layout->getHeight()) / 2);
+
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", sprite, 300, 70, layout);
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", sprite, 300, 70, layout);
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::quitGame, "Quit", "buttonFont", sprite, 300, 70, layout);
+  new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", sprite, 300, 70, layout);
 
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
+
+  CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
 }
 
-void	GSMainMenu::createGame()
-{
-  
-}
-
-void	GSMainMenu::joinGame()
-{
-  GameStateManager::get().loadState<GSJoinGame>("joinGame");
-  GameStateManager::get().pushState("joinGame");
-}
-
-void	GSMainMenu::quitGame()
+void	GSJoinGame::returnMainMenu()
 {
   	GameStateManager::get().popState();
-  	Game::get().quit();
+}
+
+bool	GSJoinGame::handleCommand(Command const &command)
+{
 }

@@ -238,6 +238,8 @@ set(SRCS
 	GameCommand.hpp
 	GSInGame.cpp
 	GSInGame.hpp
+	GSJoinGame.cpp
+	GSJoinGame.hpp
 	GSLoading.cpp
 	GSLoading.hpp
 	GSMainMenu.cpp
