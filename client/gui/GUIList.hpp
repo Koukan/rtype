@@ -10,7 +10,7 @@ template <typename T>
 class GUIList : public GUIElement {
 public:
   GUIList(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, int x, int y)
-    : GUIElement(x, y, 0, 0),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
+    : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
   {
     this->_focusLabel = this->_labels.begin();
   }
@@ -99,7 +99,7 @@ public:
     this->_middleSprite.draw(x + this->_leftArrow.getWidth(), y, elapseTime);
     this->_rightArrow.draw(x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth(), y, elapseTime);
     this->_font->setText(*(this->_focusLabel));
-    this->_font->draw(this->_x + this->_leftArrow.getWidth(), this->_y, elapseTime);
+    this->_font->draw(x + this->_leftArrow.getWidth(), y, elapseTime);
   }
 
 private:

@@ -3,9 +3,8 @@
 
 ButtonSprite::ButtonSprite(std::string const &buttonSprite,
 			   std::string const &buttonSelectedSprite,
-			   std::string const &buttonClickedSprite,
-			   int width, int height)
-  : _width(width), _height(height), _state(ButtonSprite::DEFAULT)
+			   std::string const &buttonClickedSprite)
+  : _state(ButtonSprite::DEFAULT)
 {
   GameState *gameState = &(GameStateManager::get().getCurrentState());
 
@@ -40,10 +39,22 @@ void ButtonSprite::draw(int x, int y, double elapseTime)
 
 int ButtonSprite::getWidth()
 {
-  return this->_width;
+  if (this->_defaultSprite->getWidth() > this->_selectedSprite->getWidth() &&
+      this->_defaultSprite->getWidth() > this->_clickedSprite->getWidth())
+    return (this->_defaultSprite->getWidth());
+  else if (this->_clickedSprite->getWidth() > this->_defaultSprite->getWidth() &&
+      this->_clickedSprite->getWidth() > this->_selectedSprite->getWidth())
+    return (this->_clickedSprite->getWidth());
+  return (this->_selectedSprite->getWidth());
 }
 
 int ButtonSprite::getHeight()
 {
-  return this->_height;
+  if (this->_defaultSprite->getHeight() > this->_selectedSprite->getHeight() &&
+      this->_defaultSprite->getHeight() > this->_clickedSprite->getHeight())
+    return (this->_defaultSprite->getHeight());
+  else if (this->_clickedSprite->getHeight() > this->_defaultSprite->getHeight() &&
+      this->_clickedSprite->getHeight() > this->_selectedSprite->getHeight())
+    return (this->_clickedSprite->getHeight());
+  return (this->_selectedSprite->getHeight());
 }
