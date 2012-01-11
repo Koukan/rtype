@@ -17,7 +17,11 @@ public:
   virtual void	setText(std::string const & text);
 
 private:
+  #if (SFML_VERSION_MAJOR == 2)
+  sf::Text			_str;
+  #else
   sf::String		_str;
-  sf::Font		_font;
+  #endif
+  sf::Font			_font;
   sf::RenderWindow	*_window;
 };

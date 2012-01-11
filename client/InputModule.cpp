@@ -8,6 +8,7 @@
 
 InputModule::InputModule() : Module("InputModule", 20)
 {
+	#if (SFML_VERSION_MAJOR == 1)
 	_dict[sf::Key::A] = Keyboard::A;
 	_dict[sf::Key::B] = Keyboard::B;            
 	_dict[sf::Key::C] = Keyboard::C;
@@ -110,6 +111,7 @@ InputModule::InputModule() : Module("InputModule", 20)
 	_dict[sf::Key::F15] = Keyboard::F15;
 	_dict[sf::Key::Pause] = Keyboard::Pause;
 	_dict[sf::Key::Count] = Keyboard::KeyCount;
+#endif
 }
 
 InputModule::~InputModule()

@@ -16,7 +16,11 @@ SFMLFont::SFMLFont(std::string const &fileName, std::string const &strsize)
       unsigned int size;
       std::istringstream buffer(strsize);
       buffer >> size;
+#if (SFML_VERSION_MAJOR == 2)
+	  this->_str.SetCharacterSize(size);
+#else
       this->_str.SetSize(size);
+#endif
     }
 }
 
@@ -39,5 +43,9 @@ void	SFMLFont::draw(int x, int y, double /*elapsedTime*/)
 
 void	SFMLFont::setText(std::string const & text)
 {
+  #if (SFML_VERSION_MAJOR == 2)
+  this->_str.SetString(text);
+  #else
   this->_str.SetText(text);
+  #endif
 }
