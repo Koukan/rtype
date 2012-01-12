@@ -5,9 +5,8 @@ NET_USE_NAMESPACE
 
 static DWORD WINAPI		starter(void *arg)
 {
-  Thread	**tmp = static_cast<Thread**>(arg);
-  (*tmp)->run();
-  delete tmp;
+  Thread	*tmp = static_cast<Thread*>(arg);
+  tmp->run();
   return (0);
 }
 
@@ -15,16 +14,10 @@ bool	Thread::start()
  {
    if (this->_state == false)
    {
-     Thread	**tmp = new (Thread*);
-     *tmp = this;
-     _tid = CreateThread(0, 0, starter, tmp, 0, 0);
-     bool ret = (_tid) ? true : false;
-     if (ret)
-		this->_state = true;
-     return (ret);
-  }
-  else
-    return (false);
+     _tid = CreateThread(0, 0, &starter, static_cast<void*>(this), 0, 0);
+	 this->_state = (_tid) ? true : false;
+   }
+  return (this->_state);
 }
 
 bool	Thread::cancel()
