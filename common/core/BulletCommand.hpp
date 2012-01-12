@@ -10,13 +10,13 @@ class BulletCommand : public BulletMLRunner, public Bullet
 {
   public:
     BulletCommand(std::string const &parser, GameState &gstate,
-		  double x = 0, double y = 0, double direction = 0, double speed = 0);
+		  double x = 0, double y = 0, double vx = 0, double vy = 0);
     BulletCommand(BulletMLParser &parser, GameState &gstate,
-		  double x = 0, double y = 0, double direction = 0, double speed = 0);
+		  double x = 0, double y = 0, double vx = 0, double vy = 0);
     BulletCommand(BulletMLState &state, GameState &gstate,
-		  double x = 0, double y = 0, double direction = 0, double speed = 0);
+		  double x = 0, double y = 0, double vx = 0, double vy = 0);
     BulletCommand(BulletMLState &state, GameState &gstate, HitBox &box,
-		  double x = 0, double y = 0, double direction = 0, double speed = 0);
+		  double vx = 0, double vy = 0);
     virtual ~BulletCommand();
     virtual double	getBulletDirection();
     virtual double	getAimDirection();
@@ -43,6 +43,10 @@ class BulletCommand : public BulletMLRunner, public Bullet
 		Rectangle
 	};
 
+	void			setSpeedDirection();
+
+	double			_direction;
+	double			_speed;
     double			_turn;
     bool			_end;
     GameState		&_state;

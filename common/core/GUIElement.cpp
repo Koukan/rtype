@@ -3,14 +3,14 @@
 #include "GameStateManager.hpp"
 
 GUIElement::GUIElement(int x, int y, int width, int height, GUILayout *layout)
-  : DrawableObject(x, y), _width(width), _height(height), _isFocused(false)
+  : DrawableObject(x, y), _width(width), _height(height), _isFocused(false), _enable(true)
 {
   if (layout)
     layout->insertElementAtEnd(*this);
 }
 
 GUIElement::GUIElement(int x, int y, int width, int height)
-  : DrawableObject(x, y), _width(width), _height(height), _isFocused(false)
+  : DrawableObject(x, y), _width(width), _height(height), _isFocused(false), _enable(true)
 {
   Singleton<GameStateManager>::get().getCurrentState().getGUI().insertElementAtEnd(*this);
 }
@@ -47,4 +47,14 @@ void GUIElement::setWidth(int width)
 void GUIElement::setHeight(int height)
 {
   this->_height = height;
+}
+
+void GUIElement::setEnable(bool enable)
+{
+  this->_enable = enable;
+}
+
+bool GUIElement::getEnable() const
+{
+  return this->_enable;
 }
