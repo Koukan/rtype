@@ -64,12 +64,16 @@ set(SRCS
 	Game.cpp
 	Game.hpp
 	GameCommand.hpp
+	GameListCommand.hpp
+	GameListCommand.cpp
 	GSInGame.cpp
 	GSInGame.hpp
 	GSJoinGame.cpp
 	GSJoinGame.hpp
 	GSLoading.cpp
 	GSLoading.hpp
+	GSOptions.cpp
+	GSOptions.hpp
 	GSMainMenu.cpp
 	GSMainMenu.hpp
 	GSCreateMenu.cpp
@@ -99,6 +103,7 @@ set(SRCS
 	Wall.cpp
 	Wall.hpp
 	${GUI_SRC_DIR}/GUIList.hpp
+	${GUI_SRC_DIR}/GUITextBox.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )

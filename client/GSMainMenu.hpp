@@ -12,5 +12,6 @@ public:
 
   void	createGame();
   void	joinGame();
+  void	options();
   void	quitGame();
 };

@@ -4,6 +4,7 @@
 #include "SFMLFontProvider.hpp"
 #include "GUIButton.hpp"
 #include "GUIList.hpp"
+#include "GUITextBox.hpp"
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
@@ -52,11 +53,15 @@ void	GSCreateMenu::onStart()
   layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", *sprite, layout);
+  new GUITextBox<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *sprite, layout);
   GUIList<GSCreateMenu> *guilist = new GUIList<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *sprite, *sprite, *sprite, layout);
+  GUIList<GSCreateMenu> *guilist2 = new GUIList<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *sprite, *sprite, *sprite, layout);
   guilist->addLabel("1 Player");
   guilist->addLabel("2 Players");
   guilist->addLabel("3 Players");
   guilist->addLabel("4 Players");
+  guilist2->addLabel("1");
+  guilist2->addLabel("2");
   new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::createParty, "Go", "buttonFont", *sprite, layout);
 
   // add Scrolling background
