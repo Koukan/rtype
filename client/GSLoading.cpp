@@ -30,7 +30,7 @@ void	GSLoading::escape(const InputCommand &)
 //{
 //}
 
-void	GSLoading::update(double time)
+void	GSLoading::update(double )
 {
 }
 
@@ -52,7 +52,7 @@ void	GSLoading::buttonClick()
 
 }
 
-void	GSLoading::listChoice(std::string const &name)
+void	GSLoading::listChoice(std::string const &)
 {
 		//this->setComponentVisibility(false);
 }

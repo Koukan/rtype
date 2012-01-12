@@ -102,10 +102,15 @@ set(SRCS
 	UdpHandler.hpp
 	Wall.cpp
 	Wall.hpp
+	${GUI_SRC_DIR}/GUIButton.hpp
+	${GUI_SRC_DIR}/GUILabel.cpp
+	${GUI_SRC_DIR}/GUILabel.hpp
 	${GUI_SRC_DIR}/GUIList.hpp
 	${GUI_SRC_DIR}/GUITextBox.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
+	${GUI_SRC_DIR}/GUIVLayout.hpp
+	${GUI_SRC_DIR}/GUIHLayout.hpp
 )
 
 IF(WIN32)

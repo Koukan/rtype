@@ -32,7 +32,10 @@ void	GSOptions::onStart()
 
   GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
   layout->setY((768 - layout->getHeight()) / 2);
+
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
+
+  this->_textBox = new GUITextBox<GSOptions>("buttonFont", *sprite, layout);
   new GUIButton<GSOptions>(*this, &GSOptions::returnMenu, "Return", "buttonFont", *sprite, layout);
 
   // add Scrolling background
