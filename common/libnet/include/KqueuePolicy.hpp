@@ -8,7 +8,6 @@
 #ifndef KQUEUEPOLICY_HPP_
 #define KQUEUEPOLICY_HPP_
 
-#if defined (__FreeBSD__)
 #include <map>
 #include "NetDef.hpp"
 #include "network.h"
@@ -39,7 +38,5 @@ private:
 };
 
 NET_END_NAMESPACE
-
-#endif
 
 #endif /* KQUEUEPOLICY_HPP_ */

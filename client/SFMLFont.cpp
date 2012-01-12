@@ -48,10 +48,18 @@ void	SFMLFont::setText(std::string const & text)
 
 int	SFMLFont::getWidth()
 {
-  return (this->_str.GetRect().GetWidth());
+	#if (SFML_VERSION_MAJOR == 2)
+	return (this->_str.GetRect().Width);
+   	#else
+  	return (this->_str.GetRect().GetWidth());
+	#endif
 }
 
 int	SFMLFont::getHeight()
 {
-  return (this->_str.GetRect().GetHeight());
+	#if (SFML_VERSION_MAJOR == 2)
+	return (this->_str.GetRect().Height);
+	#else
+  	return (this->_str.GetRect().GetHeight());
+	#endif
 }

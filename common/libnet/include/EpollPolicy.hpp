@@ -8,7 +8,6 @@
 #ifndef EPOLLPOLICY_HPP_
 #define EPOLLPOLICY_HPP_
 
-#if defined (__linux__)
 #include <map>
 #include "NetDef.hpp"
 #include "network.h"
@@ -39,7 +38,5 @@ private:
 };
 
 NET_END_NAMESPACE
-
-#endif
 
 #endif /* EPOLLPOLICY_HPP_ */
