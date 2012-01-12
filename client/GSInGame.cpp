@@ -35,13 +35,9 @@ bool		GSInGame::handleCommand(Command const &command)
   static Method const	methods[] = {
 	{"destroy", &GSInGame::destroy},
 	{"life", &GSInGame::life},
-<<<<<<< HEAD:client/GSInGame.cpp
 	{"score", &GSInGame::score},
-	{"spawn", &GSInGame::spawn}
-=======
 	{"spawn", &GSInGame::spawn},
 	{"move", &GSInGame::move}
->>>>>>> ac6236ff8d88533ae198a7c92d5c0890b9590b32:client/GSInGame.cpp
   };
 
   for (size_t i = 0;
@@ -114,6 +110,7 @@ void		GSInGame::score(GameCommand const &event)
 	if (event.idObject < 4)
 	{
 		_scores[event.idObject] = event.score;
+
 	}
 }
 
