@@ -13,7 +13,7 @@ class CommandHandler
 	virtual bool		handleCommand(Command const &command);
 	bool				handle(Command const &command);
 	void				handle(double elapsedTime = 0);
-	void				pushCommand(Command const &command);
+	void				pushCommand(Command const &command, bool treatNow = false);
 	void				registerHandler(CommandHandler &handler);
 	void				removeHandler(CommandHandler &handler);
 	void				removeHandler();

@@ -56,11 +56,14 @@ void			CommandHandler::handle(double)
 	this->_mutex.unlock();
 }
 
-void			CommandHandler::pushCommand(Command const &command)
+void			CommandHandler::pushCommand(Command const &command, bool treatNow)
 {
-		//Net::ScopedLock		lock(this->_mutex);
-
-	this->_commands.push(&command);
+	{
+		Net::ScopedLock		lock(this->_mutex);
+		this->_commands.push(&command);
+	}
+	if (treatNow)
+		this->handle(0);
 }
 
 void			CommandHandler::registerHandler(CommandHandler &handler)

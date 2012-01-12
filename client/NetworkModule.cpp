@@ -23,7 +23,7 @@ bool		NetworkModule::connect()
 {
   Net::InetAddr		addr(this->_ip, this->_port);
 
-  if (this->_connector.setup(addr, *this->_reactor) < 0)
+  if (this->_connector.setup(addr, *this->_reactor, false) < 0)
   {
 	Net::printLastError();
 	return (false);
