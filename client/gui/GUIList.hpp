@@ -104,7 +104,7 @@ public:
       {
 	this->_font->setText(*(this->_focusLabel));
 	this->_font->draw(this->_x + this->_leftArrow.getWidth() + ((this->_middleSprite.getWidth() - this->_font->getWidth()) / 2),
-			  this->_y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2), elapseTime);
+			  this->_y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2) - 5, elapseTime);
       }
   }
 
@@ -117,7 +117,7 @@ public:
       {
 	this->_font->setText(*(this->_focusLabel));
 	this->_font->draw(x + this->_leftArrow.getWidth() + ((this->_middleSprite.getWidth() - this->_font->getWidth()) / 2),
-			  y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2), elapseTime);
+			  y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2) - 5, elapseTime);
       }
   }
 

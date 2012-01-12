@@ -100,11 +100,11 @@ void	GSLoading::onStart()
   guilist->addLabel("un");
   guilist->addLabel("deux");
   guilist->addLabel("trois");
-  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 1", "font test", sprite, 200, 70, layout);
-  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 2", "font test", sprite, 200, 70, layout);
-  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 3", "font test", sprite, 200, 70, layout);
-  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 4", "font test", sprite, 200, 70, layout);
-  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 5", "font test", sprite, 200, 70, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 1", "font test", *sprite, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 2", "font test", *sprite, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 3", "font test", *sprite, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 4", "font test", *sprite, layout);
+  new GUIButton<GSLoading>(*this, &GSLoading::buttonClick, "test 5", "font test", *sprite, layout);
 
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");

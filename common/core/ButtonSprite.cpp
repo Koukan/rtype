@@ -37,7 +37,7 @@ void ButtonSprite::draw(int x, int y, double elapseTime)
     this->_clickedSprite->draw(x, y, elapseTime);
 }
 
-int ButtonSprite::getWidth()
+int ButtonSprite::getWidth() const
 {
   if (this->_defaultSprite->getWidth() > this->_selectedSprite->getWidth() &&
       this->_defaultSprite->getWidth() > this->_clickedSprite->getWidth())
@@ -48,7 +48,7 @@ int ButtonSprite::getWidth()
   return (this->_selectedSprite->getWidth());
 }
 
-int ButtonSprite::getHeight()
+int ButtonSprite::getHeight() const
 {
   if (this->_defaultSprite->getHeight() > this->_selectedSprite->getHeight() &&
       this->_defaultSprite->getHeight() > this->_clickedSprite->getHeight())

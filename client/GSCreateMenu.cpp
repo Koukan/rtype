@@ -48,17 +48,16 @@ void	GSCreateMenu::onStart()
 
   // add gui
 
-  GUILayout *layout = new GUIVLayout((1024 - 100) / 2, (768 - 100) / 2, 300, 300, 20);
-  layout->setX((1024 - layout->getWidth()) / 2);
+  GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
   layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", sprite, 200, 70, layout);
+  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", *sprite, layout);
   GUIList<GSCreateMenu> *guilist = new GUIList<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *sprite, *sprite, *sprite, layout);
   guilist->addLabel("1 Player");
   guilist->addLabel("2 Players");
   guilist->addLabel("3 Players");
   guilist->addLabel("4 Players");
-  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::createParty, "Go", "buttonFont", sprite, 200, 70, layout);
+  new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::createParty, "Go", "buttonFont", *sprite, layout);
 
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);

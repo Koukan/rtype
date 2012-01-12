@@ -30,13 +30,12 @@ void	GSMainMenu::onStart()
 
   // add gui
 
-  GUILayout *layout = new GUIVLayout((1024 - 100) / 2, (768 - 100) / 2, 300, 300, 20);
-  layout->setX((1024 - layout->getWidth()) / 2);
+  GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
   layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", sprite, 300, 70, layout);
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", sprite, 300, 70, layout);
-  new GUIButton<GSMainMenu>(*this, &GSMainMenu::quitGame, "Quit", "buttonFont", sprite, 300, 70, layout);
+  new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", *sprite, layout);
+  new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", *sprite, layout);
+  new GUIButton<GSMainMenu>(*this, &GSMainMenu::quitGame, "Quit", "buttonFont", *sprite, layout);
 
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);

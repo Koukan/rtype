@@ -21,8 +21,8 @@ public:
   void draw(int x, int y, double elapseTime = 0);
   ButtonSprite *clone() const;
 
-  int getWidth();
-  int getHeight();
+  int getWidth() const;
+  int getHeight() const;
 
 private:
   Sprite	*_defaultSprite;
