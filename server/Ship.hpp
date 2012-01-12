@@ -8,7 +8,7 @@ class Player;
 class Ship : public PhysicObject
 {
 public:
-	Ship(HitBox &hitbox, Player *player);
+	Ship(double x, double y, Player *player);
 	~Ship();
 
 private:

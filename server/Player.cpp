@@ -29,7 +29,9 @@ int			Player::handleInputPacket(Net::Packet &packet)
 			NULL,
 			&Player::connectGame,
 			&Player::player,
-			&Player::createGame
+			&Player::createGame,
+			NULL,
+			&Player::requireResource
 	};
 	uint8_t			type;
 
@@ -69,6 +71,16 @@ uint32_t	Player::getPacketId()
 void		Player::resetPacketId()
 {
 	this->_idPacket = 0;
+}
+
+Ship		*Player::getShip() const
+{
+	return _ship;
+}
+
+void		Player::setShip(Ship *ship)
+{
+	_ship = ship;
 }
 
 void		Player::addPacket(uint32_t id, Net::Packet &packet)
@@ -156,6 +168,11 @@ int		Player::createGame(Net::Packet &packet)
 		return 1;
 	}
 	return this->sendError(Error::SERVER_FULL);
+}
+
+int		Player::requireResource(Net::Packet &packet)
+{
+	return 1;
 }
 
 GameLogic           &Player::getGameLogic()
