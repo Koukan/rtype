@@ -77,7 +77,7 @@ void		NetworkModule::connectionCommand(Command const &command)
 	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + cmd._login.length() + 1 + sizeof(uint8_t));
 
-	packet << (sizeof(uint8_t) + cmd.name.length() + 1);
+	packet << (sizeof(uint8_t) + cmd._login.length() + 1);
 	packet << TCP::CONNECTION;
 	packet << cmd._login;
 	packet << '\0';
