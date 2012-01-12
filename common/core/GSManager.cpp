@@ -104,14 +104,12 @@ bool		GSManager::push(const std::string &name, bool changed,
 	{
 		this->push(**it, changed, paused, true);
 		_loadedStates.erase(it);
-		notify(this->_currentStates);
 		return true;
 	}
 	instanceMap::iterator		lit = _keeper.find(name);
 	if (lit != _keeper.end())
 	{
 		this->push(*lit->second->newInstance(), changed, paused, false);
-		notify(this->_currentStates);
 		return true;
 	}
 	return false;
@@ -120,13 +118,10 @@ bool		GSManager::push(const std::string &name, bool changed,
 bool		GSManager::push(GameState &state, bool changed,
 							GameState::Pause paused, bool resume)
 {
-	if (!_currentStates.empty())
+	if (changed && !_currentStates.empty())
 	{
-		if (changed)
-		{
-			_currentStates.back()->onChange();
-			_currentStates.back()->pause(paused);
-		}
+		_currentStates.back()->onChange();
+		_currentStates.back()->pause(paused);
 		this->removeHandler(*_currentStates.back());
 	}
 	_currentStates.push_back(&state);
@@ -138,6 +133,7 @@ bool		GSManager::push(GameState &state, bool changed,
 	else
 		state.onStart();
 	this->registerHandler(state);
+	notify(this->_currentStates);
 	return true;
 }
 

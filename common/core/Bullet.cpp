@@ -2,26 +2,19 @@
 #include "Bullet.hpp"
 #include "CircleHitBox.hpp"
 
-Bullet::Bullet(double x, double y, double direction, double speed)
-	: PhysicObject(*new CircleHitBox(x, y, 1)), _direction(direction),
-		_speed(speed), _sprite(0)
+Bullet::Bullet(double x, double y, double vx, double vy)
+	: PhysicObject(*new CircleHitBox(x, y, 1), vx, vy), _sprite(0)
 {
-  _vx = speed * sin(direction);
-  _vy = speed * cos(direction);
 }
 
-Bullet::Bullet(HitBox &box, double, double, double direction, double speed)
-	: PhysicObject(box), _direction(direction),
-		_speed(speed), _sprite(0)
+Bullet::Bullet(HitBox &box, double vx, double vy)
+	: PhysicObject(box, vx, vy), _sprite(0)
 {
-  _vx = speed * sin(direction);
-  _vy = speed * cos(direction);
 }
 
 Bullet::Bullet(ResourceManager &resource, std::string const & sprite, HitBox &box,
-	       double, double, double direction, double speed)
-	: PhysicObject(box), _direction(direction),
-		_speed(speed), _sprite(0)
+	       double vx, double vy)
+	: PhysicObject(box, vx, vy), _sprite(0)
 {
   try
   {
@@ -31,8 +24,6 @@ Bullet::Bullet(ResourceManager &resource, std::string const & sprite, HitBox &bo
   {
 	std::cerr << "Sprite \"" << sprite  << "\" not found" << std::endl;
   }
-  _vx = speed * sin(direction);
-  _vy = speed * cos(direction);
 }
 
 Bullet::~Bullet()
