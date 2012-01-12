@@ -52,4 +52,5 @@ void	GSJoinGame::returnMainMenu()
 
 bool	GSJoinGame::handleCommand(Command const &command)
 {
+  return (false);
 }

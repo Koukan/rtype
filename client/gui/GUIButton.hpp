@@ -19,6 +19,10 @@ public:
       this->_sprite = new ButtonSprite(*sprite);
     else
       this->_sprite = 0;
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   GUIButton(T &instance, void (T::*func)(), std::string const &name, std::string const &font, ButtonSprite *sprite, int width, int height, GUILayout *layout)
@@ -30,6 +34,10 @@ public:
       this->_sprite = new ButtonSprite(*sprite);
     else
       this->_sprite = 0;
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   ~GUIButton()

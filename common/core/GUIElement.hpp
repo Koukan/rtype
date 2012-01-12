@@ -26,8 +26,7 @@ public:
 
 protected:
 
-  bool _isFocused;
   int _width;
   int _height;
-  bool _focus;
+  bool _isFocused;
 };

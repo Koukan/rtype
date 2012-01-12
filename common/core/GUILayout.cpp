@@ -4,12 +4,20 @@ GUILayout::GUILayout(int x, int y, int width, int height, int padding, GUILayout
   : GUIElement(x, y, width, height, layout), _padding(padding)
 {
   this->_focusElement = this->_elements.begin();
+  if (this->_isFocused)
+    this->focus();
+  else
+    this->unfocus();
 }
 
 GUILayout::GUILayout(int x, int y, int width, int height, int padding)
   : GUIElement(x, y, width, height), _padding(padding)
 {
   this->_focusElement = this->_elements.begin();
+  if (this->_isFocused)
+    this->focus();
+  else
+    this->unfocus();
 }
 
 GUILayout::~GUILayout()
@@ -32,20 +40,28 @@ void GUILayout::focus()
 void GUILayout::unfocus()
 {
   if (this->_focusElement != this->_elements.end())
-    {
-      (*this->_focusElement)->unfocus();
-    }
+    (*this->_focusElement)->unfocus();
   this->GUIElement::unfocus();
 }
 
 void GUILayout::insertElementAtBegin(GUIElement &elem)
 {
   this->_elements.push_front(&elem);
+  if (this->_focusElement == this->_elements.end())
+    {
+      this->_focusElement = this->_elements.begin();
+      (*this->_elements.begin())->focus();
+    }
 }
 
 void GUILayout::insertElementAtEnd(GUIElement &elem)
 {
   this->_elements.push_back(&elem);
+  if (this->_focusElement == this->_elements.end())
+    {
+      this->_focusElement = this->_elements.begin();
+      (*this->_elements.begin())->focus();
+    }
 }
 
 void GUILayout::prevElement()

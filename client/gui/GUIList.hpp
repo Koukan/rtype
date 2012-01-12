@@ -13,12 +13,20 @@ public:
     : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
   {
     this->_focusLabel = this->_labels.begin();
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   GUIList(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, GUILayout *layout)
     : GUIElement(0, 0, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight(), layout), _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
   {
     this->_focusLabel = this->_labels.begin();
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   ~GUIList()

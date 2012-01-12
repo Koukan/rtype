@@ -29,7 +29,6 @@ bool GUIVLayout::handleGUICommand(InputCommand const &command)
   return (this->GUILayout::handleGUICommand(command));
 }
 
-#include <iostream>
 void GUIVLayout::draw(double elapseTime)
 {
   int x = this->_x;
