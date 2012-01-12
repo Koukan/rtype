@@ -34,7 +34,6 @@ void GUIVLayout::draw(double elapseTime)
 {
   int x = this->_x;
   int y = this->_y;
-  std::cout << "youpi" << std::endl;
   for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
     {
       (*it)->draw(x, y, elapseTime);

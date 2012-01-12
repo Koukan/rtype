@@ -11,9 +11,10 @@ class ModuleManager : public Module
 public:
 	ModuleManager();
 	virtual ~ModuleManager();
-	virtual void	init();
-	virtual void	update(double);
-	virtual void	destroy();
+	void		init();
+	void		update(double);
+	void		destroy();
+
 	void			loadModule(Module &module);
 	void			loadModule(std::string const &path, double rate);
 	void			unloadModule(std::string const &name);

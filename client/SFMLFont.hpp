@@ -16,8 +16,15 @@ public:
   virtual void	draw(int x, int y, double elapsedTime = 0);
   virtual void	setText(std::string const & text);
 
+  virtual int	getWidth();
+  virtual int	getHeight();
+
 private:
+  #if (SFML_VERSION_MAJOR == 2)
+  sf::Text			_str;
+  #else
   sf::String		_str;
-  sf::Font		_font;
+  #endif
+  sf::Font			_font;
   sf::RenderWindow	*_window;
 };

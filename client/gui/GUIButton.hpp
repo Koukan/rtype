@@ -62,7 +62,10 @@ public:
     if (this->_sprite)
       this->_sprite->draw(this->_x, this->_y, elapseTime);
     if (this->_font)
-      this->_font->draw(this->_x, this->_y, elapseTime);
+      {
+	this->_font->draw(this->_x + (this->_width - this->_font->getWidth()) / 2,
+			  this->_y + (this->_height - this->_font->getHeight()) / 2 - 5, elapseTime);
+      }
   }
 
   virtual void	draw(int x, int y, double elapseTime)
@@ -70,7 +73,10 @@ public:
     if (this->_sprite)
       this->_sprite->draw(x, y, elapseTime);
     if (this->_font)
-      this->_font->draw(x, y, elapseTime);
+      {
+	this->_font->draw(x + (this->_width - this->_font->getWidth()) / 2,
+			  y + (this->_height - this->_font->getHeight()) / 2 - 5, elapseTime);
+      }
   }
 
   virtual void focus()

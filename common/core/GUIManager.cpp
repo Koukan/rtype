@@ -1,7 +1,7 @@
 #include "GUIManager.hpp"
 
 GUIManager::GUIManager()
-  : GUILayout(0, 0, 0, 0, 0)
+  : GUILayout(0, 0, 0, 0, 0, 0)
 {
 }
 

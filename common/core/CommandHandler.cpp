@@ -58,7 +58,7 @@ void			CommandHandler::handle(double)
 
 void			CommandHandler::pushCommand(Command const &command)
 {
-	Net::ScopedLock		lock(this->_mutex);
+		//Net::ScopedLock		lock(this->_mutex);
 
 	this->_commands.push(&command);
 }
@@ -79,4 +79,9 @@ void			CommandHandler::removeHandler(CommandHandler &handler)
 		if (*it2 == &handler)
 			this->_handlers.erase(it2);
 	}
+}
+
+void			CommandHandler::removeHandler()
+{
+	this->_handlers.clear();
 }
