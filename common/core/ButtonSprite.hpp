@@ -14,8 +14,7 @@ public:
 
   ButtonSprite(std::string const &buttonSprite,
 	       std::string const &buttonSelectedSprite,
-	       std::string const &buttonClickedSprite,
-	       int width = 0, int height = 0);
+	       std::string const &buttonClickedSprite);
   ~ButtonSprite();
 
   void updateState(enum ButtonSprite::eState);
@@ -29,7 +28,5 @@ private:
   Sprite	*_defaultSprite;
   Sprite	*_selectedSprite;
   Sprite	*_clickedSprite;
-  int		_width;
-  int		_height;
   enum eState	_state;
 };
