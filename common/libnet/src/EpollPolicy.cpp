@@ -5,7 +5,7 @@
  *      Author: snap
  */
 
-#if defined (__linux__)
+#if defined (HAVE_EPOLL)
 #include <sys/epoll.h>
 #include <errno.h>
 #include <unistd.h>

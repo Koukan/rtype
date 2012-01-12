@@ -5,7 +5,7 @@
  *      Author: snap
  */
 
-#if defined (__FreeBSD__)
+#if defined (HAVE_KQUEUE)
 #include <sys/types.h>
 #include <sys/event.h>
 #include <sys/time.h>

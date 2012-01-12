@@ -1,6 +1,10 @@
 cmake_minimum_required (VERSION 2.8)
 
 project(LibNet)
+include (CheckFunctionExists)
+check_function_exists (epoll_create HAVE_EPOLL)
+check_function_exists (kqueue HAVE_KQUEUE)
+check_function_exists (WaitForMultipleObjects HAVE_WFMO)
 
 set(EXECUTABLE_OUTPUT_PATH ./)
 
@@ -25,6 +29,7 @@ set(SRCS_NET
 	${NET_SRCS_DIR}PollPolicy.cpp
 	${NET_SRCS_DIR}EpollPolicy.cpp
 	${NET_SRCS_DIR}KqueuePolicy.cpp
+	${NET_SRCS_DIR}WFMOPolicy.cpp
 	${NET_SRCS_DIR}Packet.cpp
 	${NET_SRCS_DIR}DataBlock.cpp
 	${NET_SRCS_DIR}UdpPacketHandler.cpp
@@ -51,12 +56,20 @@ add_library(
 	${SRCS_NET}
 )
 
-IF(WIN32)
-ELSE(WIN32)
+IF(HAVE_EPOLL)
 set_source_files_properties (
   ${SRCS_NET}
   PROPERTIES
   COMPILE_FLAGS
-  "-std=c++0x -W -Wall"
+  "-DHAVE_EPOLL"
 )
-ENDIF(WIN32)
+ENDIF(HAVE_EPOLL)
+
+IF(HAVE_KQUEUE)
+set_source_files_properties (
+  ${SRCS_NET}
+  PROPERTIES
+  COMPILE_FLAGS
+  "-DHAVE_KQUEUE"
+)
+ENDIF(HAVE_KQUEUE)

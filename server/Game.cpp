@@ -54,15 +54,10 @@ bool		Game::addPlayer(Player &player)
 
 void		Game::removePlayer(Player &player)
 {
-	for (std::list<Player*>::iterator it = this->_list.begin();
-		 it != this->_list.end(); it++)
-	{
-		if (*it == &player)
-		{
-			this->_list.erase(it);
-			return ;
-		}
-	}
+	std::list<Player*>::iterator it = std::find(this->_list.begin(), this->_list.end(), &player);
+
+	if (it != this->_list.end())
+		this->_list.erase(it);
 }
 
 size_t		Game::nbPlayers() const
@@ -87,7 +82,7 @@ std::list<Player*> const &Game::getPlayers() const
 
 GameLogic	&Game::getGameLogic()
 {
-  return _logic;
+  	return _logic;
 }
 
 void		Game::broadcastStatus(Player &player, int status)
@@ -104,5 +99,5 @@ void		Game::startGame()
 		GameCommand *tmp = new GameCommand("Startgame");
 		tmp->game = this;
 		CommandDispatcher::get().pushCommand(*tmp);
-						
+		_logic.startGame();	
 }

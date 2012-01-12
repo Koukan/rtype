@@ -52,6 +52,8 @@ set(SRCS
 	Server.hpp
 	ServerResourceManager.cpp
 	ServerResourceManager.hpp
+	Ship.cpp
+	Ship.hpp
 	Task.hpp
 	ThreadPool.cpp
 	ThreadPool.hpp
