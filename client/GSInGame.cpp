@@ -6,9 +6,10 @@
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
-GSInGame::GSInGame() : GameState("Game"), _idPlayer(0)
+GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0)
 {
-  CommandDispatcher::get().registerHandler(*this);
+  //CommandDispatcher::get().registerHandler(*this);
+	
 }
 
 GSInGame::~GSInGame()
@@ -24,7 +25,6 @@ void		GSInGame::onStart()
 
 void		GSInGame::update(double elapsedTime)
 {
-	std::cout << "lol" << std::endl;
 }
 
 void		GSInGame::onEnd()
@@ -35,7 +35,8 @@ bool		GSInGame::handleCommand(Command const &command)
   static Method const	methods[] = {
 	{"destroy", &GSInGame::destroy},
 	{"life", &GSInGame::life},
-	{"spawn", &GSInGame::spawn},
+	{"score", &GSInGame::score},
+	{"spawn", &GSInGame::spawn}
   };
 
   for (size_t i = 0;
@@ -141,7 +142,10 @@ void		GSInGame::life(GameCommand const &event)
 
 void		GSInGame::score(GameCommand const &event)
 {
-
+	if (event.idObject < 4)
+	{
+		_scores[event.idObject] = event.score;
+	}
 }
 
 void		GSInGame::move(GameCommand const &event)

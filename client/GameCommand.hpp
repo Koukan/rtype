@@ -19,5 +19,7 @@ class GameCommand : public Command
 	int16_t				vx;
 	int16_t				vy;
 	float				position;
+
+	uint32_t			score;
 };
 
