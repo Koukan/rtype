@@ -8,6 +8,7 @@
 #include "Packet.hpp"
 #include "Service.hpp"
 
+#include <iostream>
 NET_BEGIN_NAMESPACE
 
 template<typename IOType = SocketStream>
@@ -17,7 +18,7 @@ public:
 	PacketHandler(size_t size = 2048, std::string const &deli = "", bool sizeHeader = false) :  _delimiter(deli), _inpacket(0), _enableWhitelist(false), _left(0)
 	{
 		this->setSize(size);
-		this->_func = (sizeHeader) ? &PacketHandler<IOType>::regularInput : &PacketHandler<IOType>::headerSizeInput;
+		this->_func = (!sizeHeader) ? &PacketHandler<IOType>::regularInput : &PacketHandler<IOType>::headerSizeInput;
 	}
 
 	virtual ~PacketHandler()
@@ -177,15 +178,17 @@ private:
 			return ret;
 	}
 
+
 	int					headerSizeInput(Socket &)
 	{
 		int	ret	= 0;
 		do
 		{
-			ret = this->recv(*_inpacket, (_left == 0) ? sizeof(uint32_t) : _left);
+			ret = this->recv(*_inpacket, (_left == 0) ? sizeof(_left) : _left);
 			if (_left == 0)
 			{
 				(*_inpacket) >> _left;
+				std::cout << _left << std::endl;
 				return ret;
 			}
 			if (ret > 0)
@@ -194,6 +197,7 @@ private:
 				if (_left == 0)
 				{
 					Packet	packet(*_inpacket);
+					packet.wr_ptr(sizeof(_left));
 					if (this->handleInputPacket(packet) <= 0)
 						return -1;
 				}
