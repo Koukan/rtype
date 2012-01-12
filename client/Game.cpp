@@ -28,8 +28,6 @@ void		Game::init()
   this->loadModule(*(new PhysicManager));
   this->loadModule(GameStateManager::get());
   CommandDispatcher::get().registerHandler(GameStateManager::get());
-  //GameStateManager::get().loadState<GSLoading>("Loading");
-  //GameStateManager::get().changeState("Loading");
   GameStateManager::get().loadState<GSMainMenu>("mainMenu");
   GameStateManager::get().pushState("mainMenu");
  //GameStateManager::get().loadState<GSInGame>("Game");

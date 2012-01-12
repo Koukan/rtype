@@ -3,6 +3,7 @@
 #include "Sprite.hpp"
 #include "Font.hpp"
 #include "Converter.hpp"
+#include "LoadXMLProvider.hpp"
 #include "SpriteProvider.hpp"
 #include "FontProvider.hpp"
 
@@ -10,6 +11,7 @@ ResourceManager::ResourceManager()
   : XMLProvider("resources")
 {
   this->addProvider(*this);
+  this->addProvider(*new LoadXMLProvider(*this));
 }
 
 ResourceManager::~ResourceManager()
