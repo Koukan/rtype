@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Clock.hpp"
+#include "Net.hpp"
 
 class Logger
 {
@@ -38,9 +38,9 @@ public:
   template<typename T>
   Log operator<<(T const &t)
   {
-    Log log(_states, _calls);
+    Log log();
 
-    log << "[" << Clock::getTimeInStr() << "] ";
+    log << "[" << Net::Clock::getTimeInStr() << "] ";
     log << t;
 
     return (log);
