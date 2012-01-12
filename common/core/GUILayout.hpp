@@ -19,12 +19,14 @@ public:
   virtual void unfocus();
 
 protected:
-  GUILayout(int x, int y, int width, int height, int padding, GUILayout *layout);
-  GUILayout(int x, int y, int width, int height, int padding);
+  GUILayout(int x, int y, int width, int height, int padding, GUILayout *layout, int nbElements);
+  GUILayout(int x, int y, int width, int height, int padding, int nbElements);
   virtual ~GUILayout();
 
 protected:
   std::list<GUIElement *> _elements;
   std::list<GUIElement *>::iterator _focusElement;
+  std::list<GUIElement *>::iterator _begin;
   int _padding;
+  int _nbElements;
 };
