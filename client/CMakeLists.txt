@@ -99,6 +99,7 @@ set(SRCS
 	Wall.cpp
 	Wall.hpp
 	${GUI_SRC_DIR}/GUIList.hpp
+	${GUI_SRC_DIR}/GUITextBox.hpp
 	${GUI_SRC_DIR}/GUIVLayout.cpp
 	${GUI_SRC_DIR}/GUIHLayout.cpp
 )
