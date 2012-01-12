@@ -9,6 +9,16 @@
 template <typename T>
 class GUIList : public GUIElement {
 public:
+  GUIList(std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, int x, int y)
+    : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(0), _func(0)
+  {
+    this->_focusLabel = this->_labels.begin();
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
+  }
+
   GUIList(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, int x, int y)
     : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
   {
@@ -50,14 +60,16 @@ public:
       {
 	this->_leftArrow.updateState(ButtonSprite::CLICKED);
 	this->EventLeft();
-	(this->_instance->*(this->_func))(*(_focusLabel));
+	if (this->_instance)
+	  (this->_instance->*(this->_func))(*(_focusLabel));
 	return (true);
       }
     else if (command.Type == InputCommand::KeyPressed && command.Key.Code == Keyboard::Right)
       {
 	this->_rightArrow.updateState(ButtonSprite::CLICKED);
 	this->EventRight();
-	(this->_instance->*(this->_func))(*(_focusLabel));
+	if (this->_instance)
+	  (this->_instance->*(this->_func))(*(_focusLabel));
 	return (true);
       }
     else if (command.Type == InputCommand::KeyReleased && command.Key.Code == Keyboard::Left)
@@ -119,6 +131,11 @@ public:
 	this->_font->draw(x + this->_leftArrow.getWidth() + ((this->_middleSprite.getWidth() - this->_font->getWidth()) / 2),
 			  y + ((this->_middleSprite.getHeight() - this->_font->getHeight()) / 2) - 5, elapseTime);
       }
+  }
+
+  std::string const &	getText()
+  {
+    return (*(_focusLabel));
   }
 
 private:
