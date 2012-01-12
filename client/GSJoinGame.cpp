@@ -46,7 +46,6 @@ void	GSJoinGame::onStart()
 
   if (NetworkModule::get().connect())
   {
-	std::cout << "lala" << std::endl;
 	CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
     CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
   }

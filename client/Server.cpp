@@ -48,20 +48,15 @@ void		Server::setGame(Game &game)
 
 bool		Server::treatEtablishedPacket(Net::Packet &packet)
 {
-	uint8_t		type;
-
-	packet >> type;
 	return true;
 }
 
 bool		Server::treatGamePacket(Net::Packet &packet)
 {
-	uint8_t		type;
 	uint16_t	idGame;
 	uint8_t		nbPlayers;
 	uint8_t		state;
 
-	//	packet >> type;
 	packet >> idGame;
 	packet >> nbPlayers;
 	packet >> state;
@@ -72,23 +67,16 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 
 bool		Server::treatEndListGamePacket(Net::Packet &packet)
 {
-	uint8_t		type;
-
-	packet >> type;
-
 	return true;
 }
 
 bool		Server::treatPlayerPacket(Net::Packet &packet)
 {
-	uint8_t		type;
 	uint16_t	status;
 	std::string name;
 	uint8_t		idPlayer;
 
-	packet >> type;
 	packet >> status;
-	packet >> type;
 	packet >> idPlayer;
 
 	return true;
