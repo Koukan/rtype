@@ -194,13 +194,13 @@ void        NetworkModule::statusCommand(Command const &command)
 	{
 		Net::Packet	packet(64);
 
-		packet << 0;
+		packet << static_cast<uint16_t>(0);
 		packet << static_cast<uint8_t>(TCP::PLAYER);
 		packet << static_cast<uint16_t>(cmd.idObject);
 	   	packet << cmd.player->getName();
 		packet << cmd.player->getId();
 		packet.wr_ptr(0);
-		packet << packet.size() - sizeof(0);
+		packet << packet.size() - sizeof(uint16_t);
 		this->sendTCPPacket(packet, cmd.game->getPlayers(), cmd.player);
 	}
 }
@@ -213,7 +213,7 @@ void		NetworkModule::startgameCommand(Command const &command)
 	{
 		Net::Packet	packet(64);
 
-		packet << 2;
+		packet << static_cast<uint16_t>(2);
 		packet << static_cast<uint8_t>(TCP::GAMESTATE);
 		packet << static_cast<uint8_t>(0);
 		this->sendTCPPacket(packet, cmd.game->getPlayers(), 0);
