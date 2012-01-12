@@ -9,8 +9,9 @@
 #include "NetDef.hpp"
 #include "network.h"
 
-#if defined (__unix__)
-#	include <string.h>
+#   include <string.h>
+#if defined (_WIN32)
+#   include <strsafe.h>
 #endif
 
 NET_BEGIN_NAMESPACE
@@ -33,11 +34,11 @@ std::string		getLastError()
         0, NULL );
 
     lpDisplayBuf = (LPVOID)LocalAlloc(LMEM_ZEROINIT, 
-        (lstrlen((LPCTSTR)lpMsgBuf)+lstrlen((LPCTSTR)lpszFunction)+40)*sizeof(TCHAR)); 
+        (lstrlen((LPCTSTR)lpMsgBuf)+ 40)); 
     StringCchPrintf((LPTSTR)lpDisplayBuf, 
         LocalSize(lpDisplayBuf) / sizeof(TCHAR),
-        TEXT("%s failed with error %d: %s"), 
-        lpszFunction, dw, lpMsgBuf);
+        TEXT("failed with error %d: %s"), 
+        dw, lpMsgBuf);
 	std::string tmp = (LPCTSTR)lpDisplayBuf;
     LocalFree(lpMsgBuf);
     LocalFree(lpDisplayBuf);
@@ -53,7 +54,7 @@ std::string		getLastError()
 void			printLastError()
 {
   #if defined (_WIN32)
-  std:string tmp = getLastError();
+  std::string tmp = getLastError();
   MessageBox(NULL, tmp.c_str(), TEXT("Error"), MB_OK);
   std::cerr << tmp << std::endl;
   #else

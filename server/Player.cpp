@@ -36,6 +36,7 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	uint8_t			type;
 
 	packet >> type;
+	std::cout << "Incoming packet " << int(type) << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
 		return (this->*methods[type])(packet);
@@ -105,6 +106,7 @@ int		Player::connection(Net::Packet &packet)
 {
 	Net::Packet		answer(5);
 
+	std::cout << "connection packet" << std::endl;
 	packet >> _name;
 	answer << sizeof(uint8_t);
 	answer << static_cast<uint8_t>(TCP::ETABLISHED);
