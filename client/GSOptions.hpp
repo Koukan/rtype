@@ -14,5 +14,6 @@ public:
   void returnMenu();
 
 private:
-  GUITextBox<GSOptions> *_textBox;
+  GUITextBox<GSOptions> *_ip;
+  GUITextBox<GSOptions> *_port;
 };

@@ -11,6 +11,12 @@ public:
 	virtual void	init();
 	virtual int 	handleInputPacket(Net::Packet &packet);
 
-private:
+private:	
+	int			spawn(Net::Packet &packet);
+	int			destroy(Net::Packet &packet);
+	int			move(Net::Packet &packet);
+	int			score(Net::Packet &packet);
+	int			statement(Net::Packet &packet);
+	int         retrieve(Net::Packet &packet);
 };
 

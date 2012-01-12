@@ -14,11 +14,14 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	NetworkModule();
 	virtual ~NetworkModule();
 	virtual void		init();
+	virtual bool		connect();
 	virtual void		update(double elapsedTime);
 	virtual void		destroy();
 	virtual bool		handleCommand(Command const &command);
-    void			setPort(std::string const &port);
+	void			setPort(std::string const &port);
 	void			setIP(std::string const &ip);
+	std::string const	&getPort() const;
+	std::string const	&getIP() const;
 
 	void				setServer(Server *server);
   private:

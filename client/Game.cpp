@@ -8,6 +8,7 @@
 #include "GSMainMenu.hpp"
 #include "CommandDispatcher.hpp"
 #include "Net.hpp"
+#include "NetworkModule.hpp"
 
 Game::Game() : _quit(false)
 {
@@ -27,6 +28,7 @@ void		Game::init()
   this->loadModule(*(new InputModule));
   this->loadModule(*(new PhysicManager));
   this->loadModule(GameStateManager::get());
+  this->loadModule(NetworkModule::get());
   CommandDispatcher::get().registerHandler(GameStateManager::get());
   GameStateManager::get().loadState<GSMainMenu>("mainMenu");
   GameStateManager::get().pushState("mainMenu");

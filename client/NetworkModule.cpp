@@ -16,13 +16,24 @@ NetworkModule::~NetworkModule(void)
 
 void	       	NetworkModule::init(void)
 {
-	Net::InetAddr		addr(this->_ip, this->_port);
-
 	this->_reactor = new DefaultSyncPolicy;
-	this->_connector.setup(addr, *this->_reactor);
-	this->_udp.setReactor(*this->_reactor);
-	if (this->_udp.setup(addr) != -1)
-		this->_udp.init();
+}
+
+bool		NetworkModule::connect()
+{
+  std::cout << "connect :" << std::endl;
+  std::cout << this->_ip << std::endl;
+
+  Net::InetAddr		addr(this->_ip, this->_port);
+
+  this->_connector.setup(addr, *this->_reactor);
+  this->_udp.setReactor(*this->_reactor);
+  if (this->_udp.setup(addr) != -1)
+    {
+      this->_udp.init();
+      return (true);
+    }
+  return (false);
 }
 
 void	       	NetworkModule::update(double)
@@ -149,6 +160,16 @@ void		NetworkModule::setPort(std::string const &port)
 void		NetworkModule::setIP(std::string const &ip)
 {
 	this->_ip = ip;
+}
+
+std::string const	&NetworkModule::getPort() const
+{
+  return (this->_port);
+}
+
+std::string const	&NetworkModule::getIP() const
+{
+  return (this->_ip);
 }
 
 void		NetworkModule::sendPacketUDP(Net::Packet &packet)

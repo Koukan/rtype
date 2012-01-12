@@ -9,6 +9,7 @@
 #include "ScrollingSprite.hpp"
 #include "Game.hpp"
 #include "GSJoinGame.hpp"
+#include "NetworkModule.hpp"
 
 GSOptions::GSOptions()
   : GameState("mainMenu")
@@ -35,7 +36,8 @@ void	GSOptions::onStart()
 
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
 
-  this->_textBox = new GUITextBox<GSOptions>("buttonFont", *sprite, layout);
+  this->_ip = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 15, NetworkModule::get().getIP());
+  this->_port = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 5, NetworkModule::get().getPort());
   new GUIButton<GSOptions>(*this, &GSOptions::returnMenu, "Return", "buttonFont", *sprite, layout);
 
   // add Scrolling background
@@ -46,5 +48,7 @@ void	GSOptions::onStart()
 
 void	GSOptions::returnMenu()
 {
+  NetworkModule::get().setIP(this->_ip->getText());
+  NetworkModule::get().setPort(this->_port->getText());
   GameStateManager::get().popState();
 }
