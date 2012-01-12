@@ -59,7 +59,7 @@ void	BCommand::createSimpleBullet(double direction, double speed)
 	vy = speed * sin(dir);
 	if (box)
 	{
-		bullet = new Bullet(_state, this->_simpleSprite, *box, vx, vy);
+		bullet = new Bullet(*box, vx, vy);
 		this->_state.addGameObject(bullet, this->_simpleGroup);
 		GameCommand		*cmd = new GameCommand("Spawn");
 		cmd->idObject = bullet->getId();
@@ -90,6 +90,7 @@ void	BCommand::createBullet(BulletMLState *state,
 			static_cast<double>(state->getHeight()));
 	vx = speed * cos(dir);
 	vy = speed * sin(dir);
+	state->setSprite("");
 	if (box)
 	{
 		bullet = new BCommand(*state, _state, *box, vx, vy);
