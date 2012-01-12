@@ -20,13 +20,16 @@ public:
 
   int getWidth() const;
   int getHeight() const;
+  bool getEnable() const;
 
   void setWidth(int width);
   void setHeight(int height);
+  void setEnable(bool enable);
 
 protected:
 
   int _width;
   int _height;
   bool _isFocused;
+  bool _enable;
 };

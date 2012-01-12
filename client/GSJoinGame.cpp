@@ -49,7 +49,7 @@ void	GSJoinGame::returnMainMenu()
   	GameStateManager::get().popState();
 }
 
-bool	GSJoinGame::handleCommand(Command const &)
+bool	GSJoinGame::handleCommand(Command const &command)
 {
   if (command.name == "listGame")
     {
