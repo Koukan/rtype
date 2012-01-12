@@ -11,4 +11,8 @@ public:
   void	onStart();
   void	returnMainMenu();
   bool	handleCommand(Command const &command);
+
+private:
+  GUILayout *_layout;
+  ButtonSprite const *_sprite;
 };

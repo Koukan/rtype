@@ -30,11 +30,11 @@ void	GSJoinGame::onStart()
 
   // add gui
 
-  GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
-  layout->setY((768 - layout->getHeight()) / 2);
+  this->_layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
+  this->_layout->setY((768 - this->_layout->getHeight()) / 2);
 
-  ButtonSprite const *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *sprite, layout);
+  this->_sprite = new ButtonSprite("default button", "selected button", "pressed button");
+  new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_layout);
 
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
@@ -51,5 +51,9 @@ void	GSJoinGame::returnMainMenu()
 
 bool	GSJoinGame::handleCommand(Command const &)
 {
+  if (command.name == "listGame")
+    {
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie", "buttonFont", *this->_sprite, this->_layout);
+    }
   return (false);
 }

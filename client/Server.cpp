@@ -3,6 +3,8 @@
 #include "Game.hpp"
 #include "PacketType.hpp"
 #include "NetworkModule.hpp"
+#include "CommandDispatcher.hpp"
+#include "GameListCommand.hpp"
 
 Server::Server() : Net::PacketHandler<>(4096, "", true),
 		_name(""), _game(0)
@@ -60,11 +62,12 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 	uint8_t		nbPlayers;
 	uint8_t		state;
 
-	packet >> type;
+	//	packet >> type;
 	packet >> idGame;
 	packet >> nbPlayers;
 	packet >> state;
 
+	CommandDispatcher::get().pushCommand(*(new GameListCommand(idGame, nbPlayers, state)));
 	return true;
 }
 
