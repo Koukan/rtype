@@ -67,7 +67,7 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 	packet >> nbPlayers;
 	packet >> state;
 
-	CommandDispatcher::get().pushCommand(*(new GameListCommand(idGame, nbPlayers, state)));
+	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", idGame, nbPlayers, state)));
 	return true;
 }
 

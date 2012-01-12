@@ -6,7 +6,7 @@
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
-GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _lastIdPacket(0)
+GSInGame::GSInGame() : GameState("Game"), _idPlayer(0)
 {
   CommandDispatcher::get().registerHandler(*this);
 }
@@ -124,11 +124,6 @@ void		GSInGame::inputRight(InputCommand const &event)
 
 void		GSInGame::spawn(GameCommand const &event)
 {
-	if (event.idObject - 1 > _lastIdPacket)
-		this->retrieve(event.idObject - 1);
-	else
-		_lastIdPacket = event.idObject;
-
 	HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
 	Monster *monster1 = new Monster(this->getSprite("monster"), *hitbox, event.vx, event.vy);
 	this->addGameObject(static_cast<GameObject *>(monster1), "monsterGroup");
@@ -136,35 +131,17 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
-	if (event.idObject - 1 > _lastIdPacket)
-		this->retrieve(event.idObject - 1);
-	else
-		_lastIdPacket = event.idObject;
 	delete (this->getGameObject(event.idObject));
 }
 
 void		GSInGame::life(GameCommand const &event)
 {
-	if (event.idObject - 1 > _lastIdPacket)
-		this->retrieve(event.idObject - 1);
-	else
-		_lastIdPacket = event.idObject;
 	//actions
 }
 
 void		GSInGame::score(GameCommand const &event)
 {
 
-}
-
-void		GSInGame::retrieve(uint32_t idPacket)
-{
-	for (uint32_t id = _lastIdPacket; id <= idPacket; ++id)
-	{
-		GameCommand *cmd = new GameCommand("retrieve");
-		cmd->idObject = id;
-		CommandDispatcher::get().pushCommand(*cmd);
-	}
 }
 
 void		GSInGame::move(GameCommand const &event)
