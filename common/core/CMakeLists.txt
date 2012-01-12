@@ -52,6 +52,7 @@ set(INCLUDES_CORE
 	${CORE_DIR}Input.hpp
 	${CORE_DIR}InputManager.hpp
 	${CORE_DIR}IPhysicsSubscriber.hpp
+	${CORE_DIR}LoadXMLProvider.hpp
 	${CORE_DIR}md5.h
 	${CORE_DIR}Module.hpp
 	${CORE_DIR}ModuleManager.hpp
@@ -96,6 +97,7 @@ set(SRCS_CORE
 	${CORE_DIR}GSManager.cpp
 	${CORE_DIR}HitBox.cpp
 	${CORE_DIR}InputManager.cpp
+	${CORE_DIR}LoadXMLProvider.cpp
 	${CORE_DIR}md5.cpp
 	${CORE_DIR}Module.cpp
 	${CORE_DIR}ModuleManager.cpp
