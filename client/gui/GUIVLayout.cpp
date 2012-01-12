@@ -1,12 +1,12 @@
 #include "GUIVLayout.hpp"
 
-GUIVLayout::GUIVLayout(int x, int y, int width, int height, int padding, GUILayout *layout)
-  : GUILayout(x, y, width, height, padding, layout)
+GUIVLayout::GUIVLayout(int x, int y, int width, int height, int padding, GUILayout *layout, int nbElements)
+  : GUILayout(x, y, width, height, padding, layout, nbElements)
 {
 }
 
-GUIVLayout::GUIVLayout(int x, int y, int width, int height, int padding)
-  : GUILayout(x, y, width, height, padding)
+GUIVLayout::GUIVLayout(int x, int y, int width, int height, int padding, int nbElements)
+  : GUILayout(x, y, width, height, padding, nbElements)
 {
 }
 

@@ -5,8 +5,8 @@
 class GUIVLayout : public GUILayout
 {
 public:
-  GUIVLayout(int x, int y, int width, int height, int padding, GUILayout *layout);
-  GUIVLayout(int x, int y, int width, int height, int padding);
+  GUIVLayout(int x, int y, int width, int height, int padding, GUILayout *layout, int nbElements = 100);
+  GUIVLayout(int x, int y, int width, int height, int padding, int nbElements = 100);
   ~GUIVLayout();
 
   virtual void draw(double elapseTime);
