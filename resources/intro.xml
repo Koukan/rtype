@@ -16,6 +16,9 @@
  <sprite name="space background">
     <image file="resources/sprite/Space Background.png" />
  </sprite>
+ <sprite name="little button">
+    <image file="resources/sprite/little button.png" />
+ </sprite>
  <sprite name="default button">
     <image file="resources/sprite/default button.png" />
  </sprite>

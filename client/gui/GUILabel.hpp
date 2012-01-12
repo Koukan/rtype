@@ -9,8 +9,8 @@
 class GUILabel : public GUIElement
 {
 public:
-  GUILabel(std::string const &name, std::string const &font, ButtonSprite const &sprite, int x, int y);
-  GUILabel(std::string const &name, std::string const &font, ButtonSprite const &sprite, GUILayout *layout);
+  GUILabel(std::string const &name, std::string const &font, std::string const &sprite, int x, int y);
+  GUILabel(std::string const &name, std::string const &font, std::string const &sprite, GUILayout *layout);
   ~GUILabel();
 
   virtual bool handleGUICommand(InputCommand const &command);
@@ -19,6 +19,6 @@ public:
   virtual void	setText(std::string const &str);
 
 private:
-  ButtonSprite _sprite;
+  Sprite *_sprite;
   Font *_font;
 };

@@ -1,16 +1,26 @@
 #include "GUILabel.hpp"
 
-GUILabel::GUILabel(std::string const &name, std::string const &font, ButtonSprite const &sprite, int x, int y)
-  : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font))
+GUILabel::GUILabel(std::string const &name, std::string const &font, std::string const &sprite, int x, int y)
+  : GUIElement(x, y, 0, 0), _sprite(GameStateManager::get().getCurrentState().getSprite(sprite)), _font(GameStateManager::get().getCurrentState().getFont(font))
 {
+  if (this->_sprite)
+    {
+      this->setWidth(this->_sprite->getWidth());
+      this->setHeight(this->_sprite->getHeight());
+    }
   if (this->_font)
     this->_font->setText(name);
   this->setEnable(false);
 }
 
-GUILabel::GUILabel(std::string const &name, std::string const &font, ButtonSprite const &sprite, GUILayout *layout)
-  : GUIElement(0, 0, sprite.getWidth(), sprite.getHeight(), layout), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font))
+GUILabel::GUILabel(std::string const &name, std::string const &font, std::string const &sprite, GUILayout *layout)
+  : GUIElement(0, 0, 0, 0, layout), _sprite(GameStateManager::get().getCurrentState().getSprite(sprite)), _font(GameStateManager::get().getCurrentState().getFont(font))
 {
+  if (this->_sprite)
+    {
+      this->setWidth(this->_sprite->getWidth());
+      this->setHeight(this->_sprite->getHeight());
+    }
   if (this->_font)
     this->_font->setText(name);
   this->setEnable(false);
@@ -19,6 +29,7 @@ GUILabel::GUILabel(std::string const &name, std::string const &font, ButtonSprit
 GUILabel::~GUILabel()
 {
   delete this->_font;
+  delete this->_sprite;
 }
 
 bool	GUILabel::handleGUICommand(InputCommand const &)
@@ -28,7 +39,8 @@ bool	GUILabel::handleGUICommand(InputCommand const &)
 
 void	GUILabel::draw(double elapseTime)
 {
-  this->_sprite.draw(this->_x, this->_y, elapseTime);
+  if (this->_sprite)
+    this->_sprite->draw(this->_x, this->_y, elapseTime);
   if (this->_font)
     {
       this->_font->draw(this->_x + (this->_width - this->_font->getWidth()) / 2,
@@ -38,7 +50,8 @@ void	GUILabel::draw(double elapseTime)
 
 void	GUILabel::draw(int x, int y, double elapseTime)
 {
-  this->_sprite.draw(x, y, elapseTime);
+  if (this->_sprite)
+    this->_sprite->draw(x, y, elapseTime);
   if (this->_font)
     {
       this->_font->draw(x + (this->_width - this->_font->getWidth()) / 2,
