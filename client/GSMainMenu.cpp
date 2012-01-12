@@ -28,7 +28,9 @@ void	GSMainMenu::onStart()
 
   // add gui
 
-  GUILayout *layout = new GUIVLayout(50, 50, 100, 100, 20);
+  GUILayout *layout = new GUIVLayout((1024 - 100) / 2, (768 - 100) / 2, 300, 300, 20);
+  layout->setX((1024 - layout->getWidth()) / 2);
+  layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", sprite, 300, 70, layout);
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", sprite, 300, 70, layout);
