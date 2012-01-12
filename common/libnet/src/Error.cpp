@@ -17,15 +17,33 @@ NET_BEGIN_NAMESPACE
 
 std::string		getLastError()
 {
-	char	buffer[1024];
 #if defined (_WIN32)
-    if (::FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM,
-                           NULL, errno, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)(buffer), 0, NULL) == 0)
-            return "Unknown error";
-    else
-            return buffer;
-    //::LocalFree(buf);
+    LPVOID lpMsgBuf;
+    LPVOID lpDisplayBuf;
+    DWORD dw = GetLastError(); 
+
+    FormatMessage(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+        FORMAT_MESSAGE_FROM_SYSTEM |
+        FORMAT_MESSAGE_IGNORE_INSERTS,
+        NULL,
+        dw,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &lpMsgBuf,
+        0, NULL );
+
+    lpDisplayBuf = (LPVOID)LocalAlloc(LMEM_ZEROINIT, 
+        (lstrlen((LPCTSTR)lpMsgBuf)+lstrlen((LPCTSTR)lpszFunction)+40)*sizeof(TCHAR)); 
+    StringCchPrintf((LPTSTR)lpDisplayBuf, 
+        LocalSize(lpDisplayBuf) / sizeof(TCHAR),
+        TEXT("%s failed with error %d: %s"), 
+        lpszFunction, dw, lpMsgBuf);
+	std::string tmp = (LPCTSTR)lpDisplayBuf;
+    LocalFree(lpMsgBuf);
+    LocalFree(lpDisplayBuf);
+    return tmp;
 #elif defined(__linux__)
+	char	buffer[1024];
 	return ::strerror_r(errno, buffer, 1024);
 #else
 	return strerror(errno);	
@@ -34,7 +52,13 @@ std::string		getLastError()
 
 void			printLastError()
 {
+  #if defined (_WIN32)
+  std:string tmp = getLastError();
+  MessageBox(NULL, tmp.c_str(), TEXT("Error"), MB_OK);
+  std::cerr << tmp << std::endl;
+  #else
   std::cerr << getLastError() << std::endl;
+  #endif
 }
 
 NET_END_NAMESPACE

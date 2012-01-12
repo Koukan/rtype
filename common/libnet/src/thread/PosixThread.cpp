@@ -5,9 +5,8 @@ NET_USE_NAMESPACE
 
 static void		*starter(void *arg)
 {
-  Thread	**tmp = static_cast<Thread **>(arg);
-  (*tmp)->run();
-  delete tmp;
+  Thread	*tmp = static_cast<Thread *>(arg);
+  tmp->run();
   return (0);
 }
 
@@ -20,17 +19,11 @@ bool	Thread::start()
  {
    if (this->_state == false)
    {
-     Thread	**tmp = new (Thread*);
-     *tmp = this;
-     bool ret = static_cast<bool>(!pthread_create(&_tid,
+     this->_state = static_cast<bool>(!pthread_create(&_tid,
 			    0, &starter,
-			    static_cast<void*>(tmp)));
-     if (ret)
-		this->_state = true;
-     return (ret);
-  }
-  else
-    return (false);
+			    static_cast<void*>(this)));
+   }
+  return (this->_state);
 }
 
 bool	Thread::cancel()

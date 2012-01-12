@@ -21,18 +21,21 @@ void	       	NetworkModule::init(void)
 
 bool		NetworkModule::connect()
 {
-  std::cout << "connect :" << std::endl;
-  std::cout << this->_ip << std::endl;
-
   Net::InetAddr		addr(this->_ip, this->_port);
 
-  this->_connector.setup(addr, *this->_reactor);
+  if (this->_connector.setup(addr, *this->_reactor) < 0)
+  {
+	Net::printLastError();
+	return (false);
+  }
   this->_udp.setReactor(*this->_reactor);
   if (this->_udp.setup(addr) != -1)
     {
       this->_udp.init();
       return (true);
     }
+  else
+	Net::printLastError();
   return (false);
 }
 
@@ -77,6 +80,7 @@ void		NetworkModule::connectionCommand(Command const &command)
 	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + cmd._login.length() + 1 + sizeof(uint8_t));
 
+	std::cout << "sdf" << std::endl;
 	packet << (sizeof(uint8_t) + cmd._login.length() + 1);
 	packet << TCP::CONNECTION;
 	packet << cmd._login;

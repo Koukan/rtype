@@ -10,6 +10,7 @@
 #include "Game.hpp"
 #include "CommandDispatcher.hpp"
 #include "GameCommand.hpp"
+#include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
 
 GSJoinGame::GSJoinGame()
@@ -44,7 +45,11 @@ void	GSJoinGame::onStart()
   this->addGameObject(obj, "background", 1);
 
   if (NetworkModule::get().connect())
+  {
+	std::cout << "lala" << std::endl;
+	CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
     CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
+  }
   else
     new GUILabel("Connection failed", "buttonFont", "", this->_layout);
 }
