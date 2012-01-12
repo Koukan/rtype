@@ -203,7 +203,7 @@ private:
 		return ret;
 	}
 
-	size_t				_left;
+	uint16_t			_left;
 	int					(PacketHandler<IOType>::*_func)(Socket &);
 };
 
