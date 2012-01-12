@@ -101,10 +101,10 @@ void GUILayout::nextElement()
 {
   int nb;
 
-  for (std::list<GUIElement *>::iterator it = this->_begin; it != this->_elements.end() && nb < this->_nbElements; ++it)
-    ++nb;
-  if (nb == this->_nbElements)
-    ++this->_begin;
+  //for (std::list<GUIElement *>::iterator it = this->_begin; it != this->_elements.end() && nb < this->_nbElements; ++it)
+  //++nb;
+  //if (nb == this->_nbElements)
+  //++this->_begin;
   if (this->_focusElement == this->_elements.end())
     this->_focusElement = this->_elements.begin();
   else if (this->_focusElement == --this->_elements.end())

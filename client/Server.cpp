@@ -51,6 +51,7 @@ bool		Server::treatEtablishedPacket(Net::Packet &packet)
 	return true;
 }
 
+#include <iostream>
 bool		Server::treatGamePacket(Net::Packet &packet)
 {
 	uint16_t	idGame;
@@ -61,6 +62,7 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 	packet >> nbPlayers;
 	packet >> state;
 
+	std::cout << "receive game" << std::endl;
 	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", idGame, nbPlayers, state)));
 	return true;
 }

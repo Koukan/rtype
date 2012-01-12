@@ -121,9 +121,10 @@ int		Player::listGame(Net::Packet&)
 
 	for (GameManager::gamesMap::const_iterator it = map.begin(); it != map.end(); ++it)
 	{
-		Net::Packet		tmp(8);
+		Net::Packet		tmp(12);
 
-		tmp << static_cast<uint16_t>(sizeof(uint32_t));
+		tmp << static_cast<uint16_t>(sizeof(uint8_t) + sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t));
+		tmp << static_cast<uint8_t>(TCP::LIST_GAMES);
 		tmp << static_cast<uint16_t>(it->second->getId());
 		tmp << static_cast<uint8_t>(it->second->nbPlayers());
 		tmp << static_cast<uint8_t>(it->second->isFull());
