@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameState.hpp"
+#include "GUITextBox.hpp"
 
 class GSOptions : public GameState
 {
@@ -11,4 +12,7 @@ public:
   void	onStart();
 
   void returnMenu();
+
+private:
+  GUITextBox<GSOptions> *_textBox;
 };
