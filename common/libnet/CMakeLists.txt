@@ -14,7 +14,13 @@ set(NET_INCLUDE_DIR "include/")
 set(NET_MUTEX_INCLUDE_DIR "include/thread/")
 set(NET_MUTEX_SRCS_DIR "src/thread/")
 
+file(
+	GLOB_RECURSE
+	INCLUDES_NET
+	NET_INCLUDE_DIR)
+
 set(SRCS_NET
+	${INCLUDES_NET}
 	${NET_SRCS_DIR}InetAddr.cpp
 	${NET_SRCS_DIR}Error.cpp
 	${NET_SRCS_DIR}Socket.cpp
@@ -44,6 +50,8 @@ set(SRCS_NET
 	${NET_MUTEX_SRCS_DIR}WinConditionVar.cpp
 	${NET_MUTEX_SRCS_DIR}ScopedLock.cpp
 )
+
+SOURCE_GROUP (net_headers FILES(${INCLUDES_NET}))
 
 include_directories (
 	${NET_INCLUDE_DIR}

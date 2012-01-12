@@ -182,9 +182,10 @@ private:
 	int					headerSizeInput(Socket &)
 	{
 		int	ret	= 0;
+		std::cout << "input" << std::endl;
 		do
 		{
-			ret = this->recv(*_inpacket, (_left == 0) ? sizeof(_left) : _left);
+			ret = this->recv(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
 			if (_left == 0)
 			{
 				(*_inpacket) >> _left;
@@ -193,6 +194,7 @@ private:
 			}
 			if (ret > 0)
 			{
+				std::cout << _left << " " << ret << std::endl;
 				_left -= ret;
 				if (_left == 0)
 				{
@@ -202,6 +204,8 @@ private:
 						return -1;
 				}
 			}
+			else
+				printLastError();
 		}
 		while (!this->isBlocking());
 		return ret;
