@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdexcept>
 #include "ResourceManager.hpp"
 #include "Sprite.hpp"
 #include "Font.hpp"
@@ -26,7 +27,7 @@ ResourceManager::~ResourceManager()
 void			ResourceManager::load(std::string const &path)
 {
 	if (!this->_document.LoadFile(path.c_str()))
-		throw std::exception();
+		throw std::runtime_error(path + ": not found");
 	this->handleXML(&this->_document);
 }
 
