@@ -53,5 +53,6 @@ void	GSOptions::returnMenu()
 {
   NetworkModule::get().setIP(this->_ip->getText());
   NetworkModule::get().setPort(this->_port->getText());
+  Game::get().savePreferencesFile(this->_ip->getText(), this->_port->getText());
   GameStateManager::get().popState();
 }

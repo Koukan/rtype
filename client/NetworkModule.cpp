@@ -15,6 +15,8 @@ NetworkModule::~NetworkModule()
 
 void	    NetworkModule::init()
 {
+	this->_ip = Game::get().getIP();
+	this->_port = Game::get().getPort();
 }
 
 bool		NetworkModule::connect()
