@@ -191,14 +191,14 @@ private:
 		{
  			std::cout << "input " << _left << std::endl;
 			ret = this->recvPacket(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
-			if (_left == 0)
-			{
-				(*_inpacket) >> _left;
-				std::cout << "left to read " << _left << std::endl;
-				return ret;
-			}
 			if (ret > 0)
 			{
+				if (_left == 0)
+				{
+					(*_inpacket) >> _left;
+					std::cout << "left to read " << _left << std::endl;
+					return ret;
+				}
 				std::cout << "left and ret " << _left << " " << ret << std::endl;
 				_left -= ret;
 				std::cout << "left and ret2 " << _left << " " << ret << std::endl;
