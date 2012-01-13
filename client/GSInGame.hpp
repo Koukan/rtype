@@ -5,6 +5,7 @@
 #include "BulletCommand.hpp"
 #include "GameCommand.hpp"
 #include "PhysicObject.hpp"
+#include "Font.hpp"
 
 class GSInGame : public GameState
 {
@@ -45,4 +46,5 @@ private:
 
 	uint32_t	_idPlayer;
 	std::vector<uint32_t> _scores;
+	std::vector<Font*>    _scoreFonts;
 };

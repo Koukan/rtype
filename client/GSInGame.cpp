@@ -10,7 +10,7 @@
 #include "ScrollingSprite.hpp"
 
 
-GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0)
+GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont"))
 {
   //CommandDispatcher::get().registerHandler(*this);
 	
@@ -37,21 +37,38 @@ void		GSInGame::onStart()
   // add gui
 
   Font *fontp1 = this->getFont("buttonFont");
-  fontp1->setText("Player 1");
-  fontp1->setPosition(20, 0);
+  fontp1->setText("P1");
+  fontp1->setPosition(100, 680);
   this->addGameObject(fontp1, "score", 20);
   Font *fontp2 = this->getFont("buttonFont");
-  fontp2->setText("Player 2");
-  fontp2->setPosition(700, 0);
+  fontp2->setText("P2");
+  fontp2->setPosition(350, 680);
   this->addGameObject(fontp2, "score", 20);
   Font *fontp3 = this->getFont("buttonFont");
-  fontp3->setText("Player 3");
-  fontp3->setPosition(20, 700);
+  fontp3->setText("P3");
+  fontp3->setPosition(600, 680);
   this->addGameObject(fontp3, "score", 20);
   Font *fontp4 = this->getFont("buttonFont");
-  fontp4->setText("Player 4");
-  fontp4->setPosition(700, 700);
+  fontp4->setText("P4");
+  fontp4->setPosition(850, 680);
   this->addGameObject(fontp4, "score", 20);
+
+  this->_scoreFonts[0] = this->getFont("buttonFont");
+  this->_scoreFonts[0]->setText("0000000");
+  this->_scoreFonts[0]->setPosition(50, 720);
+  this->addGameObject(this->_scoreFonts[0], "score", 20);
+  this->_scoreFonts[1] = this->getFont("buttonFont");
+  this->_scoreFonts[1]->setText("0000000");
+  this->_scoreFonts[1]->setPosition(300, 720);
+  this->addGameObject(this->_scoreFonts[1], "score", 20);
+  this->_scoreFonts[2] = this->getFont("buttonFont");
+  this->_scoreFonts[2]->setText("0000000");
+  this->_scoreFonts[2]->setPosition(550, 720);
+  this->addGameObject(this->_scoreFonts[2], "score", 20);
+  this->_scoreFonts[3] = this->getFont("buttonFont");
+  this->_scoreFonts[3]->setText("0000000");
+  this->_scoreFonts[3]->setPosition(800, 720);
+  this->addGameObject(this->_scoreFonts[3], "score", 20);
 
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");
