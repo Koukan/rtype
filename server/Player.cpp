@@ -36,7 +36,7 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	uint8_t			type;
 
 	packet >> type;
-	std::cout << "Incoming packet " << int(type) << " of size " << packet.size() << " : " << packet.base()	<< std::endl;
+	std::cout << "Incoming packet " << int(type) << " of size " << packet.size() << " : " << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
 		return (this->*methods[type])(packet);
