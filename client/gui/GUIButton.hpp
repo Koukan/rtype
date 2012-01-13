@@ -11,7 +11,7 @@ class GUIButton : public GUIElement
 {
 public:
   GUIButton(T &instance, void (T::*func)(), std::string const &name, std::string const &font, ButtonSprite const &sprite, int x, int y)
-    : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _instance(&instance), _func(func), _sprite(ButtonSprite(sprite)), _font(GameStateManager::get().getCurrentState().getFont(font))
+    : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _instance(&instance), _func(func), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font))
   {
     if (this->_font)
       this->_font->setText(name);
@@ -22,7 +22,7 @@ public:
   }
 
   GUIButton(T &instance, void (T::*func)(), std::string const &name, std::string const &font, ButtonSprite const &sprite, GUILayout *layout)
-    : GUIElement(0, 0, sprite.getWidth(), sprite.getHeight(), layout), _instance(&instance), _func(func), _sprite(ButtonSprite(sprite)), _font(GameStateManager::get().getCurrentState().getFont(font))
+    : GUIElement(0, 0, sprite.getWidth(), sprite.getHeight(), layout), _instance(&instance), _func(func), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font))
   {
     if (this->_font)
       this->_font->setText(name);

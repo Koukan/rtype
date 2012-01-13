@@ -32,7 +32,9 @@ void		GSInGame::onStart()
 
   // load xml
   this->load("resources/intro.xml");
+  this->load("resources/player.xml");
   this->load("resources/shots.xml");
+  this->load("resources/enemies.xml");
 
   // add gui
 
@@ -74,8 +76,32 @@ void		GSInGame::onStart()
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
-  Sprite *sprite = this->getSprite("color shot");
+  Sprite *sprite = this->getSprite("enemy tron");
+  sprite->setPosition(500, 600);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("enemy fish");
   sprite->setPosition(500, 500);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("enemy star");
+  sprite->setPosition(500, 370);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("enemy bomb");
+  sprite->setPosition(500, 300);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("enemy plane");
+  sprite->setPosition(500, 200);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("enemy walkbrown");
+  sprite->setPosition(500, 100);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("player1");
+  sprite->setPosition(20, 500);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("default shot");
+  sprite->setPosition(120, 500);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("color shot");
+  sprite->setPosition(200, 475);
   this->addGameObject(sprite, "player", 10);
 }
 
@@ -158,7 +184,7 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
-	this->getGameObject(event.idObject)->erase();
+	delete (this->getGameObject(event.idObject));
 }
 
 void		GSInGame::life(GameCommand const &event)

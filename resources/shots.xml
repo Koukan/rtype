@@ -1,18 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-<sprite name="color shot">
-  <image file="resources/sprite/r-typesheet2.png">
-    <grid pos="37,470"
-	  size="64,32"
-	  array="4,1"
+<sprite name="default shot">
+  <image file="resources/sprite/r-typesheet1.png">
+    <grid pos="200,120"
+	  size="32,12"
+	  array="2,1"
 	  spacing="2,0"
     />
   </image>
   <animation
-      speed="500"
+      speed="300"
 		loop="yes"
    />
   <scale x="2.0" y="2.0" />
 </sprite>
+
+<sprite name="color shot">
+  <image file="resources/sprite/r-typesheet2.png">
+    <grid pos="37,470"
+	  size="64,32"
+	  array="4,2"
+	  spacing="2,2"
+    />
+  </image>
+  <animation
+      speed="1000"
+		loop="yes"
+   />
+  <scale x="2.0" y="2.0" />
+</sprite>
+
+<sprite name="explosion">
+  <image file="resources/sprite/r-typesheet1.png">
+    <grid pos="200,296"
+	  size="32,12"
+	  array="6,1"
+	  spacing="5,0"
+    />
+  </image>
+  <animation
+      speed="300"
+   />
+  <scale x="2.0" y="2.0" />
+</sprite>
+
 </resources>
