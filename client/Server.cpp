@@ -62,7 +62,6 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 	packet >> idGame;
 	packet >> nbPlayers;
 	packet >> state;
-
 	std::cout << "receive game" << std::endl;
 	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", idGame, nbPlayers, state)));
 	return true;
@@ -70,6 +69,7 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 
 bool		Server::treatEndListGamePacket(Net::Packet &packet)
 {
+	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", 0, 0, 0)));
 	return true;
 }
 

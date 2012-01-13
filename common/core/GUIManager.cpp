@@ -15,7 +15,6 @@ GUIManager::~GUIManager()
 
 bool		GUIManager::handleCommand(Command const &command)
 {
-
   if (command.name == "Input")
     return (this->handleGUICommand(static_cast<InputCommand const &>(command)));
   return (false);

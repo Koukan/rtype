@@ -11,7 +11,7 @@ class GUIButton : public GUIElement
 {
 public:
   GUIButton(T &instance, void (T::*func)(), std::string const &name, std::string const &font, ButtonSprite const &sprite, int x, int y)
-    : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _instance(&instance), _func(func), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font))
+    : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _instance(&instance), _func(func), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font)), _pressed(false)
   {
     if (this->_font)
       this->_font->setText(name);
@@ -42,6 +42,7 @@ public:
     if (command.Type == InputCommand::KeyPressed && command.Key.Code == Keyboard::Return)
       {
 	this->_sprite.updateState(ButtonSprite::CLICKED);
+	this->_pressed = true;
 	return (true);
       }
     else if (command.Type == InputCommand::KeyReleased && command.Key.Code == Keyboard::Return)
@@ -50,7 +51,11 @@ public:
 	  this->_sprite.updateState(ButtonSprite::SELECTED);
 	else
 	  this->_sprite.updateState(ButtonSprite::DEFAULT);
-	(this->_instance->*(this->_func))();
+	if (this->_pressed)
+	{
+		(this->_instance->*(this->_func))();
+		this->_pressed = false;
+	}
 	return (true);
       }
     return (false);
@@ -84,6 +89,7 @@ public:
 
   virtual void unfocus()
   {
+	this->_pressed = false;
     this->_sprite.updateState(ButtonSprite::DEFAULT);
     this->GUIElement::unfocus();
   }
@@ -103,4 +109,5 @@ private:
   void (T::*_func)();
   ButtonSprite _sprite;
   Font *_font;
+  bool	_pressed;
 };
