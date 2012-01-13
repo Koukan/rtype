@@ -55,19 +55,19 @@ void		GSInGame::onStart()
 
   this->_scoreFonts[0] = this->getFont("buttonFont");
   this->_scoreFonts[0]->setText("0000000");
-  this->_scoreFonts[0]->setPosition(50, 720);
+  this->_scoreFonts[0]->setPosition(120 - this->_scoreFonts[0]->getWidth() / 2, 720);
   this->addGameObject(this->_scoreFonts[0], "score", 20);
   this->_scoreFonts[1] = this->getFont("buttonFont");
   this->_scoreFonts[1]->setText("0000000");
-  this->_scoreFonts[1]->setPosition(300, 720);
+  this->_scoreFonts[1]->setPosition(370 - this->_scoreFonts[1]->getWidth() / 2, 720);
   this->addGameObject(this->_scoreFonts[1], "score", 20);
   this->_scoreFonts[2] = this->getFont("buttonFont");
   this->_scoreFonts[2]->setText("0000000");
-  this->_scoreFonts[2]->setPosition(550, 720);
+  this->_scoreFonts[2]->setPosition(620 - this->_scoreFonts[2]->getWidth() / 2, 720);
   this->addGameObject(this->_scoreFonts[2], "score", 20);
   this->_scoreFonts[3] = this->getFont("buttonFont");
   this->_scoreFonts[3]->setText("0000000");
-  this->_scoreFonts[3]->setPosition(800, 720);
+  this->_scoreFonts[3]->setPosition(870 - this->_scoreFonts[3]->getWidth() / 2, 720);
   this->addGameObject(this->_scoreFonts[3], "score", 20);
 
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
