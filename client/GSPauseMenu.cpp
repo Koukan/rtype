@@ -5,6 +5,7 @@
 #include "GUIButton.hpp"
 #include "GUILabel.hpp"
 #include "GUIVLayout.hpp"
+#include "Sprite.hpp"
 #include "Game.hpp"
 
 GSPauseMenu::GSPauseMenu()
@@ -49,6 +50,10 @@ void	GSPauseMenu::onStart()
 
   GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
   layout->setY((768 - layout->getHeight()) / 2);
+  Sprite *s = this->getSprite("black background");
+  s->setX(0);
+  s->setY(0);
+  this->addGameObject(s, "background", 1);
 
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
 

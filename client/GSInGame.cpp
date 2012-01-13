@@ -8,6 +8,7 @@
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
 #include "ScrollingSprite.hpp"
+#include "NetworkModule.hpp"
 
 
 GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont"))
@@ -39,8 +40,8 @@ void		GSInGame::onStart()
   // add gui
 
   Font *fontp1 = this->getFont("buttonFont");
-  fontp1->setText("P1");
-  fontp1->setPosition(100, 680);
+  fontp1->setText(NetworkModule::get().getName());
+  fontp1->setPosition(120 - fontp1->getWidth() / 2, 680);
   this->addGameObject(fontp1, "score", 20);
   Font *fontp2 = this->getFont("buttonFont");
   fontp2->setText("P2");

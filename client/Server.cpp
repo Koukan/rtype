@@ -73,6 +73,7 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 
 bool		Server::treatEndListGamePacket(Net::Packet &packet)
 {
+  std::cout << "end list packet" << std::endl;
 	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", 0, 0, 0)));
 	return true;
 }
