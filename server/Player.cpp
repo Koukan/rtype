@@ -122,7 +122,7 @@ int		Player::listGame(Net::Packet&)
 	{
 		Net::Packet		tmp(12);
 
-		tmp << static_cast<uint8_t>(TCP::LIST_GAMES);
+		tmp << static_cast<uint8_t>(TCP::GAME);
 		tmp << static_cast<uint16_t>(it->second->getId());
 		tmp << static_cast<uint8_t>(it->second->nbPlayers());
 		tmp << static_cast<uint8_t>(it->second->isFull());
