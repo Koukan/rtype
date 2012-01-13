@@ -17,14 +17,17 @@ public:
 	       std::string const &buttonClickedSprite);
   ~ButtonSprite();
 
+  ButtonSprite(ButtonSprite const &buttonSprite);
   void updateState(enum ButtonSprite::eState);
   void draw(int x, int y, double elapseTime = 0);
-  ButtonSprite *clone() const;
 
   int getWidth() const;
   int getHeight() const;
 
 private:
+  std::string const _defaultName;
+  std::string const _selected;
+  std::string const _clicked;
   Sprite	*_defaultSprite;
   Sprite	*_selectedSprite;
   Sprite	*_clickedSprite;
