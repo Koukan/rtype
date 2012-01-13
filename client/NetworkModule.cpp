@@ -1,5 +1,6 @@
 #include "NetworkModule.hpp"
 #include "CommandDispatcher.hpp"
+#include "GameListCommand.hpp"
 #include "PacketCommand.hpp"
 #include "PacketType.hpp"
 
@@ -50,10 +51,12 @@ bool		NetworkModule::handleCommand(Command const &command)
 {
 	static Method const	methods[] = {
 		{"Connection", &NetworkModule::connectionCommand},
+		{"CreateGame", &NetworkModule::createGameCommand},
 		{"ListGames", &NetworkModule::listGamesCommand},
 		{"ConnectGame", &NetworkModule::connectGameCommand},
 		{"Move", &NetworkModule::moveCommand},
-		{"Retrieve", &NetworkModule::retrieveCommand}
+		{"Retrieve", &NetworkModule::retrieveCommand},
+		{"Player", &NetworkModule::playerCommand}
 		/*must be completed */
 	};
 
@@ -62,25 +65,38 @@ bool		NetworkModule::handleCommand(Command const &command)
 	{
 		if (command.name == methods[i].name)
 		{
-			(this->*methods[i].method)(static_cast<GameCommand const &>(command));
+			(this->*methods[i].method)(command);
 			return true;
 		}
 	}
 	return false;
 }
 
-void		NetworkModule::connectionCommand(GameCommand const &cmd)
+void		NetworkModule::connectionCommand(Command const &command)
 {
-	Net::Packet		packet(sizeof(uint16_t) + cmd.name.length() + 1 + sizeof(uint8_t));
+	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
+	Net::Packet		packet(sizeof(uint16_t) + cmd._login.length() + 1 + sizeof(uint8_t));
 
 	packet << (sizeof(uint8_t) + cmd.name.length() + 1);
 	packet << TCP::CONNECTION;
-	packet << cmd.name;
+	packet << cmd._login;
 	packet << '\0';
 	this->_server->handleOutputPacket(packet);
 }
 
-void		NetworkModule::listGamesCommand(GameCommand const &cmd)
+void		NetworkModule::createGameCommand(Command const &command)
+{
+	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
+	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t) + cmd._map.length() + 1);
+
+	packet << (sizeof(uint8_t) + cmd.name.length() + 1);
+	packet << TCP::CREATE_GAME;
+	packet << cmd._map;
+	packet << '\0';
+	this->_server->handleOutputPacket(packet);
+}
+
+void		NetworkModule::listGamesCommand(Command const &cmd)
 {
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t));
 
@@ -89,8 +105,9 @@ void		NetworkModule::listGamesCommand(GameCommand const &cmd)
 	this->_server->handleOutputPacket(packet);
 }
 
-void		NetworkModule::connectGameCommand(GameCommand const &cmd)
+void		NetworkModule::connectGameCommand(Command const &command)
 {
+	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint16_t));
 
 	packet << (sizeof(uint8_t) + sizeof(uint16_t));
@@ -99,8 +116,21 @@ void		NetworkModule::connectGameCommand(GameCommand const &cmd)
 	this->_server->handleOutputPacket(packet);
 }
 
-void		NetworkModule::moveCommand(GameCommand const &cmd)
+void		NetworkModule::playerCommand(Command const &command)
 {
+	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
+	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint16_t));
+
+	packet << sizeof(uint8_t) + sizeof(uint16_t);
+	packet << TCP::PLAYER;
+	packet << cmd._status;
+	packet << cmd._login;
+	this->_server->handleOutputPacket(packet);
+}
+
+void		NetworkModule::moveCommand(Command const &command)
+{
+	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 	Net::Packet		packet(21);
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::MOVE);
@@ -112,8 +142,9 @@ void		NetworkModule::moveCommand(GameCommand const &cmd)
 	this->sendPacketUDP(packet);
 }
 
-void		NetworkModule::retrieveCommand(GameCommand const &cmd)
+void		NetworkModule::retrieveCommand(Command const &command)
 {
+	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 	Net::Packet		packet(13);
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::RETRIEVE);

@@ -32,8 +32,8 @@ void		Game::init()
   CommandDispatcher::get().registerHandler(GameStateManager::get());
   GameStateManager::get().loadState<GSMainMenu>("mainMenu");
   GameStateManager::get().pushState("mainMenu");
- //GameStateManager::get().loadState<GSInGame>("Game");
- //GameStateManager::get().changeState("Game");
+//GameStateManager::get().loadState<GSInGame>("Game");
+//GameStateManager::get().changeState("Game");
 }
 
 void		Game::quit()

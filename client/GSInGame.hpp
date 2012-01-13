@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <vector>
 #include "GameState.hpp"
 #include "BulletCommand.hpp"
 #include "GameCommand.hpp"
@@ -42,5 +43,5 @@ private:
 	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;
 
 	uint32_t	_idPlayer;
-	uint32_t	_lastIdPacket;
+	std::vector<uint32_t> _scores;
 };

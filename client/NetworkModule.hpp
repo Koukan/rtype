@@ -28,22 +28,23 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 
 // Command UDP
 
-	void		retrieveCommand(GameCommand const &command);
-	void		moveCommand(GameCommand const &command);
+	void		retrieveCommand(Command const &command);
+	void		moveCommand(Command const &command);
 
 // Command TCP
 
-	void		connectionCommand(GameCommand const &command);
-	void		listGamesCommand(GameCommand const &command);
-	void		connectGameCommand(GameCommand const &cmd);
-	
+	void		connectionCommand(Command const &command);
+	void		createGameCommand(Command const &command);
+	void		listGamesCommand(Command const &command);
+	void		connectGameCommand(Command const &command);
+	void		playerCommand(Command const &command);
 		
 	void		sendPacketUDP(Net::Packet &packet);
 
 	struct	Method
 	{
 		std::string	const name;
-		void	(NetworkModule::*method)(GameCommand const &);
+		void	(NetworkModule::*method)(Command const &);
 	};
 
 	Net::Reactor	       	*_reactor;

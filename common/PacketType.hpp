@@ -45,3 +45,13 @@ namespace	Error
 		SERVER_FULL  = 3
 	};
 }
+
+namespace	PlayerStatus
+{
+	enum	Type
+	{
+		CONNECTED = 0,
+		READY = 1,
+		DISCONNECTED = 2
+	};
+}

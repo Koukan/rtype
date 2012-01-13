@@ -6,9 +6,10 @@
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 
-GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _lastIdPacket(0)
+GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0)
 {
-  CommandDispatcher::get().registerHandler(*this);
+  //CommandDispatcher::get().registerHandler(*this);
+	
 }
 
 GSInGame::~GSInGame()
@@ -24,7 +25,6 @@ void		GSInGame::onStart()
 
 void		GSInGame::update(double elapsedTime)
 {
-	std::cout << "lol" << std::endl;
 }
 
 void		GSInGame::onEnd()
@@ -35,6 +35,7 @@ bool		GSInGame::handleCommand(Command const &command)
   static Method const	methods[] = {
 	{"destroy", &GSInGame::destroy},
 	{"life", &GSInGame::life},
+	{"score", &GSInGame::score},
 	{"spawn", &GSInGame::spawn},
 	{"move", &GSInGame::move}
   };
@@ -89,11 +90,6 @@ void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int1
 
 void		GSInGame::spawn(GameCommand const &event)
 {
-	if (event.idObject - 1 > _lastIdPacket)
-		this->retrieve(event.idObject - 1);
-	else
-		_lastIdPacket = event.idObject;
-
 	HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
 	Monster *monster1 = new Monster(this->getSprite("monster"), *hitbox, event.vx, event.vy);
 	this->addGameObject(static_cast<GameObject *>(monster1), "monsterGroup");
@@ -101,34 +97,20 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
-	if (event.idObject - 1 > _lastIdPacket)
-		this->retrieve(event.idObject - 1);
-	else
-		_lastIdPacket = event.idObject;
 	delete (this->getGameObject(event.idObject));
 }
 
 void		GSInGame::life(GameCommand const &event)
 {
-	if (event.idObject - 1 > _lastIdPacket)
-		this->retrieve(event.idObject - 1);
-	else
-		_lastIdPacket = event.idObject;
 	//actions
 }
 
 void		GSInGame::score(GameCommand const &event)
 {
-
-}
-
-void		GSInGame::retrieve(uint32_t idPacket)
-{
-	for (uint32_t id = _lastIdPacket; id <= idPacket; ++id)
+	if (event.idObject < 4)
 	{
-		GameCommand *cmd = new GameCommand("retrieve");
-		cmd->idObject = id;
-		CommandDispatcher::get().pushCommand(*cmd);
+		_scores[event.idObject] = event.score;
+
 	}
 }
 
