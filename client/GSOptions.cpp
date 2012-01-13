@@ -37,9 +37,9 @@ void	GSOptions::onStart()
 
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
 
-  new GUILabel("IP Address", "buttonFont", "little button", layout);
+  new GUILabel("IP Address", "buttonFont", "", layout);
   this->_ip = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 15, NetworkModule::get().getIP());
-  new GUILabel("Port", "buttonFont", "little button", layout);
+  new GUILabel("Port", "buttonFont", "", layout);
   this->_port = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 5, NetworkModule::get().getPort());
   new GUIButton<GSOptions>(*this, &GSOptions::returnMenu, "Return", "buttonFont", *sprite, layout);
 
