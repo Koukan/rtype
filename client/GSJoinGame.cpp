@@ -42,7 +42,7 @@ void	GSJoinGame::onStart()
   if (NetworkModule::get().connect())
     {
       CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
-	  //CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
+      CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
       
       this->_hlayout = new GUIHLayout(300, 768 / 2, 0, 0, 0);
       new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_hlayout);
