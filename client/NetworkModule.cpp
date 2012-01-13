@@ -66,6 +66,7 @@ bool		NetworkModule::handleCommand(Command const &command)
 	{
 		if (command.name == methods[i].name)
 		{
+			std::cout << command.name << std::endl;
 			(this->*methods[i].method)(command);
 			return true;
 		}

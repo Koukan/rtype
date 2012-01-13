@@ -201,6 +201,7 @@ private:
 			{
 				std::cout << "left and ret " << _left << " " << ret << std::endl;
 				_left -= ret;
+				std::cout << "left and ret2 " << _left << " " << ret << std::endl;
 				if (_left == 0)
 				{
 					Packet	packet(*_inpacket);
