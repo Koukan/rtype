@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Server.hpp"
 #include "Game.hpp"
 #include "PacketType.hpp"
@@ -26,9 +27,14 @@ int			Server::handleInputPacket(Net::Packet &packet)
 			&Server::treatEndListGamePacket,
 			NULL,
 			&Server::treatPlayerPacket,
-			NULL
-
-			/* must be completed */
+			NULL, // CREATE_GAME
+			NULL, // RESOURCE
+			NULL, // REQUIRE_RESOURCE
+			NULL, // RESOURCE_PART
+			NULL, // END_RESOURCE
+			NULL, // END_RESOURCES
+			&Server::treatGameStatePacket,
+			&Server::treatErrorPacket
 	};
 	uint8_t			type;
 
@@ -52,7 +58,6 @@ bool		Server::treatEtablishedPacket(Net::Packet &packet)
 	return true;
 }
 
-#include <iostream>
 bool		Server::treatGamePacket(Net::Packet &packet)
 {
 	uint16_t	idGame;
@@ -62,7 +67,6 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 	packet >> idGame;
 	packet >> nbPlayers;
 	packet >> state;
-	std::cout << "receive game" << std::endl;
 	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", idGame, nbPlayers, state)));
 	return true;
 }
@@ -82,5 +86,48 @@ bool		Server::treatPlayerPacket(Net::Packet &packet)
 	packet >> status;
 	packet >> idPlayer;
 
+	return true;
+}
+
+bool		Server::treatGameStatePacket(Net::Packet &packet)
+{
+	uint16_t err;
+
+	packet >> err;
+	if (err == GameStateEnum::BEGIN)
+	{
+		GameStateManager::get().changeState("Game");
+	}
+	else
+	{
+		GameStateManager::get().popState();
+	}
+	return true;
+}
+
+bool		Server::treatErrorPacket(Net::Packet &packet)
+{
+	static const char* errorTexts[] =
+	{
+		"Login already used",
+		"Game already full",
+		"Selected game doesn't exist anymore",
+		"This server can't accept another game"
+	};
+	uint16_t err;
+	std::string errText;
+
+	packet >> err;
+	if (err < sizeof(errorTexts) / sizeof(*errorTexts))
+		errText = errorTexts[err];
+	else
+		errText = "Unknown error";
+#if defined (_WIN32)
+  
+	MessageBox(NULL, errorTexts[err], TEXT("Error"), MB_OK);
+	std::cerr << errorTexts[err] << std::endl;
+#else
+	std::cerr << errorTexts[err] << std::endl;
+#endif
 	return true;
 }
