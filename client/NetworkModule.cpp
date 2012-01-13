@@ -78,11 +78,8 @@ void		NetworkModule::connectionCommand(Command const &command)
 	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + cmd._login.length() + 1);
 
-	std::cout << "send connection " << std::endl;
-	packet << static_cast<uint16_t>((sizeof(uint8_t) + cmd._login.length() + 1));
 	packet << static_cast<uint8_t>(TCP::CONNECTION);
 	packet << cmd._login;
-	std::cout << cmd._login << std::endl;
 	this->_server->handleOutputPacket(packet);
 }
 
@@ -91,7 +88,6 @@ void		NetworkModule::createGameCommand(Command const &command)
 	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t) + cmd._map.length() + 1);
 
-	packet << static_cast<uint16_t>((sizeof(uint8_t) + cmd.name.length() + 1));
 	packet << static_cast<uint8_t>(TCP::CREATE_GAME);
 	packet << cmd._map;
 	this->_server->handleOutputPacket(packet);
@@ -102,7 +98,6 @@ void		NetworkModule::listGamesCommand(Command const &cmd)
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t));
 
 	std::cout << "send list game " << std::endl;
-	packet << static_cast<uint16_t>((sizeof(uint8_t)));
 	packet << static_cast<uint8_t>(TCP::LIST_GAMES);
 	this->_server->handleOutputPacket(packet);
 }
@@ -111,7 +106,6 @@ void		NetworkModule::connectGameCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint16_t));
-	packet << static_cast<uint16_t>((sizeof(uint8_t) + sizeof(uint16_t)));
 	packet << static_cast<uint8_t>(TCP::GAME);
 	packet << (static_cast<int16_t>(cmd.idObject)); // idObject represents here idGame
 	this->_server->handleOutputPacket(packet);
@@ -122,7 +116,6 @@ void		NetworkModule::playerCommand(Command const &command)
 	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t) + cmd._login.length() + 1);
 
-	packet << static_cast<uint16_t>(sizeof(uint8_t) + sizeof(uint8_t) + cmd._login.length() + 1);
 	packet << static_cast<uint8_t>(TCP::PLAYER);
 	packet << static_cast<uint8_t>(cmd._status);
 	packet << cmd._login;

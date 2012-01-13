@@ -40,7 +40,12 @@ public:
 		while (!_outputPacket.empty())
 		{
 			  top = _outputPacket.front();
-			  ret = this->send(*top);
+			  if (this->_func == &PacketHandler<IOType>::headerSizeInput)
+			  {
+			  	uint16_t size = top->size();
+				this->send(reinterpret_cast<const char *>(&size), sizeof(size));
+			  }
+			  ret = this->sendPacket(*top);
 			  if (ret <= 0)
 			  {
 				  if (ret == -1 && (errno == EWOULDBLOCK || errno == EINTR))
@@ -132,7 +137,7 @@ private:
 		int				ret = 0;
 		do
 		{
-			 ret = this->recv(*_inpacket);
+			 ret = this->recvPacket(*_inpacket);
 			 if (ret > 0)
 			 {
 			  if (_inpacket->isFull())
@@ -185,7 +190,7 @@ private:
 		do
 		{
  			std::cout << "input " << _left << std::endl;
-			ret = this->recv(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
+			ret = this->recvPacket(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
 			if (_left == 0)
 			{
 				(*_inpacket) >> _left;
