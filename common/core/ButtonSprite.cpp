@@ -4,7 +4,7 @@
 ButtonSprite::ButtonSprite(std::string const &buttonSprite,
 			   std::string const &buttonSelectedSprite,
 			   std::string const &buttonClickedSprite)
-  : _state(ButtonSprite::DEFAULT)
+  : _defaultName(buttonSprite), _selected(buttonSelectedSprite), _clicked(buttonClickedSprite), _state(ButtonSprite::DEFAULT)
 {
   GameState *gameState = &(GameStateManager::get().getCurrentState());
 
@@ -20,6 +20,22 @@ ButtonSprite::~ButtonSprite()
   delete this->_defaultSprite;
   delete this->_selectedSprite;
   delete this->_clickedSprite;
+}
+
+ButtonSprite::ButtonSprite(ButtonSprite const &buttonSprite) :
+ _defaultName(buttonSprite._defaultName), _selected(buttonSprite._selected), _clicked(buttonSprite._clicked), _state(ButtonSprite::DEFAULT)
+{
+  GameState *gameState = &(GameStateManager::get().getCurrentState());
+  
+  this->_defaultSprite = gameState->getSprite(_defaultName);
+  this->_selectedSprite = gameState->getSprite(_selected);
+  this->_clickedSprite = gameState->getSprite(_clicked);
+
+  std::cout << _defaultName << std::endl;
+  std::cout << _selected << std::endl;
+  std::cout << _clicked << std::endl;
+
+  gameState->getGUI().registerButtonSprite(*this);
 }
 
 void ButtonSprite::updateState(enum ButtonSprite::eState state)
@@ -39,22 +55,30 @@ void ButtonSprite::draw(int x, int y, double elapseTime)
 
 int ButtonSprite::getWidth() const
 {
-  if (this->_defaultSprite->getWidth() > this->_selectedSprite->getWidth() &&
-      this->_defaultSprite->getWidth() > this->_clickedSprite->getWidth())
-    return (this->_defaultSprite->getWidth());
-  else if (this->_clickedSprite->getWidth() > this->_defaultSprite->getWidth() &&
-      this->_clickedSprite->getWidth() > this->_selectedSprite->getWidth())
-    return (this->_clickedSprite->getWidth());
-  return (this->_selectedSprite->getWidth());
+  if (this->_defaultSprite && this->_selectedSprite && this->_clickedSprite)
+  {
+	if (this->_defaultSprite->getWidth() > this->_selectedSprite->getWidth() &&
+		  this->_defaultSprite->getWidth() > this->_clickedSprite->getWidth())
+		return (this->_defaultSprite->getWidth());
+	else if (this->_clickedSprite->getWidth() > this->_defaultSprite->getWidth() &&
+		  this->_clickedSprite->getWidth() > this->_selectedSprite->getWidth())
+		 return (this->_clickedSprite->getWidth());
+	return (this->_selectedSprite->getWidth());
+  }
+  return (0);
 }
 
 int ButtonSprite::getHeight() const
 {
-  if (this->_defaultSprite->getHeight() > this->_selectedSprite->getHeight() &&
-      this->_defaultSprite->getHeight() > this->_clickedSprite->getHeight())
+  if (this->_defaultSprite && this->_selectedSprite && this->_clickedSprite)
+  {
+	 if (this->_defaultSprite->getHeight() > this->_selectedSprite->getHeight() &&
+		this->_defaultSprite->getHeight() > this->_clickedSprite->getHeight())
     return (this->_defaultSprite->getHeight());
-  else if (this->_clickedSprite->getHeight() > this->_defaultSprite->getHeight() &&
+	else if (this->_clickedSprite->getHeight() > this->_defaultSprite->getHeight() &&
       this->_clickedSprite->getHeight() > this->_selectedSprite->getHeight())
     return (this->_clickedSprite->getHeight());
-  return (this->_selectedSprite->getHeight());
+	return (this->_selectedSprite->getHeight());
+  }
+  return (0);
 }
