@@ -13,7 +13,6 @@
 GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont"))
 {
   //CommandDispatcher::get().registerHandler(*this);
-	
 }
 
 GSInGame::~GSInGame()

@@ -7,7 +7,7 @@
 Group::Group(GameState &state, std::string const &name, int layer,
 	     uint32_t begin, uint32_t end, bool physic)
 	: _gameState(state), _layer(layer), _physic(physic),
-	  _timeEffectGroup(state.getTimeEffectGroup("default")), _quadTree(new QuadTree()), _name(name)
+	  _timeEffectGroup(state.getTimeEffectGroup("default")), _quadTree(new QuadTree()), _name(name), _beginId(begin), _endId(end), _currentId(begin)
 {
 }
 
@@ -62,12 +62,10 @@ GameState					&Group::getState() const
 
 uint32_t					Group::getId() const
 {
-	if (this->_endId == 0)
-		return 0;
-	uint32_t			id;
-	id = this->_currentId++;
+	uint32_t			id = this->_currentId++;
+
 	if (this->_currentId > this->_endId || this->_currentId == 0)
-		this->_currentId = 0;
+		this->_currentId = this->_beginId;
 	return id;
 }
 
