@@ -49,8 +49,10 @@ void GUILayout::unfocus()
   this->GUIElement::unfocus();
 }
 
+#include <iostream>
 void GUILayout::insertElementAtBegin(GUIElement &elem)
 {
+  elem.unfocus();
   this->_elements.push_front(&elem);
   this->_begin = this->_elements.begin();
   if (this->_focusElement == this->_elements.end() || !(*this->_focusElement)->getEnable())
@@ -64,6 +66,7 @@ void GUILayout::insertElementAtBegin(GUIElement &elem)
 
 void GUILayout::insertElementAtEnd(GUIElement &elem)
 {
+  elem.unfocus();
   this->_elements.push_back(&elem);
   this->_begin = this->_elements.begin();
   if (this->_focusElement == this->_elements.end() || !(*this->_focusElement)->getEnable())

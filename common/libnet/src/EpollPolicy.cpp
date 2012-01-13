@@ -32,6 +32,7 @@ int		EpollPolicy::registerHandler(Socket &socket, NetHandler &handler, int mask)
   epollpolicydata	*data = &_handlers[socket.getHandle()];
   data->handler = &handler;
   data->socket = &socket;
+  ev.data.u64 = 0;
   ev.data.ptr = data;
   ev.events = 0;
   if (mask & Reactor::READ || mask & Reactor::ACCEPT)

@@ -41,25 +41,26 @@ void	GSJoinGame::onStart()
   this->_sprite = new ButtonSprite("default button", "selected button", "pressed button");
   if (NetworkModule::get().connect())
     {
-      CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
+      CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", NetworkModule::get().getName())));
       CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
       
-      this->_hlayout = new GUIHLayout(300, 768 / 2, 0, 0, 0);
+      this->_hlayout = new GUIHLayout(300, 768 / 2, 0, 0, 50);
       new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_hlayout);
       this->_vlayout = new GUIVLayout(0, 0, 300, 700, 20, 0, 8, "up arrow", "down arrow");
       
       // tests
       
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 1", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 2", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 3", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 4", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 5", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 6", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 7", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 8", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 9", "buttonFont", *this->_sprite, this->_layout);
-      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 10", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 1", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 2", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 3", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 4", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 5", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 6", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 7", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 8", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 9", "buttonFont", *this->_sprite, this->_vlayout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 10", "buttonFont", *this->_sprite, this->_vlayout);
+
     }
   else
     {
@@ -93,7 +94,6 @@ bool	GSJoinGame::handleCommand(Command const &command)
 	    this->_hlayout->insertElementAtBegin(*this->_vlayout);
 	  else
 	    {
-	      std::cout << "get end of game" << std::endl;
 	      delete this->_vlayout;
 	      GUILabel *label = new GUILabel("No Games", "buttonFont", "", 0);
 	      this->_hlayout->insertElementAtBegin(*label);
