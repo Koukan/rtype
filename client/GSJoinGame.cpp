@@ -5,10 +5,12 @@
 #include "GUIList.hpp"
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
+#include "GUILabel.hpp"
 #include "ScrollingSprite.hpp"
 #include "Game.hpp"
 #include "CommandDispatcher.hpp"
 #include "GameCommand.hpp"
+#include "NetworkModule.hpp"
 
 GSJoinGame::GSJoinGame()
   : GameState("mainMenu")
@@ -41,7 +43,10 @@ void	GSJoinGame::onStart()
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
-  CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
+  if (NetworkModule::get().connect())
+    CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
+  else
+    new GUILabel("Connection failed", "buttonFont", "", this->_layout);
 }
 
 void	GSJoinGame::returnMainMenu()
@@ -54,6 +59,7 @@ bool	GSJoinGame::handleCommand(Command const &command)
   if (command.name == "listGame")
     {
       new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie", "buttonFont", *this->_sprite, this->_layout);
+      return (true);
     }
   return (false);
 }
