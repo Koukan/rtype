@@ -103,7 +103,10 @@ int	SocketIO::recvPacket(Packet &packet, int flags, int packsize)
 
 	int ret = ::recv(_handle, packet.wr_ptr(), toread, flags);
 	if (ret > 0)
+	{
 		packet.wr_ptr(packet.getWindex() + ret);
+		packet.setSize(packet.getWindex());
+	}
 	return ret;
 }
 

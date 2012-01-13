@@ -91,7 +91,7 @@ int		SocketDatagram::recvPacket(Packet &packet, int flags, int packsize)
 	{
 		packet.wr_ptr(packet.getWindex() + ret);
 		packet.getAddr().assign(reinterpret_cast<sockaddr&>(tmp), size);
-		packet.setSize(ret);
+		packet.setSize(packet.getWindex());
 	}
 	return ret;
 }
