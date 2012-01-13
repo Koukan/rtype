@@ -11,13 +11,18 @@ GUILayout::GUILayout(int x, int y, int width, int height, int padding, GUILayout
     this->unfocus();
 }
 
+#include <iostream>
 GUILayout::GUILayout(int x, int y, int width, int height, int padding, int nbElements)
   : GUIElement(x, y, width, height), _padding(padding), _nbElements(nbElements)
 {
   this->_begin = this->_elements.begin();
   this->_focusElement = this->_elements.begin();
   if (this->_isFocused)
-    this->focus();
+{
+	std::cout << "gianni est beteuuuh" << std::endl;
+	this->focus();
+	std::cout << "gianni est bete" << std::endl;
+  }
   else
     this->unfocus();
 }
@@ -32,10 +37,13 @@ GUILayout::~GUILayout()
 
 void GUILayout::focus()
 {
-  if (this->_focusElement == this->_elements.end())
-    this->nextElement();
-  else
-    (*this->_focusElement)->focus();
+  if (!this->_elements.empty())
+	  {
+		  if (this->_focusElement == this->_elements.end())
+			this->nextElement();
+		  else
+			(*this->_focusElement)->focus();
+  }
   this->GUIElement::focus();
 }
 
@@ -107,6 +115,7 @@ void GUILayout::nextElement()
   int nb = 0;
 
   std::list<GUIElement *>::iterator it2 = this->_focusElement;
+
   ++it2;
   for (std::list<GUIElement *>::iterator it = this->_begin; it != it2 && nb < this->_nbElements; ++it)
     ++nb;
