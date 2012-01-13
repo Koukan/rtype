@@ -97,17 +97,20 @@ int	SocketIO::send(const char *buffer, size_t size, int flags)
   return (::send(_handle, buffer, size, flags));
 }
 
-int	SocketIO::recv(Packet &packet, int flags, int packsize)
+int	SocketIO::recvPacket(Packet &packet, int flags, int packsize)
 {
 	int	toread = (packsize == -1) ? packet.capacity() - packet.getWindex() : packsize;
 
 	int ret = ::recv(_handle, packet.wr_ptr(), toread, flags);
 	if (ret > 0)
+	{
 		packet.wr_ptr(packet.getWindex() + ret);
+		packet.setSize(packet.getWindex());
+	}
 	return ret;
 }
 
-int	SocketIO::send(Packet &packet, int flags, int packsize)
+int	SocketIO::sendPacket(Packet &packet, int flags, int packsize)
 {
 	int	tosend = (packsize == -1) ? packet.size() - packet.getWindex() : packsize;
 

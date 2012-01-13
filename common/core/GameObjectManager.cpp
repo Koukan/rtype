@@ -4,10 +4,10 @@
 #include "GameObject.hpp"
 #include "GameState.hpp"
 
-Group::Group(GameState &state, int layer, std::string const &timeEffectGroup, std::string const &name,
-	     bool physic)
+Group::Group(GameState &state, std::string const &name, int layer,
+	     uint32_t begin, uint32_t end, bool physic)
 	: _gameState(state), _layer(layer), _physic(physic),
-	  _timeEffectGroup(state.getTimeEffectGroup(timeEffectGroup)), _quadTree(new QuadTree()), _name(name)
+	  _timeEffectGroup(state.getTimeEffectGroup("default")), _quadTree(new QuadTree()), _name(name)
 {
 }
 
@@ -60,6 +60,17 @@ GameState					&Group::getState() const
 	return (this->_gameState);
 }
 
+uint32_t					Group::getId() const
+{
+	if (this->_endId == 0)
+		return 0;
+	uint32_t			id;
+	id = this->_currentId++;
+	if (this->_currentId > this->_endId || this->_currentId == 0)
+		this->_currentId = 0;
+	return id;
+}
+
 void						Group::setLayer(int layer)
 {
 	this->_layer = layer;
@@ -97,6 +108,7 @@ void		Group::addObject(GameObject *object)
   }
   if (this->_physic)
 	  this->_quadTree->push(*static_cast<PhysicObject *>(object));
+  object->setId(this->getId());
   this->_objects.insert(object);
   object->setGroup(this);
 }
@@ -140,11 +152,25 @@ bool	GameObjectManager::collisionGroups(const std::string &group1,
 }
 
 void	GameObjectManager::addGroup(const std::string &group, int layer,
-				    std::string const &timeEffectGroup)
+				    uint32_t beginId, uint32_t endId)
 {
   if (this->_groups.count(group) == 0)
   {
-    Group *groupe = new Group(static_cast<GameState&>(*this), layer, timeEffectGroup, group);
+	if (beginId == 0)
+	{
+		if (_range.empty())
+		{
+			beginId = 1;
+			endId = 1000000;
+		}
+		else
+		{
+			beginId = _range.back().second + 1;
+			endId = beginId + 1000000;
+		}
+	}
+	_range.push_back(std::make_pair(beginId, endId));
+    Group *groupe = new Group(static_cast<GameState&>(*this), group, layer, beginId, endId);
     this->_groups[group] = groupe;
     this->_display.insert(std::pair<int, Group*>(layer, groupe));
   }
@@ -161,13 +187,8 @@ bool	GameObjectManager::addGameObject(GameObject *object,
 		if (this->_objects.find(object->_id) != this->_objects.end())
 			return false;
 	}
-	else
-	{
-		while (this->_objects.find(_id) != this->_objects.end())
-			_id++;
-		object->_id = _id++;
-	}
 	this->_groups[group]->addObject(object);
+	this->_objects[object->_id] = object;
 	return true;
 }
 
@@ -194,7 +215,7 @@ void	GameObjectManager::callCollision(PhysicObject &obj1,
 void	GameObjectManager::setGroup(const std::string &name, int layer,
 				    bool physic, std::string const &timeEffectGroup)
 {
-	addGroup(name, layer, timeEffectGroup);
+	addGroup(name, layer);
 	this->_groups[name]->setFlags(layer, physic, timeEffectGroup);
 }
 
@@ -218,6 +239,7 @@ GameObjectManager::groupsMap const
 {
   return this->_groups;
 }
+
 void			GameObjectManager::addDeleteObject(GameObject *obj)
 {
 	this->_deleteList.insert(obj);

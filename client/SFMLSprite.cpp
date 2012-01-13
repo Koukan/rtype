@@ -45,7 +45,7 @@ void		SFMLSprite::update(double elapsedTime)
 			}
 		}
 		else if (this->_repeat)
-			nb = (nb + nbr) % (size + 1);
+			nb = (nb + nbr) % (size);
 		else
 		{
 			nb = nb + nbr;

@@ -36,6 +36,12 @@ bool		GameObject::isDelete() const
 {
 	return (this->_delete);
 }
+
+void		GameObject::setId(uint32_t id)
+{
+	this->_id = id;
+}
+
 void		GameObject::setX(double x)
 {
   _x = x;

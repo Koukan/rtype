@@ -80,7 +80,7 @@ int		SocketDatagram::setTTLMulticast(uint32_t value, InetAddr const &addr)
 	  return -1;
 }
 
-int		SocketDatagram::recv(Packet &packet, int flags, int packsize)
+int		SocketDatagram::recvPacket(Packet &packet, int flags, int packsize)
 {
 	struct sockaddr_storage		tmp;
 	socklen_t					size = sizeof(tmp);
@@ -91,12 +91,12 @@ int		SocketDatagram::recv(Packet &packet, int flags, int packsize)
 	{
 		packet.wr_ptr(packet.getWindex() + ret);
 		packet.getAddr().assign(reinterpret_cast<sockaddr&>(tmp), size);
-		packet.setSize(ret);
+		packet.setSize(packet.getWindex());
 	}
 	return ret;
 }
 
-int		SocketDatagram::send(Packet &packet, int flags, int packsize)
+int		SocketDatagram::sendPacket(Packet &packet, int flags, int packsize)
 {
 	int							tosend = (packsize == -1) ? packet.size() - packet.getWindex() : packsize;
 
