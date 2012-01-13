@@ -63,6 +63,8 @@ set(SRCS
 	SFMLFontProvider.hpp
 	Game.cpp
 	Game.hpp
+	GameButton.cpp
+	GameButton.hpp
 	GameCommand.hpp
 	GameListCommand.hpp
 	GameListCommand.cpp

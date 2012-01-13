@@ -23,6 +23,7 @@ GSMainMenu::~GSMainMenu()
 void	GSMainMenu::onStart()
 {
   // add providers
+  this->addGroup("background", 1, 50000001, 59999999);
   this->addProvider(*(new SFMLSpriteProvider));
   this->addProvider(*(new SFMLFontProvider));
 
@@ -64,6 +65,6 @@ void	GSMainMenu::options()
 }
 void	GSMainMenu::quitGame()
 {
-  	GameStateManager::get().popState();
+	GameStateManager::get().popState();
   	Game::get().quit();
 }

@@ -11,18 +11,13 @@ GUILayout::GUILayout(int x, int y, int width, int height, int padding, GUILayout
     this->unfocus();
 }
 
-#include <iostream>
 GUILayout::GUILayout(int x, int y, int width, int height, int padding, int nbElements)
   : GUIElement(x, y, width, height), _padding(padding), _nbElements(nbElements)
 {
   this->_begin = this->_elements.begin();
   this->_focusElement = this->_elements.begin();
   if (this->_isFocused)
-{
-	std::cout << "gianni est beteuuuh" << std::endl;
 	this->focus();
-	std::cout << "gianni est bete" << std::endl;
-  }
   else
     this->unfocus();
 }

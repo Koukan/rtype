@@ -93,16 +93,16 @@ void    ModuleManager::update(double)
     }
 	Net::Clock::sleep((towait < 0) ? 10 : towait);
   }
-}
-
-void    ModuleManager::destroy()
-{
-   _stop = true;
   for (std::map<std::string, Module*>::iterator it = _modules.begin(); it != _modules.end(); ++it)
   {
     (*it).second->destroy();
     delete (*it).second;
   }
+}
+
+void    ModuleManager::destroy()
+{
+   _stop = true;
 }
 
 Module  *ModuleManager::getModuleByName(std::string const &name) const
