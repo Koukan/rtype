@@ -11,6 +11,7 @@ public:
   void	onStart();
 
   void	createGame();
+  void	inGameTest();
   void	joinGame();
   void	options();
   void	quitGame();

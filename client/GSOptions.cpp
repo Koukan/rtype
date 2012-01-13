@@ -37,7 +37,7 @@ void	GSOptions::onStart()
 
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUILabel("Player Name", "buttonFont", "", layout);
-  this->_name = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 15, NetworkModule::get().getName());
+  this->_name = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 7, NetworkModule::get().getName());
   new GUILabel("IP Address", "buttonFont", "", layout);
   this->_ip = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 15, NetworkModule::get().getIP());
   new GUILabel("Port", "buttonFont", "", layout);
