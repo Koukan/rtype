@@ -13,9 +13,10 @@
 #include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
 #include "Converter.hpp"
+#include "GameButton.hpp"
 
 GSJoinGame::GSJoinGame()
-  : GameState("mainMenu")
+  : GameState("mainMenu"), _isListed(false)
 {
 };
 
@@ -43,9 +44,9 @@ void	GSJoinGame::onStart()
       CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
       CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
       
-      GUILayout *layout = new GUIHLayout(300, 768 / 2, 0, 0, 0);
-      this->_layout = new GUIVLayout(0, 0, 300, 700, 20, layout, 8, "up arrow", "down arrow");
-      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, layout);
+      this->_hlayout = new GUIHLayout(300, 768 / 2, 0, 0, 0);
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_hlayout);
+      this->_vlayout = new GUIVLayout(0, 0, 300, 700, 20, 0, 8, "up arrow", "down arrow");
       
       // tests
       
@@ -62,9 +63,9 @@ void	GSJoinGame::onStart()
     }
   else
     {
-      this->_layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 700, 50);
-      new GUILabel("Connection failed", "buttonFont", "", this->_layout);
-      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_layout);
+      this->_vlayout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 700, 50);
+      new GUILabel("Connection failed", "buttonFont", "", this->_vlayout);
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_vlayout);
     }
 }
 
@@ -78,11 +79,26 @@ bool	GSJoinGame::handleCommand(Command const &command)
   if (command.name == "listGame")
     {
       GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
-      std::string id = Net::Converter::toString(cmd.idGame);
-      std::string nbPlayers = Net::Converter::toString(cmd.nbPlayers);
-      std::string state = Net::Converter::toString(cmd.state);
-
-      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, id + " | Players " + state + "/" + nbPlayers, "buttonFont", *this->_sprite, this->_layout);
+      if (cmd.nbPlayers != 0)
+	{
+	  std::string id = Net::Converter::toString(cmd.idGame);
+	  std::string nbPlayers = Net::Converter::toString(cmd.nbPlayers);
+	  std::string state = Net::Converter::toString(cmd.state);
+	  new GameButton(cmd.idGame, id + " | Players " + state + "/" + nbPlayers, *this->_sprite, this->_vlayout);
+	  this->_isListed = true;
+	}
+      else
+	{
+	  if (this->_isListed)
+	    this->_hlayout->insertElementAtBegin(*this->_vlayout);
+	  else
+	    {
+	      std::cout << "get end of game" << std::endl;
+	      delete this->_vlayout;
+	      GUILabel *label = new GUILabel("No Games", "buttonFont", "", 0);
+	      this->_hlayout->insertElementAtBegin(*label);
+	    }
+	}
       return (true);
     }
   return (false);

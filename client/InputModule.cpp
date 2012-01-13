@@ -138,8 +138,8 @@ void		InputModule::update(double)
 	tmp->Type = static_cast<InputCommand::EventType>(ev.Type);
 	::memcpy(&tmp->Size, &ev.Size, 12);
 	#if (SFML_VERSION_MAJOR != 2)
-		if (tmp->Type == InputCommand::KeyPressed || tmp->Type == InputCommand::KeyReleased)
-			tmp->Key.Code = this->_dict[ev.Key.Code];
+	if ((tmp->Type == InputCommand::KeyPressed || tmp->Type == InputCommand::KeyReleased) && this->_dict.find(ev.Key.Code) != this->_dict.end())
+	  tmp->Key.Code = this->_dict[ev.Key.Code];
 	#endif
  	CommandDispatcher::get().pushCommand(*tmp);
  }
