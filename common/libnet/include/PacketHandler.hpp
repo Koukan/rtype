@@ -206,7 +206,7 @@ private:
 				{
 					Packet	packet(*_inpacket);
 					packet.setSize(_inpacket->getWindex()- sizeof(_left));
-					packet.wr_ptr(sizeof(_left));
+					packet.rd_ptr(sizeof(_left));
 					if (this->handleInputPacket(packet) <= 0)
 						return -1;
 				}
