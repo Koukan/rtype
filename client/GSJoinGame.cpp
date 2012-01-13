@@ -12,6 +12,7 @@
 #include "GameCommand.hpp"
 #include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
+#include "Converter.hpp"
 
 GSJoinGame::GSJoinGame()
   : GameState("mainMenu")
@@ -76,7 +77,12 @@ bool	GSJoinGame::handleCommand(Command const &command)
 {
   if (command.name == "listGame")
     {
-      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie", "buttonFont", *this->_sprite, this->_layout);
+      GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
+      std::string id = Net::Converter::toString(cmd.idGame);
+      std::string nbPlayers = Net::Converter::toString(cmd.nbPlayers);
+      std::string state = Net::Converter::toString(cmd.state);
+
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, id + " | Players " + state + "/" + nbPlayers, "buttonFont", *this->_sprite, this->_layout);
       return (true);
     }
   return (false);
