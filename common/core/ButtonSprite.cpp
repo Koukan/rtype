@@ -30,11 +30,6 @@ ButtonSprite::ButtonSprite(ButtonSprite const &buttonSprite) :
   this->_defaultSprite = gameState->getSprite(_defaultName);
   this->_selectedSprite = gameState->getSprite(_selected);
   this->_clickedSprite = gameState->getSprite(_clicked);
-
-  std::cout << _defaultName << std::endl;
-  std::cout << _selected << std::endl;
-  std::cout << _clicked << std::endl;
-
   gameState->getGUI().registerButtonSprite(*this);
 }
 
