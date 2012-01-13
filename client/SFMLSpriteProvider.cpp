@@ -39,9 +39,7 @@ Sprite		*SFMLSpriteProvider::getSprite(std::string const &name) const
 	SFMLSprite					*sprite = 0;
 	SpritesMap::const_iterator	it = this->_sprites.find(name);
 
-	if (it == this->_sprites.end())
-		sprite = new SFMLSprite;
-	else
+	if (it != this->_sprites.end())
 		sprite = new SFMLSprite(*it->second);
 	return sprite;
 }
