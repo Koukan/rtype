@@ -5,6 +5,9 @@
 #include "Monster.hpp"
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
+#include "SFMLFontProvider.hpp"
+#include "ScrollingSprite.hpp"
+
 
 GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0)
 {
@@ -21,6 +24,37 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputDown, static_cast<int>(Keyboard::Down));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputLeft, static_cast<int>(Keyboard::Left));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputRight, static_cast<int>(Keyboard::Right));
+
+  // add providers
+  this->addProvider(*(new SFMLSpriteProvider));
+  this->addProvider(*(new SFMLFontProvider));
+
+  // load xml
+  this->load("resources/intro.xml");
+
+  // add gui
+
+  Font *fontp1 = this->getFont("buttonFont");
+  fontp1->setText("Player 1");
+  fontp1->setPosition(20, 0);
+  this->addGameObject(fontp1, "score", 20);
+  Font *fontp2 = this->getFont("buttonFont");
+  fontp2->setText("Player 2");
+  fontp2->setPosition(700, 0);
+  this->addGameObject(fontp2, "score", 20);
+  Font *fontp3 = this->getFont("buttonFont");
+  fontp3->setText("Player 3");
+  fontp3->setPosition(20, 700);
+  this->addGameObject(fontp3, "score", 20);
+  Font *fontp4 = this->getFont("buttonFont");
+  fontp4->setText("Player 4");
+  fontp4->setPosition(700, 700);
+  this->addGameObject(fontp4, "score", 20);
+
+  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
+  obj->pushSprite("space background");
+  this->addGameObject(obj, "background", 1);
+
 }
 
 void		GSInGame::update(double elapsedTime)
