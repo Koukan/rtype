@@ -98,6 +98,12 @@ void		GSInGame::onStart()
   sprite = this->getSprite("player1");
   sprite->setPosition(20, 500);
   this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("default shot");
+  sprite->setPosition(120, 500);
+  this->addGameObject(sprite, "player", 10);
+  sprite = this->getSprite("color shot");
+  sprite->setPosition(200, 475);
+  this->addGameObject(sprite, "player", 10);
 }
 
 void		GSInGame::update(double elapsedTime)
