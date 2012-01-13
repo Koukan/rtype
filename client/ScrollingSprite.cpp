@@ -2,7 +2,7 @@
 #include "GameStateManager.hpp"
 
 ScrollingSprite::ScrollingSprite(int x, int y, int width, int height, ScrollingSprite::eDirection dir, double speed)
-  : DrawableObject(x, y), _width(width), _height(height), _speed(speed)
+  : DrawableObject(x, y), _width(width), _height(height), _speed(speed), _offset(0)
 {
   if (dir == ScrollingSprite::HORIZONTAL)
     this->_scrolling = &ScrollingSprite::hScrolling;
@@ -56,8 +56,7 @@ std::list<Sprite *>::const_iterator ScrollingSprite::prevSprite(std::list<Sprite
 void ScrollingSprite::hScrolling(int elapseTime)
 {
   std::list<Sprite *>::const_iterator it = this->_current;
-  static double x = 0;
-  int x2 = x;
+  int x2 = _offset;
 
   while (x2 < this->_width)
     {
@@ -65,21 +64,21 @@ void ScrollingSprite::hScrolling(int elapseTime)
       it = this->nextSprite(it);
       x2 += (*it)->getWidth();
     }
-  x += this->_speed * elapseTime;
-  if (x + (*this->_current)->getWidth() < 0)
+  this->_offset += this->_speed * elapseTime;
+  if (this->_offset + (*this->_current)->getWidth() < 0)
     {
-      while (x + (*this->_current)->getWidth() < 0)
+      while (this->_offset + (*this->_current)->getWidth() < 0)
 	{
 	  this->_current = this->nextSprite(this->_current);
-	  x += (*this->_current)->getWidth();
+	  this->_offset += (*this->_current)->getWidth();
 	}
     }
-  else if (x > 0)
+  else if (this->_offset > 0)
     {
-      while (x > 0)
+      while (this->_offset > 0)
 	{
 	  this->_current = this->prevSprite(this->_current);
-	  x -= (*this->_current)->getWidth();
+	  this->_offset -= (*this->_current)->getWidth();
 	}
     }
 }
@@ -87,8 +86,7 @@ void ScrollingSprite::hScrolling(int elapseTime)
 void ScrollingSprite::vScrolling(int elapseTime)
 {
   std::list<Sprite *>::const_iterator it = this->_current;
-  static double y = 0;
-  int y2 = y;
+  int y2 = this->_offset;
 
   while (y2 < this->_height)
     {
@@ -96,21 +94,21 @@ void ScrollingSprite::vScrolling(int elapseTime)
       it = this->nextSprite(it);
       y2 += (*it)->getHeight();
     }
-  y += this->_speed * elapseTime;
-  if (y + (*this->_current)->getHeight() < 0)
+  this->_offset += this->_speed * elapseTime;
+  if (this->_offset + (*this->_current)->getHeight() < 0)
     {
-      while (y + (*this->_current)->getHeight() < 0)
+      while (this->_offset + (*this->_current)->getHeight() < 0)
 	{
 	  this->_current = this->nextSprite(this->_current);
-	  y += (*this->_current)->getHeight();
+	  this->_offset += (*this->_current)->getHeight();
 	}
     }
-  else if (y > 0)
+  else if (this->_offset > 0)
     {
-      while (y > 0)
+      while (this->_offset > 0)
 	{
 	  this->_current = this->prevSprite(this->_current);
-	  y -= (*this->_current)->getHeight();
+	  this->_offset -= (*this->_current)->getHeight();
 	}
     }
 }

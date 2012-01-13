@@ -39,7 +39,7 @@ void	GSCreateMenu::createParty()
 		std::cout << this->_nbPlayers << std::endl;
 		GameListCommand	*cmd = new GameListCommand("CreateGame", this->_nbPlayers); 
 		CommandDispatcher::get().pushCommand(*cmd);
-		GameStateManager::get().changeState("Loading");
+		GameStateManager::get().changeState("loading");
    }
    else
     {

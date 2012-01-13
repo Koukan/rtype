@@ -10,8 +10,12 @@
 #include "Net.hpp"
 #include "NetworkModule.hpp"
 
-Game::Game() : _quit(false)
+Game::Game() : _quit(false), _preferencesFile(PREF_FILE), _preferences(3)
 {
+	if (this->_preferencesFile.is_open())
+	  this->readPreferencesFile();
+	else
+	  this->savePreferencesFile();
 }
 
 Game::~Game()
@@ -30,10 +34,47 @@ void		Game::init()
   this->loadModule(GameStateManager::get());
   this->loadModule(NetworkModule::get());
   CommandDispatcher::get().registerHandler(GameStateManager::get());
+  GameStateManager::get().loadState<GSLoading>("loading");
   GameStateManager::get().loadState<GSMainMenu>("mainMenu");
+  GameStateManager::get().loadState<GSInGame>("Game");
   GameStateManager::get().pushState("mainMenu");
-  //  GameStateManager::get().loadState<GSInGame>("Game");
-  //  GameStateManager::get().pushState("Game");
+}
+
+void		Game::readPreferencesFile()
+{
+  for (unsigned int i = 0; _preferencesFile.good() && i < _preferences.size(); ++i)
+    {
+      std::getline(_preferencesFile, this->_preferences[i]);
+    }
+}
+
+void		Game::savePreferencesFile(std::string const &name, std::string const &ip, std::string const &port)
+{
+  if (_preferencesFile.is_open())
+    _preferencesFile.close();
+  _preferencesFile.open(PREF_FILE, std::ios_base::out | std::ios_base::trunc);
+  if (_preferencesFile.is_open())
+    {
+		_preferencesFile << name << std::endl;
+		_preferencesFile << ip << std::endl;
+		_preferencesFile << port << std::endl;
+    }
+  _preferencesFile.close();
+}
+
+std::string const &Game::getName() const
+{
+	return (this->_preferences[0]);
+}
+
+std::string const &Game::getIP() const
+{
+	return (this->_preferences[1]);
+}
+
+std::string const &Game::getPort() const
+{
+	return (this->_preferences[2]);
 }
 
 void		Game::quit()

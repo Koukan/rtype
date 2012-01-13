@@ -15,6 +15,11 @@ NetworkModule::~NetworkModule()
 
 void	    NetworkModule::init()
 {
+	this->_name = Game::get().getName();
+	this->_ip = Game::get().getIP();
+	this->_port = Game::get().getPort();
+	if (this->_port.empty())
+		this->_port = "25557";
 }
 
 bool		NetworkModule::connect()
@@ -148,6 +153,11 @@ void		NetworkModule::retrieveCommand(Command const &command)
 	this->sendPacketUDP(packet);
 }
 
+void		NetworkModule::setName(std::string const &name)
+{
+	this->_name = name;
+}
+
 void		NetworkModule::setPort(std::string const &port)
 {
 	this->_port = port;
@@ -156,6 +166,11 @@ void		NetworkModule::setPort(std::string const &port)
 void		NetworkModule::setIP(std::string const &ip)
 {
 	this->_ip = ip;
+}
+
+std::string const	&NetworkModule::getName() const
+{
+	return (this->_name);
 }
 
 std::string const	&NetworkModule::getPort() const

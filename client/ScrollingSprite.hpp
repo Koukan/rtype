@@ -22,10 +22,11 @@ public:
   void setSpeed(int speed);
 
 private:
-  int _width;
-  int _height;
-  double _speed;
-  
+  int		_width;
+  int		_height;
+  double	_speed;
+  double	_offset;
+
   std::list<Sprite *> _sprites;
   std::list<Sprite *>::const_iterator _current;
   void (ScrollingSprite::*_scrolling)(int elapseTime);
