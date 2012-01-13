@@ -45,7 +45,7 @@ bool		Game::addPlayer(Player &player)
 		player.setGame(*this);
 		player.setId(_logic.getLastAttributedId());
 		this->broadcastStatus(player, 1);
-		if (this->_list.size()== this->_maxPlayers)
+		if (this->_list.size() == this->_maxPlayers)
 			this->startGame();
 		return true;
 	}

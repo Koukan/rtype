@@ -5,9 +5,8 @@ GameListCommand::GameListCommand(std::string const &name, uint16_t idGame, uint8
 {
 }
 
-GameListCommand::GameListCommand(std::string const &name, uint8_t nbPlayers,
-								 std::string const &map)
-	: Command(name), nbPlayers(nbPlayers), _map(map)
+GameListCommand::GameListCommand(std::string const &name, uint8_t nbPlayers)
+	: Command(name), nbPlayers(nbPlayers)
 {}
 
 GameListCommand::GameListCommand(std::string const &name, std::string const &login)
