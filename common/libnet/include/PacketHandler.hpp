@@ -42,7 +42,7 @@ public:
 			  top = _outputPacket.front();
 			  if (this->_func == &PacketHandler<IOType>::headerSizeInput)
 			  {
-			  	uint16_t size = top->size();
+			  	uint16_t size = ::htons(top->size());
 				this->send(reinterpret_cast<const char *>(&size), sizeof(size));
 			  }
 			  ret = this->sendPacket(*top);
