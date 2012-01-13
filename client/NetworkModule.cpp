@@ -15,9 +15,9 @@ NetworkModule::~NetworkModule()
 
 void	    NetworkModule::init()
 {
-	this->_name = Game::get().getName();
-	this->_ip = Game::get().getIP();
-	this->_port = Game::get().getPort();
+	this->_name = Game::get().getName().substr(0, Game::NB_CHAR_NAME);
+	this->_ip = Game::get().getIP().substr(0, Game::NB_CHAR_IP);
+	this->_port = Game::get().getPort().substr(0, Game::NB_CHAR_PORT);
 	if (this->_port.empty())
 		this->_port = "25557";
 }
