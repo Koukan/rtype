@@ -110,7 +110,7 @@ void		GSInGame::inputRight(InputCommand const &event)
 
 void		GSInGame::inputEscape(InputCommand const &event)
 {
-  GameStateManager::get().pushState(*(new GSPauseMenu()), GameState::ALL);
+  GameStateManager::get().pushState(*(new GSPauseMenu()), GameState::NONE);
 }
 
 void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy)
