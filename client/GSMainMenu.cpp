@@ -65,6 +65,6 @@ void	GSMainMenu::options()
 }
 void	GSMainMenu::quitGame()
 {
-  	GameStateManager::get().popState();
+	GameStateManager::get().popState();
   	Game::get().quit();
 }

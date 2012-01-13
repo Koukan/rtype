@@ -14,7 +14,10 @@ RendererManager::RendererManager() : GameStateObserver("RendererManager")
 RendererManager::~RendererManager()
 {
 	if (_window)
+	{
 		_window->Close();
+		delete _window;
+	}
 }
 
 void				RendererManager::init()
