@@ -18,6 +18,7 @@ class Game : public Module
 	size_t			nbPlayers() const;
 	bool			isFull() const;
 	uint16_t		getId() const;
+	uint8_t			getMaxPlayers() const;
 	void			sendTCPPacket(Net::Packet &packet, Player *player = 0);
 	void			sendUDPPacket(Net::Packet &packet, Player *player = 0);
 	GameLogic		&getGameLogic();
