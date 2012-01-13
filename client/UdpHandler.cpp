@@ -4,7 +4,7 @@
 #include "CommandDispatcher.hpp"
 #include "GameCommand.hpp"
 
-UdpHandler::UdpHandler()
+UdpHandler::UdpHandler() : _lastPacketId(static_cast<uint32_t>(-1))
 {
 	this->enableWhitelist(true);
 }
@@ -43,14 +43,17 @@ int			UdpHandler::spawn(Net::Packet &packet)
 
 	//if (packet.size() < 24)
 	//return 0;
-	GameCommand *gc = new GameCommand("spawn");
 	packet >> id_packet;
+	if (!this->testPacketId(id_packet))
+		return 1;
+	GameCommand *gc = new GameCommand("spawn");
 	packet >> gc->idObject;
 	packet >> gc->idResource;
 	packet >> gc->x;
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
+	
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
@@ -93,4 +96,29 @@ int         UdpHandler::retrieve(Net::Packet &packet)
 	if (tmp)
 		this->handleOutputPacket(*tmp);*/
 	return 1;
+}
+
+
+bool		UdpHandler::testPacketId(uint32_t id)
+{
+	if (id < _lastPacketId)
+		return false;
+	if (_lastPacketId == static_cast<uint32_t>(-1) || id > _lastPacketId)
+	{
+		uint32_t	val = id - _lastPacketId;
+		if (val == 1)
+		{
+		  _lastPacketId = id;
+		  return true;
+		}
+		GameCommand *gc;
+		for (; val > 1; --val)
+		{
+			gc = new GameCommand("retrieve");
+			gc->idObject = val + _lastPacketId;
+			CommandDispatcher::get().pushCommand(*gc);
+		}
+		CommandDispatcher::get().handle(0);
+	}
+	return true;
 }

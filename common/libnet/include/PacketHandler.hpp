@@ -40,7 +40,12 @@ public:
 		while (!_outputPacket.empty())
 		{
 			  top = _outputPacket.front();
-			  ret = this->send(*top);
+			  if (this->_func == &PacketHandler<IOType>::headerSizeInput)
+			  {
+			  	uint16_t size = ::htons(top->size());
+				this->send(reinterpret_cast<const char *>(&size), sizeof(size));
+			  }
+			  ret = this->sendPacket(*top);
 			  if (ret <= 0)
 			  {
 				  if (ret == -1 && (errno == EWOULDBLOCK || errno == EINTR))
@@ -132,7 +137,7 @@ private:
 		int				ret = 0;
 		do
 		{
-			 ret = this->recv(*_inpacket);
+			 ret = this->recvPacket(*_inpacket);
 			 if (ret > 0)
 			 {
 			  if (_inpacket->isFull())
@@ -182,24 +187,26 @@ private:
 	int					headerSizeInput(Socket &)
 	{
 		int	ret	= 0;
-		std::cout << "input" << std::endl;
 		do
 		{
-			ret = this->recv(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
-			if (_left == 0)
-			{
-				(*_inpacket) >> _left;
-				std::cout << _left << std::endl;
-				return ret;
-			}
+ 			std::cout << "input " << _left << std::endl;
+			ret = this->recvPacket(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
 			if (ret > 0)
 			{
-				std::cout << _left << " " << ret << std::endl;
+				if (_left == 0)
+				{
+					(*_inpacket) >> _left;
+					std::cout << "left to read " << _left << std::endl;
+					return ret;
+				}
+				std::cout << "left and ret " << _left << " " << ret << std::endl;
 				_left -= ret;
+				std::cout << "left and ret2 " << _left << " " << ret << std::endl;
 				if (_left == 0)
 				{
 					Packet	packet(*_inpacket);
-					packet.wr_ptr(sizeof(_left));
+					packet.setSize(_inpacket->getWindex()- sizeof(_left));
+					packet.rd_ptr(sizeof(_left));
 					if (this->handleInputPacket(packet) <= 0)
 						return -1;
 				}

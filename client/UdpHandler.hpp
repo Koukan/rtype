@@ -18,5 +18,9 @@ private:
 	int			score(Net::Packet &packet);
 	int			statement(Net::Packet &packet);
 	int         retrieve(Net::Packet &packet);
+
+	bool		testPacketId(uint32_t id);
+
+	uint32_t	_lastPacketId;
 };
 

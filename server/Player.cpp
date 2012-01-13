@@ -36,7 +36,7 @@ int			Player::handleInputPacket(Net::Packet &packet)
 	uint8_t			type;
 
 	packet >> type;
-	std::cout << "Incoming packet " << int(type) << std::endl;
+	std::cout << "Incoming packet " << int(type) << " of size " << packet.size() << " : " << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
 		return (this->*methods[type])(packet);
@@ -108,7 +108,6 @@ int		Player::connection(Net::Packet &packet)
 
 	std::cout << "connection packet" << std::endl;
 	packet >> _name;
-	answer << static_cast<uint16_t>(sizeof(uint8_t));
 	answer << static_cast<uint8_t>(TCP::ETABLISHED);
 	this->handleOutputPacket(answer);
 	std::cout << "Player " << _name << " connected" << std::endl;
@@ -123,7 +122,6 @@ int		Player::listGame(Net::Packet&)
 	{
 		Net::Packet		tmp(12);
 
-		tmp << static_cast<uint16_t>(sizeof(uint8_t) + sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t));
 		tmp << static_cast<uint8_t>(TCP::LIST_GAMES);
 		tmp << static_cast<uint16_t>(it->second->getId());
 		tmp << static_cast<uint8_t>(it->second->nbPlayers());
@@ -131,7 +129,6 @@ int		Player::listGame(Net::Packet&)
 		this->handleOutputPacket(tmp);
 	}
 	Net::Packet		end(3);
-	end << static_cast<uint16_t>(sizeof(uint8_t));
 	end << static_cast<uint8_t>(TCP::END_LIST_GAME);
 	this->handleOutputPacket(end);
 	return 1;
@@ -186,7 +183,6 @@ int         		Player::sendError(Error::Type error)
 {	
 	Net::Packet		answer(7);
 
-	answer << static_cast<uint16_t>((sizeof(uint8_t) + sizeof(uint16_t)));
 	answer << static_cast<uint8_t>(TCP::TCP_ERROR);
 	answer << static_cast<uint16_t>(error);
 	this->handleOutputPacket(answer);
