@@ -33,6 +33,7 @@ void		GSInGame::onStart()
 
   // load xml
   this->load("resources/intro.xml");
+  this->load("resources/shots.xml");
 
   // add gui
 
@@ -74,6 +75,9 @@ void		GSInGame::onStart()
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
+  Sprite *sprite = this->getSprite("color shot");
+  sprite->setPosition(500, 500);
+  this->addGameObject(sprite, "player", 10);
 }
 
 void		GSInGame::update(double elapsedTime)
@@ -155,7 +159,7 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
-	delete (this->getGameObject(event.idObject));
+	this->getGameObject(event.idObject)->erase();
 }
 
 void		GSInGame::life(GameCommand const &event)

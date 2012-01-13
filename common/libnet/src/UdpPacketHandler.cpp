@@ -22,7 +22,7 @@ int UdpPacketHandler::handleInput(Socket &)
 	int	ret = 0;
 	do
 	{
-		ret = this->recv(*_inpacket);
+		ret = this->recvPacket(*_inpacket);
 		if (ret > 0)
 		{
 			_inpacket->wr_ptr(0);
