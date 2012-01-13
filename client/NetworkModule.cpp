@@ -57,7 +57,7 @@ bool		NetworkModule::handleCommand(Command const &command)
 		{"ConnectGame", &NetworkModule::connectGameCommand},
 		{"Move", &NetworkModule::moveCommand},
 		{"Retrieve", &NetworkModule::retrieveCommand},
-		{"Player", &NetworkModule::playerCommand}
+		{"Player", &NetworkModule::playerCommand},
 		/*must be completed */
 	};
 

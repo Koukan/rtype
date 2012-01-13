@@ -46,6 +46,15 @@ namespace	Error
 	};
 }
 
+namespace	GameStateEnum
+{
+	enum	Type
+	{
+		BEGIN = 0,
+		END = 1
+	};
+}
+
 namespace	PlayerStatus
 {
 	enum	Type
