@@ -2,7 +2,6 @@
 
 #include <list>
 #include "GameState.hpp"
-#include "Ship.hpp" 
 
 class Game;
 
@@ -18,5 +17,4 @@ class GameLogic : public GameState
 
   private:
 	Game				&_game;
-	std::list<Ship>		_ships;
 };

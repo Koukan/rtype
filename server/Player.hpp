@@ -5,6 +5,7 @@
 #include "PacketType.hpp"
 
 class Game;
+class Ship;
 
 class Player : public Net::PacketHandler<>
 {
@@ -18,6 +19,8 @@ class Player : public Net::PacketHandler<>
 	std::string const 	&getName() const;
 	uint32_t			getPacketId();
 	void				resetPacketId();
+	Ship				*getShip() const;
+	void				setShip(Ship *ship);
 	void				addPacket(uint32_t id, Net::Packet &packet);
 	GameLogic       	&getGameLogic();
 	Net::Packet const	*getPacket(uint32_t id) const;
@@ -30,12 +33,14 @@ class Player : public Net::PacketHandler<>
 	int			connectGame(Net::Packet &packet);
 	int			player(Net::Packet &packet);
 	int			createGame(Net::Packet &packet);
+	int			requireResource(Net::Packet &packet);
 
 	int			sendError(Error::Type error);
 	int			sendResources();
 
 	std::string		_name;
 	Game			*_game;
+	Ship			*_ship;
 	uint32_t		_idPacket;
 	uint32_t		_idShip;
 	packetsList		_packets;
