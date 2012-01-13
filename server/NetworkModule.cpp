@@ -102,7 +102,7 @@ void		NetworkModule::spawnCommand(Command const &command)
 	if (cmd.game)
 	{
 		Net::Packet		packet(29);
-		packet << static_cast<uint64_t>(0);
+		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::SPAWN);
 		packet << 0;
 		packet << cmd.idResource;
@@ -122,7 +122,7 @@ void		NetworkModule::destroyCommand(Command const &command)
 	if (cmd.game)
 	{
 		Net::Packet		packet(17);
-		packet << static_cast<uint64_t>(0);
+		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::DESTROY);
 		packet << 0;
 		packet << cmd.idObject;
@@ -137,7 +137,7 @@ void		NetworkModule::moveCommand(Command const &command)
 	if (cmd.game)
 	{
 		Net::Packet		packet(17);
-		packet << static_cast<uint64_t>(0);
+		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::MOVE);
 		packet << cmd.idObject;
 		packet << cmd.x;
