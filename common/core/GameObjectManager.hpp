@@ -21,8 +21,8 @@ class Group
   public:
 	typedef std::set<GameObject*>	gameObjectSet;
 
-    Group(GameState &state, int layer, std::string const &timeEffectGroup, std::string const &name,
-	  bool physic = false);
+    Group(GameState &state, std::string const &name, int layer,
+	  uint32_t begin, uint32_t end, bool physic = false);
     ~Group();
 
     void	addObject(GameObject *object);
@@ -36,6 +36,7 @@ class Group
     void	setTimeEffect(double timeEffect);
     void	setTimeEffectGroup(std::string const &timeEffectGroup);
     void	setFlags(int layer, bool physic, std::string const &timeEffectGroup);
+	void	setRangeId(uint32_t begin, uint32_t end);
 
     //getter
     bool				getPhysic() const;
@@ -46,6 +47,7 @@ class Group
 	QuadTree			&getQuadTree() const;
 	std::string const	&getName() const;
 	GameState			&getState() const;
+	uint32_t			getId() const;
 
   private:
     GameState					&_gameState;
@@ -56,6 +58,9 @@ class Group
     std::stack<GameObject*>		_deletes;
 	QuadTree					*_quadTree;
 	std::string					_name;
+	uint32_t					_beginId;
+	uint32_t					_endId;
+	mutable uint32_t			_currentId;
 };
 
 class GameObjectManager : public TimeEffectManager
@@ -70,7 +75,7 @@ class GameObjectManager : public TimeEffectManager
     virtual ~GameObjectManager();
 
     void	addGroup(const std::string &group, int layer = 1,
-		    	std::string const &timeEffectGroup = "default");
+					 uint32_t beginId = 0, uint32_t endId = 0);
     bool	addGameObject(GameObject *object, const std::string &group = "default",
 		    	int layer = 1);
     void	removeGameObject(GameObject *object);
@@ -97,11 +102,13 @@ class GameObjectManager : public TimeEffectManager
 	uint32_t					getLastAttributedId() const;
 
   private:
-	typedef	std::map<uint32_t, GameObject*>	IdMap;
+	typedef	std::map<uint32_t, GameObject*>				IdMap;
+	typedef	std::list<std::pair<uint32_t, uint32_t> >	Range;
 
 	uint32_t					_id;
     collisionGroupsMap			_collisionGroups;
 	IdMap						_objects;
+	Range						_range;
     groupsMap					_groups;
     groupsDisplay				_display;
 	std::set<GameObject*>		_deleteList;
