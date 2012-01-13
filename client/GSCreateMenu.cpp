@@ -57,7 +57,7 @@ void	GSCreateMenu::onStart()
   ButtonSprite *rightArrow = new ButtonSprite("right list arrow", "right list arrow", "pressed right list arrow");
 
   new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::returnMainMenu, "Return to Menu", "buttonFont", *sprite, layout);
-  new GUILabel("Player's number", "buttonFont", "little button", layout);
+  new GUILabel("Player's number", "buttonFont", "", layout);
   GUIList<GSCreateMenu> *guilist = new GUIList<GSCreateMenu>(*this, &GSCreateMenu::nbPlayerList, "buttonFont", *leftArrow, *sprite, *rightArrow, layout);
   guilist->addLabel("1 Player");
   guilist->addLabel("2 Players");
