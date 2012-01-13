@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+<sprite name="color shot">
+  <image file="resources/sprite/r-typesheet2.png">
+    <grid pos="37,470"
+	  size="64,32"
+	  array="4,1"
+	  spacing="2,0"
+    />
+  </image>
+  <animation
+      speed="500"
+		loop="yes"
+   />
+  <scale x="2.0" y="2.0" />
+</sprite>
+</resources>
