@@ -12,6 +12,7 @@
 #include "GameCommand.hpp"
 #include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
+#include "Converter.hpp"
 
 GSJoinGame::GSJoinGame()
   : GameState("mainMenu")
@@ -40,7 +41,7 @@ void	GSJoinGame::onStart()
   if (NetworkModule::get().connect())
     {
       CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
-      CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
+	  //CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
       
       GUILayout *layout = new GUIHLayout(300, 768 / 2, 0, 0, 0);
       this->_layout = new GUIVLayout(0, 0, 300, 700, 20, layout, 8, "up arrow", "down arrow");
@@ -76,7 +77,12 @@ bool	GSJoinGame::handleCommand(Command const &command)
 {
   if (command.name == "listGame")
     {
-      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie", "buttonFont", *this->_sprite, this->_layout);
+      GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
+      std::string id = Net::Converter::toString(cmd.idGame);
+      std::string nbPlayers = Net::Converter::toString(cmd.nbPlayers);
+      std::string state = Net::Converter::toString(cmd.state);
+
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, id + " | Players " + state + "/" + nbPlayers, "buttonFont", *this->_sprite, this->_layout);
       return (true);
     }
   return (false);
