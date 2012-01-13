@@ -1,6 +1,7 @@
 #include <iostream>
 #include "RectHitBox.hpp"
 #include "GSInGame.hpp"
+#include "GSPauseMenu.hpp"
 #include "Input.hpp"
 #include "Monster.hpp"
 #include "CommandDispatcher.hpp"
@@ -20,6 +21,7 @@ GSInGame::~GSInGame()
 
 void		GSInGame::onStart()
 {
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputEscape, static_cast<int>(Keyboard::Escape));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputUp, static_cast<int>(Keyboard::Up));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputDown, static_cast<int>(Keyboard::Down));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputLeft, static_cast<int>(Keyboard::Left));
@@ -104,6 +106,11 @@ void		GSInGame::inputLeft(InputCommand const &event)
 void		GSInGame::inputRight(InputCommand const &event)
 {
 	this->moveObject(event, 0, 0, 1, 0);
+}
+
+void		GSInGame::inputEscape(InputCommand const &event)
+{
+  GameStateManager::get().pushState(*(new GSPauseMenu()), GameState::NONE);
 }
 
 void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy)
