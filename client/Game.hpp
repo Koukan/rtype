@@ -19,7 +19,8 @@ public:
   void		quit();
 
   void		readPreferencesFile();
-  void		savePreferencesFile(std::string const &ip = "", std::string const &port = "");
+  void		savePreferencesFile(std::string const &name = "", std::string const &ip = "", std::string const &port = "");
+  std::string const &getName() const;
   std::string const &getIP() const;
   std::string const &getPort() const;
 

@@ -10,7 +10,7 @@
 #include "Net.hpp"
 #include "NetworkModule.hpp"
 
-Game::Game() : _quit(false), _preferencesFile(PREF_FILE), _preferences(2)
+Game::Game() : _quit(false), _preferencesFile(PREF_FILE), _preferences(3)
 {
 	if (this->_preferencesFile.is_open())
 	  this->readPreferencesFile();
@@ -48,27 +48,33 @@ void		Game::readPreferencesFile()
     }
 }
 
-void		Game::savePreferencesFile(std::string const &ip, std::string const &port)
+void		Game::savePreferencesFile(std::string const &name, std::string const &ip, std::string const &port)
 {
   if (_preferencesFile.is_open())
     _preferencesFile.close();
   _preferencesFile.open(PREF_FILE, std::ios_base::out | std::ios_base::trunc);
   if (_preferencesFile.is_open())
     {
+		_preferencesFile << name << std::endl;
 		_preferencesFile << ip << std::endl;
 		_preferencesFile << port << std::endl;
     }
   _preferencesFile.close();
 }
 
-std::string const &Game::getIP() const
+std::string const &Game::getName() const
 {
 	return (this->_preferences[0]);
 }
 
-std::string const &Game::getPort() const
+std::string const &Game::getIP() const
 {
 	return (this->_preferences[1]);
+}
+
+std::string const &Game::getPort() const
+{
+	return (this->_preferences[2]);
 }
 
 void		Game::quit()

@@ -36,7 +36,8 @@ void	GSOptions::onStart()
   layout->setY((768 - layout->getHeight()) / 2);
 
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
-
+  new GUILabel("Player Name", "buttonFont", "", layout);
+  this->_name = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 15, NetworkModule::get().getName());
   new GUILabel("IP Address", "buttonFont", "", layout);
   this->_ip = new GUITextBox<GSOptions>("buttonFont", *sprite, layout, 15, NetworkModule::get().getIP());
   new GUILabel("Port", "buttonFont", "", layout);
@@ -53,6 +54,6 @@ void	GSOptions::returnMenu()
 {
   NetworkModule::get().setIP(this->_ip->getText());
   NetworkModule::get().setPort(this->_port->getText());
-  Game::get().savePreferencesFile(this->_ip->getText(), this->_port->getText());
+  Game::get().savePreferencesFile(this->_name->getText(), this->_ip->getText(), this->_port->getText());
   GameStateManager::get().popState();
 }
