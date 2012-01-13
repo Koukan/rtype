@@ -6,6 +6,7 @@
 #include "ButtonSprite.hpp"
 #include "GUIElement.hpp"
 #include "GUITextBoxCharMap.hpp"
+#include "GameStateManager.hpp"
 
 template <typename T>
 class GUITextBox : public GUIElement {
@@ -13,16 +14,37 @@ public:
   GUITextBox(std::string const & font, ButtonSprite &sprite, int x, int y, int maxChar = 100, std::string const &text = "")
     : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(0), _func(0), _maxChar(maxChar), _text(text)
   {
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
+  }
+
+  GUITextBox(std::string const & font, ButtonSprite &sprite, GUILayout *layout, int maxChar = 100, std::string const &text = "")
+    : GUIElement(0, 0, sprite.getWidth(), sprite.getHeight(), layout), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(0), _func(0), _maxChar(maxChar), _text(text)
+  {
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   GUITextBox(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &sprite, int x, int y, int maxChar = 100, std::string const &text = "")
     : GUIElement(x, y, sprite.getWidth(), sprite.getHeight()), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func), _maxChar(maxChar), _text(text)
   {
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   GUITextBox(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &sprite, GUILayout *layout, int maxChar = 100, std::string const &text = "")
     : GUIElement(0, 0, sprite.getWidth(), sprite.getHeight(), layout), _sprite(sprite), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func), _maxChar(maxChar), _text(text)
   {
+    if (this->_isFocused)
+      this->focus();
+    else
+      this->unfocus();
   }
 
   ~GUITextBox()
