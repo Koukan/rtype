@@ -14,8 +14,6 @@ public:
 
 private:
 	void			escape(const InputCommand &event);
-	//void			click(const CL_InputEvent &event);
-	void			slowTest(const InputCommand &event);
 	void			buttonClick();
 	void			listChoice(std::string const &name);
 
