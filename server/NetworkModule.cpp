@@ -198,8 +198,6 @@ void        NetworkModule::statusCommand(Command const &command)
 		packet << static_cast<uint16_t>(cmd.idObject);
 	   	packet << cmd.player->getName();
 		packet << cmd.player->getId();
-		packet.wr_ptr(0);
-		packet << packet.size() - sizeof(uint16_t);
 		this->sendTCPPacket(packet, cmd.game->getPlayers(), cmd.player);
 	}
 }
