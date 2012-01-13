@@ -27,6 +27,7 @@ int			Server::handleInputPacket(Net::Packet &packet)
 			NULL,
 			&Server::treatPlayerPacket,
 			NULL
+
 			/* must be completed */
 	};
 	uint8_t			type;

@@ -88,10 +88,10 @@ void		NetworkModule::connectionCommand(Command const &command)
 void		NetworkModule::createGameCommand(Command const &command)
 {
 	GameListCommand const &cmd = static_cast<GameListCommand const &>(command);
-	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t) + cmd._map.length() + 1);
+	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint8_t));
 
 	packet << static_cast<uint8_t>(TCP::CREATE_GAME);
-	packet << cmd._map;
+	packet << static_cast<uint8_t>(cmd.nbPlayers);
 	this->_server->handleOutputPacket(packet);
 }
 

@@ -1,4 +1,5 @@
 #include <sstream>
+#include "CommandDispatcher.hpp"
 #include "GSCreateMenu.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
@@ -9,6 +10,9 @@
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
 #include "Game.hpp"
+#include "GameListCommand.hpp"
+#include "NetworkModule.hpp"
+#include "GSManager.hpp"
 
 GSCreateMenu::GSCreateMenu()
   : GameState("mainMenu")
@@ -26,11 +30,20 @@ void	GSCreateMenu::returnMainMenu()
 
 void	GSCreateMenu::createParty()
 {
-  std::stringstream ss;
+   if (NetworkModule::get().connect())
+    {
+		std::stringstream ss;
 
-  ss.clear();
-  ss << this->_nbPlayers;
-  std::cout << this->_nbPlayers << std::endl;
+		ss.clear();
+		ss << this->_nbPlayers;
+		std::cout << this->_nbPlayers << std::endl;
+		GameListCommand	*cmd = new GameListCommand("CreateGame", this->_nbPlayers); 
+		CommandDispatcher::get().pushCommand(*cmd);
+		GameStateManager::get().changeState("Loading");
+   }
+   else
+    {
+    }
 }
 
 void	GSCreateMenu::nbPlayerList(std::string const &nb)
