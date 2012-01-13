@@ -10,7 +10,7 @@ template <typename T>
 class GUIList : public GUIElement {
 public:
   GUIList(std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, int x, int y)
-    : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(0), _func(0)
+    : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth() + 10, middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(0), _func(0)
   {
     this->_focusLabel = this->_labels.begin();
     if (this->_isFocused)
@@ -20,7 +20,7 @@ public:
   }
 
   GUIList(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, int x, int y)
-    : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
+    : GUIElement(x, y, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth() + 10, middle_sprite.getHeight()),  _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
   {
     this->_focusLabel = this->_labels.begin();
     if (this->_isFocused)
@@ -30,7 +30,7 @@ public:
   }
 
   GUIList(T &instance, void (T::*func)(std::string const &), std::string const & font, ButtonSprite &left_arrow, ButtonSprite &middle_sprite, ButtonSprite &right_arrow, GUILayout *layout)
-    : GUIElement(0, 0, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth(), middle_sprite.getHeight(), layout), _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
+    : GUIElement(0, 0, left_arrow.getWidth() + middle_sprite.getWidth() + right_arrow.getWidth() + 10, middle_sprite.getHeight(), layout), _leftArrow(left_arrow), _middleSprite(middle_sprite), _rightArrow(right_arrow), _font(GameStateManager::get().getCurrentState().getFont(font)), _instance(&instance), _func(func)
   {
     this->_focusLabel = this->_labels.begin();
     if (this->_isFocused)
@@ -109,9 +109,10 @@ public:
 
   virtual void draw(double elapseTime)
   {
-    this->_leftArrow.draw(this->_x, this->_y, elapseTime);
-    this->_middleSprite.draw(this->_x + this->_leftArrow.getWidth(), this->_y, elapseTime);
-    this->_rightArrow.draw(this->_x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth(), this->_y, elapseTime);
+    this->_leftArrow.draw(this->_x, this->_y + (this->_middleSprite.getHeight() - this->_leftArrow.getHeight()) / 2, elapseTime);
+    this->_middleSprite.draw(this->_x + this->_leftArrow.getWidth() + 5, this->_y, elapseTime);
+    this->_rightArrow.draw(this->_x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth() + 10, this->_y
+			   + (this->_middleSprite.getHeight() - this->_rightArrow.getHeight()) / 2, elapseTime);
     if (this->_font)
       {
 	this->_font->setText(*(this->_focusLabel));
@@ -122,9 +123,10 @@ public:
 
   virtual void draw(int x, int y, double elapseTime)
   {
-    this->_leftArrow.draw(x, y, elapseTime);
-    this->_middleSprite.draw(x + this->_leftArrow.getWidth(), y, elapseTime);
-    this->_rightArrow.draw(x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth(), y, elapseTime);
+    this->_leftArrow.draw(x, y + (this->_middleSprite.getHeight() - this->_leftArrow.getHeight()) / 2, elapseTime);
+    this->_middleSprite.draw(x + this->_leftArrow.getWidth() + 5, y, elapseTime);
+    this->_rightArrow.draw(x + this->_middleSprite.getWidth() + this->_leftArrow.getWidth() + 10, y
+			   + (this->_middleSprite.getHeight() - this->_rightArrow.getHeight()) / 2, elapseTime);
     if (this->_font)
       {
 	this->_font->setText(*(this->_focusLabel));

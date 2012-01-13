@@ -31,26 +31,40 @@ void	GSJoinGame::onStart()
   // load xml
   this->load("resources/intro.xml");
 
-  // add gui
-
-  this->_layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
-  this->_layout->setY((768 - this->_layout->getHeight()) / 2);
-
-  this->_sprite = new ButtonSprite("default button", "selected button", "pressed button");
-  new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_layout);
-
   // add Scrolling background
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
+  this->_sprite = new ButtonSprite("default button", "selected button", "pressed button");
   if (NetworkModule::get().connect())
-  {
-	CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
-    CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
-  }
+    {
+      CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", "TEST")));
+      CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
+      
+      GUILayout *layout = new GUIHLayout(300, 768 / 2, 0, 0, 0);
+      this->_layout = new GUIVLayout(0, 0, 300, 700, 20, layout, 8, "up arrow", "down arrow");
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, layout);
+      
+      // tests
+      
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 1", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 2", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 3", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 4", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 5", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 6", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 7", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 8", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 9", "buttonFont", *this->_sprite, this->_layout);
+      // new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Partie 10", "buttonFont", *this->_sprite, this->_layout);
+    }
   else
-    new GUILabel("Connection failed", "buttonFont", "", this->_layout);
+    {
+      this->_layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 700, 50);
+      new GUILabel("Connection failed", "buttonFont", "", this->_layout);
+      new GUIButton<GSJoinGame>(*this, &GSJoinGame::returnMainMenu, "Return", "buttonFont", *this->_sprite, this->_layout);
+    }
 }
 
 void	GSJoinGame::returnMainMenu()

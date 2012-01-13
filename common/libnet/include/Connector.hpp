@@ -25,6 +25,7 @@ public:
 
 	~Connector()
 	{
+	  if (_reactor)
 		_reactor->removeHandler(_connector);
 	}
 

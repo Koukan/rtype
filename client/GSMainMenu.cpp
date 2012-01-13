@@ -31,7 +31,7 @@ void	GSMainMenu::onStart()
 
   // add gui
 
-  GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
+  GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20, 100, "up arrow", "down arrow");
   layout->setY((768 - layout->getHeight()) / 2);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", *sprite, layout);

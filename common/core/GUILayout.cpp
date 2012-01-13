@@ -14,6 +14,7 @@ GUILayout::GUILayout(int x, int y, int width, int height, int padding, GUILayout
 GUILayout::GUILayout(int x, int y, int width, int height, int padding, int nbElements)
   : GUIElement(x, y, width, height), _padding(padding), _nbElements(nbElements)
 {
+  this->_begin = this->_elements.begin();
   this->_focusElement = this->_elements.begin();
   if (this->_isFocused)
     this->focus();
@@ -49,10 +50,12 @@ void GUILayout::insertElementAtBegin(GUIElement &elem)
 {
   this->_elements.push_front(&elem);
   this->_begin = this->_elements.begin();
-  if (this->_focusElement == this->_elements.end())
+  if (this->_focusElement == this->_elements.end() || !(*this->_focusElement)->getEnable())
     {
-      this->_focusElement = this->_elements.begin();
-      (*this->_elements.begin())->focus();
+      std::list<GUIElement *>::iterator it = this->_elements.begin();
+      for (; it != this->_elements.end() && !(*it)->getEnable(); ++it);
+      this->_focusElement = it;
+      (*it)->focus();
     }
 }
 
@@ -60,10 +63,12 @@ void GUILayout::insertElementAtEnd(GUIElement &elem)
 {
   this->_elements.push_back(&elem);
   this->_begin = this->_elements.begin();
-  if (this->_focusElement == this->_elements.end())
+  if (this->_focusElement == this->_elements.end() || !(*this->_focusElement)->getEnable())
     {
-      this->_focusElement = this->_elements.begin();
-      (*this->_elements.begin())->focus();
+      std::list<GUIElement *>::iterator it = this->_elements.begin();
+      for (; it != this->_elements.end() && !(*it)->getEnable(); ++it);
+      this->_focusElement = it;
+      (*it)->focus();
     }
 }
 
@@ -99,12 +104,19 @@ void GUILayout::prevElement()
 
 void GUILayout::nextElement()
 {
-  int nb;
+  int nb = 0;
 
-  //for (std::list<GUIElement *>::iterator it = this->_begin; it != this->_elements.end() && nb < this->_nbElements; ++it)
-  //++nb;
-  //if (nb == this->_nbElements)
-  //++this->_begin;
+  std::list<GUIElement *>::iterator it2 = this->_focusElement;
+  ++it2;
+  for (std::list<GUIElement *>::iterator it = this->_begin; it != it2 && nb < this->_nbElements; ++it)
+    ++nb;
+  if (nb == this->_nbElements)
+    {
+      if (it2 == this->_elements.end())
+	this->_begin = this->_elements.begin();
+      else
+	++this->_begin;
+    }
   if (this->_focusElement == this->_elements.end())
     this->_focusElement = this->_elements.begin();
   else if (this->_focusElement == --this->_elements.end())

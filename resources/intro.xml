@@ -29,5 +29,30 @@
     <image file="resources/sprite/selected button.png" />
  </sprite>
 
+ <sprite name="up arrow">
+    <image file="resources/sprite/up arrow.png" />
+ </sprite>
+ <sprite name="down arrow">
+    <image file="resources/sprite/down arrow.png" />
+ </sprite>
+ <sprite name="left arrow">
+    <image file="resources/sprite/left arrow.png" />
+ </sprite>
+ <sprite name="right arrow">
+    <image file="resources/sprite/right arrow.png" />
+ </sprite>
+ <sprite name="left list arrow">
+    <image file="resources/sprite/left list arrow.png" />
+ </sprite>
+ <sprite name="right list arrow">
+    <image file="resources/sprite/right list arrow.png" />
+ </sprite>
+ <sprite name="pressed left list arrow">
+    <image file="resources/sprite/pressed left list arrow.png" />
+ </sprite>
+ <sprite name="pressed right list arrow">
+    <image file="resources/sprite/pressed right list arrow.png" />
+ </sprite>
+
  <font name="buttonFont" file="resources/font/TechnoHideo.ttf" size="30"/>
 </resources>

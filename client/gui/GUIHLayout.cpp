@@ -33,18 +33,24 @@ void GUIHLayout::draw(double elapseTime)
 {
   int x = this->_x;
   int y = this->_y;
-  for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
+  int nb = 0;
+
+  for (std::list<GUIElement *>::iterator it = this->_begin; it != this->_elements.end() && nb < this->_nbElements; ++it)
     {
       (*it)->draw(x, y - (*it)->getHeight() / 2, elapseTime);
       x += (*it)->getWidth() + this->_padding;
+      ++nb;
     }
 }
 
 void GUIHLayout::draw(int x, int y, double elapseTime)
 {
-  for (std::list<GUIElement *>::iterator it = this->_elements.begin(); it != this->_elements.end(); ++it)
+  int nb = 0;
+
+  for (std::list<GUIElement *>::iterator it = this->_begin; it != this->_elements.end() && nb < this->_nbElements; ++it)
     {
       (*it)->draw(x, y - (*it)->getHeight() / 2, elapseTime);
       x += (*it)->getWidth() + this->_padding;
+      ++nb;
     }
 }
