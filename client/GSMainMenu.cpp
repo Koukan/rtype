@@ -23,6 +23,7 @@ GSMainMenu::~GSMainMenu()
 void	GSMainMenu::onStart()
 {
   // add providers
+  this->addGroup("background", 1, 50000001, 59999999);
   this->addProvider(*(new SFMLSpriteProvider));
   this->addProvider(*(new SFMLFontProvider));
 

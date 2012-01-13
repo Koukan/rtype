@@ -10,7 +10,7 @@ class GameObject
 {
 public:
 	GameObject(double x = 0, double y = 0, Group *group = 0);
-	virtual ~GameObject(void);
+	virtual ~GameObject();
 
 	// setter
 	void				setId(uint32_t id);
