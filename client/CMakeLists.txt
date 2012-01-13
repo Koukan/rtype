@@ -64,12 +64,16 @@ set(SRCS
 	Game.cpp
 	Game.hpp
 	GameCommand.hpp
+	GameListCommand.hpp
+	GameListCommand.cpp
 	GSInGame.cpp
 	GSInGame.hpp
 	GSJoinGame.cpp
 	GSJoinGame.hpp
 	GSLoading.cpp
 	GSLoading.hpp
+	GSOptions.cpp
+	GSOptions.hpp
 	GSMainMenu.cpp
 	GSMainMenu.hpp
 	GSCreateMenu.cpp

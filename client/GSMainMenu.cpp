@@ -1,5 +1,7 @@
 #include "GSMainMenu.hpp"
 #include "GSCreateMenu.hpp"
+#include "GSJoinGame.hpp"
+#include "GSOptions.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
 #include "GUIButton.hpp"
@@ -8,7 +10,6 @@
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
 #include "Game.hpp"
-#include "GSJoinGame.hpp"
 
 GSMainMenu::GSMainMenu()
   : GameState("mainMenu")
@@ -35,6 +36,7 @@ void	GSMainMenu::onStart()
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", *sprite, layout);
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", *sprite, layout);
+  new GUIButton<GSMainMenu>(*this, &GSMainMenu::options, "Options", "buttonFont", *sprite, layout);
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::quitGame, "Quit", "buttonFont", *sprite, layout);
 
   // add Scrolling background
@@ -55,6 +57,11 @@ void	GSMainMenu::joinGame()
   GameStateManager::get().pushState("joinGame");
 }
 
+void	GSMainMenu::options()
+{
+  GameStateManager::get().loadState<GSOptions>("options");
+  GameStateManager::get().pushState("options");
+}
 void	GSMainMenu::quitGame()
 {
   	GameStateManager::get().popState();
