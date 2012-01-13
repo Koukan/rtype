@@ -51,7 +51,6 @@ bool		Server::treatEtablishedPacket(Net::Packet &packet)
 	uint8_t		type;
 
 	packet >> type;
-	
 	return true;
 }
 

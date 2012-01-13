@@ -73,7 +73,12 @@ void GUILayout::prevElement()
   else
     --this->_focusElement;
   if (this->_focusElement != this->_elements.end())
-    (*this->_focusElement)->focus();
+    {
+      if ((*this->_focusElement)->getEnable() == false)
+	this->prevElement();
+      else
+	(*this->_focusElement)->focus();
+    }
 }
 
 void GUILayout::nextElement()
@@ -91,7 +96,12 @@ void GUILayout::nextElement()
       ++this->_focusElement;
     }
   if (this->_focusElement != this->_elements.end())
-    (*this->_focusElement)->focus();
+    {
+      if ((*this->_focusElement)->getEnable() == false)
+	  this->nextElement();
+      else
+	(*this->_focusElement)->focus();
+    }
 }
 
 bool GUILayout::handleGUICommand(InputCommand const &command)
