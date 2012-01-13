@@ -18,8 +18,8 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	virtual void		update(double elapsedTime);
 	virtual void		destroy();
 	virtual bool		handleCommand(Command const &command);
-	void			setPort(std::string const &port);
-	void			setIP(std::string const &ip);
+	void				setPort(std::string const &port);
+	void				setIP(std::string const &ip);
 	std::string const	&getPort() const;
 	std::string const	&getIP() const;
 
@@ -47,11 +47,11 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 		void	(NetworkModule::*method)(Command const &);
 	};
 
-	Net::Reactor	       	*_reactor;
+	DefaultSyncPolicy	    _reactor;
+	UdpHandler	       		_udp;	
 	Net::Connector<Server>	_connector;
-	UdpHandler	       	_udp;
-	std::string	       	_port;
-	std::string	       	_ip;
+	std::string	       		_port;
+	std::string	       		_ip;	
 	Net::SetupNetwork      	_init;
-	Server*				_server;
+	Server*					_server;
 };

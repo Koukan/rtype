@@ -4,32 +4,31 @@
 #include "PacketCommand.hpp"
 #include "PacketType.hpp"
 
-NetworkModule::NetworkModule(void) : Module("NetworkModule", 20), _reactor(0)
+NetworkModule::NetworkModule() : Module("NetworkModule", 20)
 {
 	CommandDispatcher::get().registerHandler(*this);
 }
 
-NetworkModule::~NetworkModule(void)
+NetworkModule::~NetworkModule()
 {
-
 }
 
-void	       	NetworkModule::init(void)
+void	    NetworkModule::init()
 {
-	this->_reactor = new DefaultSyncPolicy;
 }
 
 bool		NetworkModule::connect()
 {
   Net::InetAddr		addr(this->_ip, this->_port);
 
-  if (this->_connector.setup(addr, *this->_reactor, false) < 0)
+  if (this->_connector.setup(addr, this->_reactor, false) < 0)
   {
 	Net::printLastError();
 	return (false);
   }
-  Net::InetAddr     tmp(this->_port);
-  this->_udp.setReactor(*this->_reactor);
+  Net::InetAddr     tmp(this->_port); 
+  this->_udp.close();
+  this->_udp.setReactor(this->_reactor);
   if (this->_udp.setup(tmp) != -1)
     {
       this->_udp.init();
@@ -42,13 +41,11 @@ bool		NetworkModule::connect()
 
 void	       	NetworkModule::update(double)
 {
-	if (this->_reactor)
-		this->_reactor->waitForEvent(0);
+	this->_reactor.waitForEvent(0);
 }
 
 void	       	NetworkModule::destroy(void)
 {
-
 }
 
 bool		NetworkModule::handleCommand(Command const &command)

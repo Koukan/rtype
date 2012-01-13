@@ -25,6 +25,8 @@ Socket::~Socket()
 
 int	Socket::open(InetAddr const &addr, int type, int protocol)
 {
+  if (_handle != INVALID_HANDLE)
+	this->close();
   _handle = ::socket(addr.getFamily(), type, protocol);
   if (_handle == INVALID_HANDLE)
 	  return -1;
