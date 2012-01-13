@@ -14,10 +14,37 @@ set(NET_INCLUDE_DIR "include/")
 set(NET_MUTEX_INCLUDE_DIR "include/thread/")
 set(NET_MUTEX_SRCS_DIR "src/thread/")
 
-file(
-	GLOB_RECURSE
-	INCLUDES_NET
-	NET_INCLUDE_DIR)
+set(INCLUDES_NET
+	${NET_INCLUDE_DIR}Acceptor.hpp
+	${NET_INCLUDE_DIR}Clock.hpp
+	${NET_INCLUDE_DIR}Connector.hpp
+	${NET_INCLUDE_DIR}Converter.hpp
+	${NET_INCLUDE_DIR}DataBlock.hpp
+	${NET_INCLUDE_DIR}EpollPolicy.hpp
+	${NET_INCLUDE_DIR}Error.hpp
+	${NET_INCLUDE_DIR}IOVec.hpp
+	${NET_INCLUDE_DIR}InetAddr.hpp
+	${NET_INCLUDE_DIR}KqueuePolicy.hpp
+	${NET_INCLUDE_DIR}Net.hpp
+	${NET_INCLUDE_DIR}NetDef.hpp
+	${NET_INCLUDE_DIR}NetHandler.hpp
+	${NET_INCLUDE_DIR}Packet.hpp
+	${NET_INCLUDE_DIR}PacketHandler.hpp
+	${NET_INCLUDE_DIR}PollPolicy.hpp
+	${NET_INCLUDE_DIR}Reactor.hpp
+	${NET_INCLUDE_DIR}Service.hpp
+	${NET_INCLUDE_DIR}SetupNetwork.hpp
+	${NET_INCLUDE_DIR}Socket.hpp
+	${NET_INCLUDE_DIR}SocketAcceptor.hpp
+	${NET_INCLUDE_DIR}SocketConnector.hpp
+	${NET_INCLUDE_DIR}SocketDatagram.hpp
+	${NET_INCLUDE_DIR}SocketIO.hpp
+	${NET_INCLUDE_DIR}SocketStream.hpp
+	${NET_INCLUDE_DIR}SyncPolicy.hpp
+	${NET_INCLUDE_DIR}UdpPacketHandler.hpp
+	${NET_INCLUDE_DIR}WFMOPolicy.hpp
+	${NET_INCLUDE_DIR}network.h
+)
 
 set(SRCS_NET
 	${INCLUDES_NET}
