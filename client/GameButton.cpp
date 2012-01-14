@@ -19,5 +19,5 @@ void GameButton::push()
   command->idObject = this->_id;
 
   CommandDispatcher::get().pushCommand(*command);
-  GameStateManager::get().pushState(*(new GSLoading(this->_nbPlayers)));
+  GameStateManager::get().changeState(*(new GSLoading(this->_nbPlayers)));
 }

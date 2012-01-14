@@ -1,3 +1,4 @@
+#include <iostream>
 #include "GSJoinGame.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
@@ -76,7 +77,6 @@ void	GSJoinGame::returnMainMenu()
   	GameStateManager::get().popState();
 }
 
-#include <iostream>
 bool	GSJoinGame::handleCommand(Command const &command)
 {
   if (command.name == "listGame")

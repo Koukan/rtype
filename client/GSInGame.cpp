@@ -13,7 +13,7 @@
 #include "NetworkModule.hpp"
 
 
-GSInGame::GSInGame(int nbPlayers) : GameState("Game"), _idPlayer(0), _nbPlayers(nbPlayers), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont")), _nameFonts(4, this->getFont("buttonFont")), _ship(0)
+GSInGame::GSInGame(int nbPlayers) : GameState("Game"), _idPlayer(0), _nbPlayers(nbPlayers), _scores(4, 0), _scoreFonts(nbPlayers, this->getFont("buttonFont")), _nameFonts(nbPlayers, this->getFont("buttonFont")), _ship(0)
 {
 }
 
@@ -50,39 +50,9 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputSpace, static_cast<int>(Keyboard::Space));
   // add gui
 
-  this->displayScores();
-
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
-
-  //this->setGroup("player", 10, false, "default");
-  // sprite->setPosition(500, 600);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("enemy fish");
-  // sprite->setPosition(500, 500);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("enemy star");
-  // sprite->setPosition(500, 370);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("enemy bomb");
-  // sprite->setPosition(500, 300);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("enemy plane");
-  // sprite->setPosition(500, 200);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("enemy walkbrown");
-  // sprite->setPosition(500, 100);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("player1");
-  // sprite->setPosition(20, 500);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("default shot");
-  // sprite->setPosition(120, 500);
-  // this->addGameObject(sprite, "player", 10);
-  // sprite = this->getSprite("color shot");
-  // sprite->setPosition(200, 475);
-  // this->addGameObject(sprite, "player", 10);
 
   // HitBox *hitbox = new RectHitBox(0, 0, 2, 2);
   // std::cout << "add ship" << std::endl;
@@ -128,40 +98,20 @@ void		GSInGame::displayScores()
     {
       ss.clear();
       ss << "P" << (i+1);
-      this->_nameFonts[0] = this->getFont("buttonFont");
-      this->_nameFonts[0]->setText(ss.str());
-      this->_nameFonts[0]->setPosition(1024 / (this->_nbPlayers + 1) - this->_nameFonts[0]->getWidth() / 2, 680);
-      this->addGameObject(this->_nameFonts[0], "score", 20);
+      std::cout << "NameFont : " << this->_nameFonts[i] << std::endl;
+      this->_nameFonts[i] = this->getFont("buttonFont");
+      this->_nameFonts[i]->setText(ss.str());
+      this->_nameFonts[i]->setPosition((1024 / (this->_nbPlayers + 1)) * (i+1) - this->_nameFonts[i]->getWidth() / 2, 680);
+      this->addGameObject(this->_nameFonts[i], "score", 20);
     }
-  Font *fontp2 = this->getFont("buttonFont");
-  fontp2->setText("P2");
-  fontp2->setPosition(350, 680);
-  this->addGameObject(fontp2, "score", 20);
-  Font *fontp3 = this->getFont("buttonFont");
-  fontp3->setText("P3");
-  fontp3->setPosition(600, 680);
-  this->addGameObject(fontp3, "score", 20);
-  Font *fontp4 = this->getFont("buttonFont");
-  fontp4->setText("P4");
-  fontp4->setPosition(850, 680);
-  this->addGameObject(fontp4, "score", 20);
 
-  this->_scoreFonts[0] = this->getFont("buttonFont");
-  this->_scoreFonts[0]->setText("0000000");
-  this->_scoreFonts[0]->setPosition(120 - this->_scoreFonts[0]->getWidth() / 2, 720);
-  this->addGameObject(this->_scoreFonts[0], "score", 20);
-  this->_scoreFonts[1] = this->getFont("buttonFont");
-  this->_scoreFonts[1]->setText("0000000");
-  this->_scoreFonts[1]->setPosition(370 - this->_scoreFonts[1]->getWidth() / 2, 720);
-  this->addGameObject(this->_scoreFonts[1], "score", 20);
-  this->_scoreFonts[2] = this->getFont("buttonFont");
-  this->_scoreFonts[2]->setText("0000000");
-  this->_scoreFonts[2]->setPosition(620 - this->_scoreFonts[2]->getWidth() / 2, 720);
-  this->addGameObject(this->_scoreFonts[2], "score", 20);
-  this->_scoreFonts[3] = this->getFont("buttonFont");
-  this->_scoreFonts[3]->setText("0000000");
-  this->_scoreFonts[3]->setPosition(870 - this->_scoreFonts[3]->getWidth() / 2, 720);
-  this->addGameObject(this->_scoreFonts[3], "score", 20);
+  for (int i = 0; i < this->_nbPlayers; ++i)
+    {
+      this->_scoreFonts[i] = this->getFont("buttonFont");
+      this->_scoreFonts[i]->setText("0000000");
+      this->_scoreFonts[i]->setPosition((1024 / (this->_nbPlayers + 1)) * (i+1) - this->_scoreFonts[i]->getWidth() / 2, 720);
+      this->addGameObject(this->_scoreFonts[i], "score", 20);
+    }  
 }
 
 void		GSInGame::inputUp(InputCommand const &/*event*/)
@@ -300,7 +250,6 @@ void		GSInGame::score(GameCommand const &event)
 	if (event.idObject < 4)
 	{
 		_scores[event.idObject] = event.score;
-
 	}
 }
 
@@ -364,6 +313,9 @@ void		GSInGame::rangeid(GameCommand const &event)
 {
   this->addGroup("shoot", 8, event.idObject, event.idResource);
   this->_idPlayer = event.x;
-  std::cout << "IdPlayer " << this->_idPlayer << std::endl;
+  std::cout << "IdPlayer " << this->_idPlayer << " " << this->_nameFonts[this->_idPlayer] <<std::endl;
+  this->displayScores();
+  this->_nameFonts[this->_idPlayer]->setText(NetworkModule::get().getName());
+  this->_nameFonts[this->_idPlayer]->setPosition((1024 / (this->_nbPlayers + 1)) * (this->_idPlayer+1) - this->_nameFonts[this->_idPlayer]->getWidth() / 2, 680);
   CommandDispatcher::get().pushCommand(*(new GameListCommand("Player", PlayerStatus::READY, NetworkModule::get().getName())));
 }
