@@ -53,7 +53,7 @@ bool		GameLogic::handleCommand(Command const &command)
 		answer->vx = gc.vx;
 		answer->vy = gc.vy;
 		answer->game = &_game;
-		answer->player = gc.player;
+		//answer->player = gc.player;
 		CommandDispatcher::get().pushCommand(*answer);
 	}
 	return false;
@@ -66,12 +66,12 @@ Game		&GameLogic::getGame() const
 
 void		GameLogic::startGame()
 {
-	double	x = 0;
+	double	y = 0;
 	double	step = 720 / this->_game._list.size();
 
 	for (std::list<Player*>::iterator it = this->_game._list.begin(); it != this->_game._list.end(); ++it)
 	{
-		Ship *tmp = new Ship(x, 10, *it);
+		Ship *tmp = new Ship(10, y, *it);
 	    (*it)->setShip(tmp);
 		this->addGameObject(tmp, "players", 10);
 		GameCommand	*cmd = new GameCommand("Spawn");
@@ -82,8 +82,8 @@ void		GameLogic::startGame()
 		cmd->vx = tmp->getVx();
 		cmd->vy = tmp->getVy();
 		cmd->game = &_game;
-		std::cout << "Id " << (*it)->getId() << std::endl;
+		std::cout << "Id " << (*it)->getId() << " Id Object " << cmd->idObject << std::endl;
 		CommandDispatcher::get().pushCommand(*cmd);
-		x += step;
+		y += step;
 	}
 }

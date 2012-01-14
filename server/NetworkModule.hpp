@@ -46,5 +46,4 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	std::string							_port;
 	Net::SetupNetwork					_init;
 	std::map<Net::InetAddr, Player *>	_players;
-	uint32_t							_idPacket;
 };
