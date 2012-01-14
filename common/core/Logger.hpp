@@ -8,20 +8,15 @@ private:
   class Log
   {
   public:
-	Log() :
-		_end(false)
+	Log()
 	{
 	}
-    Log(Log const &log) :
-		_end(true)
+    Log(Log const &log)
 	{
 	}
 
     ~Log()
     {
-#if defined (_WIN32)
-	if (_end)
-#endif
       std::cout << std::endl;
     }
 
@@ -31,9 +26,6 @@ private:
       std::cout << t;
       return (*this);
     }
-
-  private:
-    bool _end;
   };
 
 public:

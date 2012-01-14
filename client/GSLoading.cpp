@@ -1,4 +1,5 @@
 #include "GSLoading.hpp"
+#include "GSInGame.hpp"
 #include "Game.hpp"
 #include "Bullet.hpp"
 #include "Wall.hpp"
@@ -9,6 +10,7 @@
 #include "GUIVLayout.hpp"
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
+#include "GameStateManager.hpp"
 
 GSLoading::GSLoading() : GameState("Loading")
 {
@@ -46,6 +48,24 @@ void	GSLoading::listChoice(std::string const &)
 		//this->setComponentVisibility(false);
 }
 
+bool		GSLoading::handleCommand(Command const &command)
+{
+  static Method const	methods[] = {
+	{"GameBegin", &GSLoading::gameBeginCommand},
+  };
+
+  for (size_t i = 0;
+		 i < sizeof(methods) / sizeof(*methods); ++i)
+	{
+		if (command.name == methods[i].name)
+		{
+			(this->*methods[i].method)(static_cast<GameCommand const &>(command));
+			return true;
+		}
+	}
+  return (false);
+}
+
 void	GSLoading::onStart()
 {
   this->addProvider(*(new SFMLSpriteProvider));
@@ -63,4 +83,10 @@ void	GSLoading::onStart()
   font->setY(350);
   font->setText("Loading");
   this->addGameObject(font, "gui", 20);
+}
+
+void	GSLoading::gameBeginCommand(Command const &)
+{
+	GameStateManager::get().loadState<GSInGame>("GSInGame");
+	GameStateManager::get().changeState("GSInGame");
 }

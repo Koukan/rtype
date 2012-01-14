@@ -6,7 +6,6 @@
 #include "NetworkModule.hpp"
 #include "CommandDispatcher.hpp"
 #include "GameListCommand.hpp"
-#include "GSInGame.hpp"
 
 Server::Server() : Net::PacketHandler<>(4096, "", true),
 		_name(""), _game(0)
@@ -98,8 +97,7 @@ bool		Server::treatGameStatePacket(Net::Packet &packet)
 	packet >> err;
 	if (err == GameStateEnum::BEGIN)
 	{
-		GameStateManager::get().loadState<GSInGame>("GSInGame");
-		GameStateManager::get().changeState("GSInGame");
+		CommandDispatcher::get().pushCommand(*(new Command("GameBegin")));
 	}
 	else
 	{
