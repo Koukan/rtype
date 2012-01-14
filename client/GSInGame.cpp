@@ -249,7 +249,9 @@ void		GSInGame::spawn(GameCommand const &event)
 
 void		GSInGame::destroy(GameCommand const &event)
 {
-	delete (this->getGameObject(event.idObject));
+	GameObject *tmp = this->getGameObject(event.idObject);
+	if (tmp)
+	 tmp->erase();
 }
 
 void		GSInGame::life(GameCommand const &event)

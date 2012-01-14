@@ -20,7 +20,7 @@ void		UdpHandler::init()
 
 int			UdpHandler::handleInputPacket(Net::Packet &packet)
 {
-	static int			(UdpHandler::* const methods[])(Net::Packet&) = {
+	static int			(UdpHandler::* const methods[])(Net::Packet&, uint64_t) = {
 			&UdpHandler::spawn,
 			&UdpHandler::destroy,
 			&UdpHandler::move,
@@ -28,18 +28,19 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 			NULL,
 			&UdpHandler::retrieve,
 	};
-	uint64_t			time;
+	uint64_t			time, timediff;
 	uint8_t				type;
 
 	packet >> time;
 	packet >> type;
-	std::cout << "udp es tu la time :"  << time << " type " << (int)type << std::endl;
+	timediff = Net::Clock::getMsSinceEpoch() - time;
+	std::cout << "udp es tu la time :"  << timediff << " type " << (int)type << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
-		return (this->*methods[type])(packet);
+		return (this->*methods[type])(packet, 0);
 	return 0;
 }
 
-int			UdpHandler::spawn(Net::Packet &packet)
+int			UdpHandler::spawn(Net::Packet &packet, uint64_t timediff)
 {
 	uint32_t	id_packet;
 
@@ -55,41 +56,55 @@ int			UdpHandler::spawn(Net::Packet &packet)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	
+	gc->x += timediff * gc->vx;
+	gc->y += timediff * gc->vy;
+
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
 
-int			UdpHandler::destroy(Net::Packet &packet)
+int			UdpHandler::destroy(Net::Packet &packet, uint64_t)
 {
-	return 0;
+	uint32_t	id_packet;
+
+	packet >> id_packet;
+	if (!this->testPacketId(id_packet))
+		return 1;
+	GameCommand *gc = new GameCommand("destroy");
+	packet >> gc->idObject;
+	CommandDispatcher::get().pushCommand(*gc);	
+	return 1;
 }
 
-int			UdpHandler::move(Net::Packet &packet)
+int			UdpHandler::move(Net::Packet &packet, uint64_t timediff)
 {
 	//if (packet.size() < 24)
 	//return 0;
+	if (timediff > 100)
+		return 1;
 	GameCommand *gc = new GameCommand("move");
 	packet >> gc->idObject;
 	packet >> gc->x;
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
+	gc->x += timediff * gc->vx;
+	gc->y += timediff * gc->vy;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
 
-int			UdpHandler::score(Net::Packet &packet)
+int			UdpHandler::score(Net::Packet &packet, uint64_t)
 {
-	return 0;
+	return 1;
 }
 
-int			UdpHandler::statement(Net::Packet &packet)
+int			UdpHandler::statement(Net::Packet &packet, uint64_t)
 {
-	return 0;
+	return 1;
 }
 
-int         UdpHandler::retrieve(Net::Packet &packet)
+int         UdpHandler::retrieve(Net::Packet &packet, uint64_t)
 {
 /*	uint32_t	packet_id;
 
@@ -119,7 +134,7 @@ bool		UdpHandler::testPacketId(uint32_t id)
 			CommandDispatcher::get().pushCommand(*gc);
 		}
 		CommandDispatcher::get().handle(0);
+
 	}
-	else
-	  return false;
+	return false;
 }
