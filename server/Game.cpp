@@ -42,6 +42,7 @@ bool		Game::addPlayer(Player &player)
 {
 	if (this->_list.size() < this->_maxPlayers)
 	{
+		player.setId(this->_list.size());
 		this->_list.push_back(&player);
 		uint32_t	begin = this->_list.size() * 10000000 + 1000000001;
 		uint32_t	end = begin + 9999999;
@@ -53,7 +54,6 @@ bool		Game::addPlayer(Player &player)
 		cmd->idResource = end;
 		cmd->x = nb;
 		cmd->player = &player;
-		player.setId(nb);
 		CommandDispatcher::get().pushCommand(*cmd);
 		player.setGame(*this);
 		player.setId(_logic.getLastAttributedId());
