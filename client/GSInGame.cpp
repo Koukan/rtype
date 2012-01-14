@@ -21,7 +21,7 @@ GSInGame::~GSInGame()
 
 void		GSInGame::preload()
 {
-  this->addGroup("player", 10);
+  this->addGroup("players", 10);
 
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -281,16 +281,20 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::MONSTER, &GSInGame::loadMonster}
   };
 
+  std::cout << "idResource " << event.idResource << std::endl;
   for (size_t i = 0;
        i < sizeof(methods) / sizeof(*methods); i++)
     {
       if (static_cast<Resource::type>(event.idResource) == methods[i].type)
 	{
-	  std::cout << event.idResource << std::endl;
+	  std::cout << "idResource " << event.idResource << " " << this->_idPlayer << std::endl;
 	  (this->*methods[i].method)(event);
 	  if (static_cast<uint16_t>(event.idResource) == this->_idPlayer)
 	    {
+			std::cout << "idObject " << event.idObject << std::endl;
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
+		  if (!this->getGameObject(event.idObject))
+			  std::cout << "la bonne blague" << std::endl;
 	    }
 	}
     }
@@ -333,45 +337,49 @@ void		GSInGame::updatePositions(GameCommand const &event, PhysicObject &obj) con
 
 void		GSInGame::loadP1(GameCommand const &event)
 {
+	std::cout << "trololol" << std::endl;
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player1"), *hitbox, event.vx, event.vy);
-  monster1->setId(event.idResource);
-  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+  monster1->setId(event.idObject);
+  this->addGameObject(monster1, "players");
 }
 
 void		GSInGame::loadP2(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player2"), *hitbox, event.vx, event.vy);
-  monster1->setId(event.idResource);
-  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+  monster1->setId(event.idObject);
+  this->addGameObject(monster1, "players");
 }
 
 void		GSInGame::loadP3(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player3"), *hitbox, event.vx, event.vy);
-  monster1->setId(event.idResource);
-  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+  monster1->setId(event.idObject);
+  this->addGameObject(static_cast<GameObject *>(monster1), "players");
 }
 
 void		GSInGame::loadP4(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player4"), *hitbox, event.vx, event.vy);
-  monster1->setId(event.idResource);
-  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+  monster1->setId(event.idObject);
+  this->addGameObject(static_cast<GameObject *>(monster1), "players");
 }
 
 void		GSInGame::loadMonster(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("enemy plane"), *hitbox, event.vx, event.vy);
+  monster1->setId(event.idObject);
   this->addGameObject(static_cast<GameObject *>(monster1), "monster");
 }
 
+#include <string>
 void		GSInGame::rangeid(GameCommand const &event)
 {
   this->addGroup("shoot", 8, event.idObject, event.idResource);
   this->_idPlayer = event.x;
+  std::cout << "player is " << this->_idPlayer << std::endl;
 }

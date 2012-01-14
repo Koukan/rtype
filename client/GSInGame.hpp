@@ -65,7 +65,7 @@ private:
 	void		loadP4(GameCommand const &event);
 	void		loadMonster(GameCommand const &event);
 
-	uint32_t	_idPlayer;
+	uint16_t	_idPlayer;
 	std::vector<uint32_t> _scores;
 	std::vector<Font*>    _scoreFonts;
 	PhysicObject	*_ship;
