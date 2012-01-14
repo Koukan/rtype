@@ -47,7 +47,8 @@ bool		NetworkModule::handleCommand(Command const &command)
 		{"Destroy", &NetworkModule::destroyCommand},
 		{"Move", &NetworkModule::moveCommand},
 		{"Status", &NetworkModule::statusCommand},
-		{"Startgame", &NetworkModule::startgameCommand}
+		{"Startgame", &NetworkModule::startgameCommand},
+		{"RangeId", &NetworkModule::rangeId}
 	};
 
 	for (size_t i = 0;
@@ -205,13 +206,27 @@ void        NetworkModule::statusCommand(Command const &command)
 void		NetworkModule::startgameCommand(Command const &command)
 {	
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
-	
 	if (cmd.game)
 	{
-		Net::Packet	packet(64);
+		Net::Packet	packet(2);
 
 		packet << static_cast<uint8_t>(TCP::GAMESTATE);
 		packet << static_cast<uint8_t>(0);
 		this->sendTCPPacket(packet, cmd.game->getPlayers(), 0);
+	}
+}
+
+void		NetworkModule::rangeId(Command const &command)
+{
+	GameCommand const &cmd = static_cast<GameCommand const &>(command);
+
+	if (cmd.player)
+	{
+		Net::Packet	packet(9);
+
+		packet << static_cast<uint8_t>(TCP::RANGEID);
+		packet << static_cast<uint32_t>(cmd.idObject);
+		packet << static_cast<uint32_t>(cmd.idResource);
+		cmd.player->handleOutputPacket(packet);
 	}
 }

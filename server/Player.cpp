@@ -159,10 +159,10 @@ int		Player::player(Net::Packet &)
 int		Player::createGame(Net::Packet &packet)
 {
 	uint8_t		maxPlayer;
-	packet >> maxPlayer;
+	packet >> 	maxPlayer;
 	Game		*game = Server::get().createGame(maxPlayer);
 
-	Logger::logger << "Game created by " << this->_name;
+	Logger::logger << "Game created by " << int(maxPlayer);
 	if (game)
 	{
 		game->addPlayer(*this);

@@ -92,7 +92,7 @@ bool		Server::treatPlayerPacket(Net::Packet &packet)
 
 bool		Server::treatGameStatePacket(Net::Packet &packet)
 {
-	uint16_t err;
+	uint8_t err;
 
 	packet >> err;
 	if (err == GameStateEnum::BEGIN)
