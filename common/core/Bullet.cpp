@@ -31,10 +31,10 @@ Bullet::~Bullet()
   delete this->_sprite;
 }
 
-void		Bullet::draw(double)
+void		Bullet::draw(double elapsedTime)
 {
 	if (this->_sprite)
-		this->_sprite->draw(static_cast<int>(this->_x), static_cast<int>(this->_y));
+	  this->_sprite->draw(static_cast<int>(this->_x), static_cast<int>(this->_y), elapsedTime);
 }
 
 void		Bullet::setSprite(ResourceManager &resource, std::string const &name)

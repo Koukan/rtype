@@ -1,4 +1,5 @@
 #include "CommandHandler.hpp"
+#include <iostream>
 
 CommandHandler::CommandHandler()
 {
@@ -15,7 +16,7 @@ CommandHandler::~CommandHandler()
 	}
 }
 
-bool			CommandHandler::handleCommand(Command const &)
+bool			CommandHandler::handleCommand(Command const &command)
 {
 	return false;
 }
@@ -29,7 +30,10 @@ bool			CommandHandler::handle(Command const &command)
 	if (!ret)
 	{
 		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
-			return (*it)->handle(command);
+		{
+			if ((*it)->handle(command))
+				return true;
+		}
 	}
 	return ret;
 }
@@ -45,11 +49,14 @@ void			CommandHandler::handle(double)
 		command = this->_commands.front();
 		this->_commands.pop();
 		this->_mutex.unlock();
-		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
-		{
-			if ((*it)->handle(*command))
-				break ;
-		}
+		this->handle(*command);
+		//for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
+		//{
+		//	if (command->name == "move")
+		//		std::cout << "Handle(double) move" << std::endl;
+		//	if ((*it)->handle(*command))
+		//		break ;
+		//}
 		delete command;
 		this->_mutex.lock();
 	}

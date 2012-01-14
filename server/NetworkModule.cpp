@@ -104,10 +104,8 @@ void		NetworkModule::spawnCommand(Command const &command)
 {
 	GameCommand	const &cmd = static_cast<GameCommand const &>(command);
 
-	std::cout << "spawn" << std::endl;
 	if (cmd.game)
 	{
-		std::cout << "spawn2" << std::endl;
 		Net::Packet		packet(29);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::SPAWN);
@@ -118,6 +116,7 @@ void		NetworkModule::spawnCommand(Command const &command)
 		packet << cmd.y;
 		packet << cmd.vx;
 		packet << cmd.vy;
+		std::cout << "idResource " << cmd.idResource << std::endl;
 		this->sendUDPPacket(packet, cmd.game->getPlayers(),
 						 true, cmd.player);
 	}
@@ -143,7 +142,7 @@ void		NetworkModule::moveCommand(Command const &command)
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 	if (cmd.game)
 	{
-		Net::Packet		packet(17);
+		Net::Packet		packet(21);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::MOVE);
 		packet << cmd.idObject;
