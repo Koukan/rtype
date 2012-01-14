@@ -189,12 +189,14 @@ private:
 		int	ret	= 0;
 		do
 		{
+			//std::cout << "left " << _left << std::endl;
 			ret = this->recvPacket(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
 			if (ret > 0)
 			{
 				if (_left == 0)
 				{
 					(*_inpacket) >> _left;
+				//	std::cout << "to read " << _left << std::endl;
 					return ret;
 				}
 				_left -= ret;

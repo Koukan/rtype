@@ -1,0 +1,709 @@
+
+
+
+
+
+
+Network Working Group                                           L. Taing
+Request for Comments: 1234                                R-Type Epitech
+Category: Informational                                    December 2011
+
+
+                     Binary Protocol used in R-Type Project
+
+Status of This Memo
+
+   This memo provides information for the Internet community. This memo
+   does not specify an Internet standard of any kind.
+   Distribution of this memo is unlimited.
+
+Abstract
+   This document describes the binary protocol used in the R-Type
+   project. This protocol requires use of the Transmission Control
+   Protocol (TCP) in order to authenticate and use of User Datagram
+   Protocol (UDP) to communication needs in game.
+
+Copyright Notice
+
+   Copyright (C) R-Type Epitech (2011).  All Rights Reserved.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Taing                         Informations                       [Page 1]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+Table of Contents
+
+   1. Introduction ....................................................2
+      1.1. Conventions Used in This Document ..........................2
+   2. TCP Protocol ....................................................3
+      2.1  Description of TCP packets .................................3
+         2.1.1  Common header .........................................3
+         2.1.2  Packet Connection .....................................3
+         2.1.3  Packet Established ....................................3
+         2.1.4  Packet List_Games .....................................3
+         2.1.5  Packet Game ...........................................4
+         2.1.6  Packet End_List_Games .................................4
+         2.1.7  Packet Connect_Game ...................................4
+         2.1.8  Packet Player .........................................4
+         2.1.9  Packet Create_game ....................................5
+         2.1.10 Packet Resource .......................................5
+         2.1.11 Packet Require_Resource ...............................6
+         2.1.12 Packet Resource_Part ..................................6
+         2.1.13 Packet End_Resource ...................................6
+         2.1.14 Packet End_Resources ..................................7
+         2.1.15 Packet GameState ......................................7
+         2.1.16 Packet Error ..........................................7
+      2.2  Sequencing of TCP requests and replies .....................8
+   3. UDP Protocol ....................................................9
+      3.1  Description of UDP packets .................................9
+      3.1.1 Common header .............................................9
+      3.1.2 Packet Spawn ..............................................9
+      3.1.3 Packet Destroy ...........................................10
+      3.1.4 Packet Move ..............................................10
+      3.1.5 Packet Score .............................................10
+	  3.1.6 Packet Life ..............................................11
+      3.1.7 Packet Retrieve ..........................................11
+   4. Acknowledgements ...............................................12
+   5. References .....................................................12
+   6. Author's Address ...............................................12
+
+1.  Introduction
+
+   This document describes the protocol used in R-Type Project.	This
+   project includes two parts : a server and a client.
+   The protocol is a binary protocol. It uses Transmission Control
+   Protocol (TCP) to authentication process and User Datagram Protocol
+   (UDP) to communication needs in game.
+   You MUST implement these two binary protocols on the server and the
+   client.
+   TCP is described in [RFC0793]. UDP is described in [RFC0768].
+
+1.1.  Conventions Used in This Document
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document are to be interpreted as described in [RFC2119].
+
+
+Taing                         Informations                       [Page 2]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+2.  TCP Protocol
+
+2.1  Description of TCP packets
+
+   The following packets MUST be implemented as described.
+   All strings are null terminated in this protocol.
+   Each packet MUST be preceded by a common header.
+
+2.1.1  Common header
+
+   The common header is composed of the packet size and an enum.
+
+   -----------------------------------------------------
+   |  uint16_t     |             packet_size           |
+   -----------------------------------------------------
+   |  uint8_t      |             PACKET_TYPE           |
+   -----------------------------------------------------
+
+2.1.2  Packet Connection
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |            CONNECTION (value = 0) |
+   -----------------------------------------------------
+   |  string       |            player_name            |
+   -----------------------------------------------------
+
+   This packet MUST be sent when the client wants to connect to a
+   server.
+
+2.1.3  Packet Established
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |           ESTABLISHED (value = 1) |
+   -----------------------------------------------------
+
+   This packet MUST be sent by the server when a client connection
+   succeeds. If it fails, an error packet MUST be sent (see section
+   2.1.14).
+
+2.1.4  Packet List_Games
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |            LIST_GAMES (value = 2) |
+   -----------------------------------------------------
+
+   This packet MUST be sent by the client to list the current games
+   on the server which are not in game (all games, even full ones).
+
+
+
+
+
+
+
+Taing                         Informations                       [Page 3]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+2.1.5  Packet Game
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |                GAME   (value = 3) |
+   -----------------------------------------------------
+   |  uint16_t     |              ID_Game              |
+   -----------------------------------------------------
+   |  uint8_t      |           nb_players_max          |
+   -----------------------------------------------------
+   |  uint8_t      |         nb_players_in_game        |
+   -----------------------------------------------------
+
+   This packet MUST be sent by the server in response of the
+   LIST_GAMES packet. It describes a game. nb_players can be
+   between 1 and 4. It represents the number of players set by the
+   creator of the game.
+   nb_players_in_game represents the number of players who have join
+   this game.
+
+2.1.6  Packet End_List_Games
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |        END_LIST_GAMES (value = 4) |
+   -----------------------------------------------------
+
+   This packet MUST be sent by the server to indicate that all the
+   current games have been sent.
+
+2.1.7  Packet Connect_Game
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |          CONNECT_GAME (value = 5) |
+   -----------------------------------------------------
+   |  uint16_t     |              ID_Game              |
+   -----------------------------------------------------
+
+   This packet MUST be sent by the client to the server with the
+   ID_Game.
+
+2.1.8  Packet Player
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |               PLAYER  (value = 6) |
+   -----------------------------------------------------
+   |  uint16_t     |               status              |
+   -----------------------------------------------------
+   |  string       |                name               |
+   -----------------------------------------------------
+   |  uint8_t      |              player_id            |
+   -----------------------------------------------------
+
+
+   
+
+Taing                         Informations                       [Page 4]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+   The status can be :
+     - connected but not ready to play (value = 0)
+     - connected and ready to play (value = 1)
+     - disconnected (value = 2)
+
+   The player_id is the player identifier in the game. It can be
+   between 1 and 4.
+   This packet is sent to all the players of the game by the server to
+   notify that a player has changed his status.
+   This packet is sent by the player when he changes his status. In this
+   case, the field player_id is OPTIONAL. It can be filled, but MUST be
+   ignored by the server.
+
+2.1.9  Packet Create_Game
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |          CREATE_GAME  (value = 7) |
+   -----------------------------------------------------
+   |  uint8_t      |              nb_players           |
+   -----------------------------------------------------
+   
+   This packet MUST be sent by the player who wants to create a new
+   game.
+   nb_players specifies the number of players which can play at the same
+   time at the game.
+
+2.1.10  Packet Resource
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |             RESOURCE  (value = 8) |
+   -----------------------------------------------------
+   |  uint16_t     |                 type              |
+   ----------------------------------------------------
+   |  string       |                 name              |
+   -----------------------------------------------------
+   |  string       |                 md5               |
+   -----------------------------------------------------
+
+   This packet is sent when a player is accepted in a game to specify
+   the resources he needs (one resource = one packet).
+   A MD5 hash is sent in case a resource was updated.
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+Taing                         Informations                       [Page 5]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+2.1.11  Packet Require_Resource
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |      REQUIRE_RESOURCE (value = 9) |
+   -----------------------------------------------------
+   |  uint16_t     |                 type              |
+   ----------------------------------------------------
+   |  string       |                 name              |
+   -----------------------------------------------------
+
+   The client MUST send this packet to recover the different resources
+   (sprites, songs...) it has not.
+   The type MUST be :
+   - sprite (value = 0) : for all sprite resources
+   - song (value = 1) : for all song resources
+   - map (value = 2) : for all map resources
+
+2.1.12  Packet Resource_Part
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |        RESOURCE_PART (value = 10) |
+   -----------------------------------------------------
+   |  uint16_t     |                 type              |
+   ----------------------------------------------------
+   |  string       |                 name              |
+   -----------------------------------------------------
+   |  string       |               RAW DATA            |
+   -----------------------------------------------------
+
+   When a client requires a resource, it is sent part by part.
+
+2.1.13  Packet End_Resource
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |        END_RESOURCE  (value = 11) |
+   -----------------------------------------------------
+   |  uint16_t     |                type               |
+   ----------------------------------------------------
+   |  string       |                name               |
+   -----------------------------------------------------
+   |  string       |                MD5                |
+   -----------------------------------------------------
+
+   When all the parts of a resource were sent by the server, it sends
+   this packets, which contains the same MD5 sent with the Resource
+   packet (see 2.1.10).
+
+
+
+
+
+
+
+
+Taing                         Informations                       [Page 6]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+2.1.14  Packet End_Resources
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |        END_RESOURCES (value = 12) |
+   -----------------------------------------------------
+
+   This packet is sent by the server when all the packet RESOURCE have
+   been sent.
+
+2.1.15  Packet GameState
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |            GAMESTATE (value = 13) |
+   -----------------------------------------------------
+   |  uint8_t      |                state              |
+   -----------------------------------------------------
+
+   This packet MUST be sent when :
+   - the game begins, with state = BEGIN (value = 0)
+   - the game ends, with state = END (value = 1)
+
+2.1.16  Packet Error
+
+   The packet error is sent to notify and describe all errors.
+
+   -----------------------------------------------------
+   |  PACKET TYPE  |               ERROR  (value = 14) |
+   -----------------------------------------------------
+   |  uint16_t     |              error_id             |
+   -----------------------------------------------------
+
+   The error_id can be :
+   - login (value = 0) : when the login sent by the client with the
+                         packet Connection (see 2.1.2) doesn't exist or
+                         mismatches with the password.
+   - game_full (value = 1) : when the game requested by the client is
+                              full
+   - game_not_exist (value = 2) : when the game requested by the
+                                   client doesn't exists
+   - server_full (value = 3) : when the server has already reached the
+                               maximum number of games he can host.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Taing                         Informations                       [Page 7]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+2.2 Sequencing of TCP requests and replies
+
+	        Client                                Server
+                  |                                     |
+                  |        Send Connection              |
+                  | >>------------------------------->> |
+                  |                                     |
+                  |        Send Established             |
+                  | <<-------------------------------<< |
+                  |                                     |
+                  |        Send list_games              |
+                  | >>------------------------------->> |
+                  |                                     |
+                  |        Send n Game                  |
+                  | <<-------------------------------<< |
+                  |                                     |
+                  |        Send end_list_games          |
+                  | <<-------------------------------<< |
+                  |                                     |
+                  |        Send Connection_game         |
+                  | >>------------------------------->> |
+                  |                                     |
+                  |        Send n Resource              |
+                  | <<-------------------------------<< |
+                  |                                     |
+                  |        Send Request_resource        |
+                  | >>------------------------------->> |
+                  |                                     |
+                  |        Send n Resource_part         |
+                  | <<-------------------------------<< |
+                  |                                     |
+                  |        Send End_Resource            |
+                  | <<-------------------------------<< |
+                  |                                     |
+                  |        Send End_Resources           |
+                  | <<-------------------------------<< |
+                  |                                     |
+
+
+               Figure 1: TCP Client-Server Message Exchange
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Taing                         Informations                       [Page 8]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+3. UDP Protocol
+
+3.1 Packet Description
+
+   The following packets MUST be implemented as described.
+   All strings are null terminated in this protocol.
+   Each packet is preceded by a common header.
+   Some packets also contains an "id_packet". It is used to identify
+   important packets.
+   A client which receive the packet with id_packet 1, and then the
+   packet with id_packet 3 MUST send a retrieve packet with id_packet 2.
+
+3.1.1 Common header
+
+   This header MUST be sent at the beginning of every UDP packet.
+
+   -----------------------------------------------------
+   |  uint64_t     |                 time              |
+   -----------------------------------------------------
+   |  uint8_t      |           UDP_PACKET_TYPE         |
+   -----------------------------------------------------
+
+   time is the crafted time of the packet since EPOCH.
+   UDP_PACKET_TYPE is an enum which represents the type of the packet.
+
+3.1.2 Packet Spawn
+
+
+   -----------------------------------------------------
+   |  uint8_t      |                SPAWN  (value = 0) |
+   -----------------------------------------------------
+   |  uint32_t     |               id_packet           |
+   -----------------------------------------------------
+   |  uint32_t     |             id_ressource          |
+   -----------------------------------------------------
+   |  uint32_t     |               id_object           |
+   -----------------------------------------------------
+   |  uint16_t     |                   x               |
+   -----------------------------------------------------
+   |  uint16_t     |                   y               |
+   -----------------------------------------------------
+   |  uint16_t     |                  Vx               |
+   -----------------------------------------------------
+   |  uint16_t     |                  Vy               |
+   -----------------------------------------------------
+
+   This packet MUST be send from the server to the client.
+   His purpose is to inform the client to display a new object.
+
+
+
+
+
+
+Taing                         Informations                       [Page 9]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+3.1.3 Packet Destroy
+
+   -----------------------------------------------------
+   |  uint8_t      |              DESTROY  (value = 1) |
+   -----------------------------------------------------
+   |  uint32_t     |              id_packet            |
+   -----------------------------------------------------
+   |  uint32_t     |              id_object            |
+   -----------------------------------------------------
+
+   This packet MUST be send from the server to the client.
+   His purpose is to inform the client to erase a displayed object.
+
+3.1.4 Packet Move
+
+   -----------------------------------------------------
+   |  uint8_t      |                 MOVE  (value = 2) |
+   -----------------------------------------------------
+   |  uint32_t     |              id_object            |
+   -----------------------------------------------------
+   |  uint16_t     |                   x               |
+   -----------------------------------------------------
+   |  uint16_t     |                   y               |
+   -----------------------------------------------------
+   |  uint16_t     |                  Vx               |
+   -----------------------------------------------------
+   |  uint16_t     |                  Vy               |
+   -----------------------------------------------------
+
+   This packet's purpose is to inform about an object's move.
+
+3.1.5 Packet Score
+
+   -----------------------------------------------------
+   |  uint8_t      |                SCORE  (value = 3) |
+   -----------------------------------------------------
+   |  uint8_t      |              id_player            |
+   -----------------------------------------------------
+   |  uint32_t     |                score              |
+   -----------------------------------------------------
+
+   This packet MUST be send from the server to the client.
+   His purpose is to inform the client to display the score of all
+   players.
+
+
+
+
+
+
+
+
+
+
+Taing                         Informations                      [Page 10]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+3.1.6 Packet Life
+
+   -----------------------------------------------------
+   |  uint8_t     |               LIFE (value = 4)     |
+   -----------------------------------------------------
+   |  uint8_t     |              STATEMENT             |
+   -----------------------------------------------------
+
+   This packet MUST be send from the server to the client.
+   The client change of state depending of the value of STATEMENT
+   STATEMENT can have the following values :
+   - Player_dead (value = 0) : For the player died
+   - Player_revive (value = 1) : For the player revived
+   - Game_over (value = 2) : For the game is over.
+
+3.1.7 Packet Retrieve
+
+   -----------------------------------------------------
+   |  uint8_t      |              RETRIEVE (value = 5) |
+   -----------------------------------------------------
+   |  uint32_t     |               id_packet            |
+   -----------------------------------------------------
+
+   This packet MUST be send from the client to the server.
+   This packet is sent to the server when a packet Spawn or Destroy is
+   not recieved (checked with the id_packet which is an incremented id).
+   The server resend the missing packet specified.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Taing                         Informations                      [Page 11]
+
+RFC 1234                 R-Type Binary Protocol             December 2011
+
+
+4.  Acknowledgements
+
+   This RFC is based on the work of the following people :
+   - Mickael Cerisier, leader of the R-Type Project
+   - Vivien Botton
+   - Gianni Castellani
+   - Raphael Chambily
+   - Victor Nguon
+   - Laurine Taing
+
+5.  References
+
+   [RFC0768]  Postel, J., "User Datagram Protocol", RFC 768,
+              August 1980.
+
+   [RFC0793]  Postel, J., "Transmission Control Protocol", STD 7,
+              RFC 793, September 1981.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119, March 1997.
+
+   [RFC2223]  Postel, J., "Instructions to RFC Authors", RFC 2223,
+              October 1997.
+
+6.  Author's Address
+
+   Laurine Taing
+   24, rue Pasteur
+   94 27O Le Kremlin Bicetre
+
+   Phone: 06 45 42 77 77
+   Email: taing_l@epitech.eu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Taing                         Informations                      [Page 12]

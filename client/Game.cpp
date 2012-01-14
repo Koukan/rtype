@@ -10,7 +10,12 @@
 #include "Net.hpp"
 #include "NetworkModule.hpp"
 
-Game::Game() : _quit(false), _preferencesFile(PREF_FILE), _preferences(3)
+const std::string Game::PREF_FILE = ".preferences";
+int Game::NB_CHAR_NAME = 7;
+int	Game::NB_CHAR_IP = 15;
+int Game::NB_CHAR_PORT = 5;
+
+Game::Game() : _quit(false), _preferencesFile(Game::PREF_FILE), _preferences(3)
 {
 	if (this->_preferencesFile.is_open())
 	  this->readPreferencesFile();

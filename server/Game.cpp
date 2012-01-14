@@ -75,6 +75,11 @@ uint16_t	Game::getId() const
 	return _id;
 }
 
+uint8_t          Game::getMaxPlayers() const
+{
+	return _maxPlayers;
+}
+
 std::list<Player*> const &Game::getPlayers() const
 {
 	return this->_list;
