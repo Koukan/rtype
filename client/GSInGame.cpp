@@ -3,7 +3,7 @@
 #include "GSInGame.hpp"
 #include "GSPauseMenu.hpp"
 #include "Input.hpp"
-#include "Monster.hpp"
+#include "ConcreteObject.hpp"
 #include "CommandDispatcher.hpp"
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
@@ -178,9 +178,23 @@ void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int1
 
 void		GSInGame::spawn(GameCommand const &event)
 {
-	HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
-	Monster *monster1 = new Monster(this->getSprite("monster"), *hitbox, event.vx, event.vy);
-	this->addGameObject(static_cast<GameObject *>(monster1), "monsterGroup");
+  static Method2 const	methods[] = {
+    {Resource::P1, &GSInGame::loadP1},
+    {Resource::P2, &GSInGame::loadP2},
+    {Resource::P3, &GSInGame::loadP3},
+    {Resource::P4, &GSInGame::loadP4},
+    {Resource::MONSTER, &GSInGame::loadMonster}
+  };
+
+  for (size_t i = 0;
+       i < sizeof(methods) / sizeof(*methods); i++)
+    {
+      if (static_cast<Resource::type>(event.idResource) == methods[i].type)
+	{
+	  std::cout << event.idResource << std::endl;
+	  (this->*methods[i].method)(event);
+	}
+    }
 }
 
 void		GSInGame::destroy(GameCommand const &event)
@@ -216,4 +230,39 @@ void		GSInGame::updatePositions(GameCommand const &event, PhysicObject &obj) con
 	obj.setY(event.y);
 	obj.setVx(event.vx);
 	obj.setVy(event.vy);
+}
+
+void		GSInGame::loadP1(GameCommand const &event)
+{
+  HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+  ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player1"), *hitbox, event.vx, event.vy);
+  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+}
+
+void		GSInGame::loadP2(GameCommand const &event)
+{
+  HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+  ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player2"), *hitbox, event.vx, event.vy);
+  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+}
+
+void		GSInGame::loadP3(GameCommand const &event)
+{
+  HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+  ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player3"), *hitbox, event.vx, event.vy);
+  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+}
+
+void		GSInGame::loadP4(GameCommand const &event)
+{
+  HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+  ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player4"), *hitbox, event.vx, event.vy);
+  this->addGameObject(static_cast<GameObject *>(monster1), "player");
+}
+
+void		GSInGame::loadMonster(GameCommand const &event)
+{
+  HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+  ConcreteObject *monster1 = new ConcreteObject(this->getSprite("enemy plane"), *hitbox, event.vx, event.vy);
+  this->addGameObject(static_cast<GameObject *>(monster1), "monster");
 }

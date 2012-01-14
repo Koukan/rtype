@@ -6,6 +6,7 @@
 #include "GameCommand.hpp"
 #include "PhysicObject.hpp"
 #include "Font.hpp"
+#include "Resources.hpp"
 
 class GSInGame : public GameState
 {
@@ -22,6 +23,12 @@ private:
 	struct Method
 	{
 	  std::string const		name;
+	  void (GSInGame::*method)(GameCommand const &);
+	};
+
+	struct Method2
+	{
+	  Resource::type		type;
 	  void (GSInGame::*method)(GameCommand const &);
 	};
 
@@ -43,6 +50,12 @@ private:
 	void		retrieve(uint32_t idPacket);
 	void		moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy);
 	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;
+
+	void		loadP1(GameCommand const &event);
+	void		loadP2(GameCommand const &event);
+	void		loadP3(GameCommand const &event);
+	void		loadP4(GameCommand const &event);
+	void		loadMonster(GameCommand const &event);
 
 	uint32_t	_idPlayer;
 	std::vector<uint32_t> _scores;
