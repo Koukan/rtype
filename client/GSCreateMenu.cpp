@@ -13,6 +13,7 @@
 #include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
 #include "GSManager.hpp"
+#include "GSLoading.hpp"
 
 GSCreateMenu::GSCreateMenu()
   : GameState("mainMenu")
@@ -42,7 +43,7 @@ void	GSCreateMenu::createParty()
       ss >> i;
       GameListCommand	*cmd = new GameListCommand("CreateGame", i);
       CommandDispatcher::get().pushCommand(*cmd);
-      GameStateManager::get().changeState("loading");
+      GameStateManager::get().changeState(*(new GSLoading(i)));
     }
   else
     {

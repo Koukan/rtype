@@ -4,8 +4,8 @@
 #include "GSLoading.hpp"
 #include "GameCommand.hpp"
 
-GameButton::GameButton(int id, std::string const &name, ButtonSprite const &sprite, GUILayout *layout)
-  : GUIButton<GameButton>(*this, &GameButton::push, name, "listGameFont", sprite, layout), _id(id)
+GameButton::GameButton(int id, int nbPlayers, std::string const &name, ButtonSprite const &sprite, GUILayout *layout)
+  : GUIButton<GameButton>(*this, &GameButton::push, name, "listGameFont", sprite, layout), _id(id), _nbPlayers(nbPlayers)
 {
 }
 
@@ -19,6 +19,5 @@ void GameButton::push()
   command->idObject = this->_id;
 
   CommandDispatcher::get().pushCommand(*command);
-  GameStateManager::get().loadState<GSLoading>("loading");
-  GameStateManager::get().pushState("loading");
+  GameStateManager::get().pushState(*(new GSLoading(this->_nbPlayers)));
 }

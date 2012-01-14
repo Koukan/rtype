@@ -9,7 +9,7 @@ class GSInGame;
 class GSLoading : public GameState
 {
 public:
-	GSLoading();
+	GSLoading(int nbPlayers);
 	~GSLoading();
 	virtual void	onStart();
 	virtual	void	update(double elapseTime = 0);
@@ -29,4 +29,5 @@ private:
 
 	BulletCommand		*_bullet;
 	GSInGame			*_ingame;
+	int					_nbPlayers;
 };
