@@ -8,13 +8,13 @@
 #include "Sprite.hpp"
 #include "HitBox.hpp"
 
-class Monster : public PhysicObject
+class ConcreteObject : public PhysicObject
 {
 public:
-	Monster(Sprite *sprite, HitBox & hitbox, double vx, double vy);
-	virtual ~Monster();
-	virtual void draw(double);
+  ConcreteObject(Sprite *sprite, HitBox & hitbox, double vx, double vy);
+  virtual ~ConcreteObject();
+  virtual void draw(double);
 
 private:
-	Sprite		*_sprite;
+  Sprite		*_sprite;
 };
