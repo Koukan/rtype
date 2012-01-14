@@ -3,6 +3,7 @@
 #include "Player.hpp"
 #include "NetworkModule.hpp"
 #include "GameCommand.hpp"
+#include "Ship.hpp"
 
 UdpHandler::UdpHandler()
 {
@@ -49,11 +50,13 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 
 	//if (packet.size() < 24)
 	//return 0;
+	if (player.getShip())
+		return 1;
 	GameCommand *gc = new GameCommand("spawn");
 	packet >> id_packet;
 	packet >> gc->idObject;
 	packet >> gc->idResource;
-	gc->idObject = player.getId();
+	gc->idObject = player.getShip()->getId();
 	packet >> gc->x;
 	packet >> gc->y;
 	packet >> gc->vx;
@@ -72,9 +75,11 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 {
 	//if (packet.size() < 24)
 	//return 0;
+	if (player.getShip())
+		return 1;
 	GameCommand *gc = new GameCommand("move");
 	packet >> gc->idObject;
-	gc->idObject = player.getId();
+	gc->idObject = player.getShip()->getId();
 	packet >> gc->x;
 	packet >> gc->y;
 	packet >> gc->vx;
