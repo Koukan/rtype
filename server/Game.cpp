@@ -43,6 +43,7 @@ bool		Game::addPlayer(Player &player)
 	if (this->_list.size() < this->_maxPlayers)
 	{
 		player.setId(this->_list.size());
+		std::cout << "Id " << player.getId() << std::endl;
 		this->_list.push_back(&player);
 		uint32_t	begin = this->_list.size() * 10000000 + 1000000001;
 		uint32_t	end = begin + 9999999;
@@ -55,7 +56,6 @@ bool		Game::addPlayer(Player &player)
 		cmd->player = &player;
 		CommandDispatcher::get().pushCommand(*cmd);
 		player.setGame(*this);
-		player.setId(_logic.getLastAttributedId());
 		this->broadcastStatus(player, 1);
 		if (this->_list.size() == this->_maxPlayers)
 			this->startGame();
