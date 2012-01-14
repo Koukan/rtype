@@ -226,9 +226,10 @@ void		NetworkModule::rangeId(Command const &command)
 
 	if (cmd.player)
 	{
-		Net::Packet	packet(9);
+		Net::Packet	packet(10);
 
 		packet << static_cast<uint8_t>(TCP::RANGEID);
+		packet << static_cast<uint8_t>(cmd.x);
 		packet << static_cast<uint32_t>(cmd.idObject);
 		packet << static_cast<uint32_t>(cmd.idResource);
 		cmd.player->handleOutputPacket(packet);
