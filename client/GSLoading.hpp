@@ -26,6 +26,7 @@ private:
 	void			buttonClick();
 	void			listChoice(std::string const &name);
 	void			gameBeginCommand(Command const &);
+	void			errorFullGameCommand(Command const &);
 
 	BulletCommand		*_bullet;
 	GSInGame			*_ingame;

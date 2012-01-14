@@ -2,7 +2,7 @@
 #include "CommandDispatcher.hpp"
 #include "GameState.hpp"
 
-CommandDispatcher::CommandDispatcher() : Module("CommandDispatcher", 10)
+CommandDispatcher::CommandDispatcher() : Module("CommandDispatcher", 5)
 {
 }
 

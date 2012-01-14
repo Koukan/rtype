@@ -12,12 +12,12 @@ public:
 	virtual int 	handleInputPacket(Net::Packet &packet);
 
 private:	
-	int			spawn(Net::Packet &packet);
-	int			destroy(Net::Packet &packet);
-	int			move(Net::Packet &packet);
-	int			score(Net::Packet &packet);
-	int			statement(Net::Packet &packet);
-	int         retrieve(Net::Packet &packet);
+	int			spawn(Net::Packet &packet, uint64_t timediff);
+	int			destroy(Net::Packet &packet, uint64_t timediff);
+	int			move(Net::Packet &packet, uint64_t timediff);
+	int			score(Net::Packet &packet, uint64_t timediff);
+	int			statement(Net::Packet &packet, uint64_t timediff);
+	int         retrieve(Net::Packet &packet, uint64_t timediff);
 
 	bool		testPacketId(uint32_t id);
 

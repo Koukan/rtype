@@ -1,11 +1,11 @@
 #include <iostream>
-#include <vector>
 #include "Server.hpp"
 #include "Game.hpp"
 #include "PacketType.hpp"
 #include "NetworkModule.hpp"
 #include "CommandDispatcher.hpp"
 #include "GameListCommand.hpp"
+#include "Command.hpp"
 
 Server::Server() : Net::PacketHandler<>(4096, "", true),
 		_name(""), _game(0)
@@ -131,6 +131,7 @@ bool		Server::treatErrorPacket(Net::Packet &packet)
 #else
 	std::cerr << errorTexts[err] << std::endl;
 #endif
+	CommandDispatcher::get().pushCommand(*(new Command("ErrorFullGame")));
 	return true;
 }
 
