@@ -15,6 +15,7 @@ UdpHandler::~UdpHandler()
 
 void		UdpHandler::init()
 {
+	this->_reactor->registerHandler(*this, *this, Net::Reactor::READ);
 }
 
 int			UdpHandler::handleInputPacket(Net::Packet &packet)
@@ -32,6 +33,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 
 	packet >> time;
 	packet >> type;
+	std::cout << "udp es tu la time :"  << time << " type " << (int)type << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 		return (this->*methods[type])(packet);
 	return 0;

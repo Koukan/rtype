@@ -56,6 +56,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	std::string				_name;
 	std::string	       		_port;
 	std::string	       		_ip;	
+	Net::InetAddr			_addr;
 	Net::SetupNetwork      	_init;
 	Server*					_server;
 };

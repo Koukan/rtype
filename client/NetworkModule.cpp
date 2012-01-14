@@ -31,12 +31,15 @@ bool		NetworkModule::connect()
 	Net::printLastError();
 	return (false);
   }
+  _addr = addr;
   Net::InetAddr     tmp(this->_port); 
   this->_udp.close();
   this->_udp.setReactor(this->_reactor);
   if (this->_udp.setup(tmp) != -1)
     {
       this->_udp.init();
+	  this->_udp.addAddr(addr);
+	  //this->_udp.handleOutput(this->_udp);
       return (true);
     }
   else
@@ -157,7 +160,7 @@ void		NetworkModule::retrieveCommand(Command const &command)
 void		NetworkModule::spawnCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
-	Net::Packet		packet(sizeof(uint64_t) + sizeof(uint8_t) + sizeof(uint16_t) * 4);
+	Net::Packet		packet(sizeof(uint64_t) + sizeof(uint8_t) + sizeof(uint16_t) * 8);
 
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::SPAWN);
@@ -201,8 +204,8 @@ std::string const	&NetworkModule::getIP() const
 }
 
 void		NetworkModule::sendPacketUDP(Net::Packet &packet)
-{
-	packet.setDestination(this->_ip);
+{	
+	packet.setDestination(_addr);
 	this->_udp.handleOutputPacket(packet);
 }
 

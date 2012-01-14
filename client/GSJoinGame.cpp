@@ -42,6 +42,7 @@ void	GSJoinGame::onStart()
   if (NetworkModule::get().connect())
     {
       CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", NetworkModule::get().getName())));
+	  //CommandDispatcher::get().pushCommand(*(new GameCommand("Spawn")));
       CommandDispatcher::get().pushCommand(*(new GameCommand("ListGames")));
       
       this->_hlayout = new GUIHLayout(300, 768 / 2, 0, 0, 50);
