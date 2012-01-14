@@ -47,6 +47,7 @@ private:
 	void		score(GameCommand const &event);
 	void		life(GameCommand const &event);
 	void		move(GameCommand const &event);
+	void		rangeid(GameCommand const &event);
 
 	void		retrieve(uint32_t idPacket);
 	void		moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy);

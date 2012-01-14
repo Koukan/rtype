@@ -20,6 +20,7 @@ class Server : public Net::PacketHandler<>
 	bool			treatPlayerPacket(Net::Packet &packet);
 	bool			treatGameStatePacket(Net::Packet &packet);
 	bool			treatErrorPacket(Net::Packet &packet);
+	bool			rangeId(Net::Packet &packet);
 
 	std::string		_name;
 	Game			*_game;

@@ -35,7 +35,8 @@ int			Server::handleInputPacket(Net::Packet &packet)
 			NULL, // END_RESOURCE
 			NULL, // END_RESOURCES
 			&Server::treatGameStatePacket,
-			&Server::treatErrorPacket
+			&Server::treatErrorPacket,
+			&Server::rangeId
 	};
 	uint8_t			type;
 
@@ -132,5 +133,16 @@ bool		Server::treatErrorPacket(Net::Packet &packet)
 #else
 	std::cerr << errorTexts[err] << std::endl;
 #endif
+	return true;
+}
+
+bool		Server::rangeId(Net::Packet &packet)
+{
+    uint32_t	begin;
+	uint32_t	end;
+
+	packet >> begin;
+	packet >> end;	
+	CommandDispatcher::get().pushCommand(*(new GameCommand("rangeid", begin, end)));
 	return true;
 }

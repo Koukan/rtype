@@ -121,7 +121,8 @@ bool		GSInGame::handleCommand(Command const &command)
 	{"life", &GSInGame::life},
 	{"score", &GSInGame::score},
 	{"spawn", &GSInGame::spawn},
-	{"move", &GSInGame::move}
+	{"move", &GSInGame::move},
+	{"rangeid", &GSInGame::rangeid}
   };
 
   for (size_t i = 0;
@@ -274,4 +275,9 @@ void		GSInGame::loadMonster(GameCommand const &event)
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("enemy plane"), *hitbox, event.vx, event.vy);
   this->addGameObject(static_cast<GameObject *>(monster1), "monster");
+}
+
+void		GSInGame::rangeid(GameCommand const &event)
+{
+  this->addGroup("shoot", 8, event.idObject, event.idResource); 
 }
