@@ -78,7 +78,6 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 	//return 0;
 	if (!player.getShip())
 		return 1;
-	std::cout << "udp move packet " << player.getId() << std::endl;
 	GameCommand *gc = new GameCommand("move");
 	packet >> gc->idObject;
 	gc->idObject = player.getShip()->getId();
