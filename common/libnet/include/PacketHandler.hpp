@@ -29,7 +29,6 @@ public:
 
 	virtual	int	handleInput(Socket &sock)
 	{
-		std::cout << "plop" << std::endl;
 		return (this->*_func)(sock);
 	}
 

@@ -33,6 +33,7 @@ private:
 	};
 
 	void		inputEscape(InputCommand const &event);
+	void		inputSpace(InputCommand const &event);
 	void		inputUp(InputCommand const &event);
  	void		inputDown(InputCommand const &event);
   	void		inputLeft(InputCommand const &event);

@@ -26,6 +26,7 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputDown, static_cast<int>(Keyboard::Down));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputLeft, static_cast<int>(Keyboard::Left));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputRight, static_cast<int>(Keyboard::Right));
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputSpace, static_cast<int>(Keyboard::Space));
 
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -160,17 +161,25 @@ void		GSInGame::inputEscape(InputCommand const &event)
   GameStateManager::get().pushState(*(new GSPauseMenu()), GameState::NONE);
 }
 
+void		GSInGame::inputSpace(InputCommand const &event)
+{
+  PhysicObject const *obj = static_cast<PhysicObject const *>(this->getGameObject(this->_idPlayer));
+//  GameCommand *cmd = new GameCommand("shoot", 
+ // CommandDispatcher::get().pushCommand(*cmd);
+  //this->spawn(*cmd);
+}
+
 void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy)
 {
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
 
 	if (obj)
 	{
-		GameCommand *cmd = new GameCommand("Move");
-		cmd->x = static_cast<int16_t>(obj->getX() + x);
-		cmd->y = static_cast<int16_t>(obj->getY() + y);
-		cmd->vx = static_cast<int16_t>(obj->getVx() + vx);
-		cmd->vy = static_cast<int16_t>(obj->getVy() + vy);
+		GameCommand *cmd = new GameCommand("Move",
+			static_cast<int16_t>(obj->getX() + x),
+			static_cast<int16_t>(obj->getY() + y),
+			static_cast<int16_t>(obj->getVx() + vx),
+			static_cast<int16_t>(obj->getVy() + vy));
 		this->updatePositions(*cmd, *obj);
 		CommandDispatcher::get().pushCommand(*cmd); //send to network
 	}

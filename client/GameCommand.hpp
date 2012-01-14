@@ -6,9 +6,11 @@
 class GameCommand : public Command
 {
   public:
-    GameCommand(std::string const &name) : Command(name),
-		idObject(0), idResource(0), x(0), y(0), vx(0), vy(0),
-		position(0)
+    GameCommand(std::string const &name, uint32_t idObject = 0,
+		uint32_t idResource = 0, int16_t x = 0, int16_t y = 0,
+		int16_t vx = 0, int16_t vy = 0, float position = 0) : Command(name),
+		idObject(idObject), idResource(idResource), x(x), y(y), vx(vx), vy(vy),
+		position(position)
 		{}
     virtual ~GameCommand(){}
 

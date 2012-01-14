@@ -32,6 +32,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 
 	void		retrieveCommand(Command const &command);
 	void		moveCommand(Command const &command);
+	void		spawnCommand(Command const &command);
 
 // Command TCP
 

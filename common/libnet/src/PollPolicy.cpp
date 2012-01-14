@@ -39,7 +39,7 @@ int	PollPolicy::registerHandler(Socket &socket, NetHandler &handler, int mask)
 {
   size_t	i;
 
-  if (socket.getHandle() == INVALID_SOCKET)
+  if (socket.getHandle() == INVALID_HANDLE)
 	 return -1;
   HandleMap::iterator it = _handles.find(socket.getHandle());
   if (it != _handles.end())
@@ -71,9 +71,30 @@ int	PollPolicy::removeHandler(Socket &socket)
   HandleMap::iterator it = _handles.find(socket.getHandle());
   if (it == _handles.end())
 	  return -1;
-  _fds[it->second.index].fd = INVALID_HANDLE;
-   _emptySlot.push(it->second.index);
+  size_t index = it->second.index;
+  _fds[index].fd = INVALID_HANDLE;
+  /*if (index != _size - 1)*/
+  /*for (; _fds[index].fd == INVALID_HANDLE && _size > 0 && index == _size - 1; index--)
+  {
+	  if (_emptySlot.front() == index)
+		  _emptySlot.pop();
+	 _size--;
+  }*/
   _handles.erase(it);
+#if defined(_WIN32)
+  size_t first = 0;
+  for (size_t second = 0; second < _size; second++)
+  {
+	  if (_fds[second].fd != INVALID_HANDLE)
+	  {
+		 _handles[_fds[second].fd].index = first;
+		 _fds[first++] = _fds[second];
+	  }
+  }
+  _size = first;
+#else
+  _emptySlot.push(index);
+#endif
   return 0;
 }
 
@@ -82,8 +103,6 @@ int		PollPolicy::waitForEvent(int timeout)
 	int			ret;
 	int			i;
 	int			nb;
-	NetHandler	*handler;
-	Socket		*socket;
 
 	while (_wait)
 	{
@@ -95,20 +114,18 @@ int		PollPolicy::waitForEvent(int timeout)
 			{
 				if (_fds[i].revents > 0)
 				{
-					std::cout << "Poll for " << i << std::endl;
-					handler = _handles[_fds[i].fd].handler;
-					socket = _handles[_fds[i].fd].socket;
-					if (_fds[i].revents & POLLHUP)
-						handler->handleClose(*socket);
+					pollpolicydata &data = _handles[_fds[i].fd];
+					if ((_fds[i].revents & POLLHUP) || (_fds[i].revents & POLLERR))
+						data.handler->handleClose(*data.socket);
 					else
 					{
-						if ((_fds[i].revents & POLLOUT) && handler->handleOutput(*socket) <= 0)
+						if ((_fds[i].revents & POLLOUT) && data.handler->handleOutput(*data.socket) <= 0)
 						{
-							handler->handleClose(*socket);
+							data.handler->handleClose(*data.socket);
 							continue ;
 						}
-						if ((_fds[i].revents & POLLIN) && handler->handleInput(*socket) <= 0)
-							handler->handleClose(*socket);
+						if ((_fds[i].revents & POLLIN) && data.handler->handleInput(*data.socket) <= 0)
+							data.handler->handleClose(*data.socket);
 					}
 					++nb;
 				}

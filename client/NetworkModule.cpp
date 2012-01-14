@@ -63,6 +63,7 @@ bool		NetworkModule::handleCommand(Command const &command)
 		{"Move", &NetworkModule::moveCommand},
 		{"Retrieve", &NetworkModule::retrieveCommand},
 		{"Player", &NetworkModule::playerCommand},
+		{"Spawn", &NetworkModule::spawnCommand}
 		/*must be completed */
 	};
 
@@ -150,6 +151,22 @@ void		NetworkModule::retrieveCommand(Command const &command)
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::RETRIEVE);
 	packet << cmd.idObject;
+	this->sendPacketUDP(packet);
+}
+
+void		NetworkModule::spawnCommand(Command const &command)
+{
+	GameCommand const &cmd = static_cast<GameCommand const &>(command);
+	Net::Packet		packet(sizeof(uint64_t) + sizeof(uint8_t) + sizeof(uint16_t) * 4);
+
+	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
+	packet << static_cast<uint8_t>(UDP::SPAWN);
+	packet << cmd.idResource;
+	packet << cmd.idObject;
+	packet << static_cast<uint16_t>(cmd.x);
+	packet << static_cast<uint16_t>(cmd.y);
+	packet << static_cast<uint16_t>(cmd.vx);
+	packet << static_cast<uint16_t>(cmd.vy);
 	this->sendPacketUDP(packet);
 }
 
