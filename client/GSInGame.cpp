@@ -255,11 +255,13 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::MONSTER, &GSInGame::loadMonster}
   };
 
+  std::cout << "[idResource]" << event.idResource << std::endl;
   for (size_t i = 0;
        i < sizeof(methods) / sizeof(*methods); i++)
     {
       if (static_cast<Resource::type>(event.idResource) == methods[i].type)
 	{
+		std::cout << "[idResource valide]" << event.idResource << std::endl;
 	  (this->*methods[i].method)(event);
 	  if (static_cast<uint16_t>(event.idResource) == this->_idPlayer)
 	    {
