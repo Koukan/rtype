@@ -31,23 +31,39 @@
 
   <wait>5</wait>
 
-  <fire>
+	<action>
+   	<fire>
+      	<direction type="absolute">0</direction>
+			<speed>40</speed>
+      	<bulletRef label="enemySimple"/>
+  	  	</fire>
+	</action>
+	
+
+<!--  <fire>
     <direction type="absolute">360 * $rand</direction>
     <bulletRef label="pillarbit"/>
   </fire>
-  <repeat><times>17</times><action>
+
+<repeat><times>17</times><action>
     <fire>
       <direction type="sequence">5</direction>
       <bulletRef label="dummybit"/>
     </fire>
   </action></repeat>
-
-  <repeat><times>3</times><action>
+</action>
+-->
+<!--  <repeat><times>2</times><action>
     <fire>
-      <direction type="sequence">5</direction>
+      <direction type="sequence">180</direction>
       <bulletRef label="pillarbit"/>
     </fire>
-    <repeat><times>17</times><action>
+	</action>
+	</repeat>-->
+
+</action>
+</bullet>
+<!--    <repeat><times>17</times><action>
       <fire>
         <direction type="sequence">5</direction>
         <bulletRef label="dummybit"/>
@@ -99,8 +115,8 @@
 
 </action>
 </bullet>
-
-<bullet label="pillarbit" group="ship" sprite="weapon" simpleGroup="shot" simpleSprite="shot">
+-->
+<!--<bullet label="pillarbit" group="ship" sprite="weapon" simpleGroup="shot" simpleSprite="shot">
 <hitbox shape="circle" radius="2" />
 <simpleHitbox shape="circle" radius="2" />
 <speed>90</speed>
@@ -113,8 +129,6 @@
     <term>1</term>
   </changeSpeed>
 
-  <wait>120</wait>
-
   <repeat><times>300000 / (35 - 33 * $rank)</times><action>
     <repeat><times>10</times><action>
       <fire>
@@ -124,11 +138,14 @@
           <param>15</param>
         </bulletRef>
       </fire>
+		<wait>10</wait>
     </action></repeat>
     <fire>
       <direction type="relative">-45 + 90 * $rand</direction>
       <speed>(20 + 5 * $rand) * (10 + 10 * $rank)</speed>
-      <bullet/>
+		<bulletRef label="weak">
+			<param>80</param>
+		</bulletRef>
     </fire>
     <wait>35 - 33 * $rank</wait>
   </action></repeat>
@@ -166,7 +183,7 @@
 
 </action>
 </bullet>
-
+-->
 <bullet label="weak" group="ship" sprite="shot">
 <hitbox shape="circle" radius="2" />
 <simpleHitbox shape="circle" radius="2" />
@@ -178,4 +195,24 @@
 </action>
 </bullet>
 
+<bullet label="enemySimple" group="ship" sprite="weapon" simpleGroup="shot" simpleSprite="shot">
+<hitbox shape="circle" radius="2" />
+<simpleHitbox shape="circle" radius="2" />
+<action>
+	<repeat><times>300000 / (35 - 33 * $rank)</times><action>
+		<changeDirection>
+			<direction type="sequence">10</direction>
+			<term>1</term>
+		</changeDirection>
+    	<fire>
+      	<direction type="relative">90</direction>
+     	 	<speed>300</speed>
+      	<bulletRef label="weak">
+				<param>50</param>
+			</bulletRef>
+    	</fire>
+    <wait>35 - 33 * $rank</wait>
+  	</action></repeat>
+</action>
+</bullet>
 </bulletml>
