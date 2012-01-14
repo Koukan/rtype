@@ -13,11 +13,8 @@ GameButton::~GameButton()
 {
 }
 
-#include <iostream>
 void GameButton::push()
 {
-  std::cout << "create game " << this->_id << std::endl;
-
   GameCommand *command = new GameCommand("ConnectGame");
   command->idObject = this->_id;
 

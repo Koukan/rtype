@@ -39,7 +39,6 @@ void	GSLoading::update(double )
 
 void	GSLoading::buttonClick()
 {
-  std::cout << "youpi" << std::endl;
 		//this->setComponentVisibility(false);
 
 }
@@ -90,5 +89,5 @@ void	GSLoading::onStart()
 
 void	GSLoading::gameBeginCommand(Command const &)
 {
-		GameStateManager::get().pushState(*_ingame);
+	GameStateManager::get().pushState(*_ingame);
 }
