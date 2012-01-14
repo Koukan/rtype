@@ -86,7 +86,8 @@ void		GSInGame::onStart()
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
-  Sprite *sprite = this->getSprite("enemy tron");
+  //this->setGroup("player", 10, false, "default");
+  /*Sprite *sprite = this->getSprite("enemy tron");
   sprite->setPosition(500, 600);
   this->addGameObject(sprite, "player");
   sprite = this->getSprite("enemy fish");
@@ -112,7 +113,7 @@ void		GSInGame::onStart()
   this->addGameObject(sprite, "player");
   sprite = this->getSprite("color shot");
   sprite->setPosition(200, 475);
-  this->addGameObject(sprite, "player");
+  this->addGameObject(sprite, "player");*/
   // sprite->setPosition(500, 600);
   // this->addGameObject(sprite, "player", 10);
   // sprite = this->getSprite("enemy fish");

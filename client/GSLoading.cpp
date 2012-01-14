@@ -89,5 +89,5 @@ void	GSLoading::onStart()
 
 void	GSLoading::gameBeginCommand(Command const &)
 {
-	GameStateManager::get().pushState(*_ingame);
+	GameStateManager::get().changeState(*_ingame);
 }
