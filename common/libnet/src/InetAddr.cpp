@@ -166,7 +166,7 @@ InetAddr::operator sockaddr const *() const
 
 bool	InetAddr::operator<(InetAddr const &other) const
 {
-	return len_ < other.getSize();
+	return (::memcmp(&addr_, &other.addr_, len_) < 0);
 }
 
 bool 	InetAddr::operator==(InetAddr const & other) const
