@@ -19,14 +19,11 @@ GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFon
 GSInGame::~GSInGame()
 {}
 
-void		GSInGame::onStart()
+
+void		GSInGame::preload()
 {
-  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputEscape, static_cast<int>(Keyboard::Escape));
-  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputUp, static_cast<int>(Keyboard::Up));
-  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputDown, static_cast<int>(Keyboard::Down));
-  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputLeft, static_cast<int>(Keyboard::Left));
-  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputRight, static_cast<int>(Keyboard::Right));
-  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputSpace, static_cast<int>(Keyboard::Space));
+
+  this->addGroup("player", 10);
 
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -37,6 +34,17 @@ void		GSInGame::onStart()
   this->load("resources/player.xml");
   this->load("resources/shots.xml");
   this->load("resources/enemies.xml");
+}
+
+void		GSInGame::onStart()
+{
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputEscape, static_cast<int>(Keyboard::Escape));
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputUp, static_cast<int>(Keyboard::Up));
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputDown, static_cast<int>(Keyboard::Down));
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputLeft, static_cast<int>(Keyboard::Left));
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputRight, static_cast<int>(Keyboard::Right));
+  this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputSpace, static_cast<int>(Keyboard::Space));
+
 
   // add gui
 
@@ -80,31 +88,31 @@ void		GSInGame::onStart()
 
   Sprite *sprite = this->getSprite("enemy tron");
   sprite->setPosition(500, 600);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("enemy fish");
   sprite->setPosition(500, 500);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("enemy star");
   sprite->setPosition(500, 370);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("enemy bomb");
   sprite->setPosition(500, 300);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("enemy plane");
   sprite->setPosition(500, 200);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("enemy walkbrown");
   sprite->setPosition(500, 100);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("player1");
   sprite->setPosition(20, 500);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("default shot");
   sprite->setPosition(120, 500);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
   sprite = this->getSprite("color shot");
   sprite->setPosition(200, 475);
-  this->addGameObject(sprite, "player", 10);
+  this->addGameObject(sprite, "player");
 }
 
 void		GSInGame::update(double elapsedTime)

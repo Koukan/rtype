@@ -11,6 +11,7 @@
 #include "GUIHLayout.hpp"
 #include "ScrollingSprite.hpp"
 #include "GameStateManager.hpp"
+#include "GSInGame.hpp"
 
 GSLoading::GSLoading() : GameState("Loading")
 {
@@ -51,7 +52,7 @@ void	GSLoading::listChoice(std::string const &)
 bool		GSLoading::handleCommand(Command const &command)
 {
   static Method const	methods[] = {
-	{"GameBegin", &GSLoading::gameBeginCommand},
+	{"GameBegin", &GSLoading::gameBeginCommand}
   };
 
   for (size_t i = 0;
@@ -63,7 +64,7 @@ bool		GSLoading::handleCommand(Command const &command)
 			return true;
 		}
 	}
-  return (false);
+  return (_ingame->handleCommand(command));
 }
 
 void	GSLoading::onStart()
@@ -83,10 +84,11 @@ void	GSLoading::onStart()
   font->setY(350);
   font->setText("Loading");
   this->addGameObject(font, "gui", 20);
+  _ingame = new GSInGame();
+  _ingame->preload();
 }
 
 void	GSLoading::gameBeginCommand(Command const &)
 {
-	GameStateManager::get().loadState<GSInGame>("GSInGame");
-	GameStateManager::get().changeState("GSInGame");
+		GameStateManager::get().pushState(*_ingame);
 }

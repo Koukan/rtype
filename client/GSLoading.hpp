@@ -4,6 +4,8 @@
 #include "GameState.hpp"
 #include "BulletCommand.hpp"
 
+class GSInGame;
+
 class GSLoading : public GameState
 {
 public:
@@ -26,4 +28,5 @@ private:
 	void			gameBeginCommand(Command const &);
 
 	BulletCommand		*_bullet;
+	GSInGame			*_ingame;
 };

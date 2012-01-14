@@ -17,6 +17,7 @@ public:
 	virtual void	onEnd();
 	virtual void	update(double elapsedTime = 0);
 	virtual bool	handleCommand(Command const &command);
+	void			preload();
 
 private:
 
