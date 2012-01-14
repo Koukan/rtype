@@ -153,12 +153,13 @@ int		Player::connectGame(Net::Packet &packet)
 
 int		Player::player(Net::Packet &packet)
 {
-	uint16_t	status;
+	uint8_t	status;
 	std::string	name;
 
 	packet >> status;
 	packet >> name;
-	if (status == 1 && _game)
+	std::cout << "Ready " << status << std::endl;
+	if (status == PlayerStatus::READY && _game)
 		_game->addReadyPlayer();
 	return 1;
 }

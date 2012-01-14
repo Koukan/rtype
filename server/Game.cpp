@@ -57,8 +57,6 @@ bool		Game::addPlayer(Player &player)
 		CommandDispatcher::get().pushCommand(*cmd);
 		player.setGame(*this);
 		//this->broadcastStatus(player, 1);
-		if (this->_list.size() == this->_maxPlayers)
-			this->startGame();
 		return true;
 	}
 	return false;
@@ -96,12 +94,13 @@ uint8_t     Game::getMaxPlayers() const
 
 void		Game::addReadyPlayer()
 {
+	std::cout << "Ready" << std::endl;
 	_readyPlayers++;
 	 if (this->_maxPlayers == this->_readyPlayers)
 	{
 		this->_readyPlayers = 0;
-		this->_logic.startGame();
-	}		 
+		this->startGame();
+	}
 }
 
 std::list<Player*> const &Game::getPlayers() const
