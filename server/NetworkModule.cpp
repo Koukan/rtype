@@ -206,10 +206,9 @@ void        NetworkModule::statusCommand(Command const &command)
 void		NetworkModule::startgameCommand(Command const &command)
 {	
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
-	
 	if (cmd.game)
 	{
-		Net::Packet	packet(64);
+		Net::Packet	packet(2);
 
 		packet << static_cast<uint8_t>(TCP::GAMESTATE);
 		packet << static_cast<uint8_t>(0);

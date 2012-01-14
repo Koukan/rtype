@@ -21,6 +21,10 @@ Game::Game() : _quit(false), _preferencesFile(Game::PREF_FILE), _preferences(3)
 	  this->readPreferencesFile();
 	else
 	  this->savePreferencesFile();
+	this->_preferences[0] = this->_preferences[0].substr(0, Game::NB_CHAR_NAME);
+	this->_preferences[1] = this->_preferences[1].substr(0, Game::NB_CHAR_IP);
+	this->_preferences[2] = this->_preferences[2].substr(0, Game::NB_CHAR_PORT);
+
 }
 
 Game::~Game()

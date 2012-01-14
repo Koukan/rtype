@@ -30,25 +30,28 @@ void	GSCreateMenu::returnMainMenu()
 
 void	GSCreateMenu::createParty()
 {
-   if (NetworkModule::get().connect())
+  if (NetworkModule::get().connect())
     {
-		std::stringstream ss;
+      CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", NetworkModule::get().getName())));
 
-		ss.clear();
-		ss << this->_nbPlayers;
-		std::cout << this->_nbPlayers << std::endl;
-		GameListCommand	*cmd = new GameListCommand("CreateGame", this->_nbPlayers); 
-		CommandDispatcher::get().pushCommand(*cmd);
-		GameStateManager::get().changeState("loading");
-   }
-   else
+      std::stringstream ss;
+
+      ss.clear();
+      ss << this->_nbPlayers;
+      int i;
+      ss >> i;
+      GameListCommand	*cmd = new GameListCommand("CreateGame", i);
+      CommandDispatcher::get().pushCommand(*cmd);
+      GameStateManager::get().changeState("loading");
+    }
+  else
     {
     }
 }
 
 void	GSCreateMenu::nbPlayerList(std::string const &nb)
 {
-  _nbPlayers = nb;
+  this->_nbPlayers = nb;
 }
 
 void	GSCreateMenu::onStart()

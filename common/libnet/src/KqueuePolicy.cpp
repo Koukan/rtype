@@ -77,8 +77,11 @@ int		KqueuePolicy::waitForEvent(int timeout)
 			data->handler->handleClose(*(data->socket));
 		else
 		{
-			if (ev[i].filter == EVFILT_WRITE)
-				data->handler->handleOutput(*(data->socket));
+			if ((ev[i].filter == EVFILT_WRITE) && data->handler->handleOutput(*(data->socket)) <= 0)
+			{
+				data->handler->handleClose(*(data->socket));
+				continue ;
+			}
 			else if ((ev[i].filter & EVFILT_READ) && data->handler->handleInput(*(data->socket)) <= 0)
 				data->handler->handleClose(*(data->socket));
 		}
