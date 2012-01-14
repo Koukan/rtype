@@ -38,6 +38,8 @@ private:
  	void		inputDown(InputCommand const &event);
   	void		inputLeft(InputCommand const &event);
   	void		inputRight(InputCommand const &event);
+	void		releaseInputUpDown(InputCommand const &event);
+  	void		releaseInputLeftRight(InputCommand const &event);
 
 	// HandleCommand
 //	void		inputMove(GameCommand const &event);

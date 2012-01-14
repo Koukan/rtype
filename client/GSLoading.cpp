@@ -38,7 +38,6 @@ void	GSLoading::update(double )
 
 void	GSLoading::buttonClick()
 {
-  std::cout << "youpi" << std::endl;
 		//this->setComponentVisibility(false);
 
 }
