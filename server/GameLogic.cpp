@@ -18,17 +18,14 @@ GameLogic::~GameLogic()
 
 void		GameLogic::update(double elapseTime)
 {
-	std::cout << "call" << std::endl;
 	this->handle(elapseTime);
 }
 
 bool		GameLogic::handleCommand(Command const &command)
 {
 	GameCommand	const &gc = static_cast<GameCommand const &>(command);
-	std::cout << "plop" << std::endl;
 	if (gc.name == "move")
 	{
-		std::cout << "move" << std::endl;
 		Ship	*ship = gc.player->getShip();
 		ship->setX(gc.x);
 		ship->setY(gc.y);
@@ -47,17 +44,20 @@ bool		GameLogic::handleCommand(Command const &command)
 	}
 	else if (gc.name == "spawn")
 	{
+		std::cout << "spawn plop" << std::endl;
 		CircleHitBox	*hitbox = new CircleHitBox(gc.x, gc.y, 5);
 		Bullet			*bullet = new Bullet(*hitbox, gc.vx, gc.vy);
+		bullet->setId(gc.idObject);
 		this->addGameObject(bullet, "playerfires", 9);
 		GameCommand *answer = new GameCommand("Spawn");
-		answer->idObject = bullet->getId();
+		answer->idResource = gc.idResource;
+		answer->idObject = gc.idObject;
 		answer->x = gc.x;
 		answer->y = gc.y;
 		answer->vx = gc.vx;
 		answer->vy = gc.vy;
 		answer->game = &_game;
-		//answer->player = gc.player;
+		answer->player = gc.player;
 		CommandDispatcher::get().pushCommand(*answer);
 		return true;
 	}
