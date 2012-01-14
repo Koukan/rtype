@@ -73,8 +73,11 @@ int		EpollPolicy::waitForEvent(int timeout)
 			data->handler->handleClose(*(data->socket));
 		else
 		{
-			if (ev[i].events & EPOLLOUT)
-				data->handler->handleOutput(*(data->socket));
+			if (ev[i].events & EPOLLOUT && data->handler->handleOutput(*(data->socket)) <= 0)
+			{
+				data->handler->handleClose(*(data->socket));
+				continue ;
+			}
 			if ((ev[i].events & EPOLLIN) && data->handler->handleInput(*(data->socket)) <= 0)
 				data->handler->handleClose(*(data->socket));
 		}

@@ -208,7 +208,8 @@ void		NetworkModule::startgameCommand(Command const &command)
 	
 	if (cmd.game)
 	{
-		Net::Packet	packet(64);
+		Net::Packet	packet(2);
+		std::cout << "startgamecommand" << std::endl;
 
 		packet << static_cast<uint8_t>(TCP::GAMESTATE);
 		packet << static_cast<uint8_t>(0);
