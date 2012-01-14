@@ -19,6 +19,7 @@ class Game : public Module
 	bool			isFull() const;
 	uint16_t		getId() const;
 	uint8_t			getMaxPlayers() const;
+    void			addReadyPlayer();	
 	void			sendTCPPacket(Net::Packet &packet, Player *player = 0);
 	void			sendUDPPacket(Net::Packet &packet, Player *player = 0);
 	GameLogic		&getGameLogic();
@@ -31,6 +32,7 @@ class Game : public Module
 	GameLogic			_logic;
 	uint16_t			_id;
 	uint8_t				_maxPlayers;
+	size_t				_readyPlayers;
 	std::list<Player*>	_list;
 	friend class GameLogic;
 };

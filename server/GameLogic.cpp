@@ -18,7 +18,6 @@ GameLogic::~GameLogic()
 
 void		GameLogic::update(double)
 {
-	
 }
 
 bool		GameLogic::handleCommand(Command const &command)
@@ -74,7 +73,7 @@ void		GameLogic::startGame()
 	{
 		Ship *tmp = new Ship(x, 10, *it);
 	    (*it)->setShip(tmp);
-		this->addGameObject(tmp, "players", 10);	
+		this->addGameObject(tmp, "players", 10);
 		GameCommand	*cmd = new GameCommand("Spawn");
 		cmd->idResource = (*it)->getId();
 		cmd->idObject = tmp->getId();
@@ -83,6 +82,7 @@ void		GameLogic::startGame()
 		cmd->vx = tmp->getVx();
 		cmd->vy = tmp->getVy();
 		cmd->game = &_game;
+		std::cout << "Id " << (*it)->getId() << std::endl;
 		CommandDispatcher::get().pushCommand(*cmd);
 		x += step;
 	}

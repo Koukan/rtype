@@ -9,7 +9,7 @@
 
 Game::Game(uint16_t id, uint8_t maxPlayers)
 	: Module("Game" + id, 20), _logic(*this),
-	  _id(id), _maxPlayers(maxPlayers)
+	  _id(id), _maxPlayers(maxPlayers), _readyPlayers(0)
 {
 	Server::get().loadModule(*this);
 }
@@ -43,6 +43,7 @@ bool		Game::addPlayer(Player &player)
 	if (this->_list.size() < this->_maxPlayers)
 	{
 		player.setId(this->_list.size());
+		std::cout << "Id " << player.getId() << std::endl;
 		this->_list.push_back(&player);
 		uint32_t	begin = this->_list.size() * 10000000 + 1000000001;
 		uint32_t	end = begin + 9999999;
@@ -55,8 +56,7 @@ bool		Game::addPlayer(Player &player)
 		cmd->player = &player;
 		CommandDispatcher::get().pushCommand(*cmd);
 		player.setGame(*this);
-		player.setId(_logic.getLastAttributedId());
-		this->broadcastStatus(player, 1);
+		//this->broadcastStatus(player, 1);
 		if (this->_list.size() == this->_maxPlayers)
 			this->startGame();
 		return true;
@@ -89,9 +89,19 @@ uint16_t	Game::getId() const
 	return _id;
 }
 
-uint8_t          Game::getMaxPlayers() const
+uint8_t     Game::getMaxPlayers() const
 {
 	return _maxPlayers;
+}
+
+void		Game::addReadyPlayer()
+{
+	_readyPlayers++;
+	 if (this->_maxPlayers == this->_readyPlayers)
+	{
+		this->_readyPlayers = 0;
+		this->_logic.startGame();
+	}		 
 }
 
 std::list<Player*> const &Game::getPlayers() const
