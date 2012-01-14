@@ -61,6 +61,8 @@ set(SRCS
 	SFMLFont.hpp
 	SFMLFontProvider.cpp
 	SFMLFontProvider.hpp
+	ConcreteObject.cpp
+	ConcreteObject.hpp
 	Game.cpp
 	Game.hpp
 	GameButton.cpp
@@ -85,8 +87,6 @@ set(SRCS
 	InputModule.cpp
 	InputModule.hpp
 	main.cpp
-	Monster.cpp
-	Monster.hpp
 	NetworkModule.cpp
 	NetworkModule.hpp
 	PacketCommand.cpp
@@ -94,6 +94,7 @@ set(SRCS
 	${INCLUDES_COMMON_DIR}PacketType.hpp
 	RendererManager.cpp
 	RendererManager.hpp
+	${INCLUDES_COMMON_DIR}Resources.hpp
 	ScrollingSprite.hpp
 	ScrollingSprite.cpp
 	Server.cpp
