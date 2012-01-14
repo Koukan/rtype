@@ -11,7 +11,7 @@
 class GSInGame : public GameState
 {
 public:
-	GSInGame();
+	GSInGame(int nbPlayers);
 	~GSInGame();
 	virtual void	onStart();
 	virtual void	onEnd();
@@ -58,6 +58,7 @@ private:
   	void		throwShip();
 
 	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;
+	void		displayScores();
 
 	void		loadP1(GameCommand const &event);
 	void		loadP2(GameCommand const &event);
@@ -66,7 +67,9 @@ private:
 	void		loadMonster(GameCommand const &event);
 
 	uint16_t	_idPlayer;
+	int		_nbPlayers;
 	std::vector<uint32_t> _scores;
 	std::vector<Font*>    _scoreFonts;
+	std::vector<Font*>    _nameFonts;
 	PhysicObject	*_ship;
 };
