@@ -4,7 +4,7 @@
 #include "PacketCommand.hpp"
 #include "PacketType.hpp"
 
-NetworkModule::NetworkModule() : Module("NetworkModule", 20)
+NetworkModule::NetworkModule() : Module("NetworkModule", 5)
 {
 	CommandDispatcher::get().registerHandler(*this);
 }
