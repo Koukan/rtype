@@ -48,6 +48,8 @@ set(SRCS
 	PacketCommand.hpp
 	Player.cpp
 	Player.hpp
+	${COMMON_INCLUDE_DIR}Rules.cpp
+	${COMMON_INCLUDE_DIR}Rules.hpp
 	Server.cpp
 	Server.hpp
 	ServerResourceManager.cpp

@@ -11,6 +11,7 @@
 #include "ScrollingSprite.hpp"
 #include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
+#include "Rules.hpp"
 
 
 GSInGame::GSInGame(int nbPlayers) : GameState("Game"), _idPlayer(0),
@@ -27,6 +28,8 @@ GSInGame::~GSInGame()
 void		GSInGame::preload()
 {
   this->addGroup("players", 10);
+  this->addGroup("Wall", 0);
+  this->setCollisionGroups("Wall", "shoot", &Rules::wallTouchObject);
 
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -37,6 +40,11 @@ void		GSInGame::preload()
   this->load("resources/player.xml");
   this->load("resources/shots.xml");
   this->load("resources/enemies.xml");
+
+  this->addGameObject(new PhysicObject(*new RectHitBox(2000, -2000, 1000, 8000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 1000, 8000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 8000, 1000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, 1000, 8000, 1000)), "Wall");
 }
 
 void		GSInGame::onStart()
