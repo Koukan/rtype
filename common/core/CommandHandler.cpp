@@ -30,7 +30,10 @@ bool			CommandHandler::handle(Command const &command)
 	if (!ret)
 	{
 		for (it = this->_handlers.begin(); it != this->_handlers.end(); it++)
-			return (*it)->handle(command);
+		{
+			if ((*it)->handle(command))
+				return true;
+		}
 	}
 	return ret;
 }
