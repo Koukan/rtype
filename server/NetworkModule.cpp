@@ -6,6 +6,7 @@
 
 NetworkModule::NetworkModule() : Module("NetworkModule", 20), _reactor(0)
 {
+	_idPacket = 0;
 	CommandDispatcher::get().registerHandler(*this);
 }
 
@@ -108,7 +109,7 @@ void		NetworkModule::spawnCommand(Command const &command)
 		Net::Packet		packet(29);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::SPAWN);
-		packet << 0;
+		packet << _idPacket++;
 		packet << cmd.idResource;
 		packet << cmd.idObject;
 		packet << cmd.x;
@@ -128,7 +129,7 @@ void		NetworkModule::destroyCommand(Command const &command)
 		Net::Packet		packet(17);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::DESTROY);
-		packet << 0;
+		packet << _idPacket++;
 		packet << cmd.idObject;
 		this->sendUDPPacket(packet, cmd.game->getPlayers(),
 						 true, cmd.player);
