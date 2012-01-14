@@ -19,12 +19,12 @@ GameLogic::~GameLogic()
 void		GameLogic::update(double elapseTime)
 {
 	this->handle(elapseTime);
-	std::cout << "uypdate logic" << std::endl;
 }
 
 bool		GameLogic::handleCommand(Command const &command)
 {
 	GameCommand	const &gc = static_cast<GameCommand const &>(command);
+	std::cout << "plop" << std::endl;
 	if (gc.name == "move")
 	{
 		std::cout << "move" << std::endl;
