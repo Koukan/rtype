@@ -1,7 +1,7 @@
 #include "GameButton.hpp"
 
 GameButton::GameButton(int id, std::string const &name, ButtonSprite const &sprite, GUILayout *layout)
-  : GUIButton<GameButton>(*this, &GameButton::push, name, "buttonFont", sprite, layout), _id(id)
+  : GUIButton<GameButton>(*this, &GameButton::push, name, "listGameFont", sprite, layout), _id(id)
 {
 }
 

@@ -29,6 +29,7 @@ public:
 
 	virtual	int	handleInput(Socket &sock)
 	{
+		std::cout << "plop" << std::endl;
 		return (this->*_func)(sock);
 	}
 
@@ -37,6 +38,11 @@ public:
 		int ret = 0;
 		Packet	*top;
 
+		if (_outputPacket.empty())
+		{
+			this->_reactor->registerHandler(*this, *this, Reactor::READ);
+			return 1;
+		}
 		while (!_outputPacket.empty())
 		{
 			  top = _outputPacket.front();
