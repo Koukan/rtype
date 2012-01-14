@@ -43,9 +43,7 @@ void		Game::init()
   this->loadModule(GameStateManager::get());
   this->loadModule(NetworkModule::get());
   CommandDispatcher::get().registerHandler(GameStateManager::get());
-  GameStateManager::get().loadState<GSLoading>("loading");
   GameStateManager::get().loadState<GSMainMenu>("mainMenu");
-  GameStateManager::get().loadState<GSInGame>("Game");
   GameStateManager::get().pushState("mainMenu");
 }
 
