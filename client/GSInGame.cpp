@@ -8,6 +8,7 @@
 #include "SFMLSpriteProvider.hpp"
 #include "SFMLFontProvider.hpp"
 #include "ScrollingSprite.hpp"
+#include "GameListCommand.hpp"
 #include "NetworkModule.hpp"
 
 
@@ -264,6 +265,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
+	  std::cout << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }
@@ -324,7 +326,7 @@ void		GSInGame::loadP3(GameCommand const &event)
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player3"), *hitbox, event.vx, event.vy);
   monster1->setId(event.idObject);
-  this->addGameObject(static_cast<GameObject *>(monster1), "players");
+  this->addGameObject(monster1, "players");
 }
 
 void		GSInGame::loadP4(GameCommand const &event)
@@ -332,7 +334,7 @@ void		GSInGame::loadP4(GameCommand const &event)
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player4"), *hitbox, event.vx, event.vy);
   monster1->setId(event.idObject);
-  this->addGameObject(static_cast<GameObject *>(monster1), "players");
+  this->addGameObject(monster1, "players");
 }
 
 void		GSInGame::loadMonster(GameCommand const &event)
@@ -347,4 +349,6 @@ void		GSInGame::rangeid(GameCommand const &event)
 {
   this->addGroup("shoot", 8, event.idObject, event.idResource);
   this->_idPlayer = event.x;
+  std::cout << "IdPlayer " << this->_idPlayer << std::endl;
+  CommandDispatcher::get().pushCommand(*(new GameListCommand("Player", PlayerStatus::READY, NetworkModule::get().getName())));
 }
