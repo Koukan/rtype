@@ -121,7 +121,7 @@ void		GSInGame::displayScores()
 
   for (int i = 0; i < this->_nbPlayers; ++i)
     {
-      ss.clear();
+      ss.str("");
       ss << "P" << (i+1);
       std::cout << "NameFont : " << this->_nameFonts[i] << std::endl;
       this->_nameFonts[i] = this->getFont("buttonFont");
