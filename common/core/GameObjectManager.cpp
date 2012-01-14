@@ -108,7 +108,8 @@ void		Group::addObject(GameObject *object)
   }
   if (this->_physic)
 	  this->_quadTree->push(*static_cast<PhysicObject *>(object));
-  object->setId(this->getId());
+  if (!object->getId())
+  	object->setId(this->getId());
   this->_objects.insert(object);
   object->setGroup(this);
 }
@@ -182,11 +183,6 @@ bool	GameObjectManager::addGameObject(GameObject *object,
 	if (!object)
 		return false;
 	addGroup(group, layer);
-	if (object->_id)
-	{
-		if (this->_objects.find(object->_id) != this->_objects.end())
-			return false;
-	}
 	this->_groups[group]->addObject(object);
 	this->_objects[object->_id] = object;
 	return true;
