@@ -4,7 +4,7 @@
 #include "PacketType.hpp"
 #include "GameCommand.hpp"
 
-NetworkModule::NetworkModule() : Module("NetworkModule", 20), _reactor(0)
+NetworkModule::NetworkModule() : Module("NetworkModule", 5), _reactor(0)
 {
 	CommandDispatcher::get().registerHandler(*this);
 }
