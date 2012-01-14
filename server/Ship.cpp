@@ -6,7 +6,7 @@
 Ship::Ship(double x, double y, Player *player) : PhysicObject(*new RectHitBox(x, y, 10, 10)), _player(player)
 {
 	GameCommand	*cmd = new GameCommand("Spawn");
-	cmd->idResource = player->getId() - 1;
+	cmd->idResource = player->getId();
 	cmd->idObject = this->_id;
 	cmd->x = this->_x;
 	cmd->y = this->_y;
