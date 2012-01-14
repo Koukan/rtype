@@ -37,6 +37,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void		sendTCPPacket(Net::Packet &packet, std::list<Player*> const &list, Player *player);
 	void		statusCommand(Command const &command);
 	void		startgameCommand(Command const &command);
+	void		rangeId(Command const &command);
 
 
 	Net::Reactor						*_reactor;
