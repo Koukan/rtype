@@ -11,7 +11,7 @@
 #include "NetworkModule.hpp"
 
 
-GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont"))
+GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont")), _ship(0)
 {
   //CommandDispatcher::get().registerHandler(*this);
 }
@@ -139,22 +139,38 @@ bool		GSInGame::handleCommand(Command const &command)
 
 void		GSInGame::inputUp(InputCommand const &event)
 {
-	this->moveObject(event, 0, 0, -1, 0);
+  if (this->_ship)
+    {
+      this->_ship->setVy(-1);
+      this->throwShip();
+    }
 }
 
 void		GSInGame::inputDown(InputCommand const &event)
 {
-	this->moveObject(event, 0, 0, 1, 0);
+  if (this->_ship)
+    {
+      this->_ship->setVy(1);
+      this->throwShip();
+    }
 }
 
 void		GSInGame::inputLeft(InputCommand const &event)
 {
-	this->moveObject(event, 0, 0, -1, 0);
+  if (this->_ship)
+    {
+      this->_ship->setVx(-1);
+      this->throwShip();
+    }
 }
 
 void		GSInGame::inputRight(InputCommand const &event)
 {
-	this->moveObject(event, 0, 0, 1, 0);
+  if (this->_ship)
+    {
+      this->_ship->setVx(1);
+      this->throwShip();
+    }
 }
 
 void		GSInGame::inputEscape(InputCommand const &event)
@@ -170,21 +186,32 @@ void		GSInGame::inputSpace(InputCommand const &event)
   //this->spawn(*cmd);
 }
 
-void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy)
+void		GSInGame::throwShip()
 {
-	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
+  GameCommand *cmd = new GameCommand("Move",
+				     static_cast<int16_t>(this->_ship->getX()),
+				     static_cast<int16_t>(this->_ship->getY()),
+				     static_cast<int16_t>(this->_ship->getVx()),
+				     static_cast<int16_t>(this->_ship->getVy()));
 
-	if (obj)
-	{
-		GameCommand *cmd = new GameCommand("Move",
-			static_cast<int16_t>(obj->getX() + x),
-			static_cast<int16_t>(obj->getY() + y),
-			static_cast<int16_t>(obj->getVx() + vx),
-			static_cast<int16_t>(obj->getVy() + vy));
-		this->updatePositions(*cmd, *obj);
-		CommandDispatcher::get().pushCommand(*cmd); //send to network
-	}
+  CommandDispatcher::get().pushCommand(*cmd); //send to network
 }
+
+// void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy)
+// {
+// 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
+
+// 	if (obj)
+// 	{
+// 		GameCommand *cmd = new GameCommand("Move",
+// 			static_cast<int16_t>(obj->getX() + x),
+// 			static_cast<int16_t>(obj->getY() + y),
+// 			static_cast<int16_t>(obj->getVx() + vx),
+// 			static_cast<int16_t>(obj->getVy() + vy));
+// 		this->updatePositions(*cmd, *obj);
+// 		CommandDispatcher::get().pushCommand(*cmd); //send to network
+// 	}
+// }
 
 void		GSInGame::spawn(GameCommand const &event)
 {
@@ -246,6 +273,7 @@ void		GSInGame::loadP1(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player1"), *hitbox, event.vx, event.vy);
+  monster1->setId(event.idResource);
   this->addGameObject(static_cast<GameObject *>(monster1), "player");
 }
 
@@ -253,6 +281,7 @@ void		GSInGame::loadP2(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player2"), *hitbox, event.vx, event.vy);
+  monster1->setId(event.idResource);
   this->addGameObject(static_cast<GameObject *>(monster1), "player");
 }
 
@@ -260,6 +289,7 @@ void		GSInGame::loadP3(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player3"), *hitbox, event.vx, event.vy);
+  monster1->setId(event.idResource);
   this->addGameObject(static_cast<GameObject *>(monster1), "player");
 }
 
@@ -267,6 +297,7 @@ void		GSInGame::loadP4(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player4"), *hitbox, event.vx, event.vy);
+  monster1->setId(event.idResource);
   this->addGameObject(static_cast<GameObject *>(monster1), "player");
 }
 
@@ -279,5 +310,6 @@ void		GSInGame::loadMonster(GameCommand const &event)
 
 void		GSInGame::rangeid(GameCommand const &event)
 {
-  this->addGroup("shoot", 8, event.idObject, event.idResource); 
+  this->addGroup("shoot", 8, event.idObject, event.idResource);
+  this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.x));
 }
