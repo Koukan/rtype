@@ -75,6 +75,7 @@ void	GSJoinGame::returnMainMenu()
   	GameStateManager::get().popState();
 }
 
+#include <iostream>
 bool	GSJoinGame::handleCommand(Command const &command)
 {
   if (command.name == "listGame")
@@ -83,9 +84,9 @@ bool	GSJoinGame::handleCommand(Command const &command)
       if (cmd.nbPlayers != 0)
 	{
 	  std::string id = Net::Converter::toString(cmd.idGame);
-	  std::string nbPlayers = Net::Converter::toString(cmd.nbPlayers);
-	  std::string state = Net::Converter::toString(cmd.state);
-	  new GameButton(cmd.idGame, id + " | Players " + state + "/" + nbPlayers, *this->_sprite, this->_vlayout);
+	  std::string nbPlayers = Net::Converter::toString(static_cast<int>(cmd.nbPlayers));
+	  std::string state = Net::Converter::toString(static_cast<int>(cmd.state));
+	  new GameButton(cmd.idGame, id + "  Players " + state + "/" + nbPlayers, *this->_sprite, this->_vlayout);
 	  this->_isListed = true;
 	}
       else
