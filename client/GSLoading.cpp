@@ -13,7 +13,7 @@
 #include "GameStateManager.hpp"
 #include "GSInGame.hpp"
 
-GSLoading::GSLoading() : GameState("Loading")
+GSLoading::GSLoading(int nbPlayers) : GameState("Loading"), _nbPlayers(nbPlayers)
 {
   //AudioManager::get().load("intro", "resource/sound/06-multiplayer-mouse-mania.ogg");
   //AudioManager::get().play("intro", "test", "intro");
@@ -83,7 +83,7 @@ void	GSLoading::onStart()
   font->setY(350);
   font->setText("Loading");
   this->addGameObject(font, "gui", 20);
-  _ingame = new GSInGame();
+  _ingame = new GSInGame(this->_nbPlayers);
   _ingame->preload();
 }
 

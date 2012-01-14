@@ -87,7 +87,7 @@ bool	GSJoinGame::handleCommand(Command const &command)
 	  std::string id = Net::Converter::toString(cmd.idGame);
 	  std::string nbPlayers = Net::Converter::toString(static_cast<int>(cmd.nbPlayers));
 	  std::string state = Net::Converter::toString(static_cast<int>(cmd.state));
-	  new GameButton(cmd.idGame, id + "  Players " + state + "/" + nbPlayers, *this->_sprite, this->_vlayout);
+	  new GameButton(cmd.idGame, cmd.nbPlayers, id + "  Players " + state + "/" + nbPlayers, *this->_sprite, this->_vlayout);
 	  this->_isListed = true;
 	}
       else
