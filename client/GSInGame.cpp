@@ -219,7 +219,7 @@ void		GSInGame::inputSpace(InputCommand const &/*event*/)
 
 void		GSInGame::throwShip()
 {
-  GameCommand *cmd = new GameCommand("Move",
+  GameCommand *cmd = new GameCommand("Move", this->_ship->getId(), 0,
 				     static_cast<int16_t>(this->_ship->getX()),
 				     static_cast<int16_t>(this->_ship->getY()),
 				     static_cast<int16_t>(this->_ship->getVx()),

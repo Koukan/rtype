@@ -151,8 +151,15 @@ int		Player::connectGame(Net::Packet &packet)
 	return this->sendError(Error::GAME_NOT_EXIST);
 }
 
-int		Player::player(Net::Packet &)
+int		Player::player(Net::Packet &packet)
 {
+	uint16_t	status;
+	std::string	name;
+
+	packet >> status;
+	packet >> name;
+	if (status == 1 && _game)
+		_game->addReadyPlayer();
 	return 1;
 }
 
