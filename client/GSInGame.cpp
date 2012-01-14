@@ -254,20 +254,15 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::MONSTER, &GSInGame::loadMonster}
   };
 
-  std::cout << "idResource " << event.idResource << std::endl;
   for (size_t i = 0;
        i < sizeof(methods) / sizeof(*methods); i++)
     {
       if (static_cast<Resource::type>(event.idResource) == methods[i].type)
 	{
-	  std::cout << "idResource " << event.idResource << " " << this->_idPlayer << std::endl;
 	  (this->*methods[i].method)(event);
 	  if (static_cast<uint16_t>(event.idResource) == this->_idPlayer)
 	    {
-			std::cout << "idObject " << event.idObject << std::endl;
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
-		  if (!this->getGameObject(event.idObject))
-			  std::cout << "la bonne blague" << std::endl;
 	    }
 	}
     }
@@ -310,7 +305,6 @@ void		GSInGame::updatePositions(GameCommand const &event, PhysicObject &obj) con
 
 void		GSInGame::loadP1(GameCommand const &event)
 {
-	std::cout << "trololol" << std::endl;
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("player1"), *hitbox, event.vx, event.vy);
   monster1->setId(event.idObject);
@@ -349,10 +343,8 @@ void		GSInGame::loadMonster(GameCommand const &event)
   this->addGameObject(static_cast<GameObject *>(monster1), "monster");
 }
 
-#include <string>
 void		GSInGame::rangeid(GameCommand const &event)
 {
   this->addGroup("shoot", 8, event.idObject, event.idResource);
   this->_idPlayer = event.x;
-  std::cout << "player is " << this->_idPlayer << std::endl;
 }
