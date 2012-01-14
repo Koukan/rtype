@@ -13,7 +13,6 @@
 
 GSInGame::GSInGame() : GameState("Game"), _idPlayer(0), _scores(4, 0), _scoreFonts(4, this->getFont("buttonFont")), _ship(0)
 {
-  //CommandDispatcher::get().registerHandler(*this);
 }
 
 GSInGame::~GSInGame()
@@ -26,6 +25,10 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputDown, static_cast<int>(Keyboard::Down));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputLeft, static_cast<int>(Keyboard::Left));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputRight, static_cast<int>(Keyboard::Right));
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputUpDown, static_cast<int>(Keyboard::Up));
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputUpDown, static_cast<int>(Keyboard::Down));
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputLeftRight, static_cast<int>(Keyboard::Left));
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputLeftRight, static_cast<int>(Keyboard::Right));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputSpace, static_cast<int>(Keyboard::Space));
 
   // add providers
@@ -78,33 +81,38 @@ void		GSInGame::onStart()
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
-  Sprite *sprite = this->getSprite("enemy tron");
-  sprite->setPosition(500, 600);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("enemy fish");
-  sprite->setPosition(500, 500);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("enemy star");
-  sprite->setPosition(500, 370);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("enemy bomb");
-  sprite->setPosition(500, 300);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("enemy plane");
-  sprite->setPosition(500, 200);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("enemy walkbrown");
-  sprite->setPosition(500, 100);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("player1");
-  sprite->setPosition(20, 500);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("default shot");
-  sprite->setPosition(120, 500);
-  this->addGameObject(sprite, "player", 10);
-  sprite = this->getSprite("color shot");
-  sprite->setPosition(200, 475);
-  this->addGameObject(sprite, "player", 10);
+  // Sprite *sprite = this->getSprite("enemy tron");
+  // sprite->setPosition(500, 600);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("enemy fish");
+  // sprite->setPosition(500, 500);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("enemy star");
+  // sprite->setPosition(500, 370);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("enemy bomb");
+  // sprite->setPosition(500, 300);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("enemy plane");
+  // sprite->setPosition(500, 200);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("enemy walkbrown");
+  // sprite->setPosition(500, 100);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("player1");
+  // sprite->setPosition(20, 500);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("default shot");
+  // sprite->setPosition(120, 500);
+  // this->addGameObject(sprite, "player", 10);
+  // sprite = this->getSprite("color shot");
+  // sprite->setPosition(200, 475);
+  // this->addGameObject(sprite, "player", 10);
+
+  // HitBox *hitbox = new RectHitBox(0, 0, 2, 2);
+  // std::cout << "add ship" << std::endl;
+  // this->_ship = new ConcreteObject(this->getSprite("player1"), *hitbox, 0, 0);
+  // this->addGameObject(this->_ship, "players");
 }
 
 void		GSInGame::update(double elapsedTime)
@@ -137,48 +145,66 @@ bool		GSInGame::handleCommand(Command const &command)
   return (false);
 }
 
-void		GSInGame::inputUp(InputCommand const &event)
+void		GSInGame::inputUp(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVy(-1);
+      this->_ship->setVy(-100);
       this->throwShip();
     }
 }
 
-void		GSInGame::inputDown(InputCommand const &event)
+void		GSInGame::inputDown(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVy(1);
+      this->_ship->setVy(100);
       this->throwShip();
     }
 }
 
-void		GSInGame::inputLeft(InputCommand const &event)
+void		GSInGame::inputLeft(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVx(-1);
+      this->_ship->setVx(-100);
       this->throwShip();
     }
 }
 
-void		GSInGame::inputRight(InputCommand const &event)
+void		GSInGame::inputRight(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVx(1);
+      this->_ship->setVx(100);
       this->throwShip();
     }
 }
 
-void		GSInGame::inputEscape(InputCommand const &event)
+void		GSInGame::releaseInputUpDown(InputCommand const &/*event*/)
+{
+  if (this->_ship)
+    {
+      this->_ship->setVy(0);
+      this->throwShip();
+    }
+}
+
+void		GSInGame::releaseInputLeftRight(InputCommand const &/*event*/)
+{
+  if (this->_ship)
+    {
+      this->_ship->setVx(0);
+      this->throwShip();
+    }
+}
+
+void		GSInGame::inputEscape(InputCommand const &/*event*/)
 {
   GameStateManager::get().pushState(*(new GSPauseMenu()), GameState::NONE);
 }
 
-void		GSInGame::inputSpace(InputCommand const &event)
+void		GSInGame::inputSpace(InputCommand const &/*event*/)
 {
   PhysicObject const *obj = static_cast<PhysicObject const *>(this->getGameObject(this->_idPlayer));
 //  GameCommand *cmd = new GameCommand("shoot", 

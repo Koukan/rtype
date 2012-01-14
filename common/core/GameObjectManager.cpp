@@ -102,7 +102,9 @@ void		Group::addObject(GameObject *object)
   if (this->_objects.empty())
   {
     if (dynamic_cast<PhysicObject*>(object))
-      this->_physic = true;
+      {
+	this->_physic = true;
+      }
   }
   if (this->_physic)
 	  this->_quadTree->push(*static_cast<PhysicObject *>(object));
