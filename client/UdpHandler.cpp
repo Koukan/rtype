@@ -103,8 +103,6 @@ int         UdpHandler::retrieve(Net::Packet &packet)
 
 bool		UdpHandler::testPacketId(uint32_t id)
 {
-	if (id < _lastPacketId)
-		return false;
 	if (_lastPacketId == static_cast<uint32_t>(-1) || id > _lastPacketId)
 	{
 		uint32_t	val = id - _lastPacketId;
@@ -122,5 +120,6 @@ bool		UdpHandler::testPacketId(uint32_t id)
 		}
 		CommandDispatcher::get().handle(0);
 	}
-	return true;
+	else
+	  return false;
 }
