@@ -46,6 +46,13 @@ bool		GSManager::changeState(const std::string &name,
 	return push(name, false, paused);
 }
 
+bool		GSManager::changeState(GameState &state,
+					      GameState::Pause paused, bool del)
+{
+	pop(false, del);
+	return push(state, false, paused, false);
+}
+
 void		GSManager::popState(bool del)
 {
 	pop(true, del);

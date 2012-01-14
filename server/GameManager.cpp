@@ -36,3 +36,8 @@ GameManager::gamesMap const &GameManager::getGameList() const
 {
 	return _games;
 }
+
+void			GameManager::removeGame(uint16_t id)
+{
+	this->_games.erase(id);
+}

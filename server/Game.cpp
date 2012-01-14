@@ -16,7 +16,7 @@ Game::Game(uint16_t id, uint8_t maxPlayers)
 
 Game::~Game()
 {
-	delete &this->_logic;
+	Server::get().removeGame(this->_id);
 }
 
 void		Game::init()
@@ -70,6 +70,8 @@ void		Game::removePlayer(Player &player)
 
 	if (it != this->_list.end())
 		this->_list.erase(it);
+	if (this->_list.empty())
+		Server::get().unloadModule("Game" + this->_id);
 }
 
 size_t		Game::nbPlayers() const

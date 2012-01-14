@@ -18,6 +18,8 @@ public:
   bool			pushState(GameState &state, GameState::Pause paused = GameState::ALL);
   bool			changeState(const std::string &name, GameState::Pause paused = GameState::ALL,
 				  			bool del = true);
+  bool			changeState(GameState &state, GameState::Pause paused = GameState::ALL,
+				  			bool del = true);
   void			popState(bool del = true);
 
   template <class T>
