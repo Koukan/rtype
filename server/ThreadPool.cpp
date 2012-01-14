@@ -24,9 +24,10 @@ bool			ThreadPool::init(size_t nbThread)
 
 void		ThreadPool::pushTask(Task &task)
 {
-	Net::ScopedLock		lock(this->_condvar);
-
+	this->_condvar.lock();
 	this->_tasksList.push(&task);
+	this->_condvar.signal();
+	this->_condvar.unlock();
 }
 
 void		ThreadPool::handleTask()
@@ -37,7 +38,10 @@ void		ThreadPool::handleTask()
 	{
 		this->_condvar.lock();
 		if (this->_tasksList.empty())
+		{
 			this->_condvar.wait();
+			this->_condvar.unlock();
+		}
 		else
 		{
 			task = this->_tasksList.front();
