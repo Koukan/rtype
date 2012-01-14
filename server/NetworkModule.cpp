@@ -74,6 +74,7 @@ void		NetworkModule::addUDPPlayer(Player &player)
 
 	if (player.getRemoteAddr(addr) != -1)
 	{
+		addr.setPort(25557);
 		_players[addr] = &player;
 		this->_udp.addAddr(addr);
 	}
@@ -85,6 +86,7 @@ void		NetworkModule::removeUDPPlayer(Player &player)
 
 	if (player.getRemoteAddr(addr) != -1)
 	{
+		addr.setPort(25557);
 		_players.erase(addr);
 		this->_udp.removeAddr(addr);
 	}
