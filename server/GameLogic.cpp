@@ -18,6 +18,7 @@ GameLogic::~GameLogic()
 
 void		GameLogic::update(double elapseTime)
 {
+	std::cout << "call" << std::endl;
 	this->handle(elapseTime);
 }
 
