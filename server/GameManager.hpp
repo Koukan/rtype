@@ -8,9 +8,10 @@ class GameManager
 	typedef	std::map<uint16_t, Game*>	gamesMap;
     GameManager();
     virtual ~GameManager();
-	Game		*getGame(uint16_t id);
-	Game		*createGame(uint8_t maxPlayers = 4);
-	gamesMap const &getGameList() const;
+	Game			*getGame(uint16_t id);
+	Game			*createGame(uint8_t maxPlayers = 4);
+	gamesMap const	&getGameList() const;
+	void			removeGame(uint16_t id);
 
   private:
 	uint16_t		_id;

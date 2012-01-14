@@ -13,7 +13,7 @@ Player::Player() : Net::PacketHandler<>(4096, "", true),
 
 Player::~Player()
 {
-	NetworkModule::get().addUDPPlayer(*this);
+	NetworkModule::get().removeUDPPlayer(*this);
 	std::cout << "Client disconnected" << std::endl;
 	if (this->_game)
 		this->_game->removePlayer(*this);
