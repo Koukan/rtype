@@ -32,6 +32,8 @@ void	GSCreateMenu::createParty()
 {
    if (NetworkModule::get().connect())
     {
+      CommandDispatcher::get().pushCommand(*(new GameListCommand("Connection", NetworkModule::get().getName())));
+
 		std::stringstream ss;
 
 		ss.clear();
