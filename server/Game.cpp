@@ -104,5 +104,5 @@ void		Game::startGame()
 		GameCommand *tmp = new GameCommand("Startgame");
 		tmp->game = this;
 		CommandDispatcher::get().pushCommand(*tmp);
-		_logic.startGame();	
+		_logic.startGame();
 }
