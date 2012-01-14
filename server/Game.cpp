@@ -53,6 +53,7 @@ bool		Game::addPlayer(Player &player)
 		cmd->idResource = end;
 		cmd->x = nb;
 		cmd->player = &player;
+		player.setId(nb);
 		CommandDispatcher::get().pushCommand(*cmd);
 		player.setGame(*this);
 		player.setId(_logic.getLastAttributedId());

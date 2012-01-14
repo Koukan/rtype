@@ -14,7 +14,7 @@ class Player : public Net::PacketHandler<>
     virtual ~Player();
 	virtual int			handleInputPacket(Net::Packet &packet);
 	void				setGame(Game &game);
-	void				setId(uint32_t id);
+	void				setId(uint8_t id);
 	uint32_t			getId() const;
 	std::string const 	&getName() const;
 	uint32_t			getPacketId();
@@ -38,6 +38,7 @@ class Player : public Net::PacketHandler<>
 	int			sendError(Error::Type error);
 	int			sendResources();
 
+	uint8_t			_id;
 	std::string		_name;
 	Game			*_game;
 	Ship			*_ship;

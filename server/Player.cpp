@@ -5,7 +5,7 @@
 #include "NetworkModule.hpp"
 
 Player::Player() : Net::PacketHandler<>(4096, "", true),
-		_name(""), _game(0), _idPacket(0), _idShip(0)
+		_id(0) , _name(""), _game(0), _idPacket(0), _idShip(0)
 {
 	NetworkModule::get().addUDPPlayer(*this);
 	std::cout << "Client connected" << std::endl;
@@ -49,14 +49,14 @@ void		Player::setGame(Game &game)
 	this->_game = &game;
 }
 
-void		Player::setId(uint32_t id)
+void		Player::setId(uint8_t id)
 {
-	this->_idShip = id;
+	this->_id = id;
 }
 
 uint32_t	Player::getId() const
 {
-	return this->_idShip;
+	return this->_id;
 }
 
 std::string const   &Player::getName() const
