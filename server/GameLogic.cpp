@@ -74,7 +74,16 @@ void		GameLogic::startGame()
 	{
 		Ship *tmp = new Ship(x, 10, *it);
 	    (*it)->setShip(tmp);
-		this->addGameObject(tmp, "players", 10);
+		this->addGameObject(tmp, "players", 10);	
+		GameCommand	*cmd = new GameCommand("Spawn");
+		cmd->idResource = (*it)->getId();
+		cmd->idObject = tmp->getId();
+		cmd->x = tmp->getX();
+		cmd->y = tmp->getY();
+		cmd->vx = tmp->getVx();
+		cmd->vy = tmp->getVy();
+		cmd->game = &_game;
+		CommandDispatcher::get().pushCommand(*cmd);
 		x += step;
 	}
 }
