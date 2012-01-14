@@ -12,6 +12,7 @@ class Player : public Net::PacketHandler<>
   public:
     Player();
     virtual ~Player();
+	virtual void		init();
 	virtual int			handleInputPacket(Net::Packet &packet);
 	void				setGame(Game &game);
 	void				setId(uint8_t id);

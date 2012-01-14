@@ -75,7 +75,7 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 {
 	//if (packet.size() < 24)
 	//return 0;
-	if (player.getShip())
+	if (!player.getShip())
 		return 1;
 	GameCommand *gc = new GameCommand("move");
 	packet >> gc->idObject;

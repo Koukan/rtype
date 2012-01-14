@@ -19,6 +19,11 @@ Player::~Player()
 		this->_game->removePlayer(*this);
 }
 
+void		Player::init()
+{
+	NetworkModule::get().addUDPPlayer(*this);
+}
+
 int			Player::handleInputPacket(Net::Packet &packet)
 {
 	static int			(Player::* const methods[])(Net::Packet&) = {

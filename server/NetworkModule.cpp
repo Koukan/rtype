@@ -76,6 +76,7 @@ void		NetworkModule::addUDPPlayer(Player &player)
 	{
 		addr.setPort(25557);
 		_players[addr] = &player;
+		std::cout << addr.getHost() << std::endl;
 		this->_udp.addAddr(addr);
 	}
 }

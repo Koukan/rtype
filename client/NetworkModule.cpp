@@ -75,7 +75,6 @@ bool		NetworkModule::handleCommand(Command const &command)
 	{
 		if (command.name == methods[i].name)
 		{
-			std::cout << command.name << std::endl;
 			(this->*methods[i].method)(command);
 			return true;
 		}
@@ -204,7 +203,7 @@ std::string const	&NetworkModule::getIP() const
 }
 
 void		NetworkModule::sendPacketUDP(Net::Packet &packet)
-{	
+{
 	packet.setDestination(_addr);
 	this->_udp.handleOutputPacket(packet);
 }
