@@ -159,7 +159,7 @@ void		NetworkModule::retrieveCommand(Command const &command)
 void		NetworkModule::spawnCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
-	Net::Packet		packet(sizeof(uint64_t) + sizeof(uint8_t) + sizeof(uint16_t) * 8);
+	Net::Packet		packet(29);
 
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::SPAWN);
