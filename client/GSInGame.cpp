@@ -256,6 +256,10 @@ void		GSInGame::spawn(GameCommand const &event)
 	{
 	  std::cout << event.idResource << std::endl;
 	  (this->*methods[i].method)(event);
+	  if (static_cast<uint16_t>(event.idResource) == this->_idPlayer)
+	    {
+	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
+	    }
 	}
     }
 }
@@ -337,5 +341,5 @@ void		GSInGame::loadMonster(GameCommand const &event)
 void		GSInGame::rangeid(GameCommand const &event)
 {
   this->addGroup("shoot", 8, event.idObject, event.idResource);
-  this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.x));
+  this->_idPlayer = event.x;
 }
