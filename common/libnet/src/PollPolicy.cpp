@@ -95,14 +95,18 @@ int		PollPolicy::waitForEvent(int timeout)
 			{
 				if (_fds[i].revents > 0)
 				{
+					std::cout << "Poll for " << i << std::endl;
 					handler = _handles[_fds[i].fd].handler;
 					socket = _handles[_fds[i].fd].socket;
 					if (_fds[i].revents & POLLHUP)
 						handler->handleClose(*socket);
 					else
 					{
-						if (_fds[i].revents & POLLOUT)
-							handler->handleOutput(*socket);
+						if ((_fds[i].revents & POLLOUT) && handler->handleOutput(*socket) <= 0)
+						{
+							handler->handleClose(*socket);
+							continue ;
+						}
 						if ((_fds[i].revents & POLLIN) && handler->handleInput(*socket) <= 0)
 							handler->handleClose(*socket);
 					}

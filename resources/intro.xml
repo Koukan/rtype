@@ -58,4 +58,6 @@
  </sprite>
 
  <font name="buttonFont" file="resources/font/TechnoHideo.ttf" size="30"/>
+
+ <font name="listGameFont" file="resources/font/Patinio.ttf" size="25"/>
 </resources>

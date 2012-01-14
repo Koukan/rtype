@@ -15,9 +15,9 @@ NetworkModule::~NetworkModule()
 
 void	    NetworkModule::init()
 {
-	this->_name = Game::get().getName();
-	this->_ip = Game::get().getIP();
-	this->_port = Game::get().getPort();
+	this->_name = Game::get().getName().substr(0, Game::NB_CHAR_NAME);
+	this->_ip = Game::get().getIP().substr(0, Game::NB_CHAR_IP);
+	this->_port = Game::get().getPort().substr(0, Game::NB_CHAR_PORT);
 	if (this->_port.empty())
 		this->_port = "25557";
 }
@@ -113,7 +113,7 @@ void		NetworkModule::connectGameCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t) + sizeof(uint16_t));
-	packet << static_cast<uint8_t>(TCP::GAME);
+	packet << static_cast<uint8_t>(TCP::CONNECT_GAME);
 	packet << (static_cast<int16_t>(cmd.idObject)); // idObject represents here idGame
 	this->_server->handleOutputPacket(packet);
 }

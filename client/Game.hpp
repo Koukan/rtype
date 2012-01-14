@@ -1,8 +1,6 @@
 #ifndef		_GAME_
 #define 	_GAME_
 
-#define PREF_FILE ".preferences"
-
 #include <fstream>
 #include <string>
 #include <vector>
@@ -13,6 +11,11 @@
 class Game : public Singleton<Game>, public ModuleManager
 {
 public:
+  static const std::string PREF_FILE;
+  static int	NB_CHAR_NAME;
+  static int	NB_CHAR_IP;
+  static int	NB_CHAR_PORT;
+
   Game();
   virtual ~Game();
   void		init();
@@ -27,7 +30,7 @@ public:
 private:
   bool		_quit;
   std::fstream _preferencesFile;
-  std::vector<std::string>	_preferences; // 0 = IP, 1 = port
+  std::vector<std::string>	_preferences;
 };
 
 #endif		/* _GAME_ */

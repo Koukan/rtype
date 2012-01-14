@@ -8,6 +8,10 @@ private:
   class Log
   {
   public:
+	Log() :
+		_end(false)
+	{
+	}
     Log(Log const &log) :
 		_end(true)
 	{
@@ -33,12 +37,12 @@ private:
   };
 
 public:
-  Logger();
+	Logger(){}
 
   template<typename T>
   Log operator<<(T const &t)
   {
-    Log log();
+    Log log;
 
     log << "[" << Net::Clock::getTimeInStr() << "] ";
     log << t;

@@ -29,6 +29,7 @@ public:
 
 	virtual	int	handleInput(Socket &sock)
 	{
+		std::cout << "plop" << std::endl;
 		return (this->*_func)(sock);
 	}
 
@@ -37,6 +38,11 @@ public:
 		int ret = 0;
 		Packet	*top;
 
+		if (_outputPacket.empty())
+		{
+			this->_reactor->registerHandler(*this, *this, Reactor::READ);
+			return 1;
+		}
 		while (!_outputPacket.empty())
 		{
 			  top = _outputPacket.front();
@@ -189,12 +195,14 @@ private:
 		int	ret	= 0;
 		do
 		{
+			//std::cout << "left " << _left << std::endl;
 			ret = this->recvPacket(*_inpacket, 0, (_left == 0) ? sizeof(_left) : _left);
 			if (ret > 0)
 			{
 				if (_left == 0)
 				{
 					(*_inpacket) >> _left;
+				//	std::cout << "to read " << _left << std::endl;
 					return ret;
 				}
 				_left -= ret;
