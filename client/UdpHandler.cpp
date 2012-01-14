@@ -49,8 +49,8 @@ int			UdpHandler::spawn(Net::Packet &packet)
 	if (!this->testPacketId(id_packet))
 		return 1;
 	GameCommand *gc = new GameCommand("spawn");
-	packet >> gc->idObject;
 	packet >> gc->idResource;
+	packet >> gc->idObject;
 	packet >> gc->x;
 	packet >> gc->y;
 	packet >> gc->vx;
