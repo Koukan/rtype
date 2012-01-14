@@ -33,7 +33,7 @@ void	GSOptions::onStart()
   // add gui
 
   GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20);
-  layout->setY((768 - layout->getHeight()) / 2);
+  layout->setY((768 - layout->getHeight()) / 3);
 
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUILabel("Player Name", "buttonFont", "", layout);

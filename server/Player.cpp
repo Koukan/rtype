@@ -7,7 +7,6 @@
 Player::Player() : Net::PacketHandler<>(4096, "", true),
 		_id(0) , _name(""), _game(0), _idPacket(0), _idShip(0)
 {
-	NetworkModule::get().addUDPPlayer(*this);
 	std::cout << "Client connected" << std::endl;
 }
 

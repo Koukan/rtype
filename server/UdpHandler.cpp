@@ -36,6 +36,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
 		Player *player = NetworkModule::get().getPlayerByAddr(packet.getAddr());
+		std::cout << packet.getAddr().getHost() << " " << packet.getAddr().getPort() << std::endl;
 		if (player)
 			return (this->*methods[type])(packet, *player);
 		else
@@ -77,6 +78,7 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 	//return 0;
 	if (!player.getShip())
 		return 1;
+	std::cout << "udp move packet " << player.getId() << std::endl;
 	GameCommand *gc = new GameCommand("move");
 	packet >> gc->idObject;
 	gc->idObject = player.getShip()->getId();
