@@ -7,6 +7,7 @@ namespace Resource
     P2,
     P3,
     P4,
-    MONSTER
+    MONSTER,
+	SHOOT
   };
 }
