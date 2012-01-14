@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <cstring>
 #include "RendererManager.hpp"
+#include "Game.hpp"
 #include "GameStateManager.hpp"
 #include "CommandDispatcher.hpp"
 #include "InputModule.hpp"
@@ -137,6 +138,8 @@ void		InputModule::update(double)
 
 	tmp->Type = static_cast<InputCommand::EventType>(ev.Type);
 	::memcpy(&tmp->Size, &ev.Size, 12);
+	if (tmp->Type == InputCommand::Closed)
+	  Game::get().quit();
 	#if (SFML_VERSION_MAJOR != 2)
 	if ((tmp->Type == InputCommand::KeyPressed || tmp->Type == InputCommand::KeyReleased) && this->_dict.find(ev.Key.Code) != this->_dict.end())
 	  tmp->Key.Code = this->_dict[ev.Key.Code];
