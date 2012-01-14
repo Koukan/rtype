@@ -14,6 +14,22 @@ static void		*starter(void *arg)
 //{
 //return static_cast<bool>(pthread_equal(_tid, thread._tid));
 //}
+Thread::Thread(IThreadSubscriber &func) :
+	   	_func(&func), _state(false)
+{}
+
+Thread::~Thread()
+{
+  if (_state)
+	this->cancel();
+  delete _func;
+}
+
+void       Thread::run()
+{
+  _func->call();
+}
+
 
 bool	Thread::start()
  {

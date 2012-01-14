@@ -36,6 +36,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
 		Player *player = NetworkModule::get().getPlayerByAddr(packet.getAddr());
+		std::cout << packet.getAddr().getHost() << " " << packet.getAddr().getPort() << std::endl;
 		if (player)
 			return (this->*methods[type])(packet, *player);
 		else

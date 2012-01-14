@@ -13,7 +13,10 @@
 #include "NetworkModule.hpp"
 
 
-GSInGame::GSInGame(int nbPlayers) : GameState("Game"), _idPlayer(0), _nbPlayers(nbPlayers), _scores(4, 0), _scoreFonts(nbPlayers, this->getFont("buttonFont")), _nameFonts(nbPlayers, this->getFont("buttonFont")), _ship(0)
+GSInGame::GSInGame(int nbPlayers) : GameState("Game"), _idPlayer(0),
+	_nbPlayers(nbPlayers), _scores(4, 0), _scoreFonts(nbPlayers, this->getFont("buttonFont")), 
+	_nameFonts(nbPlayers, this->getFont("buttonFont")), _ship(0),  _rangeBegin(0), _rangeEnd(0),
+	_currentId(0), _fire(false), _elapsedTime(0)
 {
 }
 
@@ -48,6 +51,7 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputLeftRight, static_cast<int>(Keyboard::Left));
   this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputLeftRight, static_cast<int>(Keyboard::Right));
   this->getInput().registerInputCallback(InputCommand::KeyPressed, *this, &GSInGame::inputSpace, static_cast<int>(Keyboard::Space));
+  this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputSpace, static_cast<int>(Keyboard::Space));
   // add gui
 
   ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
@@ -62,6 +66,27 @@ void		GSInGame::onStart()
 
 void		GSInGame::update(double elapsedTime)
 {
+	if (this->_elapsedTime == 0)
+	{
+		if (this->_ship && this->_fire)
+		{
+			GameCommand *cmd = new GameCommand("Spawn", this->getNextId(), Resource::SHOOT,
+			static_cast<int16_t>(this->_ship->getX()),
+			static_cast<int16_t>(this->_ship->getY()), 
+			400,
+			0);
+			this->spawn(*cmd);
+			CommandDispatcher::get().pushCommand(*cmd);
+			this->_elapsedTime += 500;
+		}
+	}
+	else
+	{
+		if (this->_elapsedTime - elapsedTime < 0)
+			this->_elapsedTime = 0;
+		else
+			this->_elapsedTime -= elapsedTime;
+	}
 }
 
 void		GSInGame::onEnd()
@@ -175,10 +200,12 @@ void		GSInGame::inputEscape(InputCommand const &/*event*/)
 
 void		GSInGame::inputSpace(InputCommand const &/*event*/)
 {
-  PhysicObject const *obj = static_cast<PhysicObject const *>(this->getGameObject(this->_idPlayer));
-//  GameCommand *cmd = new GameCommand("shoot", 
- // CommandDispatcher::get().pushCommand(*cmd);
-  //this->spawn(*cmd);
+	this->_fire = true;
+}
+
+void		GSInGame::releaseInputSpace(InputCommand const &/*event*/)
+{
+	this->_fire = false;
 }
 
 void		GSInGame::throwShip()
@@ -192,22 +219,6 @@ void		GSInGame::throwShip()
   CommandDispatcher::get().pushCommand(*cmd); //send to network
 }
 
-// void		GSInGame::moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy)
-// {
-// 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(_idPlayer));
-
-// 	if (obj)
-// 	{
-// 		GameCommand *cmd = new GameCommand("Move",
-// 			static_cast<int16_t>(obj->getX() + x),
-// 			static_cast<int16_t>(obj->getY() + y),
-// 			static_cast<int16_t>(obj->getVx() + vx),
-// 			static_cast<int16_t>(obj->getVy() + vy));
-// 		this->updatePositions(*cmd, *obj);
-// 		CommandDispatcher::get().pushCommand(*cmd); //send to network
-// 	}
-// }
-
 void		GSInGame::spawn(GameCommand const &event)
 {
   static Method2 const	methods[] = {
@@ -215,7 +226,8 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::P2, &GSInGame::loadP2},
     {Resource::P3, &GSInGame::loadP3},
     {Resource::P4, &GSInGame::loadP4},
-    {Resource::MONSTER, &GSInGame::loadMonster}
+    {Resource::MONSTER, &GSInGame::loadMonster},
+	{Resource::SHOOT, &GSInGame::loadShoot}
   };
 
   std::cout << "[idResource]" << event.idResource << std::endl;
@@ -309,8 +321,19 @@ void		GSInGame::loadMonster(GameCommand const &event)
   this->addGameObject(static_cast<GameObject *>(monster1), "monster");
 }
 
+void		GSInGame::loadShoot(GameCommand const &event)
+{
+  HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
+  ConcreteObject *obj = new ConcreteObject(this->getSprite("default shot"), *hitbox, event.vx, event.vy);
+  obj->setId(event.idObject);
+  this->addGameObject(static_cast<GameObject *>(obj), "shoot");
+}
+
 void		GSInGame::rangeid(GameCommand const &event)
 {
+  this->_rangeBegin = event.idObject;
+  this->_rangeEnd = event.idResource;
+  this->_currentId = event.idObject;
   this->addGroup("shoot", 8, event.idObject, event.idResource);
   this->_idPlayer = event.x;
   std::cout << "IdPlayer " << this->_idPlayer << " " << this->_nameFonts[this->_idPlayer] <<std::endl;
@@ -318,4 +341,13 @@ void		GSInGame::rangeid(GameCommand const &event)
   this->_nameFonts[this->_idPlayer]->setText(NetworkModule::get().getName());
   this->_nameFonts[this->_idPlayer]->setPosition((1024 / (this->_nbPlayers + 1)) * (this->_idPlayer+1) - this->_nameFonts[this->_idPlayer]->getWidth() / 2, 680);
   CommandDispatcher::get().pushCommand(*(new GameListCommand("Player", PlayerStatus::READY, NetworkModule::get().getName())));
+}
+
+uint32_t	GSInGame::getNextId()
+{
+	if (_currentId == _rangeEnd)
+	{
+		_currentId = _rangeBegin;
+	}
+	return (_currentId++);
 }

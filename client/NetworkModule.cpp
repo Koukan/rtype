@@ -163,6 +163,7 @@ void		NetworkModule::spawnCommand(Command const &command)
 
 	packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 	packet << static_cast<uint8_t>(UDP::SPAWN);
+	packet << 0;
 	packet << cmd.idResource;
 	packet << cmd.idObject;
 	packet << static_cast<uint16_t>(cmd.x);

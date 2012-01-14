@@ -41,6 +41,7 @@ private:
   	void		inputRight(InputCommand const &event);
 	void		releaseInputUpDown(InputCommand const &event);
   	void		releaseInputLeftRight(InputCommand const &event);
+	void		releaseInputSpace(InputCommand const &/*event*/);
 
 	// HandleCommand
 //	void		inputMove(GameCommand const &event);
@@ -65,6 +66,9 @@ private:
 	void		loadP3(GameCommand const &event);
 	void		loadP4(GameCommand const &event);
 	void		loadMonster(GameCommand const &event);
+	void		loadShoot(GameCommand const &event);
+	
+	uint32_t	getNextId();
 
 	uint16_t	_idPlayer;
 	int		_nbPlayers;
@@ -72,4 +76,9 @@ private:
 	std::vector<Font*>    _scoreFonts;
 	std::vector<Font*>    _nameFonts;
 	PhysicObject	*_ship;
+	uint32_t	_rangeBegin;
+	uint32_t	_rangeEnd;
+	uint32_t	_currentId;
+	bool		_fire;
+	double		_elapsedTime;
 };

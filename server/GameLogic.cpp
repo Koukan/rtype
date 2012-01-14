@@ -18,18 +18,19 @@ GameLogic::~GameLogic()
 
 void		GameLogic::update(double elapseTime)
 {
+	std::cout << "call" << std::endl;
 	this->handle(elapseTime);
-	std::cout << "uypdate logic" << std::endl;
 }
 
 bool		GameLogic::handleCommand(Command const &command)
 {
 	GameCommand	const &gc = static_cast<GameCommand const &>(command);
+	std::cout << "plop" << std::endl;
 	if (gc.name == "move")
 	{
 		std::cout << "move" << std::endl;
 		Ship	*ship = gc.player->getShip();
-	   	ship->setX(gc.x);
+		ship->setX(gc.x);
 		ship->setY(gc.y);
 		ship->setVx(gc.vx);
 		ship->setVy(gc.vy);
@@ -42,6 +43,7 @@ bool		GameLogic::handleCommand(Command const &command)
 		answer->game = &_game;
 		answer->player = gc.player;
 		CommandDispatcher::get().pushCommand(*answer);
+		return true;
 	}
 	else if (gc.name == "spawn")
 	{
@@ -57,6 +59,7 @@ bool		GameLogic::handleCommand(Command const &command)
 		answer->game = &_game;
 		//answer->player = gc.player;
 		CommandDispatcher::get().pushCommand(*answer);
+		return true;
 	}
 	return false;
 }
