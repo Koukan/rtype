@@ -12,6 +12,7 @@ Ship::Ship(double x, double y, Player *player) : PhysicObject(*new RectHitBox(x,
 	cmd->y = this->_y;
 	cmd->vx = this->_vx;
 	cmd->vy = this->_vy;
+	cmd->game = &player->getGameLogic().getGame();
 	CommandDispatcher::get().pushCommand(*cmd);
 }
 

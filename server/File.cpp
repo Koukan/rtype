@@ -33,6 +33,7 @@ bool		File::load(std::string const &path)
 		::md5_finish(&pms, reinterpret_cast<md5_byte_t*>(md5));
 		this->_md5.assign(md5, 16);
 		this->_path = path;
+		file.close();
 	}
 	return false;
 }

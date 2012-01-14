@@ -100,8 +100,11 @@ Player 		*NetworkModule::getPlayerByAddr(Net::InetAddr const &addr) const
 void		NetworkModule::spawnCommand(Command const &command)
 {
 	GameCommand	const &cmd = static_cast<GameCommand const &>(command);
+
+	std::cout << "spawn" << std::endl;
 	if (cmd.game)
 	{
+		std::cout << "spawn2" << std::endl;
 		Net::Packet		packet(29);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
 		packet << static_cast<uint8_t>(UDP::SPAWN);
@@ -164,6 +167,7 @@ void		NetworkModule::sendUDPPacket(Net::Packet &packet,
 			Net::InetAddr		ipaddr;
 			if ((*it)->getRemoteAddr(ipaddr) == -1)
 				return ;
+			ipaddr.setPort(25557);
 			if (needId)
 			{
 				packet.wr_ptr(10);
@@ -222,9 +226,10 @@ void		NetworkModule::rangeId(Command const &command)
 
 	if (cmd.player)
 	{
-		Net::Packet	packet(9);
+		Net::Packet	packet(10);
 
 		packet << static_cast<uint8_t>(TCP::RANGEID);
+		packet << static_cast<uint8_t>(cmd.x);
 		packet << static_cast<uint32_t>(cmd.idObject);
 		packet << static_cast<uint32_t>(cmd.idResource);
 		cmd.player->handleOutputPacket(packet);

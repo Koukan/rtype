@@ -136,11 +136,13 @@ bool		Server::treatErrorPacket(Net::Packet &packet)
 
 bool		Server::rangeId(Net::Packet &packet)
 {
-    uint32_t	begin;
+	uint32_t	begin;
 	uint32_t	end;
+	uint8_t		idPlayer;
 
+	packet >> idPlayer;
 	packet >> begin;
-	packet >> end;	
-	CommandDispatcher::get().pushCommand(*(new GameCommand("rangeid", begin, end)));
+	packet >> end;
+	CommandDispatcher::get().pushCommand(*(new GameCommand("rangeid", begin, end, idPlayer)));
 	return true;
 }

@@ -50,7 +50,10 @@ private:
 	void		rangeid(GameCommand const &event);
 
 	void		retrieve(uint32_t idPacket);
-	void		moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy);
+
+  //	void		moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy);
+  	void		throwShip();
+
 	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;
 
 	void		loadP1(GameCommand const &event);
@@ -62,4 +65,5 @@ private:
 	uint32_t	_idPlayer;
 	std::vector<uint32_t> _scores;
 	std::vector<Font*>    _scoreFonts;
+	PhysicObject	*_ship;
 };
