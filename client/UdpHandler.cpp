@@ -35,7 +35,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	uint8_t				type;
 
 	//std::cout << "input udp packet" << std::endl;
-	if (packet.size() < 13)
+	if (packet.size() < 9)
 		return 0;
 	packet >> time;
 	packet >> type;
