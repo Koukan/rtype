@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 namespace Resource
 {
   enum type {
@@ -7,8 +8,9 @@ namespace Resource
     P2,
     P3,
     P4,
-    MONSTER,
-    MONSTER2,
+    SINGLE_MONSTER,
 	SHOOT
   };
+
+  extern const char *monsters[];
 }
