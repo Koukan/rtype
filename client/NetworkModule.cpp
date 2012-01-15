@@ -103,7 +103,7 @@ void		NetworkModule::createGameCommand(Command const &command)
 	this->_server->handleOutputPacket(packet);
 }
 
-void		NetworkModule::listGamesCommand(Command const &cmd)
+void		NetworkModule::listGamesCommand(Command const &)
 {
 	Net::Packet		packet(sizeof(uint16_t) + sizeof(uint8_t));
 

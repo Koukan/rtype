@@ -19,7 +19,7 @@ void		SFMLSprite::update(double elapsedTime)
 {
 	if (this->_frameRate == -1 || elapsedTime == 0)
 		return ;
-	int		size = this->_rect.size();
+	unsigned int	size = this->_rect.size();
 	if (size < 2 || (!this->_pingpong && !this->_repeat &&
 					 this->_currentFrame >= (size - 1)))
 		return ;
@@ -27,7 +27,7 @@ void		SFMLSprite::update(double elapsedTime)
 	double		tmp = this->_currentTime - this->_lastTime;
 	double		time = this->_frameRate / size;
 	uint32_t	nbr;
-	int			nb = this->_currentFrame;
+	unsigned int			nb = this->_currentFrame;
 	if (tmp > time)
 	{
 		nbr = static_cast<int>(tmp) / static_cast<int>(time);
