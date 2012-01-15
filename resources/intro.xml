@@ -19,6 +19,14 @@
  <sprite name="black background">
     <image file="resources/sprite/blackbackground.png" />
  </sprite>
+ <sprite name="ground background">
+    <image file="resources/sprite/groundbackground.png" />
+	<scale x="2.0" y="2.0" />
+ </sprite>
+ <sprite name="sky background">
+    <image file="resources/sprite/skybackground.png" />
+	<scale x="2.0" y="2.0" />
+ </sprite>
  <sprite name="little button">
     <image file="resources/sprite/little button.png" />
  </sprite>

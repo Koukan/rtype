@@ -67,6 +67,13 @@ void		GSInGame::onStart()
   obj->pushSprite("space background");
   this->addGameObject(obj, "background", 1);
 
+  ScrollingSprite *obj2 = new ScrollingSprite(0, 708, 1024, 60, ScrollingSprite::HORIZONTAL, -0.1);
+  obj2->pushSprite("ground background");
+  this->addGameObject(obj2, "background", 1);
+  ScrollingSprite *obj3 = new ScrollingSprite(0, 0, 1024, 60, ScrollingSprite::HORIZONTAL, -0.1);
+  obj3->pushSprite("sky background");
+  this->addGameObject(obj3, "background", 1);
+
   // HitBox *hitbox = new RectHitBox(0, 0, 2, 2);
   // std::cout << "add ship" << std::endl;
   // this->_ship = new ConcreteObject(this->getSprite("player1"), *hitbox, 0, 0);
