@@ -31,6 +31,21 @@
   <scale x="2.0" y="2.0" />
 </sprite>
 
+<sprite name="animated shot">
+  <image file="resources/sprite/r-typesheet1.png">
+    <grid pos="208,276"
+	  size="14,12"
+	  array="7,1"
+	  spacing="3,0"
+    />
+  </image>
+  <animation
+      speed="1500"
+	  loop="yes"
+	  pingpong="no"
+   />
+</sprite>
+
 <sprite name="boss shot">
   <image file="resources/sprite/r-typesheet18.png">
     <grid pos="100,36"
