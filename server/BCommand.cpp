@@ -139,5 +139,6 @@ void	BCommand::move(double time)
 		cmd->idObject = this->_id;
 		cmd->game = &static_cast<GameLogic&>(this->_state).getGame();
 		CommandDispatcher::get().pushCommand(*cmd);
+		this->erase();
 	}
 }
