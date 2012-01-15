@@ -9,7 +9,8 @@ namespace UDP
 		MOVE = 2,
 		SCORE = 3,
 		STATEMENT = 4,
-		RETRIEVE = 5
+		RETRIEVE = 5,
+		PING = 6
 	};
 }
 
