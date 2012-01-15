@@ -72,9 +72,10 @@ void    ModuleManager::update(double)
     diff = clock.getElapsedTime();
     clock.update();
     for (std::map<std::string, Module*>::iterator it = _modules.begin();
-		    it != _modules.end(); ++it)
+		    it != _modules.end();)
     {
 	  module = (*it).second;
+	  ++it;
       if (!module->isPaused() && module->_targetRate > 0)
 		{
 	  	module->_lastUpdate -= diff;
@@ -83,6 +84,11 @@ void    ModuleManager::update(double)
 				module->update(module->_targetRate - module->_lastUpdate);
 				if (_stop)
 					break ;
+				if (module->isStopped())
+				{
+					this->unloadModule(module->_name);
+					continue ;
+				}
 	   			module->_lastUpdate += module->_targetRate;
 				if (module->_lastUpdate < 0)
 					module->_lastUpdate = 0;

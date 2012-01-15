@@ -119,7 +119,7 @@ int		Player::connection(Net::Packet &packet)
 }
 
 int		Player::listGame(Net::Packet&)
-{	
+{
 	GameManager::gamesMap const &map = Server::get().getGameList();
 
 	for (GameManager::gamesMap::const_iterator it = map.begin(); it != map.end(); ++it)
@@ -132,6 +132,7 @@ int		Player::listGame(Net::Packet&)
 		tmp << static_cast<uint8_t>(it->second->nbPlayers());
 		this->handleOutputPacket(tmp);
 	}
+	Server::get().unlock();
 	Net::Packet		end(3);
 	end << static_cast<uint8_t>(TCP::END_LIST_GAME);
 	this->handleOutputPacket(end);
@@ -184,7 +185,7 @@ int		Player::createGame(Net::Packet &packet)
 	return this->sendError(Error::SERVER_FULL);
 }
 
-int		Player::requireResource(Net::Packet &packet)
+int		Player::requireResource(Net::Packet &)
 {
 	return 1;
 }
@@ -195,7 +196,7 @@ GameLogic           &Player::getGameLogic()
 }
 
 int         		Player::sendError(Error::Type error)
-{	
+{
 	Net::Packet		answer(7);
 
 	Logger::logger << "Send error to " << this->_name;

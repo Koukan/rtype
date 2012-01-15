@@ -12,11 +12,6 @@ GameTask::~GameTask()
 
 void		GameTask::operator()()
 {
-	GameManager::gamesMap const &map = Server::get().getGameList();
-
-	for (GameManager::gamesMap::const_iterator it = map.begin(); it !=map.end(); it++)
-	{
-		if (&_game == it->second)
-			_game.updateGameState(this->_elapsedTime);
-	}
+	if (Server::get().gameExist(&_game))
+		_game.updateGameState(this->_elapsedTime);
 }

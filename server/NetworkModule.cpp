@@ -114,7 +114,7 @@ void		NetworkModule::spawnCommand(Command const &command)
 {
 	GameCommand	const &cmd = static_cast<GameCommand const &>(command);
 
-	if (this->gameExist(cmd.game))
+	if (Server::get().gameExist(cmd.game))
 	{
 		Net::Packet		packet(29);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
@@ -135,7 +135,7 @@ void		NetworkModule::destroyCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 
-	if (this->gameExist(cmd.game))
+	if (Server::get().gameExist(cmd.game))
 	{
 		Net::Packet		packet(17);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
@@ -151,7 +151,7 @@ void		NetworkModule::moveCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 
-	if (this->gameExist(cmd.game))
+	if (Server::get().gameExist(cmd.game))
 	{
 		Net::Packet		packet(21);
 		packet << static_cast<uint64_t>(Net::Clock::getMsSinceEpoch());
@@ -208,7 +208,7 @@ void        NetworkModule::statusCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 
-	if (this->gameExist(cmd.game))
+	if (Server::get().gameExist(cmd.game))
 	{
 		Net::Packet	packet(64);
 
@@ -224,7 +224,7 @@ void		NetworkModule::startgameCommand(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 
-	if (this->gameExist(cmd.game))
+	if (Server::get().gameExist(cmd.game))
 	{
 		Net::Packet	packet(2);
 
@@ -238,15 +238,19 @@ void		NetworkModule::rangeId(Command const &command)
 {
 	GameCommand const &cmd = static_cast<GameCommand const &>(command);
 
-	if (cmd.player)
+	for (std::map<Net::InetAddr, Player *>::const_iterator it = _players.begin(); it != _players.end(); it++)
 	{
-		Net::Packet	packet(10);
+		if (cmd.player == it->second)
+		{
+			Net::Packet	packet(10);
 
-		packet << static_cast<uint8_t>(TCP::RANGEID);
-		packet << static_cast<uint8_t>(cmd.x);
-		packet << static_cast<uint32_t>(cmd.idObject);
-		packet << static_cast<uint32_t>(cmd.idResource);
-		cmd.player->handleOutputPacket(packet);
+			packet << static_cast<uint8_t>(TCP::RANGEID);
+			packet << static_cast<uint8_t>(cmd.x);
+			packet << static_cast<uint32_t>(cmd.idObject);
+			packet << static_cast<uint32_t>(cmd.idResource);
+			cmd.player->handleOutputPacket(packet);
+			return ;
+		}
 	}
 }
 
@@ -261,19 +265,5 @@ void		 NetworkModule::sendPing()
 	pong << Net::Clock::getMsSinceEpoch();
 	for (GameManager::gamesMap::const_iterator it = map.begin(); it != map.end(); ++it)
 		this->sendUDPPacket(pong, (*it).second->getPlayers(), false, 0);
-}
-
-bool		NetworkModule::gameExist(Game *game)
-{
-	if (game == 0)
-		return false;
-	GameManager::gamesMap const &map = Server::get().getGameList();
-
-	for (GameManager::gamesMap::const_iterator it = map.begin();
-		 it !=map.end(); it++)
-	{
-		if (game == it->second)
-			return true;
-	}
-	return false;
+	Server::get().unlock();
 }
