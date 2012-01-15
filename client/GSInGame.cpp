@@ -30,7 +30,7 @@ void		GSInGame::preload()
   this->addGroup("players", 10);
   this->addGroup("Wall", 0);
   this->addGroup("shot", 9);
-  this->addGroup("ship", 9);
+  this->addGroup("ship", 10);
   this->addGroup("background2", 2);
   this->addGroup("background3", 3);
   this->setCollisionGroups("Wall", "shoot", &Rules::wallTouchObject);
