@@ -62,8 +62,8 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	gc->x += _latency * gc->vx;
-	gc->y += _latency * gc->vy;
+	gc->x += (static_cast<double>(_latency) / 1000) * gc->vx;
+	gc->y += (static_cast<double>(_latency) / 1000) * gc->vy;
 
 	//std::cout << "spawn de type " << gc->idResource << " x:" << gc->x << " y:" << gc->y << " vx:" << gc->vx << " vy:" << gc->vy << std::endl;
 	//std::cout << "Resource = " << gc->idResource << " Id = " << gc->idObject << std::endl;
@@ -93,8 +93,8 @@ int			UdpHandler::move(Net::Packet &packet, uint64_t)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	gc->x += _latency * gc->vx;
-	gc->y += _latency * gc->vy;
+	gc->x += (static_cast<double>(_latency) / 1000) * gc->vx;
+	gc->y += (static_cast<double>(_latency) / 1000) * gc->vy;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
