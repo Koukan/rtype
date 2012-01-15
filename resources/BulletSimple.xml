@@ -11,7 +11,7 @@
     </fire>
 </action>
 
-<bullet label="enemy" group="ship" sprite="enemy tron" simpleGroup="shot" simpleSprite="bullet">
+<bullet label="enemy" group="ship" sprite="enemy tron" simpleGroup="shot" simpleSprite="shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
 	<direction type="absolute">180</direction>
@@ -21,22 +21,11 @@
 		<fire>
 	   	<direction type="absolute">180</direction>
 			<speed>200</speed>
-	   	<bulletRef label="weak">
-				<param>300</param>
-			</bulletRef>
+	   	<bullet/>
 	  	</fire>
 		<wait>70</wait>
 	</action></repeat>
 </action>
-</bullet>
-
-<bullet label="weak" group="shot" sprite="shot">
-<hitbox shape="circle" radius="2" />
-<simpleHitbox shape="circle" radius="2" />
-	<action>
-	  <wait>$1</wait>
-	  <vanish/>
-	</action>
 </bullet>
 
 </bulletml>
