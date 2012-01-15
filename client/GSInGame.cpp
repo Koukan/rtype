@@ -29,6 +29,10 @@ void		GSInGame::preload()
 {
   this->addGroup("players", 10);
   this->addGroup("Wall", 0);
+  this->addGroup("shot", 9);
+  this->addGroup("ship", 9);
+  this->addGroup("background2", 2);
+  this->addGroup("background3", 3);
   this->setCollisionGroups("Wall", "shoot", &Rules::wallTouchObject);
   this->setCollisionGroups("Wall", "monster", &Rules::wallTouchObject);
 
@@ -65,14 +69,14 @@ void		GSInGame::onStart()
 
   ScrollingSprite *obj1 = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.06);
   obj1->pushSprite("star background");
-  this->addGameObject(obj1, "background2", 2);
+  this->addGameObject(obj1, "background2");
 
   ScrollingSprite *obj2 = new ScrollingSprite(0, 738, 1024, 30, ScrollingSprite::HORIZONTAL, -0.1);
   obj2->pushSprite("ground background");
-  this->addGameObject(obj2, "background3", 3);
+  this->addGameObject(obj2, "background3");
   ScrollingSprite *obj3 = new ScrollingSprite(0, 0, 1024, 30, ScrollingSprite::HORIZONTAL, -0.1);
   obj3->pushSprite("sky background");
-  this->addGameObject(obj3, "background3", 3);
+  this->addGameObject(obj3, "background3");
 
   // HitBox *hitbox = new RectHitBox(0, 0, 2, 2);
   // std::cout << "add ship" << std::endl;
