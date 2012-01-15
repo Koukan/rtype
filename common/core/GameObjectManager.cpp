@@ -256,6 +256,7 @@ void			GameObjectManager::deleteObjects()
 	for (std::set<GameObject *>::iterator it = this->_deleteList.begin(); it != this->_deleteList.end();)
 	{
 		tmp = it++;
+		this->_objects.erase((*tmp)->_id);
 		delete *tmp;
 		this->_deleteList.erase(tmp);
 	}
