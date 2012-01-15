@@ -13,7 +13,7 @@
 <bullet label="enemySinusoidal" group="ship" sprite="enemy star" simpleGroup="ship" simpleSprite="shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
-	<direction type="absolute">-90</direction>
+	<direction type="absolute">90</direction>
 	<speed>40</speed>
 	
 	<action>

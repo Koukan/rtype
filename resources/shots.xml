@@ -14,6 +14,7 @@
 		loop="yes"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="16.0" y="6.0" />
 </sprite>
 
 <sprite name="color shot">
@@ -29,6 +30,7 @@
 		loop="yes"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="32.0" y="16.0" />
 </sprite>
 
 <sprite name="animated shot">
@@ -44,6 +46,7 @@
 	  loop="yes"
 	  pingpong="no"
    />
+  <translation x="7.0" y="6.0" />
 </sprite>
 
 <sprite name="boss shot">
@@ -55,6 +58,7 @@
     />
   </image>
   <scale x="0.8" y="0.8" />
+  <translation x="16.0" y="14.0" />
 </sprite>
 
 
@@ -70,12 +74,13 @@
       speed="300"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="16.0" y="6.0" />
 </sprite>
 
 <sprite name="bomb shot">
     <image file="resources/sprite/shot.png" />
     <scale x="1.0" y="1.0" />
-    <translate x="-10" y="-10" />
+    <translation x="-10" y="-10" />
 </sprite>
 
 </resources>
