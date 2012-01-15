@@ -62,8 +62,11 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	gc->x += player.getLatency() * gc->vx;
-	gc->y += player.getLatency() * gc->vy;
+	if (player.getLatency() > 50)
+	{
+		gc->x += player.getLatency() * gc->vx;
+		gc->y += player.getLatency() * gc->vy;
+	}
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
@@ -85,8 +88,11 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	gc->x += player.getLatency() * gc->vx;
-	gc->y += player.getLatency() * gc->vy;
+	if (player.getLatency() > 50)
+	{
+		gc->x += player.getLatency() * gc->vx;
+		gc->y += player.getLatency() * gc->vy;
+	}
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
@@ -121,13 +127,11 @@ int         UdpHandler::ping(Net::Packet &packet, Player &player)
 	pong << static_cast<uint8_t>(UDP::PONG);
 	pong.setDestination(packet.getAddr());
 	this->handleOutputPacket(pong);
-	std::cout << "ping receive" << std::endl;
 	return 1;
 }
 
 int         UdpHandler::pong(Net::Packet &packet, Player &player)
 {
-	std::cout << "pong receive" << std::endl;
-	player.setLatency((Net::Clock::getMsSinceEpoch() - _time_recv) / 2 + 10);
+	player.setLatency((Net::Clock::getMsSinceEpoch() - _time_recv) / 2);
 	return 1;
 }
