@@ -142,6 +142,7 @@ void		GSInGame::displayScores()
       std::cout << "NameFont : " << this->_nameFonts[i] << std::endl;
       this->_nameFonts[i] = this->getFont("buttonFont");
       this->_nameFonts[i]->setText(ss.str());
+      this->_nameFonts[i]->setColor(255, 0, 0);
       this->_nameFonts[i]->setPosition((1024 / (this->_nbPlayers + 1)) * (i+1) - this->_nameFonts[i]->getWidth() / 2, 680);
       this->addGameObject(this->_nameFonts[i], "score", 20);
     }
@@ -150,6 +151,7 @@ void		GSInGame::displayScores()
     {
       this->_scoreFonts[i] = this->getFont("buttonFont");
       this->_scoreFonts[i]->setText("0000000");
+      this->_scoreFonts[i]->setColor(255, 0, 0);
       this->_scoreFonts[i]->setPosition((1024 / (this->_nbPlayers + 1)) * (i+1) - this->_scoreFonts[i]->getWidth() / 2, 720);
       this->addGameObject(this->_scoreFonts[i], "score", 20);
     }  
@@ -243,6 +245,15 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::P3, &GSInGame::loadP3},
     {Resource::P4, &GSInGame::loadP4},
     {Resource::SINGLE_MONSTER, &GSInGame::loadMonster},
+	{Resource::BOMB_MONSTER, &GSInGame::loadMonster},
+	{Resource::SINUSOIDAL_MONSTER, &GSInGame::loadMonster},
+	{Resource::METROID_MONSTER, &GSInGame::loadMonster},
+	{Resource::BOSS_METROID, &GSInGame::loadMonster},
+	{Resource::RANDOM_MONSTER, &GSInGame::loadMonster},
+	{Resource::FISH_MONSTER, &GSInGame::loadMonster},
+	{Resource::TRON_MONSTER, &GSInGame::loadMonster},
+	{Resource::DEFAULT_SHOT, &GSInGame::loadMonster},
+	{Resource::SHOT, &GSInGame::loadMonster},
 	{Resource::SHOOT, &GSInGame::loadShoot}
   };
 

@@ -47,6 +47,11 @@ void	SFMLFont::setText(std::string const & text)
   #endif
 }
 
+void	SFMLFont::setColor(int r, int g, int b)
+{
+  this->_str.SetColor(sf::Color(r, g, b));
+}
+
 int	SFMLFont::getWidth()
 {
 	#if (SFML_VERSION_MAJOR == 2)

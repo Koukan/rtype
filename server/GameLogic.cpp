@@ -15,7 +15,10 @@ GameLogic::GameLogic(Game &game)
 	: GameState("GameLogic"), _game(game), _nbEnemies(0), _elapseTime(0), _gameStarted(false)
 {
 	addBulletParser("resources/BulletSimple.xml", "single");
-	addBulletParser("resources/BulletSinusoidal.xml", "star");
+	addBulletParser("resources/BulletSinusoidal.xml", "sinusoidal");
+	addBulletParser("resources/BulletSinusoidal.xml", "bomb");
+	addBulletParser("resources/BulletSinusoidal.xml", "wall");
+	addBulletParser("resources/BulletSinusoidal.xml", "random");
 	this->addGroup("Wall", 0);
 	this->addGroup("playerfires", 0);
 	this->addGroup("ship", 0);
@@ -122,21 +125,41 @@ void		GameLogic::startGame()
 void GameLogic::createEnnemies(double elapseTime)
 {
 	static Salvo const salvos[] = {
-		{SINGLE, 1, "single", 50}
+		{SIMPLE, 5, "single", 50},
+		{SINUSOIDAL, 4, "sinusoidal", 50},
+		{BOMB, 3, "bomb", 50},
+		{RANDOM, 10, "random", 50},
+		{WALL, 1, "wall", 50}
+	};
+
+	static Boss const bosses[] = {
+		{"bossMetroid", 10}
 	};
 
 	int const salvoFrequency = 1000;
+	int const maxSalvos = 20;
+
 	static int i = 0;
 	static int y = 0;
+	static int nbSalvos = 0;
 
 	if (this->_elapseTime == 0)
 	{
-		if (this->_nbEnemies == 0)
+		if (nbSalvos > maxSalvos)
+		{
+			std::cout << "creation de boss" << std::endl;
+			int j = rand() % (sizeof(bosses) / sizeof(*bosses));
+			this->addGameObject(new BCommand(bosses[j].bulletName, *this, 1050, 300, 0, 0));
+			nbSalvos = 0;
+			this->_elapseTime = 10000;
+		}
+		else if (this->_nbEnemies == 0)
 		{
 			i = rand() % (sizeof(salvos) / sizeof(*salvos));
 			y = rand() % 768;
 			this->_nbEnemies = salvos[i].nbEnemies;
 			this->_elapseTime = salvoFrequency;
+			++nbSalvos;
 		}
 		else
 		{
