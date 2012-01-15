@@ -19,4 +19,7 @@ class BCommand : public BulletCommand
 	virtual void	createBullet(BulletMLState *state, double direction,
 								 double speed);
 	virtual void	move(double time);
+
+  private:
+	double		_elapsedTime;
 };
