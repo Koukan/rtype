@@ -27,31 +27,37 @@
 			<speed>80</speed>
 			<term>1</term>
 		</changeSpeed>
-		<changeDirection>
-			<direction type="absolute">90</direction>
-			<term>1</term>
-		</changeDirection>
-		<wait>50</wait>
-		<fire>
-			<speed>100</speed>
-			<bulletRef label="littleMetroid"/>
-	  	</fire>
-		<wait>50</wait>
 		<repeat><times>5000</times><action>
+			<changeDirection>
+				<direction type="absolute">90</direction>
+				<term>1</term>
+			</changeDirection>
+			<actionRef label="normalShot">
+				<param>2</param>
+			</actionRef>
 			<changeDirection>
 				<direction type="absolute">270</direction>
 				<term>1</term>
 			</changeDirection>
 			<actionRef label="normalShot">
-				<param>3</param>
+				<param>4</param>
 			</actionRef>
 			<changeDirection>
 				<direction type="absolute">90</direction>
 				<term>1</term>
 			</changeDirection>
 			<actionRef label="normalShot">
-				<param>3</param>
+				<param>2</param>
 			</actionRef>
+			<changeSpeed>
+				<speed>0</speed>
+				<term>1</term>
+			</changeSpeed>
+			<actionRef label="bombShot"/>
+			<changeSpeed>
+				<speed>80</speed>
+				<term>1</term>
+			</changeSpeed>
 		</action></repeat>
 	</action>
 </bullet>
@@ -62,11 +68,21 @@
 			<speed>100</speed>
 			<bulletRef label="littleMetroid"/>
 	  	</fire>
-		<wait>200 / $1</wait>
+		<wait>50</wait>
 	</action></repeat>
 </action>
 
-<bullet label="littleMetroid" sprite="enemy metroid" group="ship" simpleGroup="shot" simpleSprite="bullet">
+<action label="bombShot">
+	<wait>50</wait>
+	<fire>
+		<speed>200</speed>
+		<direction type="absolute">145 + (50 * $rand)</direction>
+		<bulletRef label="bomb"/>
+  	</fire>
+	<wait>50</wait>
+</action>
+
+<bullet label="littleMetroid" sprite="enemy metroid" group="ship" simpleGroup="shot" simpleSprite="boss shot">
 <hitbox shape="circle" radius="2" />
 <simpleHitbox shape="circle" radius="2" />
 <direction type="absolute">120 + (120 * $rand)</direction>
@@ -74,11 +90,27 @@
 		<repeat><times>50</times><action>
 			<wait>40</wait>
 			<fire>
-				<speed>150</speed>
+				<speed>100</speed>
 				<direction type="absolute">360 * $rand</direction>
 				<bullet/>
 			</fire>
 		</action></repeat>
+	</action>
+</bullet>
+
+<bullet label="bomb" sprite="enemy bomb" group="ship" simpleGroup="shot" simpleSprite="bomb shot">
+<hitbox shape="circle" radius="2" />
+<simpleHitbox shape="circle" radius="2" />
+	<action>
+		<wait>130</wait>
+		<repeat><times>16</times><action>
+			<fire>
+				<speed>150</speed>
+				<direction type="sequence">22.5</direction>
+				<bullet/>
+			</fire>
+		</action></repeat>
+		<vanish/>
 	</action>
 </bullet>
 

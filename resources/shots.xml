@@ -31,6 +31,18 @@
   <scale x="2.0" y="2.0" />
 </sprite>
 
+<sprite name="boss shot">
+  <image file="resources/sprite/r-typesheet18.png">
+    <grid pos="100,36"
+	  size="32,28"
+	  array="1,1"
+	  spacing="0,0"
+    />
+  </image>
+  <scale x="0.8" y="0.8" />
+</sprite>
+
+
 <sprite name="explosion">
   <image file="resources/sprite/r-typesheet1.png">
     <grid pos="200,296"
@@ -43,6 +55,12 @@
       speed="300"
    />
   <scale x="2.0" y="2.0" />
+</sprite>
+
+<sprite name="bomb shot">
+    <image file="resources/sprite/shot.png" />
+    <scale x="1.0" y="1.0" />
+    <translate x="-10" y="-10" />
 </sprite>
 
 </resources>
