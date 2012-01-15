@@ -124,9 +124,9 @@ void	BCommand::move(double time)
 	if (!this->_end)
 	{
 		this->PhysicObject::move(time);
-		if (this->_elapsedTime > 500)
+		if (this->_elapsedTime > 0.15)
 		{
-			this->_elapsedTime -= 500;
+			this->_elapsedTime -= 0.15;
 			GameCommand	*cmd = new GameCommand("Move");
 			cmd->idObject = this->_id;
 			cmd->x = this->_x;
