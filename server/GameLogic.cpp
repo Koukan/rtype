@@ -8,6 +8,7 @@
 #include "CommandDispatcher.hpp"
 #include "ServerResourceManager.hpp"
 #include "BCommand.hpp"
+#include "Rules.hpp"
 
 #include <iostream>
 GameLogic::GameLogic(Game &game)
@@ -15,13 +16,19 @@ GameLogic::GameLogic(Game &game)
 {
 	addBulletParser("resources/BulletSimple.xml", "single");
 	addBulletParser("resources/BulletSinusoidal.xml", "star");
-		this->addGroup("Wall", 0);
+	this->addGroup("Wall", 0);
 	this->addGroup("playerfires", 0);
+	this->addGroup("ship", 0);
+	this->addGroup("shot", 0);
 
-  this->addGameObject(new PhysicObject(*new RectHitBox(2000, -2000, 1000, 8000)), "Wall");
-  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 1000, 8000)), "Wall");
-  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 8000, 1000)), "Wall");
-  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, 1000, 8000, 1000)), "Wall");
+	this->addGameObject(new PhysicObject(*new RectHitBox(3000, -2000, 1000, 8000)), "Wall");
+	this->addGameObject(new PhysicObject(*new RectHitBox(-2000, -2000, 1000, 8000)), "Wall");
+	this->addGameObject(new PhysicObject(*new RectHitBox(-3000, -2000, 8000, 1000)), "Wall");
+	this->addGameObject(new PhysicObject(*new RectHitBox(-3000, 1000, 8000, 1000)), "Wall");
+
+	this->setCollisionGroups("Wall", "shot", &Rules::wallTouchObject);
+	this->setCollisionGroups("Wall", "ship", &Rules::wallTouchObject);
+	this->setCollisionGroups("Wall", "playerfires", &Rules::wallTouchObject);
 }
 
 GameLogic::~GameLogic()
@@ -33,7 +40,7 @@ void		GameLogic::update(double elapseTime)
 	this->handle(elapseTime);
 	if (_gameStarted)
 	{
-			//this->createEnnemies(elapseTime);
+		this->createEnnemies(elapseTime);
 	}
 }
 // loadBullet -> serverresourcemanager::get().addBulletParser(nom de fichier, id_ref) creer un BCommand(id_ref, *this, ...)

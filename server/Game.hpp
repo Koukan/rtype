@@ -3,6 +3,7 @@
 #include "Player.hpp"
 #include "Module.hpp"
 #include "GameLogic.hpp"
+#include "Net.hpp"
 
 class Game : public Module
 {
@@ -19,7 +20,7 @@ class Game : public Module
 	bool			isFull() const;
 	uint16_t		getId() const;
 	uint8_t			getMaxPlayers() const;
-    void			addReadyPlayer();	
+    void			addReadyPlayer();
 	void			sendTCPPacket(Net::Packet &packet, Player *player = 0);
 	void			sendUDPPacket(Net::Packet &packet, Player *player = 0);
 	GameLogic		&getGameLogic();
@@ -34,5 +35,6 @@ class Game : public Module
 	uint8_t				_maxPlayers;
 	size_t				_readyPlayers;
 	std::list<Player*>	_list;
+	Net::Mutex			_mutex;
 	friend class GameLogic;
 };

@@ -4,7 +4,7 @@
 namespace Resource
 {
   enum type {
-    P1,
+    P1 = 0,
     P2,
     P3,
     P4,
