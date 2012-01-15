@@ -50,8 +50,8 @@ set(SRCS
 	PacketCommand.hpp
 	Player.cpp
 	Player.hpp
-	${COMMON_INCLUDE_DIR}Rules.cpp
-	${COMMON_INCLUDE_DIR}Rules.hpp
+	Rules.cpp
+	Rules.hpp
 	Server.cpp
 	Server.hpp
 	ServerResourceManager.cpp
@@ -111,6 +111,7 @@ include_directories (
 	${CORE_BULLETML_DIR}
 	${CORE_TINYXML_DIR}
 	${COMMON_INCLUDE_DIR}
+	.
 )
 
 find_package (Threads)

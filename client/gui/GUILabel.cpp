@@ -3,18 +3,15 @@
 GUILabel::GUILabel(std::string const &name, std::string const &font, std::string const &sprite, int x, int y)
   : GUIElement(x, y, 0, 0), _sprite(GameStateManager::get().getCurrentState().getSprite(sprite)), _font(GameStateManager::get().getCurrentState().getFont(font))
 {
-  std::cout << "create label" << std::endl;
   if (this->_font)
     this->_font->setText(name);
   if (this->_sprite)
     {
-      std::cout << "sprite" << std::endl;
       this->setWidth(this->_sprite->getWidth());
       this->setHeight(this->_sprite->getHeight());
     }
   else if (this->_font)
     {
-      std::cout << this->_font->getWidth() << " " << this->_font->getHeight() << std::endl;
       this->setWidth(this->_font->getWidth());
       this->setHeight(this->_font->getHeight());
     }
@@ -24,18 +21,15 @@ GUILabel::GUILabel(std::string const &name, std::string const &font, std::string
 GUILabel::GUILabel(std::string const &name, std::string const &font, std::string const &sprite, GUILayout *layout)
   : GUIElement(0, 0, 0, 0, layout), _sprite(GameStateManager::get().getCurrentState().getSprite(sprite)), _font(GameStateManager::get().getCurrentState().getFont(font))
 {
-  std::cout << "create label" << std::endl;
   if (this->_font)
     this->_font->setText(name);
   if (this->_sprite)
     {
-      std::cout << "sprite" << std::endl;
       this->setWidth(this->_sprite->getWidth());
       this->setHeight(this->_sprite->getHeight());
     }
   else if (this->_font)
     {
-      std::cout << this->_font->getWidth() << " " << this->_font->getHeight() << std::endl;
       this->setWidth(this->_font->getWidth());
       this->setHeight(this->_font->getHeight());
     }
