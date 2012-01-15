@@ -19,6 +19,7 @@ private:
 	int			statement(Net::Packet &packet, uint64_t timediff);
 	int         retrieve(Net::Packet &packet, uint64_t timediff);
 	int			ping(Net::Packet &packet, uint64_t timediff);
+	int         pong(Net::Packet &packet, uint64_t timediff);
 
 	bool		testPacketId(uint32_t id);
 
