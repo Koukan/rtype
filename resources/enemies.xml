@@ -55,8 +55,9 @@
     />
   </image>
   <animation
-      speed="1200"
+      speed="2400"
       loop="yes"
+	  pingpong="no"
    />
   <scale x="2.0" y="2.0" />
   <translation x="-25" y="-25"/>
