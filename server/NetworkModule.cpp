@@ -40,7 +40,7 @@ void		NetworkModule::update(double elapsedtime)
 		if (_pingupdate >= 1000)
 		{
 	  		_pingupdate = 0;
-	  		this->sendPing(); 
+	  		this->sendPing();
 		}
 		this->_reactor->waitForEvent(0);
 	}
@@ -126,7 +126,6 @@ void		NetworkModule::spawnCommand(Command const &command)
 		packet << cmd.y;
 		packet << cmd.vx;
 		packet << cmd.vy;
-		std::cout << "idResource " << cmd.idResource << std::endl;
 		this->sendUDPPacket(packet, cmd.game->getPlayers(),
 						 true, cmd.player);
 	}
@@ -252,7 +251,8 @@ void		 NetworkModule::sendPing()
 {
 	GameManager::gamesMap const &map = Server::get().getGameList();
 
-	Net::Packet     pong(10);
+	Net::Packet     pong(18);
+	pong << static_cast<uint64_t>(0);
 	pong << static_cast<uint8_t>(UDP::PING);
 	pong << static_cast<uint8_t>(0);
 	pong << Net::Clock::getMsSinceEpoch();

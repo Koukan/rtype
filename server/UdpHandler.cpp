@@ -38,7 +38,6 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
 		Player *player = NetworkModule::get().getPlayerByAddr(packet.getAddr());
-		std::cout << packet.getAddr().getHost() << " " << packet.getAddr().getPort() << std::endl;
 		if (player)
 			return (this->*methods[type])(packet, *player);
 		else
@@ -51,8 +50,6 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 {
 	uint32_t	id_packet;
 
-	//if (packet.size() < 24)
-	//return 0;
 	if (!player.getShip())
 		return 1;
 	GameCommand *gc = new GameCommand("spawn");
@@ -60,7 +57,6 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 	packet >> gc->idResource;
 	packet >> gc->idObject;
 	packet >> gc->x;
-	std::cout << "IdResource " << gc->idResource  <<  " idobjetc " << gc->idObject << std::endl;
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
@@ -78,8 +74,6 @@ int			UdpHandler::destroy(Net::Packet &packet, Player&)
 
 int			UdpHandler::move(Net::Packet &packet, Player &player)
 {
-	//if (packet.size() < 24)
-	//return 0;
 	if (!player.getShip())
 		return 1;
 	GameCommand *gc = new GameCommand("move");
@@ -128,8 +122,9 @@ int         UdpHandler::ping(Net::Packet &packet, Player &player)
 	if (id == 1)
 		player.setLatency((Net::Clock::getMsSinceEpoch() - time_recv) / 2 + 10);
 	else if (id == 2)
-	{		
-		Net::Packet     pong(10);
+	{
+		Net::Packet     pong(18);
+		pong << static_cast<uint64_t>(0);
 		pong << static_cast<uint8_t>(UDP::PING);
 		pong << static_cast<uint8_t>(3);
 		pong << time_recv;
