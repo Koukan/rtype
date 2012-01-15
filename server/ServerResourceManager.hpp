@@ -14,7 +14,7 @@ class ServerResourceManager : public Singleton<ServerResourceManager>, public Sp
 	virtual Sprite	*addSprite(std::string const &);
 	virtual Sprite	*getSprite(std::string const &) const;
 	virtual void	addImage(std::string const &path, Sprite &);
-	void			loadResource(std::string const &path);
+	//void			loadResource(std::string const &path);
 
 	//getter
 	uint32_t		getId(std::string const &path) const;

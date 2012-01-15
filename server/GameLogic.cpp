@@ -6,9 +6,12 @@
 #include "Bullet.hpp"
 #include "CircleHitBox.hpp"
 #include "CommandDispatcher.hpp"
+#include "ServerResourceManager.hpp"
+#include "BCommand.hpp"
 
 GameLogic::GameLogic(Game &game)
-	: GameState("GameLogic"), _game(game)
+	: GameState("GameLogic"), _game(game), _nbEnemies(0), _elapseTime(0)
+
 {
 }
 
@@ -16,10 +19,18 @@ GameLogic::~GameLogic()
 {
 }
 
+void		GameLogic::onStart()
+{
+	ServerResourceManager::get().load("resources/resource.xml");
+}
+
 void		GameLogic::update(double elapseTime)
 {
 	this->handle(elapseTime);
+	this->createEnnemies(elapseTime);
 }
+// loadBullet -> serverresourcemanager::get().addBulletParser(nom de fichier, id_ref) creer un BCommand(id_ref, *this, ...)
+// modifier BCommand pour id_resource en fonction du sprite
 
 bool		GameLogic::handleCommand(Command const &command)
 {
@@ -87,5 +98,40 @@ void		GameLogic::startGame()
 		std::cout << "Id " << (*it)->getId() << " Id Object " << cmd->idObject << std::endl;
 		CommandDispatcher::get().pushCommand(*cmd);
 		y += step;
+	}
+}
+
+void GameLogic::createEnnemies(double elapseTime)
+{
+	static Salvo const salvos[] = {
+		{SINGLE, 1, "single", 50}
+	};
+
+	int const salvoFrequency = 1000;
+	static int i = 0;
+	static int y = 0;
+
+	if (this->_elapseTime == 0)
+	{
+		if (this->_nbEnemies == 0)
+		{
+			i = rand() % (sizeof(salvos) / sizeof(*salvos));
+			y = rand() % 768;
+			this->_nbEnemies = salvos[i].nbEnemies;
+			this->_elapseTime = salvoFrequency;
+		}
+		else
+		{
+			BCommand(salvos[i].bulletName, *this, 1050, y, 0, 0);
+			this->_elapseTime += salvos[i].occurenceFrequency;
+			--this->_nbEnemies;
+		}
+	}
+	else
+	{
+		if (this->_elapseTime - elapseTime < 0)
+			this->_elapseTime = 0;
+		else
+			this->_elapseTime -= elapseTime;
 	}
 }
