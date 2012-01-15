@@ -62,11 +62,11 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	if (player.getLatency() > 50)
+	/*if (player.getLatency() > 50)
 	{
 		gc->x += player.getLatency() * gc->vx;
 		gc->y += player.getLatency() * gc->vy;
-	}
+	}*/
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
@@ -88,11 +88,11 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	if (player.getLatency() > 50)
+	/*if (player.getLatency() > 50)
 	{
 		gc->x += player.getLatency() * gc->vx;
 		gc->y += player.getLatency() * gc->vy;
-	}
+	}*/
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
