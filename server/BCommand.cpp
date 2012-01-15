@@ -1,4 +1,5 @@
 #include <math.h>
+#include "Resources.hpp"
 #include "BCommand.hpp"
 #include "CommandDispatcher.hpp"
 #include "GameCommand.hpp"
@@ -14,26 +15,26 @@ inline static double dtor(double x) { return x * M_PI / 180; }
 inline static double rtod(double x) { return x * 180 / M_PI; }
 
 BCommand::BCommand(std::string const &parser, GameState &gstate,
-		  double x, double y, double vx, double vy)
-	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0)
+		  double x, double y, double vx, double vy, int life)
+	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
 BCommand::BCommand(BulletMLParser &parser, GameState &gstate,
-		  double x, double y, double vx, double vy)
-	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0)
+		  double x, double y, double vx, double vy, int life)
+	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
 BCommand::BCommand(BulletMLState &state, GameState &gstate,
-		  double x, double y, double vx, double vy)
-	: BulletCommand(state, gstate, x, y, vx, vy), _elapsedTime(0)
+		  double x, double y, double vx, double vy, int life)
+	: BulletCommand(state, gstate, x, y, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
 BCommand::BCommand(BulletMLState &state, GameState &gstate, HitBox &box,
-		  double vx, double vy)
-	: BulletCommand(state, gstate, box, vx, vy), _elapsedTime(0)
+		  double vx, double vy, int life)
+	: BulletCommand(state, gstate, box, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
@@ -92,12 +93,12 @@ void	BCommand::createBullet(BulletMLState *state,
 	vy = speed * sin(dir);
 	if (box)
 	{
-		bullet = new BCommand(*state, _state, *box, vx, vy);
+		bullet = new BCommand(*state, _state, *box, vx, vy, ServerResourceManager::get().getId(state->getSprite()));
 		this->_state.addGameObject(bullet, state->getGroup());
 	}
 	else
 	{
-		bullet = new BCommand(*state, _state, _x, _y, vx, vy);
+		bullet = new BCommand(*state, _state, _x, _y, vx, vy, ServerResourceManager::get().getId(state->getSprite()));
 		this->_state.addGameObject(bullet, state->getGroup());
 	}
 	if (bullet)

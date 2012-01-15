@@ -262,7 +262,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	{Resource::SHOOT, &GSInGame::loadShoot}
   };
 
-  //std::cout << "[idResource]" << event.idResource << std::endl;
+  std::cout << "[idResource]" << event.idResource << std::endl;
   for (size_t i = 0;
        i < sizeof(methods) / sizeof(*methods); i++)
     {
@@ -274,7 +274,6 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
-	  //std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }
@@ -353,7 +352,7 @@ void		GSInGame::loadMonster(GameCommand const &event)
 
   if (event.idResource - Resource::SINGLE_MONSTER >= 0)
   {
-  	Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
+  	Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER].sprite);
   	if (sprite)
   	{
 		ConcreteObject *monster = new ConcreteObject(sprite, *hitbox, event.vx, event.vy);
@@ -378,7 +377,7 @@ void		GSInGame::rangeid(GameCommand const &event)
   this->_currentId = event.idObject;
   this->addGroup("shoot", 8, event.idObject, event.idResource);
   this->_idPlayer = event.x;
-  std::cout << "IdPlayer " << this->_idPlayer << " " << this->_nameFonts[this->_idPlayer] <<std::endl;
+//  std::cout << "IdPlayer " << this->_idPlayer << " " << this->_nameFonts[this->_idPlayer] <<std::endl;
   this->displayScores();
   this->_nameFonts[this->_idPlayer]->setText(NetworkModule::get().getName());
   this->_nameFonts[this->_idPlayer]->setPosition((1024 / (this->_nbPlayers + 1)) * (this->_idPlayer+1) - this->_nameFonts[this->_idPlayer]->getWidth() / 2, 680);

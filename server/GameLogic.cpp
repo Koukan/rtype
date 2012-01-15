@@ -34,6 +34,7 @@ GameLogic::GameLogic(Game &game)
 	this->setCollisionGroups("Wall", "shot", &Rules::wallTouchObject);
 	this->setCollisionGroups("Wall", "ship", &Rules::wallTouchObject);
 	this->setCollisionGroups("Wall", "playerfires", &Rules::wallTouchObject);
+	this->setCollisionGroups("shot", "monster", &Rules::wallTouchObject);
 }
 
 GameLogic::~GameLogic()
@@ -127,18 +128,18 @@ void		GameLogic::startGame()
 void GameLogic::createEnnemies(double elapseTime)
 {
 	static Salvo const salvos[] = {
-		{SIMPLE, 5, "single", 50},
-		{SINUSOIDAL, 4, "sinusoidal", 50},
-		{BOMB, 3, "bomb", 50},
-		{RANDOM, 10, "random", 50},
-		{WALL, 1, "wall", 50}
+		{SIMPLE, 5, "single", 1000},
+		{SINUSOIDAL, 4, "sinusoidal", 1000},
+		{BOMB, 3, "bomb", 1000},
+		{RANDOM, 10, "random", 1000},
+		{WALL, 1, "wall", 1000}
 	};
 
 	static Boss const bosses[] = {
 		{"bossMetroid", 10}
 	};
 
-	int const salvoFrequency = 1000;
+	int const salvoFrequency = 10000;
 	int const maxSalvos = 20;
 
 	static int i = 0;

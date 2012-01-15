@@ -21,5 +21,11 @@ namespace Resource
 	SHOOT
   };
 
-  extern const char *monsters[];
+  struct Monster
+  {
+	  const char *sprite;
+	  int life;
+  };
+
+  extern const Monster monsters[];
 }
