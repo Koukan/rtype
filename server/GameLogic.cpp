@@ -24,6 +24,13 @@ void		GameLogic::onStart()
 	addBulletParser("resources/BulletSimple.xml", "single");
 	addBulletParser("resources/BulletSinusoidal.xml", "star");
 	std::cout << "j ai load, youpi" << std::endl;
+	this->addGroup("Wall", 0);
+	this->addGroup("playerfires", 0);
+
+  this->addGameObject(new PhysicObject(*new RectHitBox(2000, -2000, 1000, 8000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 1000, 8000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 8000, 1000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, 1000, 8000, 1000)), "Wall");
 }
 
 void		GameLogic::update(double elapseTime)
