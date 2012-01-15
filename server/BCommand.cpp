@@ -1,4 +1,5 @@
 #include <math.h>
+#include "Resources.hpp"
 #include "BCommand.hpp"
 #include "CommandDispatcher.hpp"
 #include "GameCommand.hpp"
@@ -92,12 +93,12 @@ void	BCommand::createBullet(BulletMLState *state,
 	vy = speed * sin(dir);
 	if (box)
 	{
-		bullet = new BCommand(*state, _state, *box, vx, vy);
+		bullet = new BCommand(*state, _state, *box, vx, vy, ServerResourceManager::get().getId(state->getSprite()));
 		this->_state.addGameObject(bullet, state->getGroup());
 	}
 	else
 	{
-		bullet = new BCommand(*state, _state, _x, _y, vx, vy);
+		bullet = new BCommand(*state, _state, _x, _y, vx, vy, ServerResourceManager::get().getId(state->getSprite()));
 		this->_state.addGameObject(bullet, state->getGroup());
 	}
 	if (bullet)

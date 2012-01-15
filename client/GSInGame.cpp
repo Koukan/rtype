@@ -345,8 +345,8 @@ void		GSInGame::loadMonster(GameCommand const &event)
 
   if (event.idResource - Resource::SINGLE_MONSTER < 0)
 	  return ;
-  Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
-  std::cout << "LOAD MONSTER " << event.idResource - Resource::SINGLE_MONSTER << " " << Resource::monsters[event.idResource - Resource::SINGLE_MONSTER] << std::endl;
+  Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER].sprite);
+  std::cout << "LOAD MONSTER " << event.idResource - Resource::SINGLE_MONSTER << " " << Resource::monsters[event.idResource - Resource::SINGLE_MONSTER].sprite << std::endl;
   if (sprite)
   {
 	  std::cout << "load Monster done" << std::endl;

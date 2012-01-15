@@ -16,8 +16,15 @@ namespace Resource
 	FISH_MONSTER,
 	TRON_MONSTER,
 	DEFAULT_SHOT,
-	SHOT
+	SHOT,
+	SHOOT
   };
 
-  extern const char *monsters[];
+  struct Monster
+  {
+	  const char *sprite;
+	  int life;
+  };
+
+  extern const Monster monsters[];
 }
