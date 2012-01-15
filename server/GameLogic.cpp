@@ -21,7 +21,7 @@ GameLogic::~GameLogic()
 
 void		GameLogic::onStart()
 {
-	ServerResourceManager::get().load("resources/resource.xml");
+	ServerResourceManager::get().load("resources/BulletSimple.xml");
 }
 
 void		GameLogic::update(double elapseTime)
