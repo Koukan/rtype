@@ -254,7 +254,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	{Resource::METROID_MONSTER, &GSInGame::loadMonster},
 	{Resource::BOSS_METROID, &GSInGame::loadMonster},
 	{Resource::RANDOM_MONSTER, &GSInGame::loadMonster},
-	{Resource::FISH_MONSTER, &GSInGame::loadMonster},
+	//{Resource::FISH_MONSTER, &GSInGame::loadMonster},
 	{Resource::TRON_MONSTER, &GSInGame::loadMonster},
 	{Resource::DEFAULT_SHOT, &GSInGame::loadMonster},
 	{Resource::SHOT, &GSInGame::loadMonster},
@@ -350,14 +350,15 @@ void		GSInGame::loadMonster(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
 
-  if (event.idResource - Resource::SINGLE_MONSTER < 0)
-	  return ;
-  Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
-  if (sprite)
+  if (event.idResource - Resource::SINGLE_MONSTER > 0)
   {
-	ConcreteObject *monster = new ConcreteObject(sprite, *hitbox, event.vx, event.vy);
-	monster->setId(event.idObject);
-	this->addGameObject(static_cast<GameObject *>(monster), "monster");
+  	Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
+  	if (sprite)
+  	{
+		ConcreteObject *monster = new ConcreteObject(sprite, *hitbox, event.vx, event.vy);
+		monster->setId(event.idObject);
+		this->addGameObject(static_cast<GameObject *>(monster), "monster");
+  	}
   }
 }
 
