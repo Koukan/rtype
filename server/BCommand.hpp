@@ -22,4 +22,5 @@ class BCommand : public BulletCommand
 
   private:
 	double		_elapsedTime;
+	uint32_t	_id;
 };
