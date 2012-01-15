@@ -34,14 +34,11 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	uint64_t			time;
 	uint8_t				type;
 
-	//std::cout << "input udp packet" << std::endl;
 	if (packet.size() < 9)
 		return 0;
 	packet >> time;
 	packet >> type;
 
-	//std::cout << "packet udp time :"  << timediff << " type " << (int)type << std::endl;
-	std::cout << "latency :" << _latency << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 		return (this->*methods[type])(packet, time);
 	return 0;
@@ -62,10 +59,12 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	gc->x += (static_cast<double>(_latency) / 1000) * gc->vx;
-	gc->y += (static_cast<double>(_latency) / 1000) * gc->vy;
+	if (_latency > 50)
+	{		
+		gc->x += (static_cast<double>(_latency) / 1000) * gc->vx;
+		gc->y += (static_cast<double>(_latency) / 1000) * gc->vy;
+	}
 	std::cout << "spawn de type " << gc->idResource << " x:" << gc->x << " y:" << gc->y << " vx:" << gc->vx << " vy:" << gc->vy << std::endl;
-	//std::cout << "Resource = " << gc->idResource << " Id = " << gc->idObject << std::endl;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
@@ -92,8 +91,11 @@ int			UdpHandler::move(Net::Packet &packet, uint64_t)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
-	gc->x += (static_cast<double>(_latency) / 1000) * gc->vx;
-	gc->y += (static_cast<double>(_latency) / 1000) * gc->vy;
+	if (_latency > 50)
+	{
+		gc->x += (static_cast<double>(_latency) / 1000) * gc->vx;
+		gc->y += (static_cast<double>(_latency) / 1000) * gc->vy;
+	}
 	std::cout << "move " << gc->x << " " << gc->y << std::endl;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
@@ -135,7 +137,7 @@ int         UdpHandler::ping(Net::Packet &, uint64_t time_recv)
 
 int         UdpHandler::pong(Net::Packet &, uint64_t time_recv)
 {
-	_latency = (Net::Clock::getMsSinceEpoch() - time_recv) / 2 + 10;
+	_latency = (Net::Clock::getMsSinceEpoch() - time_recv) / 2;
 	return 1;
 }
 
@@ -152,7 +154,6 @@ bool		UdpHandler::testPacketId(uint32_t id)
 		{
 			gc = new GameCommand("retrieve");
 			gc->idObject = val + _lastPacketId;
-			//std::cout << "retrieve packet id" <<  gc->idObject << std::endl;
 			CommandDispatcher::get().pushCommand(*gc, true);
 		}
 	   return true;
