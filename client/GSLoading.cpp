@@ -81,10 +81,11 @@ void	GSLoading::onStart()
   this->load("resources/player.xml");
   this->load("resources/enemies.xml");
   this->load("resources/shots.xml");
+  this->load("resources/destruction.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 9);
 
-  Sprite *test = this->getSprite("player1");
+  Sprite *test = this->getSprite("destruction");
   test->setX(550);
   test->setY(360);
   this->addGameObject(test, "gui", 20);
@@ -97,9 +98,9 @@ void	GSLoading::onStart()
   _ingame = new GSInGame(this->_nbPlayers);
   _ingame->preload();
 
-  /*  this->addBulletParser("resources/BulletBossMetroid.xml", "Test");
+  this->addBulletParser("resources/BulletBossMetroid.xml", "Test");
   BulletCommand *bullet = new BulletCommand("Test", *this, 1100, 300);
-  this->addGameObject(bullet, "ship");*/
+  this->addGameObject(bullet, "ship");
 }
 
 void	GSLoading::gameBeginCommand(Command const &)
