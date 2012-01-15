@@ -97,7 +97,7 @@ int			UdpHandler::move(Net::Packet &packet, uint64_t timediff)
 	packet >> gc->vy;
 	gc->x += timediff * gc->vx;
 	gc->y += timediff * gc->vy;
-	//CommandDispatcher::get().pushCommand(*gc);
+	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
 
