@@ -70,8 +70,7 @@ void		GSInGame::update(double elapsedTime)
 	{
 		if (this->_ship && this->_fire)
 		{
-			std::cout << "koaalaaaa" << std::endl;
-			GameCommand *cmd = new GameCommand("spawn", this->getNextId(), Resource::SHOOT,
+			GameCommand *cmd = new GameCommand("Spawn", this->getNextId(), Resource::SHOOT,
 			static_cast<int16_t>(this->_ship->getX()),
 			static_cast<int16_t>(this->_ship->getY()), 
 			400,

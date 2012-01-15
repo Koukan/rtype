@@ -26,6 +26,7 @@ void		GameLogic::onStart()
 
 void		GameLogic::update(double elapseTime)
 {
+	std::cout << "call" << std::endl;
 	this->handle(elapseTime);
 	this->createEnnemies(elapseTime);
 }
@@ -40,7 +41,7 @@ bool		GameLogic::handleCommand(Command const &command)
 	{
 		std::cout << "move" << std::endl;
 		Ship	*ship = gc.player->getShip();
-	   	ship->setX(gc.x);
+		ship->setX(gc.x);
 		ship->setY(gc.y);
 		ship->setVx(gc.vx);
 		ship->setVy(gc.vy);
@@ -53,6 +54,7 @@ bool		GameLogic::handleCommand(Command const &command)
 		answer->game = &_game;
 		answer->player = gc.player;
 		CommandDispatcher::get().pushCommand(*answer);
+		return true;
 	}
 	else if (gc.name == "spawn")
 	{
@@ -68,6 +70,7 @@ bool		GameLogic::handleCommand(Command const &command)
 		answer->game = &_game;
 		//answer->player = gc.player;
 		CommandDispatcher::get().pushCommand(*answer);
+		return true;
 	}
 	return false;
 }
