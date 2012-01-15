@@ -9,6 +9,7 @@ namespace Resource
     P3,
     P4,
     SINGLE_MONSTER,
+	DEFAULT_SHOT,
 	SHOOT
   };
 

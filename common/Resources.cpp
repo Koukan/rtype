@@ -2,5 +2,6 @@
 
 const char * Resource::monsters[] = {
 	  "enemy plane",
-	  "shot"
+	  "default shot",
+	  "color shot"
   };
