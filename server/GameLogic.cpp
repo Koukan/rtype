@@ -9,17 +9,24 @@
 #include "ServerResourceManager.hpp"
 #include "BCommand.hpp"
 
+#include <iostream>
 GameLogic::GameLogic(Game &game)
 	: GameState("GameLogic"), _game(game), _nbEnemies(0), _elapseTime(0), _gameStarted(false)
 {
 	addBulletParser("resources/BulletSimple.xml", "single");
 	addBulletParser("resources/BulletSinusoidal.xml", "star");
+		this->addGroup("Wall", 0);
+	this->addGroup("playerfires", 0);
+
+  this->addGameObject(new PhysicObject(*new RectHitBox(2000, -2000, 1000, 8000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 1000, 8000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, -2000, 8000, 1000)), "Wall");
+  this->addGameObject(new PhysicObject(*new RectHitBox(-1000, 1000, 8000, 1000)), "Wall");
 }
 
 GameLogic::~GameLogic()
 {
 }
-
 
 void		GameLogic::update(double elapseTime)
 {
