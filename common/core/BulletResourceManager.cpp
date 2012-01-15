@@ -24,7 +24,6 @@ bool		BulletResourceManager::addBulletParser(std::string const &path,
 		mem_parser = it->second;
 	//try
 	//{
-		std::cout << "path  " << path << std::endl;
 		BulletMLParserTinyXML *parser = new BulletMLParserTinyXML(path);
 		parser->build();
 		_parsers[name] = parser;

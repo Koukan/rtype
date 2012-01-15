@@ -20,16 +20,11 @@ public:
 	void			preload();
 
 private:
-
-	struct Method
+	template<typename T>
+	class Method
 	{
-	  std::string const		name;
-	  void (GSInGame::*method)(GameCommand const &);
-	};
-
-	struct Method2
-	{
-	  Resource::type		type;
+	public:
+	  T		name;
 	  void (GSInGame::*method)(GameCommand const &);
 	};
 
@@ -44,7 +39,6 @@ private:
 	void		releaseInputSpace(InputCommand const &/*event*/);
 
 	// HandleCommand
-//	void		inputMove(GameCommand const &event);
 
 	void		destroy(GameCommand const &event);
 	void		spawn(GameCommand const &event);
@@ -55,7 +49,6 @@ private:
 
 	void		retrieve(uint32_t idPacket);
 
-  //	void		moveObject(InputCommand const &event, int16_t x, int16_t y, int16_t vx, int16_t vy);
   	void		throwShip();
 
 	void		updatePositions(GameCommand const &event, PhysicObject &obj) const;

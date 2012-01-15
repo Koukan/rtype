@@ -14,10 +14,19 @@
     <translate x="-10" y="-10" />
  </sprite>
  <sprite name="space background">
-    <image file="resources/sprite/Space Background.png" />
+    <image file="resources/sprite/spacebackground.png" />
+ </sprite>
+ <sprite name="star background">
+    <image file="resources/sprite/starbackground.png" />
  </sprite>
  <sprite name="black background">
     <image file="resources/sprite/blackbackground.png" />
+ </sprite>
+ <sprite name="ground background">
+    <image file="resources/sprite/groundbackground.png" />
+ </sprite>
+ <sprite name="sky background">
+    <image file="resources/sprite/skybackground.png" />
  </sprite>
  <sprite name="little button">
     <image file="resources/sprite/little button.png" />
@@ -30,6 +39,9 @@
  </sprite>
  <sprite name="selected button">
     <image file="resources/sprite/selected button.png" />
+ </sprite>
+ <sprite name="logo">
+    <image file="resources/sprite/logo.png" />
  </sprite>
 
  <sprite name="up arrow">

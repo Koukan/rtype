@@ -3,8 +3,11 @@
 
 ServerResourceManager::ServerResourceManager() : _id(1)
 {
-	_ids["enemy tron"] = Resource::MONSTER;
-	_ids["enemy star"] = Resource::MONSTER2;
+	for (int i = 0; i < Resource::SHOOT - Resource::SINGLE_MONSTER + 1; ++i)
+	{
+		std::cout << i << "  " << Resource::monsters[i] << " RESOURCE ADDED " << Resource::SINGLE_MONSTER + i << std::endl;
+		this->_ids[Resource::monsters[i]] = Resource::SINGLE_MONSTER + i;
+	}
 }
 
 ServerResourceManager::~ServerResourceManager()

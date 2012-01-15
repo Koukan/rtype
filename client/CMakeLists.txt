@@ -80,6 +80,8 @@ set(SRCS
 	GSOptions.hpp
 	GSPauseMenu.cpp
 	GSPauseMenu.hpp
+	GSPreload.cpp
+	GSPreload.hpp
 	GSMainMenu.cpp
 	GSMainMenu.hpp
 	GSCreateMenu.cpp
@@ -91,12 +93,13 @@ set(SRCS
 	NetworkModule.hpp
 	PacketCommand.cpp
 	PacketCommand.hpp
-	${INCLUDES_COMMON_DIR}Rules.cpp
-	${INCLUDES_COMMON_DIR}Rules.hpp
 	${INCLUDES_COMMON_DIR}PacketType.hpp
 	RendererManager.cpp
 	RendererManager.hpp
 	${INCLUDES_COMMON_DIR}Resources.hpp
+	${INCLUDES_COMMON_DIR}Resources.cpp
+	${INCLUDES_COMMON_DIR}Rules.cpp
+	${INCLUDES_COMMON_DIR}Rules.hpp
 	ScrollingSprite.hpp
 	ScrollingSprite.cpp
 	Server.cpp
@@ -152,6 +155,7 @@ include_directories (
 	${NET_MUTEX_INCLUDE_DIR}
 	${CORE_DIR}
 	${CORE_CALLBACK_DIR}
+	${COMMON_INCLUDE_DIR}
 	${CORE_QUADTREE_INCLUDE_DIR}
 	${CORE_BULLETML_DIR}
 	${CORE_TINYXML_DIR}
