@@ -93,6 +93,21 @@
   <translation x="-10" y="-15"/>
 </sprite>
 
+<sprite name="enemy sphere">
+  <image file="resources/sprite/r-typesheet2.png">
+    <grid pos="158,35"
+	  size="20,16"
+	  array="12,1"
+	  spacing="4,0"
+    />
+  </image>
+  <animation
+      speed="2400"
+      loop="yes"
+   />
+   <scale x="1.2" y="1.2" />
+</sprite>
+
 <sprite name="boss metroid">
   <image file="resources/sprite/r-typesheet18.png">
     <grid pos="1,66"

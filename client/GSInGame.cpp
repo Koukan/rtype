@@ -30,6 +30,7 @@ void		GSInGame::preload()
   this->addGroup("players", 10);
   this->addGroup("Wall", 0);
   this->setCollisionGroups("Wall", "shoot", &Rules::wallTouchObject);
+  this->setCollisionGroups("Wall", "monster", &Rules::wallTouchObject);
 
   // add providers
   this->addProvider(*(new SFMLSpriteProvider));
@@ -238,13 +239,13 @@ void		GSInGame::spawn(GameCommand const &event)
 	{Resource::SHOOT, &GSInGame::loadShoot}
   };
 
-  std::cout << "[idResource]" << event.idResource << std::endl;
+  //std::cout << "[idResource]" << event.idResource << std::endl;
   for (size_t i = 0;
        i < sizeof(methods) / sizeof(*methods); i++)
     {
       if (static_cast<Resource::type>(event.idResource) == methods[i].type)
 	{
-		std::cout << "[idResource valide]" << event.idResource << std::endl;
+			//std::cout << "[idResource valide]" << event.idResource << std::endl;
 	  (this->*methods[i].method)(event);
 	  if (static_cast<uint16_t>(event.idResource) == this->_idPlayer)
 	    {

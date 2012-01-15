@@ -11,6 +11,7 @@ Server::Server() : Net::PacketHandler<>(4096, "", true),
 		_name(""), _game(0)
 {
 	NetworkModule::get().setServer(this);
+	this->setNonBlocking(true);
 }
 
 Server::~Server()
