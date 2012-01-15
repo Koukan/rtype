@@ -21,6 +21,7 @@ Player::~Player()
 void		Player::init()
 {
 	NetworkModule::get().addUDPPlayer(*this);
+	this->setNonBlocking(true);
 }
 
 int			Player::handleInputPacket(Net::Packet &packet)
