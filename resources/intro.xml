@@ -40,6 +40,9 @@
  <sprite name="selected button">
     <image file="resources/sprite/selected button.png" />
  </sprite>
+ <sprite name="logo">
+    <image file="resources/sprite/logo.png" />
+ </sprite>
 
  <sprite name="up arrow">
     <image file="resources/sprite/up arrow.png" />
