@@ -111,7 +111,8 @@ void		SFMLSprite::setGrid(uint32_t left, uint32_t top, uint32_t width,
 		top += spacey + height;
 	}
 	//this->SetTextureRect(this->_rect[0/*this->_currentFrame*/]);
-	this->SetSubRect(this->_rect[0/*this->_currentFrame*/]);
+	if (!this->_rect.empty())
+		this->SetSubRect(this->_rect[0/*this->_currentFrame*/]);
 }
 
 void		SFMLSprite::draw(double elapsedTime)
