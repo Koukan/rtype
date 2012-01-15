@@ -19,8 +19,8 @@
 	<action>
 		<repeat><times>200</times>
 			<action>
-				<actionRef label="fire" />
 				<wait>120 + 120 * $rand</wait>
+				<actionRef label="fire" />
 			</action>
 		</repeat>
 	</action>

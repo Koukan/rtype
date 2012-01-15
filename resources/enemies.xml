@@ -29,6 +29,7 @@
       loop="yes"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="-10" y="-12"/>
 </sprite>
 
 <sprite name="enemy walkbrown">
@@ -44,6 +45,7 @@
       pingpong="yes"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="-15" y="-16"/>
 </sprite>
 
 <sprite name="enemy star">
@@ -60,7 +62,7 @@
 	  pingpong="no"
    />
   <scale x="2.0" y="2.0" />
-  <translation x="-25" y="-25"/>
+  <translation x="-14" y="-14"/>
 </sprite>
 
 <sprite name="enemy fish">
@@ -76,6 +78,7 @@
       loop="yes"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="-15" y="-13"/>
 </sprite>
 
 <sprite name="enemy tron">
@@ -91,7 +94,7 @@
       loop="yes"
    />
   <scale x="2.0" y="2.0" />
-  <translation x="-10" y="-15"/>
+  <translation x="-16" y="-11"/>
 </sprite>
 
 <sprite name="enemy sphere">
@@ -105,7 +108,6 @@
   <animation
       speed="1200"
       loop="yes"
-	  pingpong="no"
    />
    <scale x="1.2" y="1.2" />
 </sprite>
@@ -117,6 +119,7 @@
 	  array="1,1"
     />
   </image>
+  <translation x="-15" y="-14"/>
 </sprite>
 
 <sprite name="boss metroid">
@@ -132,7 +135,7 @@
       pingpong="yes"
    />
   <scale x="5.0" y="5.0" />
-  <translation x="-40" y="-20"/>
+  <translation x="-8" y="-4"/>
 </sprite>
 
 <sprite name="enemy metroid">
@@ -148,7 +151,7 @@
       pingpong="yes"
    />
   <scale x="2.0" y="2.0" />
-  <translation x="-10" y="-15"/>
+  <translation x="-16" y="-16"/>
 </sprite>
 
 </resources>

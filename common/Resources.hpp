@@ -1,6 +1,5 @@
 #pragma once
 
-#include <string>
 namespace Resource
 {
   enum type {
@@ -9,6 +8,14 @@ namespace Resource
     P3,
     P4,
     SINGLE_MONSTER,
+	BOMB_MONSTER,
+	SINUSOIDAL_MONSTER,
+	METROID_MONSTER,
+	BOSS_METROID,
+	RANDOM_MONSTER,
+	TRON_MONSTER,
+	DEFAULT_SHOT,
+	SHOT,
 	SHOOT
   };
 

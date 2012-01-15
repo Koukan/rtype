@@ -27,8 +27,12 @@ GSInGame::~GSInGame()
 
 void		GSInGame::preload()
 {
-  this->addGroup("players", 10);
+  this->addGroup("players", 40);
   this->addGroup("Wall", 0);
+  this->addGroup("shot", 9);
+  this->addGroup("monster", 10);
+  this->addGroup("background2", 2);
+  this->addGroup("background3", 3);
   this->setCollisionGroups("Wall", "shoot", &Rules::wallTouchObject);
   this->setCollisionGroups("Wall", "monster", &Rules::wallTouchObject);
 
@@ -63,20 +67,16 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputSpace, static_cast<int>(Keyboard::Space));
   // add gui
 
-  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.03);
-  obj->pushSprite("space background");
-  this->addGameObject(obj, "background", 1);
-
   ScrollingSprite *obj1 = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.06);
   obj1->pushSprite("star background");
-  this->addGameObject(obj1, "background2", 2);
+  this->addGameObject(obj1, "background2");
 
   ScrollingSprite *obj2 = new ScrollingSprite(0, 738, 1024, 30, ScrollingSprite::HORIZONTAL, -0.1);
   obj2->pushSprite("ground background");
-  this->addGameObject(obj2, "background3", 3);
+  this->addGameObject(obj2, "background3");
   ScrollingSprite *obj3 = new ScrollingSprite(0, 0, 1024, 30, ScrollingSprite::HORIZONTAL, -0.1);
   obj3->pushSprite("sky background");
-  this->addGameObject(obj3, "background3", 3);
+  this->addGameObject(obj3, "background3");
 
   // HitBox *hitbox = new RectHitBox(0, 0, 2, 2);
   // std::cout << "add ship" << std::endl;
@@ -146,6 +146,7 @@ void		GSInGame::displayScores()
       std::cout << "NameFont : " << this->_nameFonts[i] << std::endl;
       this->_nameFonts[i] = this->getFont("buttonFont");
       this->_nameFonts[i]->setText(ss.str());
+      this->_nameFonts[i]->setColor(255, 0, 0);
       this->_nameFonts[i]->setPosition((1024 / (this->_nbPlayers + 1)) * (i+1) - this->_nameFonts[i]->getWidth() / 2, 680);
       this->addGameObject(this->_nameFonts[i], "score", 20);
     }
@@ -154,6 +155,7 @@ void		GSInGame::displayScores()
     {
       this->_scoreFonts[i] = this->getFont("buttonFont");
       this->_scoreFonts[i]->setText("0000000");
+      this->_scoreFonts[i]->setColor(255, 0, 0);
       this->_scoreFonts[i]->setPosition((1024 / (this->_nbPlayers + 1)) * (i+1) - this->_scoreFonts[i]->getWidth() / 2, 720);
       this->addGameObject(this->_scoreFonts[i], "score", 20);
     }  
@@ -247,6 +249,15 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::P3, &GSInGame::loadP3},
     {Resource::P4, &GSInGame::loadP4},
     {Resource::SINGLE_MONSTER, &GSInGame::loadMonster},
+	{Resource::BOMB_MONSTER, &GSInGame::loadMonster},
+	{Resource::SINUSOIDAL_MONSTER, &GSInGame::loadMonster},
+	{Resource::METROID_MONSTER, &GSInGame::loadMonster},
+	{Resource::BOSS_METROID, &GSInGame::loadMonster},
+	{Resource::RANDOM_MONSTER, &GSInGame::loadMonster},
+	//{Resource::FISH_MONSTER, &GSInGame::loadMonster},
+	{Resource::TRON_MONSTER, &GSInGame::loadMonster},
+	{Resource::DEFAULT_SHOT, &GSInGame::loadMonster},
+	{Resource::SHOT, &GSInGame::loadMonster},
 	{Resource::SHOOT, &GSInGame::loadShoot}
   };
 
@@ -262,7 +273,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
-	  std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
+	  //std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }
@@ -339,14 +350,15 @@ void		GSInGame::loadMonster(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
 
-  if (event.idResource - Resource::SINGLE_MONSTER < 0)
-	  return ;
-  Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
-  if (sprite)
+  if (event.idResource - Resource::SINGLE_MONSTER > 0)
   {
-	ConcreteObject *monster = new ConcreteObject(sprite, *hitbox, event.vx, event.vy);
-	monster->setId(event.idObject);
-	this->addGameObject(static_cast<GameObject *>(monster), "monster");
+  	Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
+  	if (sprite)
+  	{
+		ConcreteObject *monster = new ConcreteObject(sprite, *hitbox, event.vx, event.vy);
+		monster->setId(event.idObject);
+		this->addGameObject(static_cast<GameObject *>(monster), "monster");
+  	}
   }
 }
 

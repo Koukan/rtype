@@ -19,5 +19,9 @@ private:
 	int			score(Net::Packet &packet, Player&);
 	int			statement(Net::Packet &packet, Player&);
 	int         retrieve(Net::Packet &packet, Player&);
+	int			ping(Net::Packet &packet, Player&);
+	int         pong(Net::Packet &packet, Player&);
+
+	uint64_t	_time_recv;
 };
 

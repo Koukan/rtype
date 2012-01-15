@@ -35,8 +35,7 @@ public:
 	// setter
 	DECLSPEC void setLabel(std::string const &label) { this->label_ = label; }
 	DECLSPEC void setGroup(std::string const &group) { this->group_ = group; }
-	DECLSPEC void setSprite(std::string const &sprite) { this->sprite_ = sprite; 
-	std::cout << "BulletML fuck" << sprite << std::endl;}
+	DECLSPEC void setSprite(std::string const &sprite) { this->sprite_ = sprite; }
 	DECLSPEC void setBulletGroup(std::string const &group) { this->bulletGroup_ = group; }
 	DECLSPEC void setBulletSprite(std::string const &sprite) { this->bulletSprite_ = sprite; }
 	DECLSPEC void setShape(std::string const &shape) { this->shape_ = shape; }

@@ -38,9 +38,12 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void		statusCommand(Command const &command);
 	void		startgameCommand(Command const &command);
 	void		rangeId(Command const &command);
+	void		sendPing();
+	bool		gameExist(Game *);
 
 
 	Net::Reactor						*_reactor;
+	size_t								_pingupdate;
 	Net::Acceptor<Player>				_acceptor;
 	UdpHandler							_udp;
 	std::string							_port;
