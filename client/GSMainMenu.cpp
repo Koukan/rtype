@@ -1,5 +1,6 @@
 #include "GSMainMenu.hpp"
 #include "GSCreateMenu.hpp"
+#include "GSLoading.hpp"
 #include "GSJoinGame.hpp"
 #include "GSOptions.hpp"
 #include "SFMLSpriteProvider.hpp"
@@ -32,19 +33,20 @@ void	GSMainMenu::onStart()
 
   // add gui
 
+  
+
   GUILayout *layout = new GUIVLayout(1024 / 2, (768 - 100) / 2, 300, 300, 20, 100, "up arrow", "down arrow");
   layout->setY((768 - layout->getHeight()) / 2);
+  Sprite *sp = this->getSprite("logo");
+  sp->setX(280);
+  sp->setY(100);
+  this->addGameObject(sp, "gui", 20);
   ButtonSprite *sprite = new ButtonSprite("default button", "selected button", "pressed button");
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::createGame, "Create Game", "buttonFont", *sprite, layout);
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::joinGame, "Join Game", "buttonFont", *sprite, layout);
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::options, "Options", "buttonFont", *sprite, layout);
   new GUIButton<GSMainMenu>(*this, &GSMainMenu::quitGame, "Quit", "buttonFont", *sprite, layout);
   // new GUIButton<GSMainMenu>(*this, &GSMainMenu::inGameTest, "In Game Test", "buttonFont", *sprite, layout);
-
-  // add Scrolling background
-  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
-  obj->pushSprite("space background");
-  this->addGameObject(obj, "background", 1);
 }
 
 void	GSMainMenu::createGame()
@@ -55,8 +57,9 @@ void	GSMainMenu::createGame()
 
 void	GSMainMenu::joinGame()
 {
-  GameStateManager::get().loadState<GSJoinGame>("joinGame");
-  GameStateManager::get().pushState("joinGame");
+  //GameStateManager::get().loadState<GSJoinGame>("joinGame");
+  //GameStateManager::get().pushState("joinGame");
+  GameStateManager::get().pushState(*(new GSLoading(4)));
 }
 
 void	GSMainMenu::inGameTest()
@@ -71,6 +74,7 @@ void	GSMainMenu::options()
 }
 void	GSMainMenu::quitGame()
 {
+	GameStateManager::get().popState();
 	GameStateManager::get().popState();
   	Game::get().quit();
 }
