@@ -23,51 +23,62 @@
 			<term>1</term>
 		</changeSpeed>
 		<wait>20</wait>
-			<changeSpeed>
-				<speed>80</speed>
+		<changeSpeed>
+			<speed>80</speed>
+			<term>1</term>
+		</changeSpeed>
+		<changeDirection>
+			<direction type="absolute">90</direction>
+			<term>1</term>
+		</changeDirection>
+		<wait>50</wait>
+		<fire>
+			<speed>100</speed>
+			<bulletRef label="littleMetroid"/>
+	  	</fire>
+		<wait>50</wait>
+		<repeat><times>5000</times><action>
+			<changeDirection>
+				<direction type="absolute">270</direction>
 				<term>1</term>
-			</changeSpeed>
-		<repeat><times>20</times><action>
+			</changeDirection>
+			<actionRef label="normalShot">
+				<param>3</param>
+			</actionRef>
 			<changeDirection>
 				<direction type="absolute">90</direction>
 				<term>1</term>
 			</changeDirection>
-			<wait>100</wait>
-			<repeat><times>8</times><action>
-				<changeDirection>
-					<direction type="absolute">270</direction>
-					<term>1</term>
-				</changeDirection>
-				<actionRef label="normalShot"/>
-				<changeDirection>
-					<direction type="absolute">90</direction>
-					<term>1</term>
-				</changeDirection>
-				<actionRef label="normalShot"/>
-			</action></repeat>
+			<actionRef label="normalShot">
+				<param>3</param>
+			</actionRef>
 		</action></repeat>
 	</action>
 </bullet>
 
 <action label="normalShot">
-	<repeat><times>4</times><action>
+	<repeat><times>$1</times><action>
 		<fire>
-			<direction type="absolute">120 + 120 * $rand</direction>
 			<speed>100</speed>
-			<bulletRef label="littleMetroid">
-				<param>600</param>
-			</bulletRef>
+			<bulletRef label="littleMetroid"/>
 	  	</fire>
-		<wait>50</wait>
+		<wait>200 / $1</wait>
 	</action></repeat>
 </action>
 
-<bullet label="littleMetroid" sprite="enemy metroid" group="ship">
+<bullet label="littleMetroid" sprite="enemy metroid" group="ship" simpleGroup="shot" simpleSprite="bullet">
 <hitbox shape="circle" radius="2" />
 <simpleHitbox shape="circle" radius="2" />
+<direction type="absolute">120 + (120 * $rand)</direction>
 	<action>
-	  <wait>$1</wait>
-	  <vanish/>
+		<repeat><times>50</times><action>
+			<wait>40</wait>
+			<fire>
+				<speed>150</speed>
+				<direction type="absolute">360 * $rand</direction>
+				<bullet/>
+			</fire>
+		</action></repeat>
 	</action>
 </bullet>
 
