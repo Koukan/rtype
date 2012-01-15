@@ -16,9 +16,11 @@ GameLogic::GameLogic(Game &game)
 {
 	addBulletParser("resources/BulletSimple.xml", "single");
 	addBulletParser("resources/BulletSinusoidal.xml", "sinusoidal");
-	addBulletParser("resources/BulletSinusoidal.xml", "bomb");
-	addBulletParser("resources/BulletSinusoidal.xml", "wall");
-	addBulletParser("resources/BulletSinusoidal.xml", "random");
+	addBulletParser("resources/BulletBomb.xml", "bomb");
+	addBulletParser("resources/BulletWall.xml", "wall");
+	addBulletParser("resources/BulletRandom.xml", "random");
+	addBulletParser("resources/BulletBossMetroid.xml", "bossMetroid");
+
 	this->addGroup("Wall", 0);
 	this->addGroup("playerfires", 0);
 	this->addGroup("ship", 0);
@@ -137,7 +139,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		{"bossMetroid", 10}
 	};
 
-	int const salvoFrequency = 1000;
+	int const salvoFrequency = 5000;
 	int const maxSalvos = 20;
 
 	static int i = 0;

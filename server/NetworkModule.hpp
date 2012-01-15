@@ -39,6 +39,7 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void		startgameCommand(Command const &command);
 	void		rangeId(Command const &command);
 	void		sendPing();
+	bool		gameExist(Game *);
 
 
 	Net::Reactor						*_reactor;

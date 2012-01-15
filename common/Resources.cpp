@@ -7,9 +7,9 @@ const Resource::Monster Resource::monsters[] = {
 	{"enemy metroid", 100},
 	{"boss metroid", 3000},
 	{"enemy sphere", 100},
-	{"enemy fish", 100},
 	{"enemy tron", 100},
 	{"default shot", 0},
 	{"boss shot", 0},
+	{"animated shot", 0},
 	{"shot", 0}
   };
