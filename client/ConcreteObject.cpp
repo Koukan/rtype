@@ -11,5 +11,6 @@ ConcreteObject::~ConcreteObject()
 
 void			ConcreteObject::draw(double time)
 {
-  this->_sprite->draw(this->_x, this->_y, time);
+	if (this->_sprite)
+		this->_sprite->draw(this->_x, this->_y, time);
 }

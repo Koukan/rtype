@@ -58,7 +58,7 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t timediff)
 	packet >> gc->vy;
 	gc->x += timediff * gc->vx;
 	gc->y += timediff * gc->vy;
-
+	std::cout << "Resource = " << gc->idResource << " Id = " << gc->idObject << std::endl;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
