@@ -146,3 +146,13 @@ void	BCommand::move(double time)
 		this->erase();
 	}
 }
+
+int			BCommand::getLife() const
+{
+	return this->_life;
+}
+
+void		BCommand::setLife(int life)
+{
+	this->_life = life;
+}
