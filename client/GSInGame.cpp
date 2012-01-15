@@ -254,9 +254,10 @@ void		GSInGame::spawn(GameCommand const &event)
 	{Resource::METROID_MONSTER, &GSInGame::loadMonster},
 	{Resource::BOSS_METROID, &GSInGame::loadMonster},
 	{Resource::RANDOM_MONSTER, &GSInGame::loadMonster},
-	//{Resource::FISH_MONSTER, &GSInGame::loadMonster},
 	{Resource::TRON_MONSTER, &GSInGame::loadMonster},
 	{Resource::DEFAULT_SHOT, &GSInGame::loadMonster},
+	{Resource::BOSS_SHOT, &GSInGame::loadMonster},
+	{Resource::ANIMATED_SHOT, &GSInGame::loadMonster},
 	{Resource::SHOT, &GSInGame::loadMonster},
 	{Resource::SHOOT, &GSInGame::loadShoot}
   };
