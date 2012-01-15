@@ -11,7 +11,7 @@ private:
 	Log()
 	{
 	}
-    Log(Log const &log)
+    Log(Log const &)
 	{
 	}
 

@@ -16,18 +16,21 @@ public:
 	virtual void		resume();
 	virtual void		pause();
 	virtual void		destroy() = 0;
+	void				stop();
 	bool				isPaused() const;
 	double				getTargetRate() const;
 	std::string const	&getName() const;
+	bool				isStopped() const;
 
 protected:
 	double				_targetRate;
 	double				_lastUpdate;
 	bool				_paused;
-	friend class		ModuleManager;
 
 private:
 	std::string			_name;
+	bool				_stop;
+	friend class		ModuleManager;
 };
 
 

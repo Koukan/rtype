@@ -47,5 +47,6 @@ uint32_t	ServerResourceManager::getId(std::string const &name) const
 
 	if (it != this->_ids.end())
 		return it->second;
+	std::cout << "nqme 0 " << std::endl;
 	return 4;
 }
