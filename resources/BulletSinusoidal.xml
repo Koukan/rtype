@@ -10,7 +10,7 @@
     <wait>800</wait>
 </action>
 
-<bullet label="enemySinusoidal" group="ship" sprite="enemy star" simpleGroup="ship" simpleSprite="enemy star">
+<bullet label="enemySinusoidal" group="ship" sprite="enemy star" simpleGroup="ship" simpleSprite="shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
 	<direction type="absolute">-90</direction>

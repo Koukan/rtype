@@ -11,7 +11,7 @@
     </fire>
 </action>
 
-<bullet label="enemy" group="ship" sprite="enemy tron" simpleGroup="shot" simpleSprite="bullet">
+<bullet label="enemy" group="ship" sprite="enemy tron" simpleGroup="shot" simpleSprite="shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
 	<direction type="absolute">180</direction>
