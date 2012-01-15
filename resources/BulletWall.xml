@@ -32,7 +32,7 @@
 			<fire>
 				<direction type="absolute">180</direction>
 				<speed>30</speed>
-				<bulletRef label="weak">
+				<bulletRef label="bullet">
 					<param>5000</param>
 				</bulletRef>
 				<wait>12</wait>
@@ -41,7 +41,7 @@
 	</repeat>
 </action>
 
-<bullet label="weak" group="shot" sprite="shot">
+<bullet label="bullet" group="shot" sprite="shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
 	<action>
