@@ -10,7 +10,7 @@
     <wait>800</wait>
 </action>
 
-<bullet label="enemyRandom" group="ship" sprite="enemy sphere" simpleGroup="ship" simpleSprite="enemy sphere">
+<bullet label="enemyRandom" group="ship" sprite="enemy sphere" simpleGroup="shot" simpleSprite="animated shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
 	<direction type="absolute">180</direction>
@@ -44,10 +44,6 @@
 <bullet label="bullet" group="shot" sprite="animated shot">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
-	<action>
-		<wait>$1</wait>
-		<vanish/>
-	</action>
 </bullet>
 
 </bulletml>
