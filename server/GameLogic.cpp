@@ -102,7 +102,7 @@ Game		&GameLogic::getGame() const
 
 void		GameLogic::startGame()
 {
-	double	y = 0;
+	double	y = 30;
 	double	step = 720 / this->_game._list.size();
 
 	for (std::list<Player*>::iterator it = this->_game._list.begin(); it != this->_game._list.end(); ++it)
@@ -159,7 +159,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		else if (this->_nbEnemies == 0)
 		{
 			i = rand() % (sizeof(salvos) / sizeof(*salvos));
-			y = rand() % 768;
+			y = rand() % 700;
 			this->_nbEnemies = salvos[i].nbEnemies;
 			this->_elapseTime = salvoFrequency;
 			++nbSalvos;
@@ -169,7 +169,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		  if (salvos[i].bulletName == "bomb")
 		    this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, -20, 0, 0));
 		  else
-		    this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y, 0, 0));
+		    this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y + 34, 0, 0));
 			this->_elapseTime += salvos[i].occurenceFrequency;
 			--this->_nbEnemies;
 		}
