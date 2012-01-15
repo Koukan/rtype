@@ -25,7 +25,9 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	std::string const	&getPort() const;
 	std::string const	&getIP() const;
 
-	void				setServer(Server *server);
+	void		setServer(Server *server);
+	void		sendPacketUDP(Net::Packet &packet);
+
   private:
 
 // Command UDP
@@ -42,7 +44,6 @@ class NetworkModule : public Module, public Singleton<NetworkModule>
 	void		connectGameCommand(Command const &command);
 	void		playerCommand(Command const &command);
 		
-	void		sendPacketUDP(Net::Packet &packet);
 
 	struct	Method
 	{

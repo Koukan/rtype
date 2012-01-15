@@ -3,8 +3,10 @@
 #include "PacketCommand.hpp"
 #include "PacketType.hpp"
 #include "GameCommand.hpp"
+#include "GameManager.hpp"
+#include "Server.hpp"
 
-NetworkModule::NetworkModule() : Module("NetworkModule", 5), _reactor(0)
+NetworkModule::NetworkModule() : Module("NetworkModule", 5), _reactor(0), _pingupdate(0)
 {
 	CommandDispatcher::get().registerHandler(*this);
 }
@@ -30,10 +32,18 @@ void		NetworkModule::init()
 		Net::printLastError();
 }
 
-void		NetworkModule::update(double)
+void		NetworkModule::update(double elapsedtime)
 {
 	if (this->_reactor)
+	{
+		_pingupdate += elapsedtime;
+		if (_pingupdate >= 1000)
+		{
+	  		_pingupdate = 0;
+	  		this->sendPing(); 
+		}
 		this->_reactor->waitForEvent(0);
+	}
 }
 
 void		NetworkModule::destroy()
@@ -236,4 +246,16 @@ void		NetworkModule::rangeId(Command const &command)
 		packet << static_cast<uint32_t>(cmd.idResource);
 		cmd.player->handleOutputPacket(packet);
 	}
+}
+
+void		 NetworkModule::sendPing()
+{
+	GameManager::gamesMap const &map = Server::get().getGameList();
+
+	Net::Packet     pong(10);
+	pong << static_cast<uint8_t>(UDP::PING);
+	pong << static_cast<uint8_t>(0);
+	pong << Net::Clock::getMsSinceEpoch();
+	for (GameManager::gamesMap::const_iterator it = map.begin(); it != map.end(); ++it)
+		this->sendUDPPacket(pong, (*it).second->getPlayers(), false, 0);
 }

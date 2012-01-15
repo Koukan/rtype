@@ -4,7 +4,7 @@
 #include "CommandDispatcher.hpp"
 #include "GameCommand.hpp"
 
-UdpHandler::UdpHandler() : _lastPacketId(static_cast<uint32_t>(-1))
+UdpHandler::UdpHandler() : _lastPacketId(static_cast<uint32_t>(-1)), _latency(0)
 {
 	this->enableWhitelist(true);
 }
@@ -28,8 +28,9 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 			NULL,
 			NULL,
 			&UdpHandler::retrieve,
+			&UdpHandler::ping,
 	};
-	uint64_t			time, timediff;
+	uint64_t			time;
 	uint8_t				type;
 
 	//std::cout << "input udp packet" << std::endl;
@@ -38,10 +39,9 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	packet >> time;
 	packet >> type;
 
-	timediff = Net::Clock::getMsSinceEpoch() - time;
 	//std::cout << "packet udp time :"  << timediff << " type " << (int)type << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
-		return (this->*methods[type])(packet, 0);
+		return (this->*methods[type])(packet, _latency);
 	return 0;
 }
 
@@ -120,6 +120,30 @@ int         UdpHandler::retrieve(Net::Packet &packet, uint64_t)
 	return 1;
 }
 
+int         UdpHandler::ping(Net::Packet &packet, uint64_t)
+{
+	uint8_t			id;
+	uint64_t        time_recv;
+
+	packet >> id;
+	packet >> time_recv;
+	if (id == 0)
+	{
+		Net::Packet     pong(10);
+		pong << static_cast<uint8_t>(UDP::PING);
+		pong << static_cast<uint8_t>(1);
+		pong << time_recv;
+		NetworkModule::get().sendPacketUDP(pong);
+		Net::Packet     pong2(10);
+		pong2 << static_cast<uint8_t>(UDP::PING);
+		pong2 << static_cast<uint8_t>(2);
+		pong2 << Net::Clock::getMsSinceEpoch();
+		NetworkModule::get().sendPacketUDP(pong2);
+	}
+	else if (id == 3)
+		_latency = (Net::Clock::getMsSinceEpoch() - time_recv) / 2 + 10;
+	return 1;
+}
 
 bool		UdpHandler::testPacketId(uint32_t id)
 {

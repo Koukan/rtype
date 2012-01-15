@@ -26,6 +26,9 @@ class Player : public Net::PacketHandler<>
 	GameLogic       	&getGameLogic();
 	Net::Packet const	*getPacket(uint32_t id) const;
 
+	uint64_t			getLatency() const;
+	void				setLatency(uint64_t latency);
+
   private:
 	typedef std::list<std::pair<uint32_t, Net::Packet> >	packetsList;
 
@@ -45,5 +48,6 @@ class Player : public Net::PacketHandler<>
 	Ship			*_ship;
 	uint32_t		_idPacket;
 	uint32_t		_idShip;
+	uint64_t		_latency;
 	packetsList		_packets;
 };
