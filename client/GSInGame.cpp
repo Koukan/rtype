@@ -251,7 +251,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
-	  std::cout << event.idResource << " " << this->_idPlayer << std::endl;
+	  std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }
@@ -326,6 +326,7 @@ void		GSInGame::loadP4(GameCommand const &event)
 
 void		GSInGame::loadMonster(GameCommand const &event)
 {
+std::cout << "loadMonster" << std::endl;
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
   ConcreteObject *monster1 = new ConcreteObject(this->getSprite("enemy plane"), *hitbox, event.vx, event.vy);
   monster1->setId(event.idObject);

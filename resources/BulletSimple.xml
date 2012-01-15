@@ -25,7 +25,7 @@
 				<param>300</param>
 			</bulletRef>
 	  	</fire>
-		<wait>10</wait>
+		<wait>70</wait>
 	</action></repeat>
 </action>
 </bullet>
