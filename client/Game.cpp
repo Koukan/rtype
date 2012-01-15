@@ -3,7 +3,7 @@
 #include "RendererManager.hpp"
 #include "InputModule.hpp"
 #include "PhysicManager.hpp"
-#include "GSLoading.hpp"
+#include "GSPreload.hpp"
 #include "GSInGame.hpp"
 #include "GSMainMenu.hpp"
 #include "CommandDispatcher.hpp"
@@ -43,8 +43,10 @@ void		Game::init()
   this->loadModule(GameStateManager::get());
   this->loadModule(NetworkModule::get());
   CommandDispatcher::get().registerHandler(GameStateManager::get());
+  GameStateManager::get().loadState<GSPreload>("preload");
+  GameStateManager::get().pushState("preload");
   GameStateManager::get().loadState<GSMainMenu>("mainMenu");
-  GameStateManager::get().pushState("mainMenu");
+  GameStateManager::get().pushState("mainMenu", GameState::NONE);
 }
 
 void		Game::readPreferencesFile()

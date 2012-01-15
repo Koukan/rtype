@@ -19,12 +19,12 @@
 	<action>
 		<repeat><times>10</times>
 			<action>
-				<repeat><times>18</times>
+				<repeat><times>9</times>
 					<actionRef label="loop">
 						<param>1</param>
 					</actionRef>
 				</repeat>
-				<repeat><times>18</times>
+				<repeat><times>9</times>
 					<actionRef label="loop">
 						<param>-1</param>
 					</actionRef>
@@ -36,15 +36,24 @@
 
 <action label="loop">
 	<changeDirection>
-		<direction type="sequence">10 * $1</direction>
+		<direction type="relative">20 * $1</direction>
 		<term>1</term>
 	</changeDirection>
 	<fire>
-		<direction type="relative">90</direction>
-		<speed>300</speed>
-		<bullet/>
+		<direction type="sequence">20</direction>
+		<speed>250</speed>
+		<bulletRef label="bullet" />
 	</fire>
-	<wait>20</wait>
+	<wait>30</wait>
 </action>
+
+<bullet label="bullet" group="shot" sprite="animated shot">
+	<hitbox shape="circle" radius="2" />
+	<simpleHitbox shape="circle" radius="2" />
+	<action>
+		<wait>5000</wait>
+		<vanish/>
+	</action>
+</bullet>
 
 </bulletml>
