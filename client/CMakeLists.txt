@@ -91,6 +91,8 @@ set(SRCS
 	NetworkModule.hpp
 	PacketCommand.cpp
 	PacketCommand.hpp
+	${INCLUDES_COMMON_DIR}Rules.cpp
+	${INCLUDES_COMMON_DIR}Rules.hpp
 	${INCLUDES_COMMON_DIR}PacketType.hpp
 	RendererManager.cpp
 	RendererManager.hpp

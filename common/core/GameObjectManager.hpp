@@ -10,6 +10,7 @@
 #include "TimeEffectManager.hpp"
 #include "PhysicsSubscriber.hpp"
 #include "PhysicsSubscriber2.hpp"
+#include "PhysicsSubscriber3.hpp"
 #include "QuadTree.hpp"
 #include "PhysicObject.hpp"
 
@@ -86,6 +87,13 @@ class GameObjectManager : public TimeEffectManager
     void	setCollisionGroups(const std::string &group1,
 				const std::string &group2,
 				void (InstanceClass::*function)(GameObject&));
+    template <class InstanceClass>
+    void	setCollisionGroups(const std::string &group1,
+				const std::string &group2,
+				void (InstanceClass::*function)(GameObject&, GameObject&));
+    void	setCollisionGroups(const std::string &group1,
+				const std::string &group2,
+				void (*function)(GameObject&, GameObject&));
     void	setGroup(const std::string &name, int layer,
 		    	bool physic, std::string const &timeEffectGroup);
 

@@ -215,6 +215,14 @@ void	GameObjectManager::setGroup(const std::string &name, int layer,
 	this->_groups[name]->setFlags(layer, physic, timeEffectGroup);
 }
 
+void	GameObjectManager::setCollisionGroups(
+			const std::string &group1, const std::string &group2,
+			void (*function)(GameObject&, GameObject&))
+{
+	_collisionGroups[stringPair(group1, group2)] =
+		new PhysicsSubscriber3(function);
+}
+
 GameObject	*GameObjectManager::getGameObject(uint32_t id)
 {
 	IdMap::iterator	it = this->_objects.find(id);
