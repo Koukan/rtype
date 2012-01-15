@@ -57,9 +57,9 @@ void	GSMainMenu::createGame()
 
 void	GSMainMenu::joinGame()
 {
-  //GameStateManager::get().loadState<GSJoinGame>("joinGame");
-  //GameStateManager::get().pushState("joinGame");
-  GameStateManager::get().pushState(*(new GSLoading(4)));
+  GameStateManager::get().loadState<GSJoinGame>("joinGame");
+  GameStateManager::get().pushState("joinGame");
+  //  GameStateManager::get().pushState(*(new GSLoading(4)));
 }
 
 void	GSMainMenu::inGameTest()
