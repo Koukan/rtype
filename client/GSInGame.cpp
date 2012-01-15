@@ -165,7 +165,7 @@ void		GSInGame::inputUp(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVy(-100);
+      this->_ship->setVy(-200);
       this->throwShip();
     }
 }
@@ -174,7 +174,7 @@ void		GSInGame::inputDown(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVy(100);
+      this->_ship->setVy(200);
       this->throwShip();
     }
 }
@@ -183,7 +183,7 @@ void		GSInGame::inputLeft(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVx(-100);
+      this->_ship->setVx(-200);
       this->throwShip();
     }
 }
@@ -192,7 +192,7 @@ void		GSInGame::inputRight(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVx(100);
+      this->_ship->setVx(200);
       this->throwShip();
     }
 }
