@@ -302,7 +302,6 @@ void		GSInGame::move(GameCommand const &event)
 {
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 
-	std::cout << "move " << obj->getX() << " " << obj->getY() << std::endl;
 	if (obj)
 		this->updatePositions(event, *obj);
 }
