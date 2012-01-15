@@ -35,4 +35,5 @@ class GameLogic : public GameState
 	Game				&_game;
 	int					_nbEnemies;
 	double				_elapseTime;
+	bool				_gameStarted;
 };
