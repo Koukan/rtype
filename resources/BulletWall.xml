@@ -11,8 +11,8 @@
 </action>
 
 <bullet label="enemyWall" group="ship" sprite="enemy cannon" simpleGroup="shot" simpleSprite="shot">
-	<hitbox shape="circle" radius="2" />
-	<simpleHitbox shape="circle" radius="2" />
+	<hitbox shape="rectangle" width="31" height="29" />
+	<simpleHitbox shape="circle" radius="5" />
 	<direction type="absolute">90</direction>
 	<speed>40</speed> 
 
@@ -32,18 +32,11 @@
 			<fire>
 				<direction type="absolute">180</direction>
 				<speed>30</speed>
-				<bulletRef label="bullet">
-					<param>5000</param>
-				</bulletRef>
+				<bullet/>
 				<wait>12</wait>
 			</fire>
 		</action>
 	</repeat>
 </action>
-
-<bullet label="bullet" group="shot" sprite="shot">
-	<hitbox shape="circle" radius="2" />
-	<simpleHitbox shape="circle" radius="2" />
-</bullet>
 
 </bulletml>

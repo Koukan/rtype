@@ -12,8 +12,8 @@
 </action>
 
 <bullet label="enemy" group="ship" sprite="enemy plane" simpleGroup="shot" simpleSprite="default shot">
-	<hitbox shape="circle" radius="2" />
-	<simpleHitbox shape="circle" radius="2" />
+	<hitbox shape="rectangle" width="42" height="48" />
+	<simpleHitbox shape="circle" radius="10" />
 	<direction type="absolute">180</direction>
 	<speed>100</speed>
 <action>

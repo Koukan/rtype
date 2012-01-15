@@ -11,9 +11,8 @@
     </fire>
 </action>
 
-<bullet label="bombSpawner" group="spawner" simpleGroup="shot" simpleSprite="bomb">
-<hitbox shape="circle" radius="2" />
-<simpleHitbox shape="circle" radius="2" />
+<bullet label="bombSpawner" group="spawner">
+<hitbox shape="rectangle" width="1" height="1" />
 <direction type="absolute">180</direction>
 <speed>17</speed>
 	<action>
@@ -28,9 +27,8 @@
 	</action>
 </bullet>
 
-<bullet label="bomb" group="ship" sprite="enemy bomb" simpleGroup="shot" simpleSprite="bullet">
-<hitbox shape="circle" radius="2" />
-<simpleHitbox shape="circle" radius="2" />
+<bullet label="bomb" group="ship" sprite="enemy bomb">
+<hitbox shape="circle" radius="16" />
 	<action>
 	  <wait>1200</wait>
 	  <vanish/>

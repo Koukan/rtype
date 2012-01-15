@@ -11,8 +11,8 @@
 </action>
 
 <bullet label="enemyRandom" group="ship" sprite="enemy sphere" simpleGroup="shot" simpleSprite="animated shot">
-	<hitbox shape="circle" radius="2" />
-	<simpleHitbox shape="circle" radius="2" />
+	<hitbox shape="rectangle" width="24" height="19" />
+	<simpleHitbox shape="circle" radius="6" />
 	<direction type="absolute">180</direction>
 	<speed>40</speed>
 <action>
@@ -34,16 +34,9 @@
 	<fire>
 		<direction type="absolute">180</direction>
 		<speed>200</speed>
-		<bulletRef label="bullet">
-			<param>5000</param>
-		</bulletRef>
+		<bulletRef/>
 		<wait>5</wait>
 	</fire>
 </action>
-
-<bullet label="bullet" group="shot" sprite="animated shot">
-	<hitbox shape="circle" radius="2" />
-	<simpleHitbox shape="circle" radius="2" />
-</bullet>
 
 </bulletml>

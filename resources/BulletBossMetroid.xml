@@ -11,9 +11,8 @@
     </fire>
 </action>
 
-<bullet label="bossMetroid" group="ship" sprite="boss metroid" simpleGroup="shot" simpleSprite="bullet">
-	<hitbox shape="circle" radius="2" />
-	<simpleHitbox shape="circle" radius="2" />
+<bullet label="bossMetroid" group="ship" sprite="boss metroid">
+	<hitbox shape="rectangle" width="160" height="160" />
 	<direction type="absolute">180</direction>
 	<speed>100</speed>
 	<action>
@@ -83,8 +82,8 @@
 </action>
 
 <bullet label="littleMetroid" sprite="enemy metroid" group="ship" simpleGroup="shot" simpleSprite="boss shot">
-<hitbox shape="circle" radius="2" />
-<simpleHitbox shape="circle" radius="2" />
+<hitbox shape="rectangle" width="64" height="64" />
+<simpleHitbox shape="circle" radius="13" />
 <direction type="absolute">120 + (120 * $rand)</direction>
 	<action>
 		<repeat><times>50</times><action>
@@ -99,8 +98,8 @@
 </bullet>
 
 <bullet label="bomb" sprite="enemy bomb" group="ship" simpleGroup="shot" simpleSprite="bomb shot">
-<hitbox shape="circle" radius="2" />
-<simpleHitbox shape="circle" radius="2" />
+<hitbox shape="circle" shape="16" />
+<simpleHitbox shape="circle" radius="10" />
 	<action>
 		<wait>130</wait>
 		<repeat><times>16</times><action>
