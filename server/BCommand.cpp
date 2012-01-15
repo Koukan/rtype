@@ -14,26 +14,26 @@ inline static double dtor(double x) { return x * M_PI / 180; }
 inline static double rtod(double x) { return x * 180 / M_PI; }
 
 BCommand::BCommand(std::string const &parser, GameState &gstate,
-		  double x, double y, double vx, double vy)
-	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0)
+		  double x, double y, double vx, double vy, int life)
+	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
 BCommand::BCommand(BulletMLParser &parser, GameState &gstate,
-		  double x, double y, double vx, double vy)
-	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0)
+		  double x, double y, double vx, double vy, int life)
+	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
 BCommand::BCommand(BulletMLState &state, GameState &gstate,
-		  double x, double y, double vx, double vy)
-	: BulletCommand(state, gstate, x, y, vx, vy), _elapsedTime(0)
+		  double x, double y, double vx, double vy, int life)
+	: BulletCommand(state, gstate, x, y, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
 BCommand::BCommand(BulletMLState &state, GameState &gstate, HitBox &box,
-		  double vx, double vy)
-	: BulletCommand(state, gstate, box, vx, vy), _elapsedTime(0)
+		  double vx, double vy, int life)
+	: BulletCommand(state, gstate, box, vx, vy), _elapsedTime(0), _life(life)
 {
 }
 
