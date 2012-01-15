@@ -51,7 +51,8 @@ void	GSLoading::listChoice(std::string const &)
 bool		GSLoading::handleCommand(Command const &command)
 {
   static Method const	methods[] = {
-	{"GameBegin", &GSLoading::gameBeginCommand}
+	{"GameBegin", &GSLoading::gameBeginCommand},
+	{"ErrorFullGame", &GSLoading::errorFullGameCommand}
   };
 
   for (size_t i = 0;
@@ -64,6 +65,11 @@ bool		GSLoading::handleCommand(Command const &command)
 		}
 	}
   return (_ingame->handleCommand(command));
+}
+
+void	GSLoading::errorFullGameCommand(Command const &command)
+{
+	GameStateManager::get().popState();
 }
 
 void	GSLoading::onStart()
