@@ -39,12 +39,14 @@ bool		BulletResourceManager::addBulletParser(std::string const &path,
 	return true;
 }
 
+#include <iostream>
 BulletMLParser		*BulletResourceManager::getBulletParser(std::string const &name)
 {
 	bulletParsers::const_iterator	it = _parsers.find(name);
 
 	if (it != _parsers.end())
 		return it->second;
+	std::cerr << "gros fail" << std::endl;
 	BulletMLError::doAssert("The parser " + name + " don't exist");
 	return 0;
 }

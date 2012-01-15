@@ -2,7 +2,7 @@
 
 #include "BulletCommand.hpp"
 
-class BCommand : BulletCommand
+class BCommand : public BulletCommand
 {
   public:
     BCommand(std::string const &parser, GameState &gstate,

@@ -1,7 +1,10 @@
 #include "ServerResourceManager.hpp"
+#include "Resources.hpp"
 
 ServerResourceManager::ServerResourceManager() : _id(1)
 {
+	_ids["enemy tron"] = Resource::MONSTER;
+	_ids["enemy star"] = Resource::MONSTER2;
 }
 
 ServerResourceManager::~ServerResourceManager()
