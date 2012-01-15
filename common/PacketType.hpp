@@ -10,7 +10,8 @@ namespace UDP
 		SCORE = 3,
 		STATEMENT = 4,
 		RETRIEVE = 5,
-		PING = 6
+		PING = 6,
+		PONG = 7
 	};
 }
 

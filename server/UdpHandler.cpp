@@ -28,12 +28,12 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 			&UdpHandler::score,
 			&UdpHandler::statement,
 			&UdpHandler::retrieve,
-			&UdpHandler::ping
+			&UdpHandler::ping,
+			&UdpHandler::pong
 	};
-	uint64_t			time;
 	uint8_t				type;
 
-	packet >> time;
+	packet >> _time_recv;
 	packet >> type;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 	{
@@ -120,21 +120,16 @@ int         UdpHandler::retrieve(Net::Packet &packet, Player &player)
 
 int         UdpHandler::ping(Net::Packet &packet, Player &player)
 {
-	uint8_t			id;
-	uint64_t		time_recv;
-
-	packet >> id;
-	packet >> time_recv;
-	if (id == 1)
-		player.setLatency((Net::Clock::getMsSinceEpoch() - time_recv) / 2 + 10);
-	else if (id == 2)
-	{		
-		Net::Packet     pong(10);
-		pong << static_cast<uint8_t>(UDP::PING);
-		pong << static_cast<uint8_t>(3);
-		pong << time_recv;
-		pong.setDestination(packet.getAddr());
-		this->handleOutputPacket(pong);
-	}
+	Net::Packet     pong(9);
+	pong << _time_recv;
+	pong << static_cast<uint8_t>(UDP::PONG);
+	pong.setDestination(packet.getAddr());
+	this->handleOutputPacket(pong);
 	return 1;
+}
+
+int         UdpHandler::pong(Net::Packet &packet, Player &player)
+{
+	player.setLatency((Net::Clock::getMsSinceEpoch() - _time_recv) / 2 + 10);
+	return 1;		
 }
