@@ -5,39 +5,40 @@
 
 <action label="top">
     <fire>
-		<bulletRef label="enemyRandom"/>
+		<bulletRef label="enemyWall"/>
     </fire>
     <wait>800</wait>
 </action>
 
-<bullet label="enemyRandom" group="ship" sprite="enemy sphere" simpleGroup="ship" simpleSprite="enemy sphere">
+<bullet label="enemyWall" group="ship" sprite="enemy cannon" simpleGroup="ship" simpleSprite="enemy cannon">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
 	<direction type="absolute">90</direction>
 	<speed>40</speed> 
-<action>
-	<repeat><times>200</times>
+
 	<action>
-		<actionRef label="fire" />
-		<changeDirection>
-			<direction>720 * $rand</direction>
-			<term>1</term>
-		</changeDirection>
-		<wait>180</wait>
-	</action>
-	</repeat>
+		<repeat><times>200</times>
+			<action>
+				<actionRef label="fire" />
+				<wait>120 + 120 * $rand</wait>
+			</action>
+		</repeat>
 	</action>
 </bullet>
 
 <action label="fire">
-	<fire>
-		<direction type="absolute">180</direction>
-		<speed>200</speed>
-		<bulletRef label="weak">
-			<param>5000</param>
-		</bulletRef>
-		<wait>5</wait>
-	</fire>
+	<repeat><times>10 + 20 * $rand</times>
+		<action>
+			<fire>
+				<direction type="absolute">180</direction>
+				<speed>30</speed>
+				<bulletRef label="weak">
+					<param>5000</param>
+				</bulletRef>
+				<wait>12</wait>
+			</fire>
+		</action>
+	</repeat>
 </action>
 
 <bullet label="weak" group="shot" sprite="shot">
