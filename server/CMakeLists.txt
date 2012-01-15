@@ -31,6 +31,7 @@ set(CORE_TINYXML_DIR
 set(SRCS
 	${INCLUDES_CORE}
 	${COMMON_INCLUDE_DIR}Resources.hpp
+	${COMMON_INCLUDE_DIR}Resources.cpp
 	main.cpp
 	File.cpp
 	File.hpp
