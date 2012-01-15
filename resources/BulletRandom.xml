@@ -13,9 +13,10 @@
 <bullet label="enemyRandom" group="ship" sprite="enemy sphere" simpleGroup="ship" simpleSprite="enemy sphere">
 	<hitbox shape="circle" radius="2" />
 	<simpleHitbox shape="circle" radius="2" />
-	<direction type="absolute">90</direction>
-	<speed>40</speed> 
+	<direction type="absolute">180</direction>
+	<speed>40</speed>
 <action>
+	<wait>200</wait>
 	<repeat><times>200</times>
 	<action>
 		<actionRef label="fire" />

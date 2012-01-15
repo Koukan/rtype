@@ -19,7 +19,17 @@ class GameLogic : public GameState
   private:
   enum SalvoType
   {
-	  SINGLE = 0
+	  SIMPLE = 0,
+	  SINUSOIDAL,
+	  BOMB,
+	  RANDOM,
+	  WALL
+  };
+
+  struct	Boss
+  {
+	  std::string	bulletName;
+	  int			life;
   };
 
   struct	Salvo

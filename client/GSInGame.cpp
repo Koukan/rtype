@@ -242,8 +242,16 @@ void		GSInGame::spawn(GameCommand const &event)
     {Resource::P2, &GSInGame::loadP2},
     {Resource::P3, &GSInGame::loadP3},
     {Resource::P4, &GSInGame::loadP4},
-	{Resource::SINGLE_MONSTER, &GSInGame::loadMonster},
+    {Resource::SINGLE_MONSTER, &GSInGame::loadMonster},
+	{Resource::BOMB_MONSTER, &GSInGame::loadMonster},
+	{Resource::SINUSOIDAL_MONSTER, &GSInGame::loadMonster},
+	{Resource::METROID_MONSTER, &GSInGame::loadMonster},
+	{Resource::BOSS_METROID, &GSInGame::loadMonster},
+	{Resource::RANDOM_MONSTER, &GSInGame::loadMonster},
+	{Resource::FISH_MONSTER, &GSInGame::loadMonster},
+	{Resource::TRON_MONSTER, &GSInGame::loadMonster},
 	{Resource::DEFAULT_SHOT, &GSInGame::loadMonster},
+	{Resource::SHOT, &GSInGame::loadMonster},
 	{Resource::SHOOT, &GSInGame::loadShoot}
   };
 
@@ -259,7 +267,6 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
-	//  std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }
