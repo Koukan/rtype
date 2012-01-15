@@ -30,7 +30,7 @@
 </action>
 </bullet>
 
-<bullet label="weak" group="ship" sprite="shot">
+<bullet label="weak" group="shot" sprite="shot">
 <hitbox shape="circle" radius="2" />
 <simpleHitbox shape="circle" radius="2" />
 	<action>

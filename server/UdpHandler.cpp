@@ -51,14 +51,14 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 
 	//if (packet.size() < 24)
 	//return 0;
-	if (player.getShip())
+	if (!player.getShip())
 		return 1;
 	GameCommand *gc = new GameCommand("spawn");
 	packet >> id_packet;
-	packet >> gc->idObject;
 	packet >> gc->idResource;
-	gc->idObject = player.getShip()->getId();
+	packet >> gc->idObject;
 	packet >> gc->x;
+	std::cout << "IdResource " << gc->idResource  <<  " idobjetc " << gc->idObject << std::endl;
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;

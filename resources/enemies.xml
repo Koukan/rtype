@@ -89,6 +89,7 @@
       loop="yes"
    />
   <scale x="2.0" y="2.0" />
+  <translation x="-10" y="-15"/>
 </sprite>
 
 </resources>
