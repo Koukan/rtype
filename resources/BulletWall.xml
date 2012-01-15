@@ -32,11 +32,18 @@
 			<fire>
 				<direction type="absolute">180</direction>
 				<speed>30</speed>
-				<bullet/>
+				<bulletRef label="plop">
+					<param>5000</param>
+				</bulletRef>
 				<wait>12</wait>
 			</fire>
 		</action>
 	</repeat>
 </action>
+
+<bullet label="plop" group="shot" sprite="enemy cannon">
+	<hitbox shape="circle" radius="5"/>
+	<simpleHitbox shape="circle" radius="5" />
+</bullet>
 
 </bulletml>

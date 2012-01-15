@@ -42,9 +42,14 @@
 	<fire>
 		<direction type="sequence">20</direction>
 		<speed>250</speed>
-		<bullet/>
+		<bulletRef label="plop"/>
 	</fire>
 	<wait>30</wait>
 </action>
+
+<bullet label="plop" group="shot" sprite="animated shot">
+	<hitbox shape="circle" raidus="6"/>
+	<simpleHitbox shape="circle" raidus="6"/>
+</bullet>
 
 </bulletml>
