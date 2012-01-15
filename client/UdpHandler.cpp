@@ -40,6 +40,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	packet >> type;
 
 	//std::cout << "packet udp time :"  << timediff << " type " << (int)type << std::endl;
+	std::cout << "latency :" << _latency << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 		return (this->*methods[type])(packet, _latency);
 	return 0;
@@ -129,12 +130,14 @@ int         UdpHandler::ping(Net::Packet &packet, uint64_t)
 	packet >> time_recv;
 	if (id == 0)
 	{
-		Net::Packet     pong(10);
+		Net::Packet     pong(18);
+		pong << static_cast<uint64_t>(0);
 		pong << static_cast<uint8_t>(UDP::PING);
 		pong << static_cast<uint8_t>(1);
 		pong << time_recv;
 		NetworkModule::get().sendPacketUDP(pong);
-		Net::Packet     pong2(10);
+		Net::Packet     pong2(18);
+		pong2 << static_cast<uint64_t>(0);
 		pong2 << static_cast<uint8_t>(UDP::PING);
 		pong2 << static_cast<uint8_t>(2);
 		pong2 << Net::Clock::getMsSinceEpoch();
@@ -147,7 +150,9 @@ int         UdpHandler::ping(Net::Packet &packet, uint64_t)
 
 bool		UdpHandler::testPacketId(uint32_t id)
 {
-	if (_lastPacketId == static_cast<uint32_t>(-1) || id > _lastPacketId)
+	if (_lastPacketId == static_cast<uint32_t>(-1))
+		_lastPacketId = id;
+	if (id > _lastPacketId)
 	{
 		uint32_t	val = id - _lastPacketId;
 		_lastPacketId = id;
@@ -156,7 +161,7 @@ bool		UdpHandler::testPacketId(uint32_t id)
 		{
 			gc = new GameCommand("retrieve");
 			gc->idObject = val + _lastPacketId;
-			std::cout << "retrieve packet id" <<  gc->idObject << std::endl;
+			//std::cout << "retrieve packet id" <<  gc->idObject << std::endl;
 			CommandDispatcher::get().pushCommand(*gc, true);
 		}
 	   return true;
