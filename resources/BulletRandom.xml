@@ -40,7 +40,7 @@
 </action>
 
 <bullet label="plop" group="shot" sprite="animated shot">
-	<hitbox shape="circle" radius="6">
+	<hitbox shape="circle" radius="6"/>
 	<simpleHitbox shape="circle" radius="6" />
 </bullet>
 </bulletml>
