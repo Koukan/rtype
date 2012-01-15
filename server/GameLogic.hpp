@@ -11,7 +11,6 @@ class GameLogic : public GameState
   public:
     GameLogic(Game &game);
     virtual ~GameLogic();
-	virtual void		onStart();
 	virtual void		update(double elapsedTime);
 	virtual bool		handleCommand(Command const &command);
 	Game				&getGame() const;

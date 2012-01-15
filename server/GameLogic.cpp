@@ -12,27 +12,21 @@
 GameLogic::GameLogic(Game &game)
 	: GameState("GameLogic"), _game(game), _nbEnemies(0), _elapseTime(0), _gameStarted(false)
 {
+	addBulletParser("resources/BulletSimple.xml", "single");
+	addBulletParser("resources/BulletSinusoidal.xml", "star");
 }
 
 GameLogic::~GameLogic()
 {
 }
 
-#include <iostream>
-void		GameLogic::onStart()
-{
-	addBulletParser("resources/BulletSimple.xml", "single");
-	addBulletParser("resources/BulletSinusoidal.xml", "star");
-	std::cout << "j ai load, youpi" << std::endl;
-}
 
 void		GameLogic::update(double elapseTime)
 {
 	this->handle(elapseTime);
 	if (_gameStarted)
 	{
-		std::cout << "je vais creer des ennemis =D" << std::endl;
-	//	this->createEnnemies(elapseTime);
+		this->createEnnemies(elapseTime);
 	}
 }
 // loadBullet -> serverresourcemanager::get().addBulletParser(nom de fichier, id_ref) creer un BCommand(id_ref, *this, ...)
@@ -132,6 +126,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		}
 		else
 		{
+			std::cout << "je vais creer des ennemis =D " << i << std::endl;
 			this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1050, y, 0, 0));
 			this->_elapseTime += salvos[i].occurenceFrequency;
 			--this->_nbEnemies;
