@@ -63,7 +63,6 @@ void	BCommand::createSimpleBullet(double direction, double speed)
 		this->_state.addGameObject(bullet, this->_simpleGroup);
 		GameCommand		*cmd = new GameCommand("Spawn");
 		cmd->idObject = bullet->getId();
-		std::cout << "[idSprite got] " << ServerResourceManager::get().getId(this->_simpleSprite) << std::endl;
 		cmd->idResource = ServerResourceManager::get().getId(this->_simpleSprite);
 		cmd->x = this->_x;
 		cmd->y = this->_y;
@@ -91,7 +90,6 @@ void	BCommand::createBullet(BulletMLState *state,
 			static_cast<double>(state->getHeight()));
 	vx = speed * cos(dir);
 	vy = speed * sin(dir);
-	state->setSprite("");
 	if (box)
 	{
 		bullet = new BCommand(*state, _state, *box, vx, vy);
@@ -102,12 +100,10 @@ void	BCommand::createBullet(BulletMLState *state,
 		bullet = new BCommand(*state, _state, _x, _y, vx, vy);
 		this->_state.addGameObject(bullet, state->getGroup());
 	}
-	delete state;
 	if (bullet)
 	{
 		GameCommand		*cmd = new GameCommand("Spawn");
 		cmd->idObject = bullet->getId();
-		std::cout << "[idResource got create bullet][" << this->_simpleSprite << "] " << ServerResourceManager::get().getId(this->_simpleSprite) << std::endl;
 		cmd->idResource = ServerResourceManager::get().getId(state->getSprite());
 		cmd->x = this->_x;
 		cmd->y = this->_y;
@@ -116,6 +112,7 @@ void	BCommand::createBullet(BulletMLState *state,
 		cmd->game = &static_cast<GameLogic&>(this->_state).getGame();
 		CommandDispatcher::get().pushCommand(*cmd);
 	}
+	delete state;
 }
 
 void	BCommand::move(double time)
