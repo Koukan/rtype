@@ -39,7 +39,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	packet >> type;
 
 	timediff = Net::Clock::getMsSinceEpoch() - time;
-	std::cout << "packet udp time :"  << timediff << " type " << (int)type << std::endl;
+	//std::cout << "packet udp time :"  << timediff << " type " << (int)type << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 		return (this->*methods[type])(packet, 0);
 	return 0;
@@ -52,8 +52,7 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t timediff)
 	if (packet.size() != 29)
 		return 0;
 	packet >> id_packet;
-	if (!this->testPacketId(id_packet))
-		return 1;
+	this->testPacketId(id_packet);
 	GameCommand *gc = new GameCommand("spawn");
 	packet >> gc->idResource;
 	packet >> gc->idObject;
@@ -65,7 +64,7 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t timediff)
 	gc->y += timediff * gc->vy;
 
 	//std::cout << "spawn de type " << gc->idResource << " x:" << gc->x << " y:" << gc->y << " vx:" << gc->vx << " vy:" << gc->vy << std::endl;
-	std::cout << "Resource = " << gc->idResource << " Id = " << gc->idObject << std::endl;
+	//std::cout << "Resource = " << gc->idResource << " Id = " << gc->idObject << std::endl;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
@@ -75,8 +74,7 @@ int			UdpHandler::destroy(Net::Packet &packet, uint64_t)
 	uint32_t	id_packet;
 
 	packet >> id_packet;
-	if (!this->testPacketId(id_packet))
-		return 1;
+	this->testPacketId(id_packet);
 	GameCommand *gc = new GameCommand("destroy");
 	packet >> gc->idObject;
 	CommandDispatcher::get().pushCommand(*gc);	
@@ -128,20 +126,16 @@ bool		UdpHandler::testPacketId(uint32_t id)
 	if (_lastPacketId == static_cast<uint32_t>(-1) || id > _lastPacketId)
 	{
 		uint32_t	val = id - _lastPacketId;
-		if (val == 1)
-		{
-		  _lastPacketId = id;
-		  return true;
-		}
+		_lastPacketId = id;
 		GameCommand *gc;
 		for (; val > 1; --val)
 		{
 			gc = new GameCommand("retrieve");
 			gc->idObject = val + _lastPacketId;
-			CommandDispatcher::get().pushCommand(*gc);
+			std::cout << "retrieve packet id" <<  gc->idObject << std::endl;
+			CommandDispatcher::get().pushCommand(*gc, true);
 		}
-		CommandDispatcher::get().handle(0);
-
+	   return true;
 	}
 	return false;
 }
