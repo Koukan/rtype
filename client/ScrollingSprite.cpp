@@ -2,7 +2,7 @@
 #include "GameStateManager.hpp"
 
 ScrollingSprite::ScrollingSprite(int x, int y, int width, int height, ScrollingSprite::eDirection dir, double speed)
-  : DrawableObject(x, y), _width(width), _height(height), _speed(speed), _offset(0)
+  : DrawableObject(x, y), _width(width), _height(height), _speed(speed), _offset(0), _current(0)
 {
   if (dir == ScrollingSprite::HORIZONTAL)
     this->_scrolling = &ScrollingSprite::hScrolling;
@@ -12,7 +12,7 @@ ScrollingSprite::ScrollingSprite(int x, int y, int width, int height, ScrollingS
 
 ScrollingSprite::~ScrollingSprite()
 {
-  for (std::list<Sprite *>::iterator it = this->_sprites.begin(); it != this->_sprites.end(); ++it)
+  for (std::vector<Sprite *>::iterator it = this->_sprites.begin(); it != this->_sprites.end(); ++it)
     delete *it;
 }
 
@@ -20,14 +20,16 @@ void ScrollingSprite::pushSprite(std::string const &spriteName)
 {
   GameState &gameState = GameStateManager::get().getCurrentState();
 
-  this->_sprites.push_back(gameState.getSprite(spriteName));
-  if (this->_sprites.size() == 1)
-    this->_current = this->_sprites.begin();
+  Sprite *tmp = gameState.getSprite(spriteName);
+  if (!tmp)
+	return ;
+  this->_sprites.push_back(tmp);
 }
 
 void ScrollingSprite::draw(double elapseTime)
 {
-  (this->*(this->_scrolling))(elapseTime);
+  if (!this->_sprites.empty())
+  	(this->*(this->_scrolling))(elapseTime);
 }
 
 void ScrollingSprite::setSpeed(int speed)
@@ -35,80 +37,80 @@ void ScrollingSprite::setSpeed(int speed)
   this->_speed = speed;
 }
 
-std::list<Sprite *>::const_iterator ScrollingSprite::nextSprite(std::list<Sprite *>::const_iterator const &it)
+Sprite *ScrollingSprite::nextSprite()
 {
-  if (it == --this->_sprites.end())
-    return (this->_sprites.begin());
-
-  std::list<Sprite *>::const_iterator tmp = it;
-  return (++tmp);
+  if (_current == this->_sprites.size() - 1)
+    _current = 0;
+  else
+	_current++;
+  return (_sprites[this->_current]);
 }
 
-std::list<Sprite *>::const_iterator ScrollingSprite::prevSprite(std::list<Sprite *>::const_iterator const &it)
+Sprite *ScrollingSprite::prevSprite()
 {
-  if (it == this->_sprites.begin())
-    return (--this->_sprites.end());
-
-  std::list<Sprite *>::const_iterator tmp = it;
-  return (--tmp);
+  if (_current == 0)
+	_current = this->_sprites.size() - 1;
+  else
+	_current--;
+  return (_sprites[this->_current]);
 }
 
 void ScrollingSprite::hScrolling(int elapseTime)
 {
-  std::list<Sprite *>::const_iterator it = this->_current;
+  Sprite	*sprite = _sprites[this->_current];
   int x2 = _offset;
 
   while (x2 < this->_width)
     {
-      (*it)->draw(x2 + this->_x, this->_y, elapseTime);
-      it = this->nextSprite(it);
-      x2 += (*it)->getWidth();
+      sprite->draw(x2 + this->_x, this->_y, elapseTime);
+      sprite = this->nextSprite();
+      x2 += sprite->getWidth();
     }
   this->_offset += this->_speed * elapseTime;
-  if (this->_offset + (*this->_current)->getWidth() < 0)
+  if (this->_offset + sprite->getWidth() < 0)
     {
-      while (this->_offset + (*this->_current)->getWidth() < 0)
+      while (this->_offset + sprite->getWidth() < 0)
 	{
-	  this->_current = this->nextSprite(this->_current);
-	  this->_offset += (*this->_current)->getWidth();
+	  sprite = this->nextSprite();
+	  this->_offset += sprite->getWidth();
 	}
     }
   else if (this->_offset > 0)
     {
       while (this->_offset > 0)
 	{
-	  this->_current = this->prevSprite(this->_current);
-	  this->_offset -= (*this->_current)->getWidth();
+	  sprite = this->prevSprite();
+	  this->_offset -= sprite->getWidth();
 	}
     }
 }
 
 void ScrollingSprite::vScrolling(int elapseTime)
 {
-  std::list<Sprite *>::const_iterator it = this->_current;
+  Sprite	*sprite = _sprites[this->_current];
   int y2 = this->_offset;
 
   while (y2 < this->_height)
     {
-      (*it)->draw(this->_x, this->_y + y2, elapseTime);
-      it = this->nextSprite(it);
-      y2 += (*it)->getHeight();
+      sprite->draw(this->_x, this->_y + y2, elapseTime);
+	  sprite = this->nextSprite();
+      y2 += sprite->getHeight();
     }
   this->_offset += this->_speed * elapseTime;
-  if (this->_offset + (*this->_current)->getHeight() < 0)
+  if (this->_offset + sprite->getHeight() < 0)
     {
-      while (this->_offset + (*this->_current)->getHeight() < 0)
+      while (this->_offset + sprite->getHeight() < 0)
 	{
-	  this->_current = this->nextSprite(this->_current);
-	  this->_offset += (*this->_current)->getHeight();
+	  sprite = this->nextSprite();
+	  this->_offset += sprite->getHeight();
 	}
     }
   else if (this->_offset > 0)
     {
       while (this->_offset > 0)
 	{
-	  this->_current = this->prevSprite(this->_current);
-	  this->_offset -= (*this->_current)->getHeight();
+	  sprite = this->prevSprite();
+	  this->_offset -= sprite->getHeight();
 	}
     }
 }

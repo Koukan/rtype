@@ -15,6 +15,7 @@ UdpHandler::~UdpHandler()
 
 void		UdpHandler::init()
 {
+	this->setNonBlocking(true);
 	this->_reactor->registerHandler(*this, *this, Net::Reactor::READ);
 }
 
@@ -31,10 +32,14 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 	uint64_t			time, timediff;
 	uint8_t				type;
 
+	//std::cout << "input udp packet" << std::endl;
+	if (packet.size() < 13)
+		return 0;
 	packet >> time;
 	packet >> type;
+
 	timediff = Net::Clock::getMsSinceEpoch() - time;
-	std::cout << "udp es tu la time :"  << timediff << " type " << (int)type << std::endl;
+	std::cout << "packet udp time :"  << timediff << " type " << (int)type << std::endl;
 	if (type < sizeof(methods) / sizeof(*methods) && methods[type] != NULL)
 		return (this->*methods[type])(packet, 0);
 	return 0;
@@ -44,8 +49,8 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t timediff)
 {
 	uint32_t	id_packet;
 
-	//if (packet.size() < 24)
-	//return 0;
+	if (packet.size() != 29)
+		return 0;
 	packet >> id_packet;
 	if (!this->testPacketId(id_packet))
 		return 1;
@@ -59,6 +64,8 @@ int			UdpHandler::spawn(Net::Packet &packet, uint64_t timediff)
 	gc->x += timediff * gc->vx;
 	gc->y += timediff * gc->vy;
 
+	//std::cout << "spawn de type " << gc->idResource << " x:" << gc->x << " y:" << gc->y << " vx:" << gc->vx << " vy:" << gc->vy << std::endl;
+	std::cout << "Resource = " << gc->idResource << " Id = " << gc->idObject << std::endl;
 	CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
@@ -90,7 +97,7 @@ int			UdpHandler::move(Net::Packet &packet, uint64_t timediff)
 	packet >> gc->vy;
 	gc->x += timediff * gc->vx;
 	gc->y += timediff * gc->vy;
-	CommandDispatcher::get().pushCommand(*gc);
+	//CommandDispatcher::get().pushCommand(*gc);
 	return 1;
 }
 

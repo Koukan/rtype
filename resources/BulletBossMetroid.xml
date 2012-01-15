@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<!DOCTYPE bulletml SYSTEM "../bulletml.dtd">
+
+<bulletml type="vertical"
+          xmlns="http://www.asahi-net.or.jp/~cs8k-cyu/bulletml">
+
+<action label="top">
+    <fire>
+      <direction type="absolute">0</direction>
+      <bulletRef label="bossMetroid"/>
+    </fire>
+</action>
+
+<bullet label="bossMetroid" group="ship" sprite="boss metroid" simpleGroup="shot" simpleSprite="bullet">
+	<hitbox shape="circle" radius="2" />
+	<simpleHitbox shape="circle" radius="2" />
+	<direction type="absolute">180</direction>
+	<speed>100</speed>
+	<action>
+		<wait>100</wait>
+		<changeSpeed>
+			<speed>0</speed>
+			<term>1</term>
+		</changeSpeed>
+		<wait>20</wait>
+			<changeSpeed>
+				<speed>80</speed>
+				<term>1</term>
+			</changeSpeed>
+		<repeat><times>20</times><action>
+			<changeDirection>
+				<direction type="absolute">90</direction>
+				<term>1</term>
+			</changeDirection>
+			<wait>100</wait>
+			<repeat><times>8</times><action>
+				<changeDirection>
+					<direction type="absolute">270</direction>
+					<term>1</term>
+				</changeDirection>
+				<actionRef label="normalShot"/>
+				<changeDirection>
+					<direction type="absolute">90</direction>
+					<term>1</term>
+				</changeDirection>
+				<actionRef label="normalShot"/>
+			</action></repeat>
+		</action></repeat>
+	</action>
+</bullet>
+
+<action label="normalShot">
+	<repeat><times>4</times><action>
+		<fire>
+			<direction type="absolute">120 + 120 * $rand</direction>
+			<speed>100</speed>
+			<bulletRef label="littleMetroid">
+				<param>600</param>
+			</bulletRef>
+	  	</fire>
+		<wait>50</wait>
+	</action></repeat>
+</action>
+
+<bullet label="littleMetroid" sprite="enemy metroid" group="ship">
+<hitbox shape="circle" radius="2" />
+<simpleHitbox shape="circle" radius="2" />
+	<action>
+	  <wait>$1</wait>
+	  <vanish/>
+	</action>
+</bullet>
+
+</bulletml>

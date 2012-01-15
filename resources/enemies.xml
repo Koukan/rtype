@@ -108,4 +108,36 @@
    <scale x="1.2" y="1.2" />
 </sprite>
 
+<sprite name="boss metroid">
+  <image file="resources/sprite/r-typesheet18.png">
+    <grid pos="1,66"
+	  size="32,32"
+	  array="4,1"
+	  spacing="1,0"
+    />
+  </image>
+  <animation
+      speed="1000"
+      pingpong="yes"
+   />
+  <scale x="5.0" y="5.0" />
+  <translation x="-40" y="-20"/>
+</sprite>
+
+<sprite name="enemy metroid">
+  <image file="resources/sprite/r-typesheet18.png">
+    <grid pos="1,66"
+	  size="32,32"
+	  array="4,1"
+	  spacing="1,0"
+    />
+  </image>
+  <animation
+      speed="1000"
+      pingpong="yes"
+   />
+  <scale x="2.0" y="2.0" />
+  <translation x="-10" y="-15"/>
+</sprite>
+
 </resources>
