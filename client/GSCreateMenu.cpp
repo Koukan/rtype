@@ -82,8 +82,4 @@ void	GSCreateMenu::onStart()
   guilist->addLabel("4 Players");
   new GUIButton<GSCreateMenu>(*this, &GSCreateMenu::createParty, "Go", "buttonFont", *sprite, layout);
 
-  // add Scrolling background
-  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
-  obj->pushSprite("space background");
-  this->addGameObject(obj, "background", 1);
 }

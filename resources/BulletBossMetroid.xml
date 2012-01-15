@@ -91,7 +91,7 @@
 			<wait>40</wait>
 			<fire>
 				<speed>100</speed>
-				<direction type="absolute">360 * $rand</direction>
+				<direction type="absolute">45 + (315 * $rand)</direction>
 				<bullet/>
 			</fire>
 		</action></repeat>

@@ -63,10 +63,6 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputSpace, static_cast<int>(Keyboard::Space));
   // add gui
 
-  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.03);
-  obj->pushSprite("space background");
-  this->addGameObject(obj, "background", 1);
-
   ScrollingSprite *obj1 = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.06);
   obj1->pushSprite("star background");
   this->addGameObject(obj1, "background2", 2);
@@ -262,7 +258,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
-	  std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
+	  //std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }

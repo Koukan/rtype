@@ -80,6 +80,8 @@ set(SRCS
 	GSOptions.hpp
 	GSPauseMenu.cpp
 	GSPauseMenu.hpp
+	GSPreload.cpp
+	GSPreload.hpp
 	GSMainMenu.cpp
 	GSMainMenu.hpp
 	GSCreateMenu.cpp

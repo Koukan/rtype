@@ -28,6 +28,7 @@ int			UdpHandler::handleInputPacket(Net::Packet &packet)
 			&UdpHandler::score,
 			&UdpHandler::statement,
 			&UdpHandler::retrieve,
+			&UdpHandler::ping
 	};
 	uint64_t			time;
 	uint8_t				type;
@@ -63,6 +64,8 @@ int			UdpHandler::spawn(Net::Packet &packet, Player &player)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
+	gc->x += player.getLatency() * gc->vx;
+	gc->y += player.getLatency() * gc->vy;
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
@@ -86,6 +89,8 @@ int			UdpHandler::move(Net::Packet &packet, Player &player)
 	packet >> gc->y;
 	packet >> gc->vx;
 	packet >> gc->vy;
+	gc->x += player.getLatency() * gc->vx;
+	gc->y += player.getLatency() * gc->vy;
 	gc->player = &player;
 	player.getGameLogic().pushCommand(*gc);
 	return 1;
@@ -109,5 +114,27 @@ int         UdpHandler::retrieve(Net::Packet &packet, Player &player)
 	Net::Packet const *tmp = player.getPacket(packet_id);
 	if (tmp)
 		this->handleOutputPacket(*tmp);
+	return 1;
+}
+
+
+int         UdpHandler::ping(Net::Packet &packet, Player &player)
+{
+	uint8_t			id;
+	uint64_t		time_recv;
+
+	packet >> id;
+	packet >> time_recv;
+	if (id == 1)
+		player.setLatency((Net::Clock::getMsSinceEpoch() - time_recv) / 2 + 10);
+	else if (id == 2)
+	{		
+		Net::Packet     pong(10);
+		pong << static_cast<uint8_t>(UDP::PING);
+		pong << static_cast<uint8_t>(3);
+		pong << time_recv;
+		pong.setDestination(packet.getAddr());
+		this->handleOutputPacket(pong);
+	}
 	return 1;
 }

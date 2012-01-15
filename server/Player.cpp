@@ -5,7 +5,7 @@
 #include "NetworkModule.hpp"
 
 Player::Player() : Net::PacketHandler<>(4096, "", true),
-		_id(0) , _name(""), _game(0), _idPacket(0), _idShip(0)
+		_id(0) , _name(""), _game(0), _idPacket(0), _idShip(0), _latency(0)
 {
 	std::cout << "Client connected" << std::endl;
 }
@@ -203,4 +203,14 @@ int         		Player::sendError(Error::Type error)
 	answer << static_cast<uint16_t>(error);
 	this->handleOutputPacket(answer);
 	return 1;
+}
+
+uint64_t            Player::getLatency() const
+{
+	return _latency;
+}
+
+void                Player::setLatency(uint64_t latency)
+{
+	_latency = latency;
 }
