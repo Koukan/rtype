@@ -11,8 +11,9 @@
     </fire>
 </action>
 
-<bullet label="bossMetroid" group="ship" sprite="boss metroid">
+<bullet label="bossMetroid" group="ship" sprite="boss metroid" simpleGroup="ship" simpleSprite="littleMetroid">
 	<hitbox shape="rectangle" width="160" height="160" />
+	<simpleHitbox shape="rectangle" width="64" height="64" />
 	<direction type="absolute">180</direction>
 	<speed>100</speed>
 	<action>

@@ -11,7 +11,7 @@
     </fire>
 </action>
 
-<bullet label="bombSpawner" group="spawner">
+<bullet label="bombSpawner" group="spawner" simpleGroup="shot" simpleSprite="bomb">
 <hitbox shape="rectangle" width="1" height="1" />
 <direction type="absolute">180</direction>
 <speed>17</speed>
