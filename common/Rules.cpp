@@ -1,6 +1,6 @@
 #include "Rules.hpp"
 
-void	Rules::wallTouchObject(GameObject &o1, GameObject &o2)
+void	Rules::wallTouchObject(GameObject &, GameObject &o2)
 {
 	o2.erase();
 }

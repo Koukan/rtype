@@ -99,17 +99,17 @@ int			UdpHandler::move(Net::Packet &packet, uint64_t)
 	return 1;
 }
 
-int			UdpHandler::score(Net::Packet &packet, uint64_t)
+int			UdpHandler::score(Net::Packet &, uint64_t)
 {
 	return 1;
 }
 
-int			UdpHandler::statement(Net::Packet &packet, uint64_t)
+int			UdpHandler::statement(Net::Packet &, uint64_t)
 {
 	return 1;
 }
 
-int         UdpHandler::retrieve(Net::Packet &packet, uint64_t)
+int         UdpHandler::retrieve(Net::Packet &, uint64_t)
 {
 /*	uint32_t	packet_id;
 
@@ -120,7 +120,7 @@ int         UdpHandler::retrieve(Net::Packet &packet, uint64_t)
 	return 1;
 }
 
-int         UdpHandler::ping(Net::Packet &packet, uint64_t time_recv)
+int         UdpHandler::ping(Net::Packet &, uint64_t time_recv)
 {
 	Net::Packet     pong(18);
 	pong << static_cast<uint64_t>(time_recv);
@@ -133,7 +133,7 @@ int         UdpHandler::ping(Net::Packet &packet, uint64_t time_recv)
 	return 1;
 }
 
-int         UdpHandler::pong(Net::Packet &packet, uint64_t time_recv)
+int         UdpHandler::pong(Net::Packet &, uint64_t time_recv)
 {
 	_latency = (Net::Clock::getMsSinceEpoch() - time_recv) / 2 + 10;
 	return 1;

@@ -16,7 +16,7 @@ CommandHandler::~CommandHandler()
 	}
 }
 
-bool			CommandHandler::handleCommand(Command const &command)
+bool			CommandHandler::handleCommand(Command const &)
 {
 	return false;
 }
