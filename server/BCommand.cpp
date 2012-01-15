@@ -15,25 +15,25 @@ inline static double rtod(double x) { return x * 180 / M_PI; }
 
 BCommand::BCommand(std::string const &parser, GameState &gstate,
 		  double x, double y, double vx, double vy)
-	: BulletCommand(parser, gstate, x, y, vx, vy)
+	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0)
 {
 }
 
 BCommand::BCommand(BulletMLParser &parser, GameState &gstate,
 		  double x, double y, double vx, double vy)
-	: BulletCommand(parser, gstate, x, y, vx, vy)
+	: BulletCommand(parser, gstate, x, y, vx, vy), _elapsedTime(0)
 {
 }
 
 BCommand::BCommand(BulletMLState &state, GameState &gstate,
 		  double x, double y, double vx, double vy)
-	: BulletCommand(state, gstate, x, y, vx, vy)
+	: BulletCommand(state, gstate, x, y, vx, vy), _elapsedTime(0)
 {
 }
 
 BCommand::BCommand(BulletMLState &state, GameState &gstate, HitBox &box,
 		  double vx, double vy)
-	: BulletCommand(state, gstate, box, vx, vy)
+	: BulletCommand(state, gstate, box, vx, vy), _elapsedTime(0)
 {
 }
 
@@ -63,7 +63,7 @@ void	BCommand::createSimpleBullet(double direction, double speed)
 		this->_state.addGameObject(bullet, this->_simpleGroup);
 		GameCommand		*cmd = new GameCommand("Spawn");
 		cmd->idObject = bullet->getId();
-		cmd->idResource = 5;//ServerResourceManager::get().getId(this->_simpleSprite);
+		cmd->idResource = 4;//ServerResourceManager::get().getId(this->_simpleSprite);
 		cmd->x = this->_x;
 		cmd->y = this->_y;
 		cmd->vx = this->_vx;
@@ -106,7 +106,7 @@ void	BCommand::createBullet(BulletMLState *state,
 	{
 		GameCommand		*cmd = new GameCommand("Spawn");
 		cmd->idObject = bullet->getId();
-		cmd->idResource = 5;//ServerResourceManager::get().
+		cmd->idResource = 4;//ServerResourceManager::get().
 			//getId(state->getSprite());
 		cmd->x = this->_x;
 		cmd->y = this->_y;
@@ -120,18 +120,23 @@ void	BCommand::createBullet(BulletMLState *state,
 void	BCommand::move(double time)
 {
 	this->_turn += time * 50;
+	this->_elapsedTime += time;
 	this->run();
 	if (!this->_end)
 	{
 		this->PhysicObject::move(time);
-		GameCommand	*cmd = new GameCommand("Move");
-		cmd->idObject = this->_id;
-		cmd->x = this->_x;
-		cmd->y = this->_y;
-		cmd->vx = this->_vx;
-		cmd->vy = this->_vy;
-		cmd->game = &static_cast<GameLogic&>(this->_state).getGame();
-		CommandDispatcher::get().pushCommand(*cmd);
+		if (this->_elapsedTime > 500)
+		{
+			this->_elapsedTime -= 500;
+			GameCommand	*cmd = new GameCommand("Move");
+			cmd->idObject = this->_id;
+			cmd->x = this->_x;
+			cmd->y = this->_y;
+			cmd->vx = this->_vx;
+			cmd->vy = this->_vy;
+			cmd->game = &static_cast<GameLogic&>(this->_state).getGame();
+			CommandDispatcher::get().pushCommand(*cmd);
+		}
 	}
 	else
 	{

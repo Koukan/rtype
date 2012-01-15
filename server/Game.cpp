@@ -34,8 +34,13 @@ void		Game::destroy()
 
 void		Game::updateGameState(double elapsedTime)
 {
+	std::cout << "Begin Tache" << std::endl;
+	Net::ScopedLock		lock(this->_mutex);
+
+	std::cout << Net::Clock::getMsSinceEpoch() << " time " << elapsedTime << std::endl;
 	PhysicManager::apply(this->_logic, elapsedTime);
 	this->_logic.update(elapsedTime);
+	std::cout << "End Tache" << std::endl;
 }
 
 bool		Game::addPlayer(Player &player)
