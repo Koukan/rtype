@@ -258,7 +258,7 @@ void		GSInGame::spawn(GameCommand const &event)
 	    {
 	      this->_ship = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 	    }
-	  std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
+	  //std::cout << "debugSpawn " << event.idResource << " " << this->_idPlayer << std::endl;
 	}
     }
 }

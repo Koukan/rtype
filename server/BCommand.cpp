@@ -66,8 +66,8 @@ void	BCommand::createSimpleBullet(double direction, double speed)
 		cmd->idResource = ServerResourceManager::get().getId(this->_simpleSprite);
 		cmd->x = this->_x;
 		cmd->y = this->_y;
-		cmd->vx = this->_vx;
-		cmd->vy = this->_vy;
+		cmd->vx = vx;
+		cmd->vy = vy;
 		cmd->game = &static_cast<GameLogic&>(this->_state).getGame();
 		CommandDispatcher::get().pushCommand(*cmd);
 	}
@@ -107,8 +107,8 @@ void	BCommand::createBullet(BulletMLState *state,
 		cmd->idResource = ServerResourceManager::get().getId(state->getSprite());
 		cmd->x = this->_x;
 		cmd->y = this->_y;
-		cmd->vx = this->_vx;
-		cmd->vy = this->_vy;
+		cmd->vx = vx;
+		cmd->vy = vy;
 		cmd->game = &static_cast<GameLogic&>(this->_state).getGame();
 		CommandDispatcher::get().pushCommand(*cmd);
 	}

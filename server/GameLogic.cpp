@@ -164,7 +164,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		else
 		{
 			std::cout << "je vais creer des ennemis =D " << i << std::endl;
-			this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1050, y, 0, 0));
+			this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y, 0, 0));
 			this->_elapseTime += salvos[i].occurenceFrequency;
 			--this->_nbEnemies;
 		}
