@@ -3,7 +3,7 @@
 
 ServerResourceManager::ServerResourceManager() : _id(1)
 {
-	for (int i = 0; i < Resource::SHOOT - Resource::SINGLE_MONSTER + 1; ++i)
+	for (int i = 0; i < Resource::SHOOT - Resource::SINGLE_MONSTER; ++i)
 	{
 		std::cout << i << "  " << Resource::monsters[i] << " RESOURCE ADDED " << Resource::SINGLE_MONSTER + i << std::endl;
 		this->_ids[Resource::monsters[i]] = Resource::SINGLE_MONSTER + i;
@@ -47,5 +47,5 @@ uint32_t	ServerResourceManager::getId(std::string const &name) const
 
 	if (it != this->_ids.end())
 		return it->second;
-	return 0;
+	return 4;
 }
