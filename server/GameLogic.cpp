@@ -131,7 +131,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		{SIMPLE, 5, "single", 1000},
 		{SINUSOIDAL, 4, "sinusoidal", 1000},
 		{BOMB, 1, "bomb", 1000},
-		{RANDOM, 10, "random", 1000},
+		{RANDOM, 5, "random", 1000},
 		{WALL, 1, "wall", 1000}
 	};
 
@@ -140,7 +140,7 @@ void GameLogic::createEnnemies(double elapseTime)
 	};
 
 	int const salvoFrequency = 10000;
-	int const maxSalvos = 20;
+	int const maxSalvos = 10;
 
 	static int i = 0;
 	static int y = 0;
