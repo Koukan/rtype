@@ -138,7 +138,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		{"bossMetroid", 10}
 	};
 
-	int const salvoFrequency = 1000;
+	int const salvoFrequency = 5000;
 	int const maxSalvos = 20;
 
 	static int i = 0;
