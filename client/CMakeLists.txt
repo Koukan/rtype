@@ -98,8 +98,8 @@ set(SRCS
 	RendererManager.hpp
 	${INCLUDES_COMMON_DIR}Resources.hpp
 	${INCLUDES_COMMON_DIR}Resources.cpp
-	${INCLUDES_COMMON_DIR}Rules.cpp
-	${INCLUDES_COMMON_DIR}Rules.hpp
+	Rules.cpp
+	Rules.hpp
 	ScrollingSprite.hpp
 	ScrollingSprite.cpp
 	Server.cpp
