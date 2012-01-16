@@ -127,6 +127,7 @@ void	BCommand::move(double time)
 		if (this->_elapsedTime > 500)
 		{
 			this->_elapsedTime -= 500;
+			std::cout << "MOOOOOOOOOOOOOOOOOOOOOOOOOOOVE" << std::endl;
 			GameCommand	*cmd = new GameCommand("Move");
 			cmd->idObject = this->_id;
 			cmd->x = this->_x;

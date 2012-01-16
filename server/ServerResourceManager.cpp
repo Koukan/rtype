@@ -45,7 +45,12 @@ uint32_t	ServerResourceManager::getId(std::string const &name) const
 {
 	std::map<std::string, uint32_t>::const_iterator it = _ids.find(name);
 
+	//std::cout << "name ";
 	if (it != this->_ids.end())
-		return it->second;
+		{
+		//	std::cout << it->second << " " << Resource::monsters[it->second - Resource::SINGLE_MONSTER].sprite << std::endl;
+			return it->second;
+	}
+	//std::cout << "not found" << std::endl;
 	return 4;
 }
