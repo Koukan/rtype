@@ -16,9 +16,11 @@ GameLogic::GameLogic(Game &game)
 {
 	addBulletParser("resources/BulletSimple.xml", "single");
 	addBulletParser("resources/BulletSinusoidal.xml", "sinusoidal");
-	addBulletParser("resources/BulletSinusoidal.xml", "bomb");
-	addBulletParser("resources/BulletSinusoidal.xml", "wall");
-	addBulletParser("resources/BulletSinusoidal.xml", "random");
+	addBulletParser("resources/BulletBomb.xml", "bomb");
+	addBulletParser("resources/BulletWall.xml", "wall");
+	addBulletParser("resources/BulletRandom.xml", "random");
+	addBulletParser("resources/BulletBossMetroid.xml", "bossMetroid");
+
 	this->addGroup("Wall", 0);
 	this->addGroup("playerfires", 0);
 	this->addGroup("ship", 0);
