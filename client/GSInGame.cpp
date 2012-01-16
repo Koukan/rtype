@@ -63,16 +63,16 @@ void		GSInGame::onStart()
   this->getInput().registerInputCallback(InputCommand::KeyReleased, *this, &GSInGame::releaseInputSpace, static_cast<int>(Keyboard::Space));
   // add gui
 
-  ScrollingSprite *obj = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.05);
-  obj->pushSprite("space background");
-  this->addGameObject(obj, "background", 1);
+  ScrollingSprite *obj1 = new ScrollingSprite(0, 0, 1024, 768, ScrollingSprite::HORIZONTAL, -0.06);
+  obj1->pushSprite("star background");
+  this->addGameObject(obj1, "background2", 2);
 
-  ScrollingSprite *obj2 = new ScrollingSprite(0, 708, 1024, 60, ScrollingSprite::HORIZONTAL, -0.1);
+  ScrollingSprite *obj2 = new ScrollingSprite(0, 738, 1024, 30, ScrollingSprite::HORIZONTAL, -0.1);
   obj2->pushSprite("ground background");
-  this->addGameObject(obj2, "background", 1);
-  ScrollingSprite *obj3 = new ScrollingSprite(0, 0, 1024, 60, ScrollingSprite::HORIZONTAL, -0.1);
+  this->addGameObject(obj2, "background3", 3);
+  ScrollingSprite *obj3 = new ScrollingSprite(0, 0, 1024, 30, ScrollingSprite::HORIZONTAL, -0.1);
   obj3->pushSprite("sky background");
-  this->addGameObject(obj3, "background", 1);
+  this->addGameObject(obj3, "background3", 3);
 
   // HitBox *hitbox = new RectHitBox(0, 0, 2, 2);
   // std::cout << "add ship" << std::endl;

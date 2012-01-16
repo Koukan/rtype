@@ -51,8 +51,8 @@ void	GSLoading::listChoice(std::string const &)
 bool		GSLoading::handleCommand(Command const &command)
 {
   static Method const	methods[] = {
-	{"GameBegin", &GSLoading::gameBeginCommand},
-	{"ErrorFullGame", &GSLoading::errorFullGameCommand}
+    {"GameBegin", &GSLoading::gameBeginCommand},
+    {"ErrorFullGame", &GSLoading::errorFullGameCommand}
   };
 
   for (size_t i = 0;
@@ -64,7 +64,8 @@ bool		GSLoading::handleCommand(Command const &command)
 			return true;
 		}
 	}
-  return (_ingame->handleCommand(command));
+	return (_ingame->handleCommand(command));
+  return false;
 }
 
 void	GSLoading::errorFullGameCommand(Command const &command)
@@ -78,6 +79,10 @@ void	GSLoading::onStart()
   this->addProvider(*(new SFMLFontProvider));
   this->load("resources/intro.xml");
   this->load("resources/player.xml");
+  this->load("resources/enemies.xml");
+  this->load("resources/shots.xml");
+  this->addGroup("ship", 10);
+  this->addGroup("shot", 9);
 
   Sprite *test = this->getSprite("player1");
   test->setX(550);
@@ -91,6 +96,10 @@ void	GSLoading::onStart()
   this->addGameObject(font, "gui", 20);
   _ingame = new GSInGame(this->_nbPlayers);
   _ingame->preload();
+
+  /*  this->addBulletParser("resources/BulletBossMetroid.xml", "Test");
+  BulletCommand *bullet = new BulletCommand("Test", *this, 1100, 300);
+  this->addGameObject(bullet, "ship");*/
 }
 
 void	GSLoading::gameBeginCommand(Command const &)
