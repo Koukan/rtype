@@ -20,6 +20,8 @@ class BCommand : public BulletCommand
 								 double speed);
 	virtual void	move(double time);
 
+	int			getLife() const;
+	void		setLife(int life);
   private:
 	double		_elapsedTime;
 	int			_life;

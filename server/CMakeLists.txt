@@ -111,6 +111,7 @@ include_directories (
 	${CORE_BULLETML_DIR}
 	${CORE_TINYXML_DIR}
 	${COMMON_INCLUDE_DIR}
+	.
 )
 
 find_package (Threads)

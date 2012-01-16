@@ -34,7 +34,7 @@ GameLogic::GameLogic(Game &game)
 	this->setCollisionGroups("Wall", "shot", &Rules::wallTouchObject);
 	this->setCollisionGroups("Wall", "ship", &Rules::wallTouchObject);
 	this->setCollisionGroups("Wall", "playerfires", &Rules::wallTouchObject);
-	this->setCollisionGroups("shot", "monster", &Rules::wallTouchObject);
+	this->setCollisionGroups("shot", "monster", &Rules::shotTouchMonster);
 }
 
 GameLogic::~GameLogic()
@@ -135,49 +135,48 @@ void GameLogic::createEnnemies(double elapseTime)
 		{WALL, 1, "wall", 1000}
 	};
 
-	this->addGameObject(new BCommand("sinusoidal", *this, 500, 300, 0, 0));
-	//static Boss const bosses[] = {
-	//	{"bossMetroid", 10}
-	//};
+	static Boss const bosses[] = {
+		{"bossMetroid", 10}
+	};
 
-	//int const salvoFrequency = 10000;
-	//int const maxSalvos = 20;
+	int const salvoFrequency = 10000;
+	int const maxSalvos = 20;
 
-	//static int i = 0;
-	//static int y = 0;
-	//static int nbSalvos = 0;
+	static int i = 0;
+	static int y = 0;
+	static int nbSalvos = 0;
 
-	//if (this->_elapseTime == 0)
-	//{
-	//	if (nbSalvos > maxSalvos)
-	//	{
-	//		std::cout << "creation de boss" << std::endl;
-	//		int j = rand() % (sizeof(bosses) / sizeof(*bosses));
-	//		this->addGameObject(new BCommand(bosses[j].bulletName, *this, 1050, 300, 0, 0));
-	//		nbSalvos = 0;
-	//		this->_elapseTime = 10000;
-	//	}
-	//	else if (this->_nbEnemies == 0)
-	//	{
-	//		i = rand() % (sizeof(salvos) / sizeof(*salvos));
-	//		y = rand() % 768;
-	//		this->_nbEnemies = salvos[i].nbEnemies;
-	//		this->_elapseTime = salvoFrequency;
-	//		++nbSalvos;
-	//	}
-	//	else
-	//	{
-	//		std::cout << "je vais creer des ennemis =D " << i << std::endl;
-	//		this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y, 0, 0));
-	//		this->_elapseTime += salvos[i].occurenceFrequency;
-	//		--this->_nbEnemies;
-	//	}
-	//}
-	//else
-	//{
-	//	if (this->_elapseTime - elapseTime < 0)
-	//		this->_elapseTime = 0;
-	//	else
-	//		this->_elapseTime -= elapseTime;
-	//}
+	if (this->_elapseTime == 0)
+	{
+		if (nbSalvos > maxSalvos)
+		{
+			std::cout << "creation de boss" << std::endl;
+			int j = rand() % (sizeof(bosses) / sizeof(*bosses));
+			this->addGameObject(new BCommand(bosses[j].bulletName, *this, 1050, 300, 0, 0));
+			nbSalvos = 0;
+			this->_elapseTime = 10000;
+		}
+		else if (this->_nbEnemies == 0)
+		{
+			i = rand() % (sizeof(salvos) / sizeof(*salvos));
+			y = rand() % 768;
+			this->_nbEnemies = salvos[i].nbEnemies;
+			this->_elapseTime = salvoFrequency;
+			++nbSalvos;
+		}
+		else
+		{
+			std::cout << "je vais creer des ennemis =D " << i << std::endl;
+			this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y, 0, 0));
+			this->_elapseTime += salvos[i].occurenceFrequency;
+			--this->_nbEnemies;
+		}
+	}
+	else
+	{
+		if (this->_elapseTime - elapseTime < 0)
+			this->_elapseTime = 0;
+		else
+			this->_elapseTime -= elapseTime;
+	}
 }
