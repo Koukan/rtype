@@ -68,7 +68,7 @@ bool		GSLoading::handleCommand(Command const &command)
   return false;
 }
 
-void	GSLoading::errorFullGameCommand(Command const &command)
+void	GSLoading::errorFullGameCommand(Command const &)
 {
 	GameStateManager::get().popState();
 }
@@ -81,6 +81,7 @@ void	GSLoading::onStart()
   this->load("resources/player.xml");
   this->load("resources/enemies.xml");
   this->load("resources/shots.xml");
+  this->load("resources/destruction.xml");
   this->addGroup("ship", 10);
   this->addGroup("shot", 9);
 
@@ -97,7 +98,7 @@ void	GSLoading::onStart()
   _ingame = new GSInGame(this->_nbPlayers);
   _ingame->preload();
 
-  /*  this->addBulletParser("resources/BulletBossMetroid.xml", "Test");
+  /*this->addBulletParser("resources/BulletBossMetroid.xml", "Test");
   BulletCommand *bullet = new BulletCommand("Test", *this, 1100, 300);
   this->addGameObject(bullet, "ship");*/
 }

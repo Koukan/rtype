@@ -165,7 +165,7 @@ void		GSInGame::inputUp(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVy(-100);
+      this->_ship->setVy(-200);
       this->throwShip();
     }
 }
@@ -174,7 +174,7 @@ void		GSInGame::inputDown(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVy(100);
+      this->_ship->setVy(200);
       this->throwShip();
     }
 }
@@ -183,7 +183,7 @@ void		GSInGame::inputLeft(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVx(-100);
+      this->_ship->setVx(-200);
       this->throwShip();
     }
 }
@@ -192,7 +192,7 @@ void		GSInGame::inputRight(InputCommand const &/*event*/)
 {
   if (this->_ship)
     {
-      this->_ship->setVx(100);
+      this->_ship->setVx(200);
       this->throwShip();
     }
 }
@@ -285,7 +285,7 @@ void		GSInGame::destroy(GameCommand const &event)
 	 tmp->erase();
 }
 
-void		GSInGame::life(GameCommand const &event)
+void		GSInGame::life(GameCommand const &/*event*/)
 {
 	//actions
 }
@@ -302,6 +302,7 @@ void		GSInGame::move(GameCommand const &event)
 {
 	PhysicObject *obj = static_cast<PhysicObject *>(this->getGameObject(event.idObject));
 
+	std::cout << "move " << obj->getX() << " " << obj->getY() << std::endl;
 	if (obj)
 		this->updatePositions(event, *obj);
 }
@@ -350,12 +351,14 @@ void		GSInGame::loadMonster(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
 
-  if (event.idResource - Resource::SINGLE_MONSTER >= 0)
+  if (event.idResource >= Resource::SINGLE_MONSTER)
   {
   	Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER].sprite);
+	std::cout << "want to spawn " << Resource::monsters[event.idResource - Resource::SINGLE_MONSTER].sprite << std::endl;
   	if (sprite)
   	{
 		ConcreteObject *monster = new ConcreteObject(sprite, *hitbox, event.vx, event.vy);
+		std::cout << "j ai spawn " << monster->getX() << " " << monster->getY() << " " << monster->getVx() << " " << monster->getVy() << std::endl;
 		monster->setId(event.idObject);
 		this->addGameObject(static_cast<GameObject *>(monster), "monster");
   	}

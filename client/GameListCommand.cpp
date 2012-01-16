@@ -14,7 +14,7 @@ GameListCommand::GameListCommand(std::string const &name, std::string const &log
 {}
 
 GameListCommand::GameListCommand(std::string const &name, PlayerStatus::Type status, std::string const &login)
-	: Command(name), _status(status), _login(login)
+  : Command(name), _login(login), _status(status)
 {}
 
 GameListCommand::~GameListCommand()

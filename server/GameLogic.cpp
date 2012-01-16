@@ -130,7 +130,7 @@ void GameLogic::createEnnemies(double elapseTime)
 	static Salvo const salvos[] = {
 		{SIMPLE, 5, "single", 1000},
 		{SINUSOIDAL, 4, "sinusoidal", 1000},
-		{BOMB, 3, "bomb", 1000},
+		{BOMB, 1, "bomb", 1000},
 		{RANDOM, 10, "random", 1000},
 		{WALL, 1, "wall", 1000}
 	};
@@ -152,7 +152,7 @@ void GameLogic::createEnnemies(double elapseTime)
 		{
 			std::cout << "creation de boss" << std::endl;
 			int j = rand() % (sizeof(bosses) / sizeof(*bosses));
-			this->addGameObject(new BCommand(bosses[j].bulletName, *this, 1050, 300, 0, 0));
+			this->addGameObject(new BCommand(bosses[j].bulletName, *this, 1100, 400, 0, 0));
 			nbSalvos = 0;
 			this->_elapseTime = 10000;
 		}
@@ -166,8 +166,10 @@ void GameLogic::createEnnemies(double elapseTime)
 		}
 		else
 		{
-			std::cout << "je vais creer des ennemis =D " << i << std::endl;
-			this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y, 0, 0));
+		  if (salvos[i].bulletName == "bomb")
+		    this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, -20, 0, 0));
+		  else
+		    this->addGameObject(new BCommand(salvos[i].bulletName, *this, 1200, y, 0, 0));
 			this->_elapseTime += salvos[i].occurenceFrequency;
 			--this->_nbEnemies;
 		}

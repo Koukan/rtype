@@ -55,7 +55,7 @@ void		Server::setGame(Game &game)
 
 // Generer command comme gamecommand et la push dans commandDispatcher
 
-bool		Server::treatEtablishedPacket(Net::Packet &packet)
+bool		Server::treatEtablishedPacket(Net::Packet &)
 {
 	return true;
 }
@@ -73,7 +73,7 @@ bool		Server::treatGamePacket(Net::Packet &packet)
 	return true;
 }
 
-bool		Server::treatEndListGamePacket(Net::Packet &packet)
+bool		Server::treatEndListGamePacket(Net::Packet &)
 {
   std::cout << "end list packet" << std::endl;
 	CommandDispatcher::get().pushCommand(*(new GameListCommand("listGame", 0, 0, 0)));
