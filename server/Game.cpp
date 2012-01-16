@@ -16,7 +16,6 @@ Game::Game(uint16_t id, uint8_t maxPlayers)
 
 Game::~Game()
 {
-	Server::get().removeGame(this->_id);
 }
 
 void		Game::init()
@@ -25,7 +24,14 @@ void		Game::init()
 
 void		Game::update(double elapsedTime)
 {
-	Server::get().pushTask(*(new GameTask(*this, elapsedTime)));
+	if (this->_list.empty())
+	{
+		Server::get().removeGame(this->_id);
+		Net::ScopedLock		lock(this->_mutex);
+		this->stop();
+	}
+	else
+		Server::get().pushTask(*(new GameTask(*this, elapsedTime)));
 }
 
 void		Game::destroy()
@@ -70,8 +76,6 @@ void		Game::removePlayer(Player &player)
 
 	if (it != this->_list.end())
 		this->_list.erase(it);
-	if (this->_list.empty())
-		Server::get().unloadModule("Game" + this->_id);
 }
 
 size_t		Game::nbPlayers() const
