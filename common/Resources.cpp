@@ -7,9 +7,9 @@ const char * Resource::monsters[] = {
 	  "enemy metroid",
 	  "boss metroid",
 	  "enemy sphere",
-	  "enemy fish",
 	  "enemy tron",
 	  "default shot"
 	  "boss shot",
+	  "animated shot",
 	  "shot"
   };
