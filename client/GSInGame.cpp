@@ -351,7 +351,7 @@ void		GSInGame::loadMonster(GameCommand const &event)
 {
   HitBox *hitbox = new RectHitBox(event.x, event.y, 2, 2);
 
-  if (event.idResource - Resource::SINGLE_MONSTER > 0)
+  if (event.idResource - Resource::SINGLE_MONSTER >= 0)
   {
   	Sprite *sprite = this->getSprite(Resource::monsters[event.idResource - Resource::SINGLE_MONSTER]);
   	if (sprite)
